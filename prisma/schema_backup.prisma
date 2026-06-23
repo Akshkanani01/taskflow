@@ -1,0 +1,157 @@
+generator client {
+provider = "prisma-client-js"
+}
+
+datasource db {
+provider = "postgresql"
+url      = env("DATABASE_URL")
+}
+
+model User {
+id            String  @id
+email         String  @unique
+name          String?
+image         String?
+emailVerified Boolean @default(false)
+
+createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt
+
+sessions  Session[]
+accounts  Account[]
+
+workspaces Workspace[]
+
+@@map("user")
+}
+
+model Session {
+id        String   @id
+token     String   @unique
+expiresAt DateTime
+
+ipAddress String?
+userAgent String?
+
+createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt
+
+userId String
+user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+@@index([userId])
+@@map("session")
+}
+
+model Verification {
+id         String   @id
+identifier String
+value      String
+expiresAt  DateTime
+
+createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt
+
+@@index([identifier])
+@@map("verification")
+}
+
+model Account {
+id                    String    @id
+accountId             String
+providerId            String
+
+userId String
+user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+accessToken           String?
+refreshToken          String?
+idToken               String?
+
+accessTokenExpiresAt  DateTime?
+refreshTokenExpiresAt DateTime?
+
+scope                 String?
+password              String?
+
+createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt
+
+@@index([userId])
+@@map("account")
+}
+
+model Workspace {
+id          String   @id @default(cuid())
+
+name        String
+slug        String   @unique
+
+description String?
+
+createdAt   DateTime @default(now())
+updatedAt   DateTime @updatedAt
+
+ownerId     String
+owner       User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+spaces      Space[]
+
+@@index([ownerId])
+}
+
+model Space {
+id          String   @id @default(cuid())
+
+name        String
+color       String   @default("blue")
+
+createdAt   DateTime @default(now())
+updatedAt   DateTime @updatedAt
+
+workspaceId String
+workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+lists    Project[]
+
+@@index([workspaceId])
+}
+
+model Project {
+id          String   @id @default(cuid())
+
+name        String
+description String?
+
+status      String   @default("active")
+
+createdAt   DateTime @default(now())
+updatedAt   DateTime @updatedAt
+
+spaceId      String
+space        Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+
+tasks        Task[]
+
+@@index([spaceId])
+}
+
+model Task {
+id          String   @id @default(cuid())
+
+title       String
+description String?
+
+status      String   @default("todo")
+priority    String   @default("medium")
+
+dueDate     DateTime?
+
+createdAt   DateTime @default(now())
+updatedAt   DateTime @updatedAt
+
+projectId   String
+project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+@@index([projectId])
+}
