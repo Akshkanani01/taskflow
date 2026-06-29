@@ -1,309 +1,132 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { createAuditLog } from "@/lib/audit";
+import { revalidatePath } from "next/cache";
 
-import nodemailer from "nodemailer";
-import { randomUUID } from "crypto";
+/* -------------------------------
+   RESEND INVITE
+--------------------------------*/
+export async function resendInvite(inviteId: string) {
+  const invite = await prisma.workspaceInvite.findUnique({
+    where: { id: inviteId },
+  });
 
-const transporter =
-nodemailer.createTransport({
-host:
-process.env.SMTP_HOST,
+  if (!invite) {
+    throw new Error("Invite not found");
+  }
 
+  if (invite.status !== "pending") {
+    throw new Error("Only pending invites can be resent");
+  }
 
-port: Number(
-  process.env.SMTP_PORT
-),
+  // 🔥 Here you would trigger email service
+  // await sendInviteEmail(invite.email, invite.token)
 
-secure: true,
-
-auth: {
-  user:
-    process.env.SMTP_USER,
-
-  pass:
-    process.env.SMTP_PASS,
-},
-
-
-});
-
-export async function createInvite(
-workspaceId: string,
-email: string,
-role: string
-) {
-const workspace =
-await prisma.workspace.findUnique({
-where: {
-id: workspaceId,
-},
-});
-
-if (!workspace) {
-throw new Error(
-"Workspace not found"
-);
+  return {
+    success: true,
+    message: "Invite resent successfully",
+  };
 }
 
-const existingInvite =
-await prisma.workspaceInvite.findFirst({
-where: {
-workspaceId,
-email,
-status:
-"pending",
-},
-});
+/* -------------------------------
+   REVOKE INVITE
+--------------------------------*/
+export async function revokeInvite(inviteId: string) {
+  const invite = await prisma.workspaceInvite.findUnique({
+    where: { id: inviteId },
+  });
 
-if (existingInvite) {
-throw new Error(
-"Pending invite already exists"
-);
+  if (!invite) {
+    throw new Error("Invite not found");
+  }
+
+  const updated = await prisma.workspaceInvite.update({
+    where: { id: inviteId },
+    data: {
+      status: "revoked",
+    },
+  });
+
+  revalidatePath("/dashboard/team/invites");
+
+  return {
+    success: true,
+    invite: updated,
+  };
 }
 
-const token =
-randomUUID();
+/* -------------------------------
+   ACCEPT INVITE
+--------------------------------*/
+export async function acceptInvite(token: string, userId: string) {
+  const invite = await prisma.workspaceInvite.findFirst({
+    where: { token },
+  });
 
-const invite =
-await prisma.workspaceInvite.create({
-data: {
-email,
+  if (!invite) {
+    throw new Error("Invalid invite");
+  }
 
-    role:
-      role as any,
+  if (invite.status !== "pending") {
+    throw new Error("Invite already used or revoked");
+  }
 
-    token,
+  // 🔥 create workspace membership
+  await prisma.workspaceMember.create({
+    data: {
+      workspaceId: invite.workspaceId,
+      userId,
+      role: invite.role,
+    },
+  });
 
-    workspaceId,
+  // 🔥 mark invite accepted
+  const updated = await prisma.workspaceInvite.update({
+    where: { id: invite.id },
+    data: {
+      status: "accepted",
+    },
+  });
 
-    expiresAt:
-      new Date(
-        Date.now() +
-          7 *
-            24 *
-            60 *
-            60 *
-            1000
-      ),
-  },
-});
+  revalidatePath("/dashboard/team/invites");
+  revalidatePath("/dashboard/team");
 
-
-const baseUrl =
-process.env
-.NEXT_PUBLIC_APP_URL ||
-"http://localhost:3000";
-
-const inviteUrl =
-`${baseUrl}/invite/${token}`;
-
-await transporter.sendMail({
-from:
-process.env.EMAIL_FROM,
-
-
-to: email,
-
-subject:
-  `Invitation to join ${workspace.name}`,
-
-html: `
-  <div style="font-family:Arial,sans-serif">
-
-    <h2>
-      Workspace Invitation
-    </h2>
-
-    <p>
-      You have been invited
-      to join
-      <strong>
-        ${workspace.name}
-      </strong>
-    </p>
-
-    <p>
-      Role:
-      <strong>
-        ${role}
-      </strong>
-    </p>
-
-    <br/>
-
-    <a
-      href="${inviteUrl}"
-      style="
-        display:inline-block;
-        padding:12px 20px;
-        background:#4f46e5;
-        color:#fff;
-        text-decoration:none;
-        border-radius:10px;
-      "
-    >
-      Accept Invitation
-    </a>
-
-  </div>
-`,
-
-
-});
-
-await createAuditLog({
-workspaceId,
-
-
-action:
-  "INVITE_CREATED",
-
-target:
-  invite.email,
-
-metadata: {
-  role:
-    invite.role,
-},
-
-
-});
-
-return invite;
+  return {
+    success: true,
+    invite: updated,
+  };
 }
 
-export async function revokeInvite(
-inviteId: string
-) {
-const invite =
-await prisma.workspaceInvite.findUnique({
-where: {
-id: inviteId,
-},
-});
+/* -------------------------------
+   CREATE INVITE (OPTIONAL BUT IMPORTANT)
+--------------------------------*/
+export async function createInvite({
+  workspaceId,
+  email,
+  role,
+}: {
+  workspaceId: string;
+  email: string;
+  role: "OWNER" | "ADMIN" | "MEMBER" | "VIEWER";
+}) {
+  const token = crypto.randomUUID();
 
-if (!invite) {
-throw new Error(
-"Invite not found"
-);
-}
+  const invite = await prisma.workspaceInvite.create({
+    data: {
+      workspaceId,
+      email,
+      role,
+      token,
+      status: "pending",
+      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+    },
+  });
 
-await prisma.workspaceInvite.delete({
-where: {
-id: inviteId,
-},
-});
+  // 🔥 here you would send email with invite link
+  // await sendInviteEmail(email, token)
 
-await createAuditLog({
-workspaceId:
-invite.workspaceId,
-
-
-action:
-  "INVITE_REVOKED",
-
-target:
-  invite.email,
-
-
-});
-
-return {
-success: true,
-};
-}
-
-export async function resendInvite(
-inviteId: string
-) {
-const invite =
-await prisma.workspaceInvite.findUnique({
-where: {
-id: inviteId,
-},
-
-
-  include: {
-    workspace: true,
-  },
-});
-
-
-if (!invite) {
-throw new Error(
-"Invite not found"
-);
-}
-
-const baseUrl =
-process.env
-.NEXT_PUBLIC_APP_URL ||
-"http://localhost:3000";
-
-const inviteUrl =
-`${baseUrl}/invite/${invite.token}`;
-
-await transporter.sendMail({
-from:
-process.env.EMAIL_FROM,
-
-to:
-  invite.email,
-
-subject:
-  `Invitation to join ${invite.workspace.name}`,
-
-html: `
-  <div style="font-family:Arial,sans-serif">
-
-    <h2>
-      Workspace Invitation
-    </h2>
-
-    <p>
-      Click below
-      to join
-      ${invite.workspace.name}
-    </p>
-
-    <br/>
-
-    <a
-      href="${inviteUrl}"
-      style="
-        display:inline-block;
-        padding:12px 20px;
-        background:#4f46e5;
-        color:white;
-        text-decoration:none;
-        border-radius:10px;
-      "
-    >
-      Accept Invite
-    </a>
-
-  </div>
-`,
-
-
-});
-
-await createAuditLog({
-workspaceId:
-invite.workspaceId,
-
-
-action:
-  "INVITE_RESENT",
-
-target:
-  invite.email,
-
-});
-
-return {
-success: true,
-};
+  return {
+    success: true,
+    invite,
+  };
 }

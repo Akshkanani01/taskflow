@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-
+import DeleteListButton from "./components/delete-list-button";
 export default async function SpacePage({
   params,
 }: {
@@ -65,43 +65,57 @@ export default async function SpacePage({
       <div className="grid gap-4">
 
         {space.projects.map((project) => (
-          <Link
-            key={project.id}
-            href={`/dashboard/spaces/${space.id}/lists/${project.id}`}
-            className="
-              rounded-2xl
-              border border-white/10
-              bg-slate-900
-              p-5
-              transition-all
-              hover:border-indigo-500
-            "
-          >
-            <div className="flex items-center justify-between">
+  <div
+    key={project.id}
+    className="
+      rounded-2xl
+      border
+      border-white/10
+      bg-slate-900
+      p-5
+      transition-all
+      hover:border-indigo-500
+      hover:shadow-lg
+      hover:shadow-indigo-500/10
+    "
+  >
+    <div className="flex items-start justify-between">
 
-              <div>
-                <h3 className="text-lg font-semibold text-white">
-                  {project.name}
-                </h3>
+      <Link
+        href={`/dashboard/spaces/${space.id}/lists/${project.id}`}
+        className="flex-1"
+      >
+        <h3 className="text-lg font-semibold text-white">
+          {project.name}
+        </h3>
 
-                <p className="mt-1 text-sm text-slate-400">
-                  {project.description || "No description"}
-                </p>
-              </div>
+        <p className="mt-1 text-sm text-slate-400">
+          {project.description ||
+            "No description"}
+        </p>
+      </Link>
 
-              <div className="text-right">
-                <p className="text-slate-400 text-sm">
-                  Tasks
-                </p>
+      <div className="flex items-center gap-3">
 
-                <p className="text-white font-semibold">
-                  {project.tasks.length}
-                </p>
-              </div>
+        <div className="text-right">
+          <p className="text-xs text-slate-400">
+            Tasks
+          </p>
 
-            </div>
-          </Link>
-        ))}
+          <p className="font-semibold text-white">
+            {project.tasks.length}
+          </p>
+        </div>
+
+        <DeleteListButton
+          projectId={project.id}
+        />
+
+      </div>
+
+    </div>
+  </div>
+))}
 
         {space.projects.length === 0 && (
           <div

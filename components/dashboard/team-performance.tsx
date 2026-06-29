@@ -34,7 +34,7 @@ Team Performance </h3>
 
   <div className="mt-6 space-y-5">
 
-    {members.map((member) => (
+    {(members ?? []).map((member) => (
       <div key={member.name}>
 
         <div className="mb-2 flex justify-between">

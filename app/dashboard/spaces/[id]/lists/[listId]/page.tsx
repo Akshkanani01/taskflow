@@ -20,32 +20,55 @@ export default async function ListPage({
   const { listId } = await params;
 
   const project = await prisma.project.findUnique({
-    where: {
-      id: listId,
-    },
+  where: {
+    id: listId,
+  },
 
-    include: {
-      tasks: {
-        orderBy: {
-          createdAt: "desc",
-        },
-
-        include: {
-          assignees: {
-            include: {
-              user: true,
+  include: {
+    space: {
+      include: {
+        workspace: {
+          include: {
+            members: {
+              include: {
+                user: true,
+              },
             },
           },
-
-          attachments: true,
         },
       },
     },
-  });
+
+    tasks: {
+      orderBy: {
+        createdAt: "desc",
+      },
+
+      include: {
+        assignees: {
+          include: {
+            user: true,
+          },
+        },
+
+        attachments: true,
+      },
+    },
+  },
+});
 
   if (!project) {
     notFound();
   }
+
+  const members =
+  project.space.workspace.members.map(
+    (member) => ({
+      id: member.user.id,
+      name: member.user.name,
+      email: member.user.email,
+    })
+  );
 
   const totalTasks = project.tasks.length;
 
@@ -248,8 +271,9 @@ export default async function ListPage({
       {/* Create Task */}
 
       <CreateTaskForm
-        projectId={project.id}
-      />
+  projectId={project.id}
+  members={members}
+/>
 
       {/* Tasks Table */}
 

@@ -1,78 +1,92 @@
 import { prisma } from "@/lib/prisma";
-import CreateTaskForm from "./create-task-form";
+import Link from "next/link";
 
-export default async function TasksPage({
-params,
-}: {
-params: Promise<{
-id: string;
-}>;
-}) {
-const { id } = await params;
+export default async function TasksPage() {
+  const tasks = await prisma.task.findMany({
+    include: {
+      project: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 
-const projects = await prisma.project.findMany({
-where: {
-spaceId: id,
-},
-include: {
-tasks: true,
-},
-orderBy: {
-createdAt: "asc",
-},
-});
+  return (
+    <div className="space-y-6">
 
-const tasks = projects.flatMap(
-(project) => project.tasks
-);
+      <div className="flex items-center justify-between">
+        <h1 className="text-4xl font-bold text-white">
+          Tasks
+        </h1>
 
-if (!projects.length) {
-return ( <div className="text-white">
-No List Found </div>
-);
-}
+        <Link
+          href="/dashboard/tasks/create"
+          className="
+            rounded-xl
+            bg-indigo-600
+            px-4 py-2
+            text-white
+          "
+        >
+          Create Task
+        </Link>
+      </div>
 
-return ( <div className="space-y-8"> <div> <h1 className="text-4xl font-bold text-white">
-Task List </h1>
+      <div className="grid gap-4">
 
+{tasks.map((task) => (
+  <Link
+    key={task.id}
+    href={`/dashboard/tasks/${task.id}`}
+    className="
+      block
+      rounded-2xl
+      border border-white/10
+      bg-slate-900
+      p-5
+      transition
+      hover:border-indigo-500/50
+      hover:bg-slate-800
+      cursor-pointer
+    "
+  >
+    <h3 className="font-semibold text-white">
+      {task.title}
+    </h3>
 
-    <p className="mt-2 text-slate-400">
-      {tasks.length} Tasks
+    <p className="mt-1 text-slate-400">
+      {task.description}
     </p>
-  </div>
 
-  <CreateTaskForm
-    projectId={projects[0].id}
-  />
-
-  <div className="space-y-4">
-    {tasks.map((task) => (
-      <div
-        key={task.id}
+    <div className="mt-3 flex gap-2">
+      <span
         className="
-          rounded-2xl
-          border border-white/10
-          bg-slate-900
-          p-4
+          rounded-lg
+          bg-indigo-500/20
+          px-3 py-1
+          text-xs
+          text-indigo-300
         "
       >
-        <div className="flex items-center justify-between">
-          <h2 className="font-medium text-white">
-            {task.title}
-          </h2>
+        {task.project.name}
+      </span>
 
-          <span className="text-xs text-indigo-400">
-            {task.priority}
-          </span>
-        </div>
+      <span
+        className="
+          rounded-lg
+          bg-emerald-500/20
+          px-3 py-1
+          text-xs
+          text-emerald-300
+        "
+      >
+        {task.status}
+      </span>
+    </div>
+  </Link>
+))}
 
-        <p className="mt-2 text-sm text-slate-400">
-          {task.status}
-        </p>
       </div>
-    ))}
-  </div>
-</div>
-
-);
+    </div>
+  );
 }

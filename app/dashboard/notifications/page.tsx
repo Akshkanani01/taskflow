@@ -1,217 +1,197 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import {
-Bell,
-CheckCircle,
-AlertCircle,
-MessageSquare,
-FolderKanban,
-Clock3,
+  Bell,
+  CheckCheck,
+  Filter,
 } from "lucide-react";
 
-const notifications = [
-{
-title: "New task assigned",
-description: "Design Dashboard UI assigned to you",
-time: "2 min ago",
-icon: CheckCircle,
-color: "text-emerald-400",
-},
-{
-title: "Project updated",
-description: "TaskFlow Web App progress changed to 78%",
-time: "15 min ago",
-icon: FolderKanban,
-color: "text-indigo-400",
-},
-{
-title: "New comment",
-description: "Riya commented on Mobile App project",
-time: "1 hour ago",
-icon: MessageSquare,
-color: "text-pink-400",
-},
-{
-title: "Deadline approaching",
-description: "Client Portal review due tomorrow",
-time: "3 hours ago",
-icon: AlertCircle,
-color: "text-amber-400",
-},
-{
-title: "Automation completed",
-description: "Weekly report generated successfully",
-time: "Yesterday",
-icon: Clock3,
-color: "text-cyan-400",
-},
-];
+type Notification = {
+  id: string;
+  title: string;
+  message: string;
+  read: boolean;
+  createdAt: string;
+};
 
 export default function NotificationsPage() {
-return ( <div className="space-y-8">
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [tab, setTab] = useState<"all" | "unread">("all");
 
-  <div className="flex items-center justify-between">
+  // 🔥 fetch notifications
+  useEffect(() => {
+    fetch("/api/notifications/list")
+      .then((res) => res.json())
+      .then((data) => setNotifications(data.notifications || []));
+  }, []);
 
-    <div>
+  const filtered = notifications.filter((n) =>
+    tab === "unread" ? !n.read : true
+  );
 
-      <h1 className="text-4xl font-bold text-white">
-        Notifications
-      </h1>
+  const markAsRead = async (id: string) => {
+    await fetch("/api/notifications/mark-read", {
+      method: "POST",
+      body: JSON.stringify({ id }),
+    });
 
-      <p className="mt-2 text-slate-400">
-        Stay updated with workspace activity.
-      </p>
+    setNotifications((prev) =>
+      prev.map((n) =>
+        n.id === id ? { ...n, read: true } : n
+      )
+    );
+  };
 
-    </div>
+  const markAll = async () => {
+    await fetch("/api/notifications/mark-all-read", {
+      method: "POST",
+    });
 
-    <button
-      className="
-        rounded-xl
-        border border-white/10
-        px-4 py-3
-        text-slate-300
-      "
-    >
-      Mark All Read
-    </button>
+    setNotifications((prev) =>
+      prev.map((n) => ({ ...n, read: true }))
+    );
+  };
 
-  </div>
+  return (
+    <div className="min-h-screen bg-slate-950 text-white p-6">
 
-  <div className="grid gap-6 md:grid-cols-3">
+      {/* HEADER */}
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-2xl font-bold flex items-center gap-2">
+            <Bell size={22} />
+            Notifications
+          </h1>
+          <p className="text-slate-400 text-sm">
+            Your activity inbox
+          </p>
+        </div>
 
-    <div
-      className="
-        rounded-3xl
-        border border-white/10
-        bg-slate-900
-        p-6
-      "
-    >
-      <Bell className="mb-4 text-indigo-400" />
+        <button
+          onClick={markAll}
+          className="flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2 text-sm hover:bg-indigo-700"
+        >
+          <CheckCheck size={16} />
+          Mark all as read
+        </button>
+      </div>
 
-      <h2 className="text-3xl font-bold text-white">
-        28
-      </h2>
+      {/* TABS */}
+      <div className="flex gap-2 mb-6">
+        <TabButton active={tab === "all"} onClick={() => setTab("all")}>
+          All ({notifications.length})
+        </TabButton>
 
-      <p className="text-slate-400">
-        Total Notifications
-      </p>
+        <TabButton
+          active={tab === "unread"}
+          onClick={() => setTab("unread")}
+        >
+          Unread ({notifications.filter(n => !n.read).length})
+        </TabButton>
+      </div>
 
-    </div>
+      {/* LIST */}
+      <div className="space-y-3">
 
-    <div
-      className="
-        rounded-3xl
-        border border-white/10
-        bg-slate-900
-        p-6
-      "
-    >
-      <CheckCircle className="mb-4 text-emerald-400" />
-
-      <h2 className="text-3xl font-bold text-white">
-        14
-      </h2>
-
-      <p className="text-slate-400">
-        Unread
-      </p>
-
-    </div>
-
-    <div
-      className="
-        rounded-3xl
-        border border-white/10
-        bg-slate-900
-        p-6
-      "
-    >
-      <AlertCircle className="mb-4 text-amber-400" />
-
-      <h2 className="text-3xl font-bold text-white">
-        5
-      </h2>
-
-      <p className="text-slate-400">
-        Important Alerts
-      </p>
-
-    </div>
-
-  </div>
-
-  <div
-    className="
-      rounded-3xl
-      border border-white/10
-      bg-slate-900
-      p-6
-    "
-  >
-
-    <h2 className="mb-6 text-xl font-semibold text-white">
-      Recent Activity
-    </h2>
-
-    <div className="space-y-4">
-
-      {notifications.map((item) => {
-        const Icon = item.icon;
-
-        return (
-          <div
-            key={item.title}
-            className="
-              flex items-start gap-4
-              rounded-2xl
-              border border-white/10
-              bg-slate-950
-              p-5
-            "
-          >
-
-            <div
-              className="
-                flex h-12 w-12
-                items-center justify-center
-                rounded-xl
-                bg-slate-800
-              "
-            >
-              <Icon
-                className={item.color}
-                size={20}
-              />
-            </div>
-
-            <div className="flex-1">
-
-              <div className="flex items-center justify-between">
-
-                <h3 className="font-medium text-white">
-                  {item.title}
-                </h3>
-
-                <span className="text-xs text-slate-500">
-                  {item.time}
-                </span>
-
-              </div>
-
-              <p className="mt-1 text-slate-400">
-                {item.description}
-              </p>
-
-            </div>
-
+        {filtered.length === 0 && (
+          <div className="text-center text-slate-500 py-20">
+            No notifications found
           </div>
-        );
-      })}
+        )}
 
+        {groupByDate(filtered).map((group) => (
+          <div key={group.label}>
+            
+            {/* GROUP TITLE */}
+            <p className="text-xs text-slate-500 uppercase mb-2">
+              {group.label}
+            </p>
+
+            <div className="space-y-2">
+
+              {group.items.map((n) => (
+                <div
+                  key={n.id}
+                  className={`
+                    flex items-start justify-between
+                    rounded-xl border border-white/10
+                    p-4 cursor-pointer
+                    hover:bg-slate-900
+                    ${!n.read ? "bg-slate-900/50" : ""}
+                  `}
+                  onClick={() => markAsRead(n.id)}
+                >
+                  <div>
+                    <p className="font-medium text-white">
+                      {n.title}
+                    </p>
+                    <p className="text-sm text-slate-400">
+                      {n.message}
+                    </p>
+                  </div>
+
+                  {!n.read && (
+                    <span className="h-2 w-2 rounded-full bg-red-500 mt-2" />
+                  )}
+                </div>
+              ))}
+
+            </div>
+          </div>
+        ))}
+
+      </div>
     </div>
+  );
+}
 
-  </div>
+/* TAB BUTTON */
+function TabButton({
+  active,
+  onClick,
+  children,
+}: any) {
+  return (
+    <button
+      onClick={onClick}
+      className={`
+        px-4 py-2 rounded-xl text-sm
+        border border-white/10
+        transition
+        ${
+          active
+            ? "bg-indigo-600 text-white"
+            : "text-slate-400 hover:bg-slate-900"
+        }
+      `}
+    >
+      {children}
+    </button>
+  );
+}
 
-</div>
+/* GROUP BY DATE */
+function groupByDate(items: any[]) {
+  const today: any[] = [];
+  const earlier: any[] = [];
 
-);
+  items.forEach((n) => {
+    const isToday =
+      new Date(n.createdAt).toDateString() ===
+      new Date().toDateString();
+
+    if (isToday) today.push(n);
+    else earlier.push(n);
+  });
+
+  const result = [];
+
+  if (today.length)
+    result.push({ label: "Today", items: today });
+
+  if (earlier.length)
+    result.push({ label: "Earlier", items: earlier });
+
+  return result;
 }

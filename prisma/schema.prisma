@@ -15,6 +15,36 @@ enum WorkspaceRole {
   VIEWER
 }
 
+enum NotificationType {
+  TASK_CREATED
+  TASK_ASSIGNED
+  TASK_COMPLETED
+  TASK_MOVED
+  TASK_COMMENTED
+  TASK_MENTIONED
+
+  LIST_CREATED
+  LIST_DELETED
+
+  SPACE_CREATED
+
+  FILE_UPLOADED
+
+  INVITE_SENT
+  INVITE_ACCEPTED
+
+  ROLE_CHANGED
+
+  SYSTEM
+}
+
+enum NotificationPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
 model User {
   id            String   @id
   email         String   @unique
@@ -24,15 +54,18 @@ model User {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  workspaces Workspace[]
-  accounts   Account[]
-  sessions   Session[]
+  workspaces    Workspace[]
+  accounts      Account[]
+  sessions      Session[]
+  notifications Notification[]
 
   memberships WorkspaceMember[]
 
   taskAssignments TaskAssignee[]
 
   uploadedAttachments TaskAttachment[] @relation("TaskAttachmentUploader")
+
+  preferences NotificationPreference?
 
   @@map("user")
 }
@@ -252,4 +285,84 @@ model TaskAttachment {
   uploader User? @relation("TaskAttachmentUploader", fields: [uploaderId], references: [id])
 
   @@index([taskId])
+}
+
+model Notification {
+  id String @id @default(cuid())
+
+  userId String
+
+  title   String
+  message String
+
+  type NotificationType
+
+  priority NotificationPriority @default(NORMAL)
+
+  read Boolean @default(false)
+
+  link String?
+
+  actorId String?
+
+  metadata Json?
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([read])
+  @@index([type])
+  @@index([createdAt])
+}
+
+model ActivityLog {
+  id String @id @default(cuid())
+
+  workspaceId String?
+
+  actorId String?
+
+  entityType String
+
+  entityId String
+
+  action String
+
+  metadata Json?
+
+  createdAt DateTime @default(now())
+
+  @@index([workspaceId])
+  @@index([actorId])
+  @@index([createdAt])
+}
+
+model NotificationPreference {
+  id String @id @default(cuid())
+
+  userId String @unique
+
+  emailEnabled Boolean @default(true)
+
+  pushEnabled Boolean @default(true)
+
+  taskAssigned Boolean @default(true)
+
+  taskCompleted Boolean @default(true)
+
+  taskCommented Boolean @default(true)
+
+  mentions Boolean @default(true)
+
+  invites Boolean @default(true)
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

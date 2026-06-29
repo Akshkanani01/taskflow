@@ -62,11 +62,13 @@ setLoading(true);
   }
 
   const project =
-    await response.json();
+  await response.json();
 
-  router.push(
-    `/dashboard/projects/${project.id}`
-  );
+router.replace(
+  `/dashboard/spaces/${project.spaceId}/lists/${project.id}`
+);
+
+router.refresh();
 } catch {
   alert("Failed to create project");
 } finally {
