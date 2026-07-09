@@ -13,6 +13,8 @@ const permissions = [
       ["Remove Members", true, true, true, false, false],
     ],
   },
+
+  
   {
     category: "Spaces",
     items: [

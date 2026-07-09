@@ -1,0 +1,44 @@
+import { SpaceMember } from "@/components/space-members/types";
+
+export const MOCK_MEMBERS: SpaceMember[] = [
+  {
+    id: "1",
+    name: "Aksh Kanani",
+    email: "aksh@taskflow.dev",
+    avatar: null,
+    role: "OWNER",
+    joinedAt: "Jan 2026",
+    taskCount: 38,
+    completedTasks: 29,
+  },
+  {
+    id: "2",
+    name: "Rahul Patel",
+    email: "rahul@taskflow.dev",
+    avatar: null,
+    role: "MANAGER",
+    joinedAt: "Jan 2026",
+    taskCount: 24,
+    completedTasks: 19,
+  },
+  {
+    id: "3",
+    name: "Meet Shah",
+    email: "meet@taskflow.dev",
+    avatar: null,
+    role: "MEMBER",
+    joinedAt: "Feb 2026",
+    taskCount: 17,
+    completedTasks: 10,
+  },
+  {
+    id: "4",
+    name: "Nikhil Nakum",
+    email: "nikhil@taskflow.dev",
+    avatar: null,
+    role: "VIEWER",
+    joinedAt: "Mar 2026",
+    taskCount: 0,
+    completedTasks: 0,
+  },
+];

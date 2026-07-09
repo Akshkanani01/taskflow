@@ -175,7 +175,7 @@ export function Sidebar() {
                 text-slate-500
               "
             >
-              Projects
+              
             </span>
 
             <Link
@@ -196,71 +196,6 @@ export function Sidebar() {
           <SpacesNav />
         </Section>
 
-        {/* TEAM */}
-
-        <Section title="Team">
-
-          <Link
-            href="/dashboard/team"
-            className={menuClass(
-              "/dashboard/team"
-            )}
-          >
-            <Users size={18} />
-            Team Overview
-          </Link>
-
-          <Link
-            href="/dashboard/team/members"
-            className={menuClass(
-              "/dashboard/team/members"
-            )}
-          >
-            <Users size={18} />
-            Members
-          </Link>
-
-          <Link
-            href="/dashboard/team/invites"
-            className={menuClass(
-              "/dashboard/team/invites"
-            )}
-          >
-            <UserPlus size={18} />
-            Invites
-          </Link>
-
-          <Link
-            href="/dashboard/team/roles"
-            className={menuClass(
-              "/dashboard/team/roles"
-            )}
-          >
-            <Shield size={18} />
-            Roles
-          </Link>
-
-          <Link
-            href="/dashboard/team/permissions"
-            className={menuClass(
-              "/dashboard/team/permissions"
-            )}
-          >
-            <Lock size={18} />
-            Permissions
-          </Link>
-
-          <Link
-            href="/dashboard/team/activity"
-            className={menuClass(
-              "/dashboard/team/activity"
-            )}
-          >
-            <Activity size={18} />
-            Activity
-          </Link>
-
-        </Section>
 
         {/* MANAGEMENT */}
 

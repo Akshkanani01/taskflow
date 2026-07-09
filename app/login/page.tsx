@@ -1,5 +1,6 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Mail, CheckCircle2 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
@@ -9,7 +10,11 @@ const [email, setEmail] = useState("");
 const [loading, setLoading] = useState(false);
 const [sent, setSent] = useState(false);
 const [error, setError] = useState("");
+const searchParams = useSearchParams();
 
+const callbackURL =
+  searchParams.get("callbackURL") ??
+  "/onboarding";
 async function handleSubmit(
 e: React.FormEvent<HTMLFormElement>
 ) {
@@ -22,7 +27,7 @@ try {
 
   await authClient.signIn.magicLink({
     email,
-    callbackURL: "/onboarding",
+    callbackURL,
   });
 
   setSent(true);
