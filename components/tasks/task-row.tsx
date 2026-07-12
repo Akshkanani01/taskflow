@@ -3,16 +3,31 @@
 import { useRouter } from "next/navigation";
 
 import {
-  CalendarDays,
+  Calendar,
+  ChevronRight,
   MessageSquare,
   Paperclip,
 } from "lucide-react";
 
-import TaskMenu from "./task-menu";
-import TaskStatusSelect from "./task-status-select";
-import TaskPrioritySelect from "./task-priority-select";
+import StatusBadge from "./status-badge";
+import PriorityBadge from "./priority-badge";
+import TaskActionsMenu from "./actions/task-actions-menu";
+import TaskAvatar from "./task-avatar";
+
+type Assignee = {
+
+  id: string;
+
+  name: string;
+
+  email: string;
+
+  image: string | null;
+
+};
 
 type Props = {
+
   taskId: string;
 
   spaceId: string;
@@ -21,137 +36,138 @@ type Props = {
 
   title: string;
 
-  assignee?: string;
-
   status: string;
 
   priority: string;
 
-  dueDate?: Date | string;
+  dueDate: Date | null;
+
+  assignee: Assignee | null;
 
   comments: number;
 
   attachments: number;
 
-  completed: boolean;
 };
 
 export default function TaskRow({
+
   taskId,
+
   spaceId,
+
   listId,
+
   title,
-  assignee,
+
   status,
+
   priority,
+
   dueDate,
+
+  assignee,
+
   comments,
+
   attachments,
-  completed,
+
 }: Props) {
 
-  const router = useRouter();
+  const router =
+    useRouter();
+      function openTask() {
 
-  const formattedDate =
-    dueDate
-      ? new Intl.DateTimeFormat(
-          "en-GB",
-          {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-          }
-        ).format(new Date(dueDate))
-      : undefined;
-        return (
-    <div
-      onClick={() =>
-        router.push(
-          `/dashboard/spaces/${spaceId}/lists/${listId}/tasks/${taskId}`
-        )
-      }
+    router.push(
+
+      `/dashboard/spaces/${spaceId}/lists/${listId}/tasks/${taskId}`
+
+    );
+
+  }
+
+  return (
+
+    <button
+
+      type="button"
+
+      onClick={openTask}
+
       className="
-        group
-        flex
-        cursor-pointer
-        items-center
-        justify-between
-        px-6
-        py-5
-        transition
-        hover:bg-slate-800/40
-      "
+  group
+  grid
+  w-full
+grid-cols-[4fr_150px_140px_170px_220px_70px]
+  items-center
+  px-8
+  py-5
+  text-left
+  transition-all
+  duration-300
+  hover:bg-slate-900/70
+  hover:scale-[0.995]
+  active:scale-[0.99]
+"
+
     >
 
-      {/* LEFT */}
+      {/* TASK */}
+            <div className="flex items-start gap-4">
 
-      <div className="flex items-start gap-4">
+        {/* STATUS DOT */}
 
-        <input
-          type="checkbox"
-          checked={completed}
-          readOnly
-          onClick={(e) =>
-            e.stopPropagation()
-          }
-          className="mt-1 h-4 w-4 rounded"
+        <div
+          className="
+            mt-2
+            h-3
+            w-3
+            rounded-full
+            bg-indigo-500
+            shadow-[0_0_12px_rgba(99,102,241,.7)]
+          "
         />
 
-        <div>
+        <div className="min-w-0 flex-1">
 
           <h3
-            className={`font-semibold transition ${
-              completed
-                ? "line-through text-slate-500"
-                : "text-white group-hover:text-indigo-400"
-            }`}
+            className="
+              truncate
+              text-[15px]
+              font-semibold
+              text-white
+              transition
+              group-hover:text-indigo-300
+            "
           >
             {title}
           </h3>
 
-          <div className="mt-3 flex flex-wrap items-center gap-2">
+          <div
+            className="
+              mt-3
+              flex
+              items-center
+              gap-5
+              text-xs
+              text-slate-500
+            "
+          >
 
-            <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-xs text-indigo-400">
-              {assignee ?? "Unassigned"}
-            </span>
+            <span className="flex items-center gap-1">
 
-            <div
-              onClick={(e) =>
-                e.stopPropagation()
-              }
-            >
-              <TaskStatusSelect
-                taskId={taskId}
-                value={status}
-              />
-            </div>
+              <MessageSquare size={14} />
 
-            <div
-              onClick={(e) =>
-                e.stopPropagation()
-              }
-            >
-              <TaskPrioritySelect
-                taskId={taskId}
-                value={priority}
-              />
-            </div>
-
-            {formattedDate && (
-              <span className="flex items-center gap-1 text-xs text-slate-400">
-                <CalendarDays className="h-3.5 w-3.5" />
-                {formattedDate}
-              </span>
-            )}
-
-            <span className="flex items-center gap-1 text-xs text-slate-500">
-              <MessageSquare className="h-3.5 w-3.5" />
               {comments}
+
             </span>
 
-            <span className="flex items-center gap-1 text-xs text-slate-500">
-              <Paperclip className="h-3.5 w-3.5" />
+            <span className="flex items-center gap-1">
+
+              <Paperclip size={14} />
+
               {attachments}
+
             </span>
 
           </div>
@@ -159,21 +175,128 @@ export default function TaskRow({
         </div>
 
       </div>
+            {/* STATUS */}
 
-      {/* RIGHT */}
+      <div>
 
-      <div
-        onClick={(e) =>
-          e.stopPropagation()
-        }
-      >
-        <TaskMenu
-          taskId={taskId}
-          spaceId={spaceId}
-          listId={listId}
+        <StatusBadge
+          status={status}
         />
+
       </div>
 
-    </div>
+      {/* PRIORITY */}
+
+      <div>
+
+        <PriorityBadge
+          priority={priority}
+        />
+
+      </div>
+
+      {/* DUE DATE */}
+
+      <div className="flex items-center gap-2">
+
+        <div
+          className="
+            flex
+            h-9
+            w-9
+            items-center
+            justify-center
+            rounded-xl
+            bg-slate-800
+            text-slate-400
+          "
+        >
+
+          <Calendar size={16} />
+
+        </div>
+
+        <div>
+
+          <p className="text-sm text-white">
+
+            {dueDate
+              ? dueDate.toLocaleDateString(
+                  "en-GB"
+                )
+              : "No Due Date"}
+
+          </p>
+
+          <p className="text-xs text-slate-500">
+
+            Due Date
+
+          </p>
+
+        </div>
+
+      </div>
+            {/* ASSIGNEE */}
+
+      <div className="flex items-center justify-between">
+
+        <div className="flex items-center gap-3">
+{assignee ? (
+
+  <TaskAvatar
+    name={assignee.name}
+    email={assignee.email}
+    image={assignee.image}
+  />
+
+) : (
+
+  <TaskAvatar
+    name="Unassigned"
+    email=""
+    image={null}
+  />
+
+)}
+
+          <div className="min-w-0">
+
+  <p className="truncate text-sm font-medium text-white">
+
+  {assignee?.name ||
+    "Unassigned"}
+
+</p>
+
+{assignee &&
+ assignee.name !== assignee.email && (
+
+  <p className="truncate text-xs text-slate-500">
+
+    {assignee.email}
+
+  </p>
+
+)}
+
+          </div>
+          <div className="flex justify-end">
+
+  <TaskActionsMenu
+    taskId={taskId}
+    spaceId={spaceId}
+    listId={listId}
+  />
+
+</div>
+
+        </div>
+
+
+      </div>
+          </button>
+
   );
+
 }

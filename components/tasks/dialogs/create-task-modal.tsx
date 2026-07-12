@@ -5,56 +5,82 @@ import { useEffect } from "react";
 type Props = {
   open: boolean;
   onClose: () => void;
-  title?: string;
   children: React.ReactNode;
 };
 
 export default function CreateTaskModal({
   open,
   onClose,
-  title = "Create Task",
   children,
 }: Props) {
-  useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") {
+      useEffect(() => {
+
+    function handleEscape(
+      event: KeyboardEvent
+    ) {
+
+      if (event.key === "Escape") {
+
         onClose();
+
       }
+
     }
 
     if (open) {
-      document.addEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "hidden";
+
+      document.body.style.overflow =
+        "hidden";
+
+      window.addEventListener(
+        "keydown",
+        handleEscape
+      );
+
     }
 
     return () => {
-      document.removeEventListener(
+
+      document.body.style.overflow =
+        "auto";
+
+      window.removeEventListener(
         "keydown",
-        handleKeyDown
+        handleEscape
       );
 
-      document.body.style.overflow = "auto";
     };
+
   }, [open, onClose]);
 
-  if (!open) return null;
+  if (!open) {
 
-  return (
+    return null;
+
+  }
+    return (
+
     <>
-      {/* Overlay */}
+
+      {/* BACKDROP */}
 
       <div
+
         onClick={onClose}
+
         className="
           fixed
           inset-0
           z-40
           bg-black/70
           backdrop-blur-md
+          animate-in
+          fade-in
         "
+
       />
 
-      {/* Modal */}
+      {/* MODAL */}
 
       <div
         className="
@@ -67,8 +93,12 @@ export default function CreateTaskModal({
           p-6
         "
       >
-        <div
-          onClick={(e) => e.stopPropagation()}
+                <div
+
+          onClick={(e) =>
+            e.stopPropagation()
+          }
+
           className="
             w-full
             max-w-4xl
@@ -79,8 +109,10 @@ export default function CreateTaskModal({
             bg-[#111827]
             shadow-2xl
           "
+
         >
-          {/* Header */}
+
+          {/* HEADER */}
 
           <div
             className="
@@ -93,12 +125,17 @@ export default function CreateTaskModal({
               py-6
             "
           >
+
             <h2 className="text-2xl font-bold text-white">
-              {title}
+
+              Create Task
+
             </h2>
 
             <button
+
               onClick={onClose}
+
               className="
                 rounded-xl
                 p-2
@@ -107,22 +144,32 @@ export default function CreateTaskModal({
                 hover:bg-white/10
                 hover:text-white
               "
-            >
-              ✕
-            </button>
-          </div>
 
-          <div
+            >
+
+              ✕
+
+            </button>
+
+          </div>
+                    <div
             className="
               max-h-[80vh]
               overflow-y-auto
               p-8
             "
           >
+
             {children}
+
           </div>
+
         </div>
+
       </div>
+
     </>
+
   );
+
 }

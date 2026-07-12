@@ -1,9 +1,6 @@
-import { prisma } from "@/lib/prisma";
-
-import CreateTaskForm from "./create-task-form";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
 import { notFound } from "next/navigation";
+
+import { prisma } from "@/lib/prisma";
 
 import ListPageClient from "./list-page-client";
 
@@ -12,192 +9,141 @@ type Props = {
     id: string;
     listId: string;
   }>;
-
-  searchParams: Promise<{
-    search?: string;
-    status?: string;
-    priority?: string;
-    sort?: string;
-  }>;
 };
 
 export default async function ListPage({
   params,
-  searchParams,
 }: Props) {
-  const { id, listId } = await params;
+const currentUser = await prisma.user.findFirst();
 
+console.log("CURRENT USER =", currentUser);
   const {
-    search = "",
-    status = "",
-    priority = "",
-    sort = "position",
-  } = await searchParams;
-const session = await auth.api.getSession({
-  headers: await headers(),
-});
+    id: spaceId,
+    listId: projectId,
+  } = await params;
+    const project =
+    await prisma.project.findFirst({
 
-if (!session?.user) {
-  notFound();
-}
-  const project =
-  await prisma.project.findFirst({
-    where: {
-      id: listId,
-      spaceId: id,
-    },
-
-    select: {
-      id: true,
-      title: true,
-      tasks: {
       where: {
-        ...(search && {
-          OR: [
-            {
-              title: {
-                contains: search,
-                mode: "insensitive",
-              },
-            },
-            {
-              description: {
-                contains: search,
-                mode: "insensitive",
-              },
-            },
-          ],
-        }),
 
-        ...(status && {
-          status: status as any,
-        }),
+        id: projectId,
 
-        ...(priority && {
-          priority: priority as any,
-        }),
+        spaceId,
+
       },
 
       include: {
-  taskAssignees: {
-    take: 5,
-    include: {
-      user: {
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          image: true,
-        },
+
+        space: true,
+
       },
-    },
-  },
 
-  comments: {
-    select: {
-      id: true,
-    },
-  },
+    });
 
-  attachments: {
-    select: {
-      id: true,
-    },
-  },
-},
-
-      orderBy:
-        sort === "title"
-          ? {
-              title: "asc",
-            }
-          : sort === "priority"
-          ? {
-              priority: "desc",
-            }
-          : sort === "dueDate"
-          ? {
-              dueDate: "asc",
-            }
-          : {
-              position: "asc",
-            },
-      },
-    },
-  });
   if (!project) {
-    return (
-      <div className="p-10 text-white">
-        Project not found.
-      </div>
-    );
+
+    notFound();
+
   }
 
-  const space = await prisma.space.findUnique({
-  where: {
-    id,
-  },
-  select: {
-    workspaceId: true,
-  },
-});
+  const tasks =
+    await prisma.task.findMany({
 
-if (!space) {
-  notFound();
-}
+      where: {
 
-const members =
-  await prisma.workspaceMember.findMany({
-    where: {
-      workspaceId: space.workspaceId,
-    },
-    include: {
-      user: true,
-    },
-  });
-const totalTasks =
-  project.tasks.length;
+        projectId,
 
-const completedTasks =
-  project.tasks.filter(
-    (task) => task.status === "DONE"
-  ).length;
+        archived: false,
 
-const overdueTasks =
-  project.tasks.filter(
-    (task) =>
-      task.dueDate &&
-      task.status !== "DONE" &&
-      task.dueDate < new Date()
-  ).length;
+      },
 
-const completionRate =
-  totalTasks === 0
-    ? 0
-    : Math.round(
-        (completedTasks /
-          totalTasks) *
-          100
-      );
-  
-        return (
-  <ListPageClient
-  project={project}
-  tasks={project.tasks}
-        listId={listId}
-        title={project.title}
-  members={members}
-  spaceId={id}
-  search={search}
-  status={status}
-  priority={priority}
-  sort={sort}
-  totalTasks={totalTasks}
-  completedTasks={completedTasks}
-  overdueTasks={overdueTasks}
-  completionRate={completionRate}
-  currentUserId={session.user.id}
-/>
-);
+      include: {
+
+        taskAssignees: {
+
+          include: {
+
+            user: true,
+
+          },
+
+        },
+
+        comments: true,
+
+        attachments: true,
+
+      },
+
+      orderBy: [
+
+        {
+          position: "asc",
+        },
+
+        {
+          createdAt: "desc",
+        },
+
+      ],
+
+    });
+      const members =
+    await prisma.workspaceMember.findMany({
+
+      where: {
+
+        workspaceId:
+          project.space.workspaceId,
+
+      },
+
+      include: {
+
+        user: true,
+
+      },
+
+      orderBy: {
+
+        joinedAt: "asc",
+
+      },
+
+    });
+
+  return (
+
+    <ListPageClient
+
+      spaceId={spaceId}
+
+      listId={projectId}
+
+      currentUserId={currentUser!.id}
+
+      project={{
+
+        id: project.id,
+
+        name: project.name,
+
+      }}
+
+      tasks={tasks}
+
+    members={members.map((member) => ({
+  id: member.user.id,
+
+  name:
+    member.user.name ?? "",
+
+  email:
+    member.user.email,
+}))}
+
+    />
+
+  );
 
 }

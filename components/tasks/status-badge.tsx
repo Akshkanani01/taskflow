@@ -1,55 +1,78 @@
-interface Props {
+type Props = {
   status: string;
-}
+};
 
-export default function StatusBadge({ status }: Props) {
-  const styles = {
-    TODO: {
-      bg: "bg-zinc-800",
-      text: "text-zinc-300",
-      dot: "bg-zinc-400",
-      label: "Todo",
-    },
+const styles = {
 
-    IN_PROGRESS: {
-      bg: "bg-blue-500/15",
-      text: "text-blue-400",
-      dot: "bg-blue-500",
-      label: "In Progress",
-    },
+  TODO: {
+    label: "Todo",
+    color:
+      "bg-slate-700/60 text-slate-200 border-slate-600",
+    dot: "bg-slate-300",
+  },
 
-    DONE: {
-      bg: "bg-emerald-500/15",
-      text: "text-emerald-400",
-      dot: "bg-emerald-500",
-      label: "Done",
-    },
-  } as const;
+  IN_PROGRESS: {
+    label: "In Progress",
+    color:
+      "bg-blue-500/15 text-blue-300 border-blue-500/30",
+    dot: "bg-blue-400",
+  },
 
-  const item =
-    styles[status as keyof typeof styles] ??
+  IN_REVIEW: {
+    label: "In Review",
+    color:
+      "bg-amber-500/15 text-amber-300 border-amber-500/30",
+    dot: "bg-amber-400",
+  },
+
+  DONE: {
+    label: "Done",
+    color:
+      "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
+    dot: "bg-emerald-400",
+  },
+
+} as const;
+
+export default function StatusBadge({
+  status,
+}: Props) {
+    const badge =
+    styles[
+      status as keyof typeof styles
+    ] ??
     styles.TODO;
 
   return (
+
     <div
       className={`
         inline-flex
         items-center
         gap-2
         rounded-full
+        border
         px-3
-        py-1
+        py-1.5
         text-xs
-        font-medium
-        ${item.bg}
-        ${item.text}
+        font-semibold
+        ${badge.color}
       `}
     >
+
       <span
-        className={`h-2 w-2 rounded-full ${item.dot}`}
+        className={`
+          h-2
+          w-2
+          rounded-full
+          ${badge.dot}
+        `}
       />
 
-      {item.label}
+      {badge.label}
+
     </div>
+
   );
+
 }
