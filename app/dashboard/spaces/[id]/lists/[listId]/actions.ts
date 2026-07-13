@@ -534,7 +534,10 @@ export async function duplicateTask(
   });
 
   
-
+  revalidate(
+  task.spaceId,
+  task.projectId
+);
   return newTask;
 
 }

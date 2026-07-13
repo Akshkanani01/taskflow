@@ -6,7 +6,10 @@ export type SpaceRole =
   | "VIEWER";
 
 export interface SpaceMember {
+
   id: string;
+
+  userId: string;
 
   name: string;
 
@@ -22,7 +25,6 @@ export interface SpaceMember {
 
   completedTasks: number;
 
-  permissions?: string[];
 }
 
 export const ROLE_COLORS: Record<

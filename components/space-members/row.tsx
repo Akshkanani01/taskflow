@@ -22,8 +22,8 @@ export default function MemberRow({
     <div
       onClick={() =>
         router.push(
-          `/dashboard/spaces/${spaceId}/members/${member.id}`
-        )
+  `/dashboard/spaces/${spaceId}/members/${member.userId}`
+)
       }
       className="
         cursor-pointer

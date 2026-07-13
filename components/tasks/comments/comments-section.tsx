@@ -15,13 +15,12 @@ type Comment = {
 
 type Props = {
   taskId: string;
-  userId: string;
   comments: Comment[];
 };
 
 export default function CommentsSection({
   taskId,
-  userId,
+  
   comments,
 }: Props) {
   return (
@@ -57,16 +56,16 @@ export default function CommentsSection({
           {comments.map((comment) => (
 
             <CommentItem
-              key={comment.id}
-              id={comment.id}
-              name={
-                comment.user.name ??
-                "Unknown User"
-              }
-              image={comment.user.image}
-              content={comment.content}
-              createdAt={comment.createdAt.toLocaleString()}
-            />
+  key={comment.id}
+  id={comment.id}
+  name={
+    comment.user.name ??
+    "Unknown User"
+  }
+  image={comment.user.image}
+  content={comment.content}
+  createdAt={comment.createdAt.toISOString()}
+/>
 
           ))}
 

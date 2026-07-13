@@ -79,46 +79,7 @@ export default async function MemberOverviewPage({
   return (
     <main className="space-y-6">
 
-      {/* Profile */}
-
-      <div className="rounded-3xl border border-[#222B39] bg-[#121722] p-8">
-
-        <div className="flex items-center gap-6">
-
-          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-indigo-500/20 text-3xl font-bold text-indigo-300">
-
-            {member.user.name?.charAt(0) ??
-              member.user.email.charAt(0)}
-
-          </div>
-
-          <div>
-
-            <h1 className="text-3xl font-bold text-white">
-              {member.user.name ??
-                "Unknown User"}
-            </h1>
-
-            <div className="mt-4 flex flex-wrap gap-6 text-sm text-zinc-400">
-
-              <div className="flex items-center gap-2">
-                <Mail size={16} />
-                {member.user.email}
-              </div>
-
-              <div className="flex items-center gap-2">
-                <Calendar size={16} />
-                Joined{" "}
-                {member.joinedAt.toLocaleDateString()}
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
+      
 
       {/* Stats */}
 
