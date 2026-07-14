@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ChevronDown, Plus, Check } from "lucide-react";
-
+import { useRouter } from "next/navigation";
 type Workspace = {
 id: string;
 name: string;
@@ -144,7 +144,9 @@ return ( <div className="relative">
 
   setOpen(false);
 
-  window.location.reload();
+  
+
+const router = useRouter();
 }}
             className="
               flex w-full items-center

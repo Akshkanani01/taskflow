@@ -3,7 +3,7 @@
 import { Trash2 } from "lucide-react";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
-
+import Image from "next/image";
 import { deleteComment } from "@/app/actions/comment-actions";
 
 type Props = {
@@ -33,14 +33,17 @@ export default function CommentItem({
 
         <div className="flex items-center gap-3">
 
-          <img
-            src={
-              image ??
-              "https://ui-avatars.com/api/?name=User"
-            }
-            className="h-10 w-10 rounded-full"
-            alt=""
-          />
+          <Image
+  src={
+    image?.trim()
+      ? image
+      : `https://ui-avatars.com/api/?name=${encodeURIComponent(name || "User")}`
+  }
+  alt={name}
+  width={40}
+  height={40}
+  className="h-10 w-10 rounded-full object-cover"
+/>
 
           <div>
 

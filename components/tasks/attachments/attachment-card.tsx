@@ -1,16 +1,26 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
+
 import {
   Download,
   ExternalLink,
   File,
-  ImageIcon,
+  FileArchive,
+  FileImage,
+  FileSpreadsheet,
+  FileText,
+  FileVideo,
   Trash2,
 } from "lucide-react";
 
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
+import { toast } from "sonner";
+
+import DeleteDialog from "@/components/shared/delete-dialog";
 import { deleteAttachment } from "@/app/actions/attachment-actions";
 
 type Props = {
@@ -26,107 +36,265 @@ type Props = {
 export default function AttachmentCard({
   attachment,
 }: Props) {
+
   const router = useRouter();
 
   const [pending, start] =
     useTransition();
 
+  const [open, setOpen] =
+    useState(false);
+
+  const mime =
+    attachment.mimeType ?? "";
+
   const isImage =
-    attachment.mimeType?.startsWith("image");
+    mime.startsWith("image");
 
-  return (
-    <div className="group overflow-hidden rounded-2xl border border-white/10 bg-slate-900">
+  function FileIcon() {
 
-      {/* Preview */}
+    if (
+      mime.includes("pdf")
+    ) {
+      return (
+        <FileText
+          size={60}
+          className="text-red-400"
+        />
+      );
+    }
 
-      <div className="flex h-40 items-center justify-center bg-slate-950">
+    if (
+      mime.includes("sheet") ||
+      mime.includes("excel")
+    ) {
+      return (
+        <FileSpreadsheet
+          size={60}
+          className="text-green-400"
+        />
+      );
+    }
 
-        {isImage ? (
+    if (
+      mime.includes("video")
+    ) {
+      return (
+        <FileVideo
+          size={60}
+          className="text-indigo-400"
+        />
+      );
+    }
 
-          <img
-            src={attachment.url}
-            alt={attachment.name}
-            className="h-full w-full object-cover"
-          />
+    if (
+      mime.includes("zip")
+    ) {
+      return (
+        <FileArchive
+          size={60}
+          className="text-yellow-400"
+        />
+      );
+    }
 
-        ) : (
+    if (
+      mime.includes("image")
+    ) {
+      return (
+        <FileImage
+          size={60}
+          className="text-blue-400"
+        />
+      );
+    }
 
-          <File
-            size={54}
-            className="text-slate-500"
-          />
+    return (
+      <File
+        size={60}
+        className="text-slate-500"
+      />
+    );
+  }
+    return (
+    <>
+      <div
+        className="
+          group
+          overflow-hidden
+          rounded-2xl
+          border
+          border-white/10
+          bg-[#111827]
+          transition-all
+          duration-300
+          hover:border-indigo-500/30
+          hover:shadow-xl
+          hover:shadow-indigo-500/10
+        "
+      >
+        {/* Preview */}
 
-        )}
+        <div className="relative flex h-48 items-center justify-center bg-[#0B1220]">
 
-      </div>
+          {isImage ? (
 
-      {/* Body */}
+            <Image
+              src={attachment.url}
+              alt={attachment.name}
+              fill
+              className="object-cover"
+            />
 
-      <div className="space-y-4 p-4">
+          ) : (
 
-        <div>
+            <FileIcon />
 
-          <h3 className="truncate font-medium text-white">
-            {attachment.name}
-          </h3>
-
-          <p className="mt-1 text-xs text-slate-500">
-
-            {attachment.size
-              ? `${(
-                  attachment.size /
-                  1024
-                ).toFixed(1)} KB`
-              : "-"}
-
-          </p>
+          )}
 
         </div>
 
-        <div className="flex items-center gap-2">
+        {/* Body */}
 
-          <a
-            href={attachment.url}
-            target="_blank"
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 hover:bg-slate-800"
-          >
-            <ExternalLink
-              size={16}
-            />
-          </a>
+        <div className="space-y-4 p-5">
 
-          <a
-            href={attachment.url}
-            download
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 hover:bg-slate-800"
-          >
-            <Download
-              size={16}
-            />
-          </a>
+          <div>
 
-          <button
-            disabled={pending}
-            onClick={() =>
-              start(async () => {
-                await deleteAttachment(
-                  attachment.id
-                );
+            <h3 className="truncate text-sm font-semibold text-white">
 
-                router.refresh();
-              })
+              {attachment.name}
+
+            </h3>
+
+            <p className="mt-1 text-xs text-slate-500">
+
+              {attachment.size
+                ? `${(
+                    attachment.size /
+                    1024
+                  ).toFixed(1)} KB`
+                : "--"}
+
+            </p>
+
+          </div>
+
+          <div className="flex items-center gap-2">
+
+            <Link
+              href={attachment.url}
+              target="_blank"
+              className="
+                flex
+                h-10
+                w-10
+                items-center
+                justify-center
+                rounded-xl
+                border
+                border-white/10
+                transition
+                hover:bg-slate-800
+              "
+            >
+
+              <ExternalLink
+                size={18}
+              />
+
+            </Link>
+
+            <a
+              href={attachment.url}
+              download
+              className="
+                flex
+                h-10
+                w-10
+                items-center
+                justify-center
+                rounded-xl
+                border
+                border-white/10
+                transition
+                hover:bg-slate-800
+              "
+            >
+
+              <Download
+                size={18}
+              />
+
+            </a>
+
+            <button
+              type="button"
+              disabled={pending}
+              onClick={() =>
+                setOpen(true)
+              }
+              className="
+                ml-auto
+                flex
+                h-10
+                w-10
+                items-center
+                justify-center
+                rounded-xl
+                border
+                border-red-500/20
+                text-red-400
+                transition
+                hover:bg-red-500/10
+              "
+            >
+
+              <Trash2
+                size={18}
+              />
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+            <DeleteDialog
+        open={open}
+        onOpenChange={setOpen}
+        loading={pending}
+        title="Delete Attachment?"
+        description="This file will be permanently removed from this task."
+
+        onConfirm={() =>
+          start(async () => {
+
+            try {
+
+              await deleteAttachment(
+                attachment.id
+              );
+
+              toast.success(
+                "Attachment deleted."
+              );
+
+              setOpen(false);
+
+              router.refresh();
+
+            } catch {
+
+              toast.error(
+                "Unable to delete attachment."
+              );
+
             }
-            className="ml-auto flex h-9 w-9 items-center justify-center rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10"
-          >
-            <Trash2
-              size={16}
-            />
-          </button>
 
-        </div>
-
-      </div>
-
-    </div>
+          })
+        }
+      />
+    </>
   );
 }

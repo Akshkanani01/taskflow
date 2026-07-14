@@ -11,7 +11,7 @@ import {
 
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-
+import { assertCanRemoveMember } from "@/lib/permissions";
 import {
   assertCanChangeMemberRole,
   assertRoleTransition,

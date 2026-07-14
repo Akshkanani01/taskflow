@@ -2,12 +2,12 @@ import { notFound } from "next/navigation";
 
 import {
   Shield,
+  Lock,
   CheckCircle2,
   XCircle,
   Crown,
+  UserCog,
   Users,
-  FolderKanban,
-  Settings,
 } from "lucide-react";
 
 import { prisma } from "@/lib/prisma";
@@ -18,11 +18,6 @@ interface Props {
     memberId: string;
   }>;
 }
-
-type Permission = {
-  title: string;
-  enabled: boolean;
-};
 
 export default async function MemberPermissionsPage({
   params,
@@ -48,6 +43,16 @@ export default async function MemberPermissionsPage({
 
         user: true,
 
+        space: {
+
+          include: {
+
+            workspace: true,
+
+          },
+
+        },
+
       },
 
     });
@@ -58,576 +63,658 @@ export default async function MemberPermissionsPage({
 
   }
 
-  const role =
-    member.role;
+  const permissions = {
 
-  const permissions: Permission[] = [
+    manageWorkspace:
+      member.role === "OWNER",
+
+    manageMembers:
+      ["OWNER", "ADMIN"].includes(
+        member.role
+      ),
+
+    manageSpaces:
+      ["OWNER", "ADMIN", "MANAGER"].includes(
+        member.role
+      ),
+
+    manageProjects:
+      ["OWNER", "ADMIN", "MANAGER"].includes(
+        member.role
+      ),
+
+    manageTasks:
+      member.role !== "VIEWER",
+
+    manageFiles:
+      member.role !== "VIEWER",
+
+    comment:
+      true,
+
+    createTasks:
+      member.role !== "VIEWER",
+
+    deleteTasks:
+      ["OWNER", "ADMIN"].includes(
+        member.role
+      ),
+
+    inviteMembers:
+      ["OWNER", "ADMIN"].includes(
+        member.role
+      ),
+
+  };
+
+  const cards = [
 
     {
-      title: "View Workspace",
-      enabled: true,
+      title: "Workspace Management",
+      enabled:
+        permissions.manageWorkspace,
+      description:
+        "Create, update and delete workspace.",
+    },
+
+    {
+      title: "Member Management",
+      enabled:
+        permissions.manageMembers,
+      description:
+        "Invite, remove and change roles.",
+    },
+
+    {
+      title: "Space Management",
+      enabled:
+        permissions.manageSpaces,
+      description:
+        "Manage spaces inside workspace.",
+    },
+
+    {
+      title: "Project Management",
+      enabled:
+        permissions.manageProjects,
+      description:
+        "Create and edit projects.",
+    },
+
+    {
+      title: "Task Management",
+      enabled:
+        permissions.manageTasks,
+      description:
+        "Manage tasks and workflow.",
+    },
+
+    {
+      title: "File Management",
+      enabled:
+        permissions.manageFiles,
+      description:
+        "Upload and remove attachments.",
+    },
+
+    {
+      title: "Comments",
+      enabled:
+        permissions.comment,
+      description:
+        "Comment and mention members.",
     },
 
     {
       title: "Create Tasks",
       enabled:
-        role !== "VIEWER",
-    },
-
-    {
-      title: "Edit Tasks",
-      enabled:
-        role !== "VIEWER",
+        permissions.createTasks,
+      description:
+        "Create new tasks.",
     },
 
     {
       title: "Delete Tasks",
       enabled:
-        role === "OWNER" ||
-        role === "ADMIN",
+        permissions.deleteTasks,
+      description:
+        "Delete existing tasks.",
     },
 
     {
       title: "Invite Members",
       enabled:
-        role === "OWNER" ||
-        role === "ADMIN",
-    },
-
-    {
-      title: "Manage Members",
-      enabled:
-        role === "OWNER" ||
-        role === "ADMIN",
-    },
-
-    {
-      title: "Manage Spaces",
-      enabled:
-        role === "OWNER" ||
-        role === "ADMIN",
-    },
-
-    {
-      title: "Workspace Settings",
-      enabled:
-        role === "OWNER",
+        permissions.inviteMembers,
+      description:
+        "Invite new workspace members.",
     },
 
   ];
 
-  const granted =
-    permissions.filter(
-      (p) => p.enabled
-    ).length;
-
-  const denied =
-    permissions.length -
-    granted;
-
   return (
 
-    <div className="space-y-8">
+    <main className="space-y-8">
 
-      {/* HEADER STATS */}
+      {/* Header */}
 
-      <div className="grid gap-6 md:grid-cols-4">
+      <section className="rounded-3xl border border-white/10 bg-[#111827] p-8">
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <div className="flex items-center gap-5">
 
-          <Shield className="mb-4 h-8 w-8 text-indigo-400" />
+          <div className="rounded-2xl bg-indigo-600/10 p-5">
 
-          <p className="text-sm text-slate-400">
+            <Shield className="h-10 w-10 text-indigo-400" />
 
-            Current Role
+          </div>
 
-          </p>
+          <div>
 
-          <h2 className="mt-2 text-3xl font-bold text-white">
+            <h1 className="text-3xl font-bold text-white">
 
-            {role}
+              Permissions
 
-          </h2>
+            </h1>
 
-        </div>
+            <p className="mt-2 text-slate-400">
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+              Review this member's access level and workspace permissions.
 
-          <CheckCircle2 className="mb-4 h-8 w-8 text-emerald-400" />
+            </p>
 
-          <p className="text-sm text-slate-400">
-
-            Granted
-
-          </p>
-
-          <h2 className="mt-2 text-4xl font-bold text-white">
-
-            {granted}
-
-          </h2>
+          </div>
 
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+      </section>
+            {/* Role Summary */}
 
-          <XCircle className="mb-4 h-8 w-8 text-red-400" />
+      <section className="grid gap-6 xl:grid-cols-[340px_1fr]">
 
-          <p className="text-sm text-slate-400">
+        <div className="rounded-3xl border border-white/10 bg-[#111827] p-7">
 
-            Restricted
+          <div className="flex items-center justify-between">
 
-          </p>
+            <div>
 
-          <h2 className="mt-2 text-4xl font-bold text-white">
+              <p className="text-sm text-slate-500">
 
-            {denied}
+                Current Role
 
-          </h2>
+              </p>
+
+              <h2 className="mt-2 text-3xl font-bold text-white">
+
+                {member.role}
+
+              </h2>
+
+            </div>
+
+            <div className="rounded-2xl bg-indigo-600/10 p-4">
+
+              {member.role === "OWNER" ? (
+
+                <Crown className="h-9 w-9 text-yellow-400" />
+
+              ) : member.role === "ADMIN" ? (
+
+                <Shield className="h-9 w-9 text-indigo-400" />
+
+              ) : member.role === "MANAGER" ? (
+
+                <UserCog className="h-9 w-9 text-cyan-400" />
+
+              ) : (
+
+                <Users className="h-9 w-9 text-slate-400" />
+
+              )}
+
+            </div>
+
+          </div>
+
+          <div className="mt-8 space-y-4">
+
+            <PermissionSummaryRow
+
+              label="Workspace"
+
+              value={
+                permissions.manageWorkspace
+              }
+
+            />
+
+            <PermissionSummaryRow
+
+              label="Members"
+
+              value={
+                permissions.manageMembers
+              }
+
+            />
+
+            <PermissionSummaryRow
+
+              label="Spaces"
+
+              value={
+                permissions.manageSpaces
+              }
+
+            />
+
+            <PermissionSummaryRow
+
+              label="Projects"
+
+              value={
+                permissions.manageProjects
+              }
+
+            />
+
+            <PermissionSummaryRow
+
+              label="Tasks"
+
+              value={
+                permissions.manageTasks
+              }
+
+            />
+
+            <PermissionSummaryRow
+
+              label="Files"
+
+              value={
+                permissions.manageFiles
+              }
+
+            />
+
+          </div>
 
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        {/* Statistics */}
 
-          <Crown className="mb-4 h-8 w-8 text-yellow-400" />
+        <div className="grid gap-5 md:grid-cols-2">
 
-          <p className="text-sm text-slate-400">
+          <StatCard
 
-            Access Level
+            title="Granted Permissions"
 
-          </p>
+            value={
+              cards.filter(
+                (c) => c.enabled
+              ).length
+            }
 
-          <h2 className="mt-2 text-3xl font-bold text-white">
+            icon={
+              <CheckCircle2 className="h-8 w-8 text-emerald-400" />
+            }
 
-            {role === "OWNER"
-              ? "Full"
-              : role === "ADMIN"
-              ? "High"
-              : role === "MANAGER"
-              ? "Medium"
-              : role === "MEMBER"
-              ? "Standard"
-              : "Read Only"}
+          />
 
-          </h2>
+          <StatCard
+
+            title="Restricted"
+
+            value={
+              cards.filter(
+                (c) => !c.enabled
+              ).length
+            }
+
+            icon={
+              <Lock className="h-8 w-8 text-red-400" />
+            }
+
+          />
+
+          <StatCard
+
+            title="Workspace"
+
+            value={
+              member.space.workspace.name
+            }
+
+            icon={
+              <Shield className="h-8 w-8 text-indigo-400" />
+            }
+
+          />
+
+          <StatCard
+
+            title="Space"
+
+            value={
+              member.space.name
+            }
+
+            icon={
+              <Users className="h-8 w-8 text-cyan-400" />
+            }
+
+          />
 
         </div>
 
-      </div>
-            {/* PERMISSION MATRIX */}
+      </section>
 
-      <section className="rounded-3xl border border-white/10 bg-[#111827]">
+      {/* Permission Matrix */}
 
-        <div className="border-b border-white/10 p-6">
+      <section className="rounded-3xl border border-white/10 bg-[#111827] p-7">
 
-          <h2 className="text-xl font-semibold text-white">
+        <div className="mb-8">
+
+          <h2 className="text-2xl font-bold text-white">
 
             Permission Matrix
 
           </h2>
 
-          <p className="mt-2 text-sm text-slate-400">
+          <p className="mt-2 text-slate-400">
 
-            Effective permissions for this member inside the current workspace.
+            Access granted based on the current member role.
 
           </p>
 
         </div>
 
-        <div className="grid gap-6 p-6 xl:grid-cols-2">
-
-          {/* Workspace */}
-
-          <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
-
-            <div className="mb-6 flex items-center gap-3">
-
-              <div className="rounded-xl bg-indigo-500/15 p-3">
-
-                <Users className="h-6 w-6 text-indigo-400" />
-
-              </div>
-
-              <div>
-
-                <h3 className="font-semibold text-white">
-
-                  Workspace
-
-                </h3>
-
-                <p className="text-sm text-slate-500">
-
-                  Workspace level access
-
-                </p>
-
-              </div>
-
-            </div>
-
-            <div className="space-y-3">
-
-              {permissions.slice(0,4).map((permission) => (
-
-                <div
-                  key={permission.title}
-                  className="flex items-center justify-between rounded-2xl border border-white/10 bg-[#111827] p-4"
-                >
-
-                  <span className="text-sm text-white">
-
-                    {permission.title}
-
-                  </span>
-
-                  {permission.enabled ? (
-
-                    <span className="flex items-center gap-2 text-emerald-400">
-
-                      <CheckCircle2 className="h-5 w-5" />
-
-                      Allowed
-
-                    </span>
-
-                  ) : (
-
-                    <span className="flex items-center gap-2 text-red-400">
-
-                      <XCircle className="h-5 w-5" />
-
-                      Denied
-
-                    </span>
-
-                  )}
-
-                </div>
-
-              ))}
-
-            </div>
-
-          </div>
-
-          {/* Administration */}
-
-          <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
-
-            <div className="mb-6 flex items-center gap-3">
-
-              <div className="rounded-xl bg-yellow-500/15 p-3">
-
-                <Settings className="h-6 w-6 text-yellow-400" />
-
-              </div>
-
-              <div>
-
-                <h3 className="font-semibold text-white">
-
-                  Administration
-
-                </h3>
-
-                <p className="text-sm text-slate-500">
-
-                  Administrative capabilities
-
-                </p>
-
-              </div>
-
-            </div>
-
-            <div className="space-y-3">
-
-              {permissions.slice(4).map((permission) => (
-
-                <div
-                  key={permission.title}
-                  className="flex items-center justify-between rounded-2xl border border-white/10 bg-[#111827] p-4"
-                >
-
-                  <span className="text-sm text-white">
-
-                    {permission.title}
-
-                  </span>
-
-                  {permission.enabled ? (
-
-                    <span className="flex items-center gap-2 text-emerald-400">
-
-                      <CheckCircle2 className="h-5 w-5" />
-
-                      Allowed
-
-                    </span>
-
-                  ) : (
-
-                    <span className="flex items-center gap-2 text-red-400">
-
-                      <XCircle className="h-5 w-5" />
-
-                      Denied
-
-                    </span>
-
-                  )}
-
-                </div>
-
-              ))}
-
-            </div>
-
-          </div>
+        <div className="grid gap-5 lg:grid-cols-2">
+                  {cards.map((permission) => (
+
+          <PermissionCard
+            key={permission.title}
+            title={permission.title}
+            description={permission.description}
+            enabled={permission.enabled}
+          />
+
+        ))}
 
         </div>
 
       </section>
 
-      {/* ROLE DETAILS */}
+      {/* Role Hierarchy */}
 
-      <section className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+      <section className="rounded-3xl border border-white/10 bg-[#111827] p-7">
 
-        <div className="mb-6 flex items-center gap-3">
+        <div className="mb-8">
 
-          <FolderKanban className="h-6 w-6 text-indigo-400" />
+          <h2 className="text-2xl font-bold text-white">
 
-          <h2 className="text-xl font-semibold text-white">
-
-            Role Description
+            Workspace Role Hierarchy
 
           </h2>
 
+          <p className="mt-2 text-slate-400">
+
+            Higher roles automatically inherit permissions from lower roles.
+
+          </p>
+
         </div>
 
-        <div className="rounded-2xl border border-white/10 bg-slate-900 p-6">
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-5">
 
-          {role === "OWNER" && (
+          <RoleCard
+            title="OWNER"
+            color="yellow"
+            permissions={[
+              "Everything",
+              "Delete Workspace",
+              "Transfer Ownership",
+              "Manage Billing",
+            ]}
+          />
 
-            <p className="leading-7 text-slate-300">
+          <RoleCard
+            title="ADMIN"
+            color="indigo"
+            permissions={[
+              "Manage Members",
+              "Manage Spaces",
+              "Manage Projects",
+              "Manage Tasks",
+            ]}
+          />
 
-              Owners have unrestricted access to every workspace resource.
-              They can manage billing, invite members, remove members,
-              transfer ownership and permanently delete the workspace.
+          <RoleCard
+            title="MANAGER"
+            color="cyan"
+            permissions={[
+              "Manage Projects",
+              "Manage Tasks",
+              "Manage Files",
+              "Reports",
+            ]}
+          />
 
-            </p>
+          <RoleCard
+            title="MEMBER"
+            color="emerald"
+            permissions={[
+              "Assigned Tasks",
+              "Comments",
+              "Upload Files",
+              "View Projects",
+            ]}
+          />
 
-          )}
-
-          {role === "ADMIN" && (
-
-            <p className="leading-7 text-slate-300">
-
-              Administrators can manage members, spaces, projects and tasks.
-              Billing and ownership operations remain restricted.
-
-            </p>
-
-          )}
-
-          {role === "MANAGER" && (
-
-            <p className="leading-7 text-slate-300">
-
-              Managers coordinate projects, assign work, review progress
-              and supervise team members.
-
-            </p>
-
-          )}
-
-          {role === "MEMBER" && (
-
-            <p className="leading-7 text-slate-300">
-
-              Members collaborate on tasks, comments, attachments and
-              checklists but cannot manage workspace settings.
-
-            </p>
-
-          )}
-
-          {role === "VIEWER" && (
-
-            <p className="leading-7 text-slate-300">
-
-              Viewers have read-only access. They can browse projects,
-              tasks and files but cannot modify data.
-
-            </p>
-
-          )}
+          <RoleCard
+            title="VIEWER"
+            color="slate"
+            permissions={[
+              "View Workspace",
+              "Read Tasks",
+              "Read Files",
+            ]}
+          />
 
         </div>
 
       </section>
-            {/* SECURITY SUMMARY */}
 
-      <div className="grid gap-6 xl:grid-cols-2">
+    </main>
 
-        <section className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+  );
 
-          <div className="mb-6 flex items-center gap-3">
+}
 
-            <Shield className="h-6 w-6 text-indigo-400" />
+/* ------------------------- */
+/* Helper Components */
+/* ------------------------- */
 
-            <h2 className="text-xl font-semibold text-white">
+function PermissionSummaryRow({
+  label,
+  value,
+}: {
+  label: string;
+  value: boolean;
+}) {
 
-              Security Summary
+  return (
 
-            </h2>
+    <div className="flex items-center justify-between rounded-xl border border-white/10 bg-slate-900 px-4 py-3">
 
-          </div>
+      <span className="text-sm text-slate-300">
 
-          <div className="space-y-4">
+        {label}
 
-            <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-4">
+      </span>
 
-              <span className="text-slate-400">
+      {value ? (
 
-                Current Role
+        <CheckCircle2 className="h-5 w-5 text-emerald-400" />
 
-              </span>
+      ) : (
 
-              <span className="font-semibold text-white">
+        <XCircle className="h-5 w-5 text-red-400" />
 
-                {role}
+      )}
 
-              </span>
+    </div>
 
-            </div>
+  );
 
-            <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-4">
+}
 
-              <span className="text-slate-400">
+function StatCard({
+  title,
+  value,
+  icon,
+}: {
+  title: string;
+  value: string | number;
+  icon: React.ReactNode;
+}) {
 
-                Granted Permissions
+  return (
 
-              </span>
+    <div className="rounded-3xl border border-white/10 bg-[#111827] p-7">
 
-              <span className="font-semibold text-emerald-400">
+      <div className="flex items-center justify-between">
 
-                {granted}
+        {icon}
 
-              </span>
+        <p className="text-xs uppercase tracking-widest text-slate-500">
 
-            </div>
+          {title}
 
-            <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-4">
-
-              <span className="text-slate-400">
-
-                Restricted Permissions
-
-              </span>
-
-              <span className="font-semibold text-red-400">
-
-                {denied}
-
-              </span>
-
-            </div>
-
-            <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-4">
-
-              <span className="text-slate-400">
-
-                Member
-
-              </span>
-
-              <span className="font-semibold text-white">
-
-                {member.user.name ?? member.user.email}
-
-              </span>
-
-            </div>
-
-          </div>
-
-        </section>
-
-        {/* DANGER ZONE */}
-
-        <section className="rounded-3xl border border-red-500/20 bg-[#111827] p-6">
-
-          <div className="mb-6">
-
-            <h2 className="text-xl font-semibold text-red-400">
-
-              Danger Zone
-
-            </h2>
-
-            <p className="mt-2 text-sm text-slate-500">
-
-              These operations affect this member permanently.
-
-            </p>
-
-          </div>
-
-          <div className="space-y-4">
-
-            <button
-              disabled
-              className="
-                flex
-                w-full
-                items-center
-                justify-center
-                rounded-2xl
-                border
-                border-yellow-500/20
-                bg-yellow-500/10
-                py-3
-                font-medium
-                text-yellow-300
-                opacity-60
-              "
-            >
-
-              Change Role
-              (Coming Soon)
-
-            </button>
-
-            <button
-              disabled
-              className="
-                flex
-                w-full
-                items-center
-                justify-center
-                rounded-2xl
-                border
-                border-red-500/20
-                bg-red-500/10
-                py-3
-                font-medium
-                text-red-300
-                opacity-60
-              "
-            >
-
-              Remove Member
-              (Coming Soon)
-
-            </button>
-
-          </div>
-
-        </section>
+        </p>
 
       </div>
+
+      <h3 className="mt-6 text-3xl font-bold text-white">
+
+        {value}
+
+      </h3>
+
+    </div>
+
+  );
+
+}
+
+function PermissionCard({
+  title,
+  description,
+  enabled,
+}: {
+  title: string;
+  description: string;
+  enabled: boolean;
+}) {
+
+  return (
+
+    <div
+      className={`rounded-2xl border p-6 transition ${
+        enabled
+          ? "border-emerald-500/20 bg-emerald-500/5"
+          : "border-red-500/20 bg-red-500/5"
+      }`}
+    >
+
+      <div className="flex items-center justify-between">
+
+        <h3 className="font-semibold text-white">
+
+          {title}
+
+        </h3>
+
+        {enabled ? (
+
+          <CheckCircle2 className="h-6 w-6 text-emerald-400" />
+
+        ) : (
+
+          <XCircle className="h-6 w-6 text-red-400" />
+
+        )}
+
+      </div>
+
+      <p className="mt-3 text-sm text-slate-400">
+
+        {description}
+
+      </p>
+
+    </div>
+
+  );
+
+}
+
+function RoleCard({
+  title,
+  permissions,
+  color,
+}: {
+  title: string;
+  permissions: string[];
+  color: string;
+}) {
+
+  const colors: Record<string, string> = {
+
+    yellow:
+      "border-yellow-500/20 bg-yellow-500/5 text-yellow-300",
+
+    indigo:
+      "border-indigo-500/20 bg-indigo-500/5 text-indigo-300",
+
+    cyan:
+      "border-cyan-500/20 bg-cyan-500/5 text-cyan-300",
+
+    emerald:
+      "border-emerald-500/20 bg-emerald-500/5 text-emerald-300",
+
+    slate:
+      "border-slate-500/20 bg-slate-500/5 text-slate-300",
+
+  };
+
+  return (
+
+    <div className={`rounded-3xl border p-6 ${colors[color]}`}>
+
+      <h3 className="text-lg font-bold">
+
+        {title}
+
+      </h3>
+
+      <ul className="mt-5 space-y-3 text-sm">
+
+        {permissions.map((permission) => (
+
+          <li
+            key={permission}
+            className="flex items-center gap-2"
+          >
+
+            <CheckCircle2 className="h-4 w-4" />
+
+            {permission}
+
+          </li>
+
+        ))}
+
+      </ul>
 
     </div>
 

@@ -37,8 +37,14 @@ export default function ActivitySection({
               </p>
 
               <p className="mt-2 text-xs text-slate-500">
-                {activity.createdAt.toLocaleString()}
-              </p>
+  {new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date(activity.createdAt))}
+</p>
             </div>
           ))}
 

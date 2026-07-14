@@ -88,29 +88,36 @@ export default function TaskRow({
 
   return (
 
-    <button
-
-      type="button"
-
-      onClick={openTask}
-
-      className="
-  group
-  grid
-  w-full
-grid-cols-[4fr_150px_140px_170px_220px_70px]
-  items-center
-  px-8
-  py-5
-  text-left
-  transition-all
-  duration-300
-  hover:bg-slate-900/70
-  hover:scale-[0.995]
-  active:scale-[0.99]
-"
-
-    >
+  <div
+    role="button"
+    tabIndex={0}
+    onClick={openTask}
+    onKeyDown={(e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openTask();
+      }
+    }}
+    className="
+      group
+      grid
+      w-full
+      grid-cols-[4fr_150px_140px_170px_220px_70px]
+      items-center
+      gap-4
+      border-b
+      border-[#202735]
+      px-6
+      py-4
+      text-left
+      transition-all
+      duration-200
+      hover:bg-[#171D27]
+      focus:outline-none
+      focus:ring-2
+      focus:ring-indigo-500/40
+    "
+  >
 
       {/* TASK */}
             <div className="flex items-start gap-4">
@@ -295,7 +302,7 @@ grid-cols-[4fr_150px_140px_170px_220px_70px]
 
 
       </div>
-          </button>
+          </div>
 
   );
 

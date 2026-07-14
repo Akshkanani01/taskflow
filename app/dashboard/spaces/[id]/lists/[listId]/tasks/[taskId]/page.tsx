@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 
 import TaskTitleEditor from "@/components/tasks/editors/task-title-editor";
 import DescriptionEditor from "@/components/tasks/editors/description-editor";
-
+import Link from "next/link";
 import TaskStatusEditor from "@/components/tasks/editors/task-status-editor";
 import TaskPriorityEditor from "@/components/tasks/editors/task-priority-editor";
 import TaskAssigneeEditor from "@/components/tasks/editors/task-assignee-editor";
@@ -120,38 +120,25 @@ export default async function TaskDetailPage({
 
           <div className="flex items-center gap-3">
 
-            <button
-              className="
-                rounded-xl
-                border
-                border-white/10
-                bg-slate-900
-                px-4
-                py-2
-                text-sm
-                text-slate-300
-                transition
-                hover:bg-slate-800
-              "
-            >
-              Back
-            </button>
+            <Link
+  href={`/dashboard/spaces/${spaceId}/lists/${listId}`}
+  className="
+    rounded-xl
+    border
+    border-white/10
+    bg-slate-900
+    px-4
+    py-2
+    text-sm
+    text-slate-300
+    transition
+    hover:bg-slate-800
+  "
+>
+  ← Back
+</Link>
 
-            <button
-              className="
-                rounded-xl
-                bg-indigo-600
-                px-4
-                py-2
-                text-sm
-                font-medium
-                text-white
-                transition
-                hover:bg-indigo-500
-              "
-            >
-              Save
-            </button>
+      
 
           </div>
 
@@ -249,8 +236,9 @@ export default async function TaskDetailPage({
             </div>
 
             <AttachmentsSection
-              attachments={task.attachments}
-            />
+  taskId={task.id}
+  attachments={task.attachments}
+/>
 
           </section>
 
