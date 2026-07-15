@@ -8,7 +8,33 @@ import {
 } from "@prisma/client";
 
 import { prisma } from "@/lib/prisma";
-
+import {
+  notifyTaskCreated,
+  notifyTaskAssigned,
+  notifyTaskTitleChanged,
+  notifyTaskDescriptionChanged,
+  notifyTaskStatusChanged,
+  notifyTaskPriorityChanged,
+  notifyTaskDueDateChanged,
+  notifyTaskEstimateChanged,
+  notifyTaskArchived,
+  notifyTaskRestored,
+  notifyTaskDeleted,
+  notifyTaskDuplicated,
+} from "@/lib/task-notifications";
+import {
+  recordTaskCreated,
+  recordTaskTitleChanged,
+  recordTaskDescriptionChanged,
+  recordTaskStatusChanged,
+  recordTaskPriorityChanged,
+  recordTaskDueDateChanged,
+  recordTaskEstimateChanged,
+  recordTaskArchived,
+  recordTaskRestored,
+  recordTaskDeleted,
+  recordTaskDuplicated,
+} from "@/lib/task-activity";
 import {
   CreateTaskInput,
   CreateTaskSchema,
@@ -105,6 +131,24 @@ console.log({
     });
 
   }
+  await recordTaskCreated(
+  task.id,
+  data.createdById,
+  task.title
+);
+
+await notifyTaskCreated(
+  task.id,
+  "System"
+);
+
+if (data.assignees.length) {
+  await notifyTaskAssigned(
+    task.id,
+    "System",
+    data.assignees
+  );
+}
 
   revalidate(
     data.spaceId,
@@ -120,7 +164,27 @@ export async function deleteTask(
     await getTaskContext(taskId);
 
   if (!task) return;
+const deletedTask =
+  await prisma.task.findUnique({
+    where: {
+      id: taskId,
+    },
+    select: {
+      createdById: true,
+    },
+  });
 
+if (deletedTask) {
+  await recordTaskDeleted(
+    taskId,
+    deletedTask.createdById
+  );
+
+  await notifyTaskDeleted(
+    taskId,
+    "System"
+  );
+}
   await prisma.task.delete({
 
     where: {
@@ -151,12 +215,23 @@ export async function updateTaskTitle(
       },
 
       select: {
-        spaceId: true,
-        projectId: true,
-      },
+  createdById: true,
+  spaceId: true,
+  projectId: true,
+},
 
     });
+await recordTaskTitleChanged(
+  taskId,
+  task.createdById,
+  title
+);
 
+await notifyTaskTitleChanged(
+  taskId,
+  "System",
+  title
+);
   revalidate(
     task.spaceId,
     task.projectId
@@ -180,11 +255,21 @@ export async function updateTaskDescription(
       },
 
       select: {
-        spaceId: true,
-        projectId: true,
-      },
+  createdById: true,
+  spaceId: true,
+  projectId: true,
+},
 
     });
+await recordTaskDescriptionChanged(
+  taskId,
+  task.createdById
+);
+
+await notifyTaskDescriptionChanged(
+  taskId,
+  "System"
+);
 
   revalidate(
     task.spaceId,
@@ -207,11 +292,24 @@ export async function updateTaskStatus(
       },
 
       select: {
-        spaceId: true,
-        projectId: true,
-      },
+  createdById: true,
+  spaceId: true,
+  projectId: true,
+},
 
     });
+
+    await recordTaskStatusChanged(
+  taskId,
+  task.createdById,
+  status
+);
+
+await notifyTaskStatusChanged(
+  taskId,
+  "System",
+  status
+);
 
   revalidate(
     task.spaceId,
@@ -235,11 +333,23 @@ export async function updateTaskPriority(
       },
 
       select: {
-        spaceId: true,
-        projectId: true,
-      },
-
+  createdById: true,
+  spaceId: true,
+  projectId: true,
+},
     });
+
+    await recordTaskPriorityChanged(
+  taskId,
+  task.createdById,
+  priority
+);
+
+await notifyTaskPriorityChanged(
+  taskId,
+  "System",
+  priority
+);
 
   revalidate(
     task.spaceId,
@@ -280,7 +390,23 @@ export async function updateTaskAssignees(
     });
 
   }
+const taskDetails =
+  await prisma.task.findUnique({
+    where: {
+      id: taskId,
+    },
+    select: {
+      createdById: true,
+    },
+  });
 
+if (taskDetails) {
+  await notifyTaskAssigned(
+    taskId,
+    "System",
+    assignees
+  );
+}
   revalidate(
     task.spaceId,
     task.projectId
@@ -303,11 +429,21 @@ export async function updateTaskDueDate(
       },
 
       select: {
-        spaceId: true,
-        projectId: true,
-      },
+  createdById: true,
+  spaceId: true,
+  projectId: true,
+},
 
     });
+await recordTaskDueDateChanged(
+  taskId,
+  task.createdById
+);
+
+await notifyTaskDueDateChanged(
+  taskId,
+  "System"
+);
 
   revalidate(
     task.spaceId,
@@ -331,11 +467,21 @@ export async function updateTaskEstimate(
       },
 
       select: {
-        spaceId: true,
-        projectId: true,
-      },
-
+  createdById: true,
+  spaceId: true,
+  projectId: true,
+},
     });
+
+    await recordTaskEstimateChanged(
+  taskId,
+  task.createdById
+);
+
+await notifyTaskEstimateChanged(
+  taskId,
+  "System"
+);
 
   revalidate(
     task.spaceId,
@@ -358,11 +504,21 @@ export async function archiveTask(
       },
 
       select: {
-        spaceId: true,
-        projectId: true,
-      },
+  createdById: true,
+  spaceId: true,
+  projectId: true,
+},
 
     });
+    await recordTaskArchived(
+  taskId,
+  task.createdById
+);
+
+await notifyTaskArchived(
+  taskId,
+  "System"
+);
 
   revalidate(
     task.spaceId,
@@ -385,11 +541,22 @@ export async function restoreTask(
       },
 
       select: {
-        spaceId: true,
-        projectId: true,
-      },
+  createdById: true,
+  spaceId: true,
+  projectId: true,
+},
 
     });
+
+    await recordTaskRestored(
+  taskId,
+  task.createdById
+);
+
+await notifyTaskRestored(
+  taskId,
+  "System"
+);
 
   revalidate(
     task.spaceId,
@@ -513,25 +680,15 @@ export async function duplicateTask(
 
   }
 
-  await prisma.taskActivity.create({
+  await recordTaskDuplicated(
+  newTask.id,
+  task.createdById
+);
 
-    data: {
-
-      taskId:
-        newTask.id,
-
-      action:
-        "TASK_DUPLICATED",
-
-      message:
-        "Task duplicated",
-
-      userId:
-        task.createdById,
-
-    },
-
-  });
+await notifyTaskDuplicated(
+  newTask.id,
+  "System"
+);
 
   
   revalidate(

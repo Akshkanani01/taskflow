@@ -7,10 +7,6 @@ import { useEffect, useState } from "react";
 import {
   LayoutDashboard,
   Users,
-  UserPlus,
-  Shield,
-  Activity,
-  Lock,
   BarChart3,
   FileText,
   Clock3,
@@ -196,7 +192,40 @@ export function Sidebar() {
           <SpacesNav />
         </Section>
 
+{/* MEMBERS */}
 
+<Section title="Members">
+
+  <Link
+    href="/dashboard/members"
+    className={menuClass(
+      "/dashboard/members"
+    )}
+  >
+
+    <Users size={18} />
+
+    <span className="flex-1">
+      Members
+    </span>
+
+    <span
+      className="
+        rounded-full
+        bg-indigo-500/20
+        px-2
+        py-0.5
+        text-[10px]
+        font-semibold
+        text-indigo-300
+      "
+    >
+      Team
+    </span>
+
+  </Link>
+
+</Section>
         {/* MANAGEMENT */}
 
         <Section title="Management">

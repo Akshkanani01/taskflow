@@ -8,7 +8,7 @@ import {
   Settings,
   ChevronDown,
 } from "lucide-react";
-
+import NotificationBell from "@/components/notifications/notification-bell";
 import { WorkspaceSwitcher } from "./workspace-switcher";
 import { CreateMenu } from "@/components/create/create-menu";
 export function Topbar() {
@@ -72,26 +72,7 @@ export function Topbar() {
       <div className="flex items-center gap-3">
       <CreateMenu />
 
-        <button
-          className="
-            relative
-            rounded-xl
-            border border-white/10
-            bg-slate-900
-            p-3
-            text-slate-300
-          "
-        >
-          <Bell size={18} />
-
-          <span
-            className="
-              absolute right-2 top-2
-              h-2 w-2 rounded-full
-              bg-red-500
-            "
-          />
-        </button>
+        <NotificationBell />
 
         <button
           className="
