@@ -209,125 +209,21 @@ export function Sidebar() {
       Members
     </span>
 
-    <span
-      className="
-        rounded-full
-        bg-indigo-500/20
-        px-2
-        py-0.5
-        text-[10px]
-        font-semibold
-        text-indigo-300
-      "
-    >
-      Team
-    </span>
+    
 
   </Link>
 
 </Section>
-        {/* MANAGEMENT */}
-
-        <Section title="Management">
-
-          <Link
-            href="/dashboard/analytics"
-            className={menuClass(
-              "/dashboard/analytics"
-            )}
-          >
-            <BarChart3 size={18} />
-            Analytics
-          </Link>
-
-          <Link
-            href="/dashboard/reports"
-            className={menuClass(
-              "/dashboard/reports"
-            )}
-          >
-            <FileText size={18} />
-            Reports
-          </Link>
-
-          <Link
-            href="/dashboard/time-tracking"
-            className={menuClass(
-              "/dashboard/time-tracking"
-            )}
-          >
-            <Clock3 size={18} />
-            Time Tracking
-          </Link>
-
-        </Section>
-
+        
         {/* SETTINGS */}
 
-        <Section title="Settings">
-
-          <Link
-            href="/dashboard/settings"
-            className={menuClass(
-              "/dashboard/settings"
-            )}
-          >
-            <Settings size={18} />
-            Settings
-          </Link>
-
-        </Section>
-
+        
       </div>
 
       {/* FOOTER */}
 
-      <div
-        className="
-          border-t
-          border-white/10
-          p-4
-        "
-      >
-        <div
-          className="
-            rounded-2xl
-            border
-            border-indigo-500/20
-            bg-indigo-500/5
-            p-4
-          "
-        >
-          <div className="flex gap-2">
-            <Sparkles
-              size={16}
-              className="text-indigo-400"
-            />
-
-            <span
-              className="
-                text-sm
-                font-medium
-                text-white
-              "
-            >
-              Enterprise Plan
-            </span>
-          </div>
-
-          <p
-            className="
-              mt-2
-              text-xs
-              text-slate-400
-            "
-          >
-            Unlimited Projects,
-            Team Management &
-            Analytics.
-          </p>
-        </div>
-      </div>
+      
+      
 
     </aside>
   );

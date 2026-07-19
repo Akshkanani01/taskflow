@@ -195,11 +195,27 @@ export default async function DashboardPage() {
   }),
 
   prisma.taskActivity.findMany({
-    orderBy: {
-      createdAt: "desc",
+  where: {
+    task: {
+      space: {
+        workspaceId,
+      },
     },
-    take: 6,
-  }),
+  },
+  include: {
+    task: {
+      include: {
+        project: true,
+        space: true,
+      },
+    },
+    user: true,
+  },
+  orderBy: {
+    createdAt: "desc",
+  },
+  take: 6,
+}),
 ]);
 const completionRate =
   totalTasks === 0

@@ -9,12 +9,12 @@ import { createComment } from "@/app/actions/comment-actions";
 
 type Props = {
   taskId: string;
-  userId: string;
+
 };
 
 export default function CommentForm({
   taskId,
-  userId,
+
 }: Props) {
   const router = useRouter();
 
@@ -30,7 +30,6 @@ export default function CommentForm({
     startTransition(async () => {
       await createComment({
         taskId,
-        userId,
         content: text,
       });
 

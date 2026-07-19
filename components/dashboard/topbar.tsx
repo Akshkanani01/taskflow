@@ -1,128 +1,110 @@
 "use client";
 
-import {
-  Bell,
-  Search,
-  Plus,
-  Command,
-  Settings,
-  ChevronDown,
-} from "lucide-react";
+import { Command, Search } from "lucide-react";
+
 import NotificationBell from "@/components/notifications/notification-bell";
 import { WorkspaceSwitcher } from "./workspace-switcher";
-import { CreateMenu } from "@/components/create/create-menu";
+import { UserMenu } from "./user-menu";
+
 export function Topbar() {
   return (
     <header
       className="
-        sticky top-0 z-40
-        flex h-20 items-center justify-between
-        border-b border-white/10
-        bg-slate-950/90
+        sticky
+        top-0
+        z-40
+        flex
+        h-20
+        items-center
+        justify-between
+        border-b
+        border-white/10
+        bg-slate-950/80
         px-8
-        backdrop-blur-xl
+        backdrop-blur-2xl
       "
     >
       {/* Left */}
-      <div className="flex items-center gap-4">
+
+      <div className="flex shrink-0 items-center">
         <WorkspaceSwitcher />
       </div>
 
-      {/* Center Search */}
-      <div className="flex flex-1 justify-center px-8">
-        <div className="relative w-full max-w-xl">
+      {/* Center */}
+
+      <div className="mx-10 flex min-w-0 flex-1 justify-center">
+        <div className="relative w-full max-w-2xl">
           <Search
             size={18}
             className="
-              absolute left-4 top-3.5
+              pointer-events-none
+              absolute
+              left-4
+              top-1/2
+              -translate-y-1/2
               text-slate-500
             "
           />
 
           <input
-            placeholder="Search spaces, lists, tasks..."
+            type="search"
+            aria-label="Search"
+            autoComplete="off"
+            spellCheck={false}
+            placeholder="Search workspaces, spaces, lists and tasks..."
             className="
-              h-11 w-full
-              rounded-xl
-              border border-white/10
-              bg-slate-900
-              pl-11 pr-20
+              h-12
+              w-full
+              rounded-2xl
+              border
+              border-white/10
+              bg-slate-900/70
+              pl-11
+              pr-20
+              text-sm
               text-white
+              placeholder:text-slate-500
               outline-none
+              transition-all
+              duration-200
+              focus:border-blue-500/40
+              focus:ring-2
+              focus:ring-blue-500/20
             "
           />
 
           <div
             className="
-              absolute right-3 top-2.5
-              flex items-center gap-1
+              pointer-events-none
+              absolute
+              right-3
+              top-1/2
+              flex
+              -translate-y-1/2
+              items-center
+              gap-1
               rounded-lg
-              border border-white/10
-              px-2 py-1
-              text-xs text-slate-400
+              border
+              border-white/10
+              bg-white/5
+              px-2.5
+              py-1
+              text-xs
+              text-slate-400
             "
           >
             <Command size={12} />
-            K
+            <span>K</span>
           </div>
         </div>
       </div>
 
       {/* Right */}
-      <div className="flex items-center gap-3">
-      <CreateMenu />
 
+      <div className="flex shrink-0 items-center gap-3">
         <NotificationBell />
 
-        <button
-          className="
-            rounded-xl
-            border border-white/10
-            bg-slate-900
-            p-3
-            text-slate-300
-          "
-        >
-          <Settings size={18} />
-        </button>
-
-        <button
-          className="
-            flex items-center gap-3
-            rounded-xl
-            border border-white/10
-            bg-slate-900
-            px-3 py-2
-          "
-        >
-          <div
-            className="
-              flex h-10 w-10
-              items-center justify-center
-              rounded-full
-              bg-indigo-600
-              font-semibold
-              text-white
-            "
-          >
-            A
-          </div>
-
-          <div className="hidden text-left lg:block">
-            <p className="text-sm font-medium text-white">
-              Aksh Kanani
-            </p>
-
-            <p className="text-xs text-slate-400">
-              Owner
-            </p>
-          </div>
-
-          <ChevronDown
-            size={16}
-            className="text-slate-500"
-          />
-        </button>
+        <UserMenu />
       </div>
     </header>
   );

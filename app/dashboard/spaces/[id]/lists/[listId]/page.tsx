@@ -21,24 +21,17 @@ console.log("CURRENT USER =", currentUser);
     id: spaceId,
     listId: projectId,
   } = await params;
-    const project =
-    await prisma.project.findFirst({
+    const project = await prisma.project.findFirst({
+  where: {
+    id: projectId,
+    spaceId,
+  },
+  include: {
+    space: true,
+  },
+});
 
-      where: {
-
-        id: projectId,
-
-        spaceId,
-
-      },
-
-      include: {
-
-        space: true,
-
-      },
-
-    });
+console.log("PROJECT =", project);
 
   if (!project) {
 
