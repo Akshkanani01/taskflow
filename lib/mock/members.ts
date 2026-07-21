@@ -3,6 +3,7 @@ import { SpaceMember } from "@/components/space-members/types";
 export const MOCK_MEMBERS: SpaceMember[] = [
   {
     id: "1",
+    userId: "1",
     name: "Aksh Kanani",
     email: "aksh@taskflow.dev",
     avatar: null,
@@ -13,6 +14,7 @@ export const MOCK_MEMBERS: SpaceMember[] = [
   },
   {
     id: "2",
+    userId: "2",
     name: "Rahul Patel",
     email: "rahul@taskflow.dev",
     avatar: null,
@@ -23,6 +25,7 @@ export const MOCK_MEMBERS: SpaceMember[] = [
   },
   {
     id: "3",
+    userId: "3",
     name: "Meet Shah",
     email: "meet@taskflow.dev",
     avatar: null,
@@ -33,6 +36,7 @@ export const MOCK_MEMBERS: SpaceMember[] = [
   },
   {
     id: "4",
+    userId: "4",
     name: "Nikhil Nakum",
     email: "nikhil@taskflow.dev",
     avatar: null,

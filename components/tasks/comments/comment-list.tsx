@@ -1,7 +1,17 @@
 import CommentItem from "./comment-item";
 
+interface Comment {
+  id: string;
+  content: string;
+  createdAt: Date;
+  user: {
+    name: string | null;
+    image: string | null;
+  };
+}
+
 interface Props {
-  comments: any[];
+  comments: Comment[];
   currentUserId: string;
 }
 
@@ -20,17 +30,16 @@ export default function CommentList({
   return (
     <div className="space-y-8">
 
-      {comments.map(
-        (comment) => (
-          <CommentItem
+      {comments.map((comment) => (
+  <CommentItem
+    key={comment.id}
     id={comment.id}
     name={comment.user.name ?? "Unknown"}
     image={comment.user.image}
     content={comment.content}
     createdAt={comment.createdAt.toLocaleString()}
-/>
-        )
-      )}
+  />
+))}
 
     </div>
   );

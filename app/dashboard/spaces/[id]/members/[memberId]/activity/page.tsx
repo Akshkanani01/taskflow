@@ -257,10 +257,8 @@ export default async function MemberActivityPage({
             </h3>
 
             <p className="mt-2 text-slate-500">
-
-              This member hasn't performed any activity yet.
-
-            </p>
+  This member hasn&apos;t performed any activity yet.
+</p>
 
           </div>
 

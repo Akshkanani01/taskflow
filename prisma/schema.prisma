@@ -148,7 +148,13 @@ model User {
   activities             TaskActivity[]
   comments               TaskComment[]
   notificationPreference NotificationPreference?
+  preferences UserPreference?
+  sentInvites WorkspaceInvite[] @relation("WorkspaceInviteSender")
+
+acceptedInvites WorkspaceInvite[] @relation("WorkspaceInviteAccepter")
+
 }
+
 
 /**
  * ================= SESSION =================
@@ -497,7 +503,11 @@ model WorkspaceInvite {
 
   invitedById String?
 
-  acceptedById String?
+invitedBy User? @relation( "WorkspaceInviteSender", fields: [invitedById], references: [id] )
+
+acceptedById String?
+
+acceptedBy User? @relation( "WorkspaceInviteAccepter", fields: [acceptedById], references: [id] )
 
   acceptedAt DateTime?
 
@@ -545,4 +555,23 @@ model SpaceMember {
   @@unique([spaceId, userId])
   @@index([spaceId])
   @@index([userId])
+}
+
+model UserPreference {
+  id String @id @default(cuid())
+
+  userId String @unique
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  language String @default("en")
+  timeZone String @default("Asia/Kolkata")
+  dateFormat String @default("DD/MM/YYYY")
+  timeFormat String @default("24")
+  weekStartsOn String @default("MONDAY")
+
+  compactMode Boolean @default(false)
+  autoSave Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

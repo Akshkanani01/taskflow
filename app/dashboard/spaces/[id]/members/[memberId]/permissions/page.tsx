@@ -217,7 +217,7 @@ export default async function MemberPermissionsPage({
 
             <p className="mt-2 text-slate-400">
 
-              Review this member's access level and workspace permissions.
+              Review this member&apos;s access level and workspace permissions.
 
             </p>
 

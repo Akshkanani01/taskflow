@@ -77,8 +77,8 @@ export default function PermissionDrawer({
           </SheetTitle>
 
           <SheetDescription className="text-left text-zinc-500">
-            Update this member's role and permissions.
-          </SheetDescription>
+  Update this member&apos;s role and permissions.
+</SheetDescription>
 
         </SheetHeader>
 

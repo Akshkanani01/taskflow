@@ -1,40 +1,59 @@
 import { NextResponse } from "next/server";
+import {
+  Prisma,
+  Priority,
+  TaskStatus,
+} from "@prisma/client";
+
 import { prisma } from "@/lib/prisma";
 
+import { getCurrentUser } from "@/lib/session";
+
+import { requireProject } from "@/lib/auth/require-project";
+
+import { Permissions } from "@/lib/rbac/permissions";
+import { requirePermission } from "@/lib/rbac/server";
 export async function POST(req: Request) {
   try {
     const formData = await req.formData();
 
-    const title =
-      formData.get("title")?.toString() || "";
+    const title = formData.get("title")?.toString().trim() ?? "";
 
     const description =
-      formData.get("description")?.toString() || "";
+      formData.get("description")?.toString().trim() ?? "";
+
+    const rawStatus =
+      formData.get("status")?.toString().toUpperCase() ?? "TODO";
+
+    const rawPriority =
+      formData.get("priority")?.toString().toUpperCase() ?? "MEDIUM";
 
     const status =
-      formData.get("status")?.toString() || "todo";
+      TaskStatus[
+        rawStatus as keyof typeof TaskStatus
+      ] ?? TaskStatus.TODO;
 
     const priority =
-      formData.get("priority")?.toString() || "normal";
+      Priority[
+        rawPriority as keyof typeof Priority
+      ] ?? Priority.MEDIUM;
 
     const dueDate =
-      formData.get("dueDate")?.toString() || "";
+      formData.get("dueDate")?.toString() ?? "";
 
     const projectId =
-      formData.get("projectId")?.toString() || "";
+      formData.get("projectId")?.toString() ?? "";
 
-    const assigneeIds = JSON.parse(
-      formData.get("assigneeIds")?.toString() || "[]"
+    const assigneeIds: string[] = JSON.parse(
+      formData.get("assigneeIds")?.toString() ?? "[]"
     );
 
-    const uploadedFiles =
-      formData.getAll("files") as File[];
+    const uploadedFiles = formData.getAll("files") as File[];
 
     if (!title || !projectId) {
       return NextResponse.json(
         {
-          error:
-            "Title and Project are required",
+          error: "Title and Project are required",
         },
         {
           status: 400,
@@ -42,70 +61,82 @@ export async function POST(req: Request) {
       );
     }
 
-    const task =
-      await prisma.task.create({
-        data: {
-          title,
-          description,
-          status,
-          priority,
+    const task = await prisma.task.create({
+      data: {
+        title,
+        description,
+        status,
+        priority,
 
-          dueDate: dueDate
-            ? new Date(dueDate)
-            : null,
+        dueDate: dueDate
+          ? new Date(dueDate)
+          : null,
 
-          projectId,
+        projectId,
+        spaceId: formData.get("spaceId")?.toString() ?? "",
+        createdById: formData.get("createdById")?.toString() ?? "",
+      },
 
-          assignees: {
-            create:
-              assigneeIds.map(
-                (userId: string) => ({
-                  userId,
-                })
-              ),
+      include: {
+        taskAssignees: {
+          include: {
+            user: true,
           },
         },
 
-        include: {
-          assignees: {
-            include: {
-              user: true,
-            },
-          },
+        attachments: true,
+      },
+    });
 
-          attachments: true,
-        },
-      });
+    if (assigneeIds.length > 0) {
+      await prisma.taskAssignee.createMany({
+        data: assigneeIds.map((userId) => ({
+          taskId: task.id,
+          userId,
+        })),
 
-    if (uploadedFiles.length > 0) {
-      await prisma.taskAttachment.createMany({
-        data: uploadedFiles.map(
-          (file) => ({
-            taskId: task.id,
-
-            fileName: file.name,
-
-            fileUrl: `/uploads/${file.name}`,
-
-            fileSize: file.size,
-
-            mimeType: file.type,
-          })
-        ),
+        skipDuplicates: true,
       });
     }
 
-    return NextResponse.json(task);
+    if (uploadedFiles.length > 0) {
+      const attachments: Prisma.TaskAttachmentCreateManyInput[] =
+        uploadedFiles.map((file) => ({
+          taskId: task.id,
+          name: file.name,
+          url: `/uploads/${file.name}`,
+          fileSize: file.size,
+          mimeType: file.type,
+        }));
+
+      await prisma.taskAttachment.createMany({
+        data: attachments,
+      });
+    }
+
+    const createdTask = await prisma.task.findUnique({
+      where: {
+        id: task.id,
+      },
+
+      include: {
+        taskAssignees: {
+          include: {
+            user: true,
+          },
+        },
+
+        attachments: true,
+      },
+    });
+
+    return NextResponse.json(createdTask);
   } catch (error) {
-    console.error(
-      "CREATE TASK ERROR",
-      error
-    );
+    console.error("CREATE TASK ERROR", error);
 
     return NextResponse.json(
       {
-        error:
-          "Failed to create task",
+        error: "Failed to create task",
       },
       {
         status: 500,

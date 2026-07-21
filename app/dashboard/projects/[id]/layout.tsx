@@ -18,10 +18,7 @@ export default async function ProjectLayout({
       name: "List",
       href: `/dashboard/projects/${id}`,
     },
-    {
-      name: "Board",
-      href: `/dashboard/projects/${id}/board`,
-    },
+    
     {
       name: "Calendar",
       href: `/dashboard/projects/${id}/calendar`,

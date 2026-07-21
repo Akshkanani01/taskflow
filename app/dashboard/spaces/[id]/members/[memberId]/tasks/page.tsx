@@ -247,7 +247,7 @@ export default async function MemberTasksPage({
 
             <p className="mt-2 text-slate-500">
 
-              This member doesn't have any assigned tasks yet.
+              This member doesn&apos;t have any assigned tasks yet.
 
             </p>
 

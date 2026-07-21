@@ -269,7 +269,7 @@ export default async function MemberFilesPage({
 
             <p className="mt-2 text-slate-500">
 
-              This member hasn't uploaded any files yet.
+              This member hasn&apos;t uploaded any files yet.
 
             </p>
 

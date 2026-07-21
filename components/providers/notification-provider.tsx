@@ -101,7 +101,7 @@ const NotificationContext =
   }
     useEffect(() => {
 
-    refresh();
+    void refresh();
 
     const eventSource =
       new EventSource(

@@ -8,9 +8,16 @@ import {
 } from "@prisma/client";
 
 import { prisma } from "@/lib/prisma";
+
+import { requireUser } from "@/lib/auth/require-user";
+import { requireProject } from "@/lib/auth/require-project";
+
+import { Permissions } from "@/lib/rbac/permissions";
+import { requirePermission } from "@/lib/rbac/server";
+
 import {
-  notifyTaskCreated,
   notifyTaskAssigned,
+  notifyTaskCreated,
   notifyTaskTitleChanged,
   notifyTaskDescriptionChanged,
   notifyTaskStatusChanged,
@@ -22,6 +29,7 @@ import {
   notifyTaskDeleted,
   notifyTaskDuplicated,
 } from "@/lib/task-notifications";
+
 import {
   recordTaskCreated,
   recordTaskTitleChanged,
@@ -35,6 +43,7 @@ import {
   recordTaskDeleted,
   recordTaskDuplicated,
 } from "@/lib/task-activity";
+
 import {
   CreateTaskInput,
   CreateTaskSchema,
@@ -60,138 +69,177 @@ async function getTaskContext(
     where: {
       id: taskId,
     },
+
     select: {
       id: true,
+
       spaceId: true,
+
       projectId: true,
+
+      createdById: true,
+
+      project: {
+        select: {
+          spaceId: true,
+
+          space: {
+            select: {
+              workspaceId: true,
+            },
+          },
+        },
+      },
     },
   });
 }
+
 export async function createTask(
   input: CreateTaskInput
 ) {
+  const user =
+    await requireUser();
+
   const data =
     CreateTaskSchema.parse(input);
-console.log({
-  createdById: data.createdById,
-  projectId: data.projectId,
-  spaceId: data.spaceId,
-});
+
+  const project =
+    await requireProject(
+      data.projectId
+    );
+
+  await requirePermission(
+    user.id,
+    project.space.workspaceId,
+    Permissions.TASK_CREATE
+  );
+
   const task =
-    await prisma.task.create({
+    await prisma.$transaction(
+      async (tx) => {
+        const createdTask =
+          await tx.task.create({
+            data: {
+              title:
+                data.title.trim(),
 
-      data: {
+              description:
+                data.description?.trim() ||
+                null,
 
-        title:
-          data.title.trim(),
+              projectId:
+                project.id,
 
-        description:
-          data.description?.trim() ||
-          null,
+              spaceId:
+                project.spaceId,
 
-        projectId:
-          data.projectId,
+              createdById:
+                user.id,
 
-        spaceId:
-          data.spaceId,
+              priority:
+                data.priority,
 
-        createdById:
-          data.createdById,
+              status:
+                data.status,
 
-        priority:
-          data.priority,
+              dueDate:
+                data.dueDate,
 
-        status:
-          data.status,
+              estimatedHours:
+                data.estimatedHours,
+            },
+          });
 
-        dueDate:
-          data.dueDate,
+        if (
+          data.assignees.length > 0
+        ) {
+          await tx.taskAssignee.createMany({
+            data:
+              data.assignees.map(
+                (
+                  assigneeId
+                ) => ({
+                  taskId:
+                    createdTask.id,
+                  userId:
+                    assigneeId,
+                })
+              ),
+          });
+        }
 
-        estimatedHours:
-          data.estimatedHours,
+        return createdTask;
+      }
+    );
 
-      },
+    await recordTaskCreated(
+      task.id,
+      user.id,
+      task.title
+    );
 
-    });
+    await notifyTaskCreated(
+      task.id,
+      "System"
+    );
 
-  if (
-    data.assignees.length
-  ) {
+    if (
+      data.assignees.length > 0
+    ) {
+      await notifyTaskAssigned(
+        task.id,
+        "System",
+        data.assignees
+      );
+    }
 
-    await prisma.taskAssignee.createMany({
+    revalidate(
+      project.spaceId,
+      project.id
+    );
 
-      data:
-        data.assignees.map(
-          (userId) => ({
-            taskId: task.id,
-            userId,
-          })
-        ),
-
-    });
-
-  }
-  await recordTaskCreated(
-  task.id,
-  data.createdById,
-  task.title
-);
-
-await notifyTaskCreated(
-  task.id,
-  "System"
-);
-
-if (data.assignees.length) {
-  await notifyTaskAssigned(
-    task.id,
-    "System",
-    data.assignees
-  );
-}
-
-  revalidate(
-    data.spaceId,
-    data.projectId
-  );
-
-  return task;
+    return task;
 }
 export async function deleteTask(
   taskId: string
 ) {
+  const user =
+    await requireUser();
+
   const task =
     await getTaskContext(taskId);
 
-  if (!task) return;
-const deletedTask =
-  await prisma.task.findUnique({
-    where: {
-      id: taskId,
-    },
-    select: {
-      createdById: true,
-    },
-  });
+  if (!task) {
+    throw new Error(
+      "Task not found."
+    );
+  }
 
-if (deletedTask) {
-  await recordTaskDeleted(
-    taskId,
-    deletedTask.createdById
+  await requirePermission(
+    user.id,
+    task.project.space.workspaceId,
+    Permissions.TASK_DELETE
   );
 
-  await notifyTaskDeleted(
-    taskId,
-    "System"
+  await prisma.$transaction(
+    async (tx) => {
+      await recordTaskDeleted(
+        task.id,
+        user.id
+      );
+
+      await notifyTaskDeleted(
+        task.id,
+        "System"
+      );
+
+      await tx.task.delete({
+        where: {
+          id: task.id,
+        },
+      });
+    }
   );
-}
-  await prisma.task.delete({
-
-    where: {
-      id: taskId,
-    },
-
-  });
 
   revalidate(
     task.spaceId,
@@ -203,35 +251,55 @@ export async function updateTaskTitle(
   taskId: string,
   title: string
 ) {
+  const user =
+    await requireUser();
+
+  const context =
+    await getTaskContext(taskId);
+
+  if (!context) {
+    throw new Error(
+      "Task not found."
+    );
+  }
+
+  await requirePermission(
+    user.id,
+    context.project.space.workspaceId,
+    Permissions.TASK_UPDATE
+  );
+
   const task =
     await prisma.task.update({
-
       where: {
         id: taskId,
       },
 
       data: {
-        title: title.trim(),
+        title:
+          title.trim(),
       },
 
       select: {
-  createdById: true,
-  spaceId: true,
-  projectId: true,
-},
-
+        id: true,
+        title: true,
+        spaceId: true,
+        projectId: true,
+      },
     });
-await recordTaskTitleChanged(
-  taskId,
-  task.createdById,
-  title
-);
 
-await notifyTaskTitleChanged(
-  taskId,
-  "System",
-  title
-);
+  await recordTaskTitleChanged(
+    task.id,
+    user.id,
+    task.title
+  );
+
+  await notifyTaskTitleChanged(
+    task.id,
+    "System",
+    task.title
+  );
+
   revalidate(
     task.spaceId,
     task.projectId
@@ -242,34 +310,52 @@ export async function updateTaskDescription(
   taskId: string,
   description: string
 ) {
+  const user =
+    await requireUser();
+
+  const context =
+    await getTaskContext(taskId);
+
+  if (!context) {
+    throw new Error(
+      "Task not found."
+    );
+  }
+
+  await requirePermission(
+    user.id,
+    context.project.space.workspaceId,
+    Permissions.TASK_UPDATE
+  );
+
   const task =
     await prisma.task.update({
-
       where: {
         id: taskId,
       },
 
       data: {
         description:
-          description.trim() || null,
+          description.trim() ||
+          null,
       },
 
       select: {
-  createdById: true,
-  spaceId: true,
-  projectId: true,
-},
-
+        id: true,
+        spaceId: true,
+        projectId: true,
+      },
     });
-await recordTaskDescriptionChanged(
-  taskId,
-  task.createdById
-);
 
-await notifyTaskDescriptionChanged(
-  taskId,
-  "System"
-);
+  await recordTaskDescriptionChanged(
+    task.id,
+    user.id
+  );
+
+  await notifyTaskDescriptionChanged(
+    task.id,
+    "System"
+  );
 
   revalidate(
     task.spaceId,
@@ -280,9 +366,26 @@ export async function updateTaskStatus(
   taskId: string,
   status: TaskStatus
 ) {
+  const user =
+    await requireUser();
+
+  const context =
+    await getTaskContext(taskId);
+
+  if (!context) {
+    throw new Error(
+      "Task not found."
+    );
+  }
+
+  await requirePermission(
+    user.id,
+    context.project.space.workspaceId,
+    Permissions.TASK_STATUS_UPDATE
+  );
+
   const task =
     await prisma.task.update({
-
       where: {
         id: taskId,
       },
@@ -292,24 +395,24 @@ export async function updateTaskStatus(
       },
 
       select: {
-  createdById: true,
-  spaceId: true,
-  projectId: true,
-},
-
+        id: true,
+        status: true,
+        spaceId: true,
+        projectId: true,
+      },
     });
 
-    await recordTaskStatusChanged(
-  taskId,
-  task.createdById,
-  status
-);
+  await recordTaskStatusChanged(
+    task.id,
+    user.id,
+    task.status
+  );
 
-await notifyTaskStatusChanged(
-  taskId,
-  "System",
-  status
-);
+  await notifyTaskStatusChanged(
+    task.id,
+    "System",
+    task.status
+  );
 
   revalidate(
     task.spaceId,
@@ -321,9 +424,26 @@ export async function updateTaskPriority(
   taskId: string,
   priority: Priority
 ) {
+  const user =
+    await requireUser();
+
+  const context =
+    await getTaskContext(taskId);
+
+  if (!context) {
+    throw new Error(
+      "Task not found."
+    );
+  }
+
+  await requirePermission(
+    user.id,
+    context.project.space.workspaceId,
+    Permissions.TASK_PRIORITY_UPDATE
+  );
+
   const task =
     await prisma.task.update({
-
       where: {
         id: taskId,
       },
@@ -333,93 +453,116 @@ export async function updateTaskPriority(
       },
 
       select: {
-  createdById: true,
-  spaceId: true,
-  projectId: true,
-},
+        id: true,
+        priority: true,
+        spaceId: true,
+        projectId: true,
+      },
     });
 
-    await recordTaskPriorityChanged(
-  taskId,
-  task.createdById,
-  priority
-);
+  await recordTaskPriorityChanged(
+    task.id,
+    user.id,
+    task.priority
+  );
 
-await notifyTaskPriorityChanged(
-  taskId,
-  "System",
-  priority
-);
+  await notifyTaskPriorityChanged(
+    task.id,
+    "System",
+    task.priority
+  );
 
   revalidate(
     task.spaceId,
     task.projectId
   );
 }
+
 export async function updateTaskAssignees(
   taskId: string,
   assignees: string[]
 ) {
-  const task =
+  const user =
+    await requireUser();
+
+  const context =
     await getTaskContext(taskId);
 
-  if (!task) return;
-
-  await prisma.taskAssignee.deleteMany({
-
-    where: {
-      taskId,
-    },
-
-  });
-
-  if (assignees.length > 0) {
-
-    await prisma.taskAssignee.createMany({
-
-      data: assignees.map(
-        (userId) => ({
-
-          taskId,
-
-          userId,
-
-        })
-      ),
-
-    });
-
+  if (!context) {
+    throw new Error(
+      "Task not found."
+    );
   }
-const taskDetails =
-  await prisma.task.findUnique({
-    where: {
-      id: taskId,
-    },
-    select: {
-      createdById: true,
-    },
-  });
 
-if (taskDetails) {
-  await notifyTaskAssigned(
-    taskId,
-    "System",
-    assignees
+  await requirePermission(
+    user.id,
+    context.project.space.workspaceId,
+    Permissions.TASK_ASSIGN
   );
-}
+
+  await prisma.$transaction(
+    async (tx) => {
+      await tx.taskAssignee.deleteMany({
+        where: {
+          taskId,
+        },
+      });
+
+      if (
+        assignees.length > 0
+      ) {
+        await tx.taskAssignee.createMany({
+          data:
+            assignees.map(
+              (userId) => ({
+                taskId,
+                userId,
+              })
+            ),
+        });
+      }
+    }
+  );
+
+  if (
+    assignees.length > 0
+  ) {
+    await notifyTaskAssigned(
+      taskId,
+      "System",
+      assignees
+    );
+  }
+
   revalidate(
-    task.spaceId,
-    task.projectId
+    context.spaceId,
+    context.projectId
   );
 }
-
 export async function updateTaskDueDate(
   taskId: string,
   dueDate: Date | null
 ) {
+  const user =
+    await requireUser();
+
+  const context =
+    await getTaskContext(taskId);
+
+  if (!context) {
+    throw new Error(
+      "Task not found."
+    );
+  }
+
+  await requirePermission(
+    user.id,
+    context.project.space.workspaceId,
+    Permissions.TASK_DUE_DATE_UPDATE
+  );
+
   const task =
     await prisma.task.update({
-
       where: {
         id: taskId,
       },
@@ -429,21 +572,21 @@ export async function updateTaskDueDate(
       },
 
       select: {
-  createdById: true,
-  spaceId: true,
-  projectId: true,
-},
-
+        id: true,
+        spaceId: true,
+        projectId: true,
+      },
     });
-await recordTaskDueDateChanged(
-  taskId,
-  task.createdById
-);
 
-await notifyTaskDueDateChanged(
-  taskId,
-  "System"
-);
+  await recordTaskDueDateChanged(
+    task.id,
+    user.id
+  );
+
+  await notifyTaskDueDateChanged(
+    task.id,
+    "System"
+  );
 
   revalidate(
     task.spaceId,
@@ -455,9 +598,26 @@ export async function updateTaskEstimate(
   taskId: string,
   estimatedHours: number | null
 ) {
+  const user =
+    await requireUser();
+
+  const context =
+    await getTaskContext(taskId);
+
+  if (!context) {
+    throw new Error(
+      "Task not found."
+    );
+  }
+
+  await requirePermission(
+    user.id,
+    context.project.space.workspaceId,
+    Permissions.TASK_UPDATE
+  );
+
   const task =
     await prisma.task.update({
-
       where: {
         id: taskId,
       },
@@ -467,21 +627,21 @@ export async function updateTaskEstimate(
       },
 
       select: {
-  createdById: true,
-  spaceId: true,
-  projectId: true,
-},
+        id: true,
+        spaceId: true,
+        projectId: true,
+      },
     });
 
-    await recordTaskEstimateChanged(
-  taskId,
-  task.createdById
-);
+  await recordTaskEstimateChanged(
+    task.id,
+    user.id
+  );
 
-await notifyTaskEstimateChanged(
-  taskId,
-  "System"
-);
+  await notifyTaskEstimateChanged(
+    task.id,
+    "System"
+  );
 
   revalidate(
     task.spaceId,
@@ -492,9 +652,26 @@ await notifyTaskEstimateChanged(
 export async function archiveTask(
   taskId: string
 ) {
+  const user =
+    await requireUser();
+
+  const context =
+    await getTaskContext(taskId);
+
+  if (!context) {
+    throw new Error(
+      "Task not found."
+    );
+  }
+
+  await requirePermission(
+    user.id,
+    context.project.space.workspaceId,
+    Permissions.TASK_UPDATE
+  );
+
   const task =
     await prisma.task.update({
-
       where: {
         id: taskId,
       },
@@ -504,34 +681,50 @@ export async function archiveTask(
       },
 
       select: {
-  createdById: true,
-  spaceId: true,
-  projectId: true,
-},
-
+        id: true,
+        spaceId: true,
+        projectId: true,
+      },
     });
-    await recordTaskArchived(
-  taskId,
-  task.createdById
-);
 
-await notifyTaskArchived(
-  taskId,
-  "System"
-);
+  await recordTaskArchived(
+    task.id,
+    user.id
+  );
+
+  await notifyTaskArchived(
+    task.id,
+    "System"
+  );
 
   revalidate(
     task.spaceId,
     task.projectId
   );
 }
-
 export async function restoreTask(
   taskId: string
 ) {
+  const user =
+    await requireUser();
+
+  const context =
+    await getTaskContext(taskId);
+
+  if (!context) {
+    throw new Error(
+      "Task not found."
+    );
+  }
+
+  await requirePermission(
+    user.id,
+    context.project.space.workspaceId,
+    Permissions.TASK_UPDATE
+  );
+
   const task =
     await prisma.task.update({
-
       where: {
         id: taskId,
       },
@@ -541,160 +734,175 @@ export async function restoreTask(
       },
 
       select: {
-  createdById: true,
-  spaceId: true,
-  projectId: true,
-},
-
+        id: true,
+        spaceId: true,
+        projectId: true,
+      },
     });
 
-    await recordTaskRestored(
-  taskId,
-  task.createdById
-);
+  await recordTaskRestored(
+    task.id,
+    user.id
+  );
 
-await notifyTaskRestored(
-  taskId,
-  "System"
-);
+  await notifyTaskRestored(
+    task.id,
+    "System"
+  );
 
   revalidate(
     task.spaceId,
     task.projectId
   );
 }
+
 export async function duplicateTask(
   taskId: string
 ) {
+  const user =
+    await requireUser();
 
-  const task =
+  const context =
+    await getTaskContext(taskId);
+
+  if (!context) {
+    throw new Error(
+      "Task not found."
+    );
+  }
+
+  await requirePermission(
+    user.id,
+    context.project.space.workspaceId,
+    Permissions.TASK_CREATE
+  );
+
+  const sourceTask =
     await prisma.task.findUnique({
-
       where: {
         id: taskId,
       },
 
       include: {
-
         taskAssignees: true,
-
         checklists: true,
-
       },
-
     });
 
-  if (!task) {
-    return;
+  if (!sourceTask) {
+    throw new Error(
+      "Task not found."
+    );
   }
-    const newTask =
-    await prisma.task.create({
 
-      data: {
+  const duplicatedTask =
+    await prisma.$transaction(
+      async (tx) => {
+        const task =
+          await tx.task.create({
+            data: {
+              title:
+                `${sourceTask.title} (Copy)`,
 
-        title:
-          `${task.title} (Copy)`,
+              description:
+                sourceTask.description,
 
-        description:
-          task.description,
+              status:
+                sourceTask.status,
 
-        status:
-          task.status,
+              priority:
+                sourceTask.priority,
 
-        priority:
-          task.priority,
+              startDate:
+                sourceTask.startDate,
 
-        startDate:
-          task.startDate,
+              dueDate:
+                sourceTask.dueDate,
 
-        dueDate:
-          task.dueDate,
+              estimatedHours:
+                sourceTask.estimatedHours,
 
-        estimatedHours:
-          task.estimatedHours,
+              position:
+                sourceTask.position +
+                1,
 
-        position:
-          task.position + 1,
+              archived: false,
 
-        archived: false,
+              projectId:
+                sourceTask.projectId,
 
-        projectId:
-          task.projectId,
+              spaceId:
+                sourceTask.spaceId,
 
-        spaceId:
-          task.spaceId,
+              createdById:
+                user.id,
+            },
+          });
 
-        createdById:
-          task.createdById,
+        if (
+          sourceTask.taskAssignees
+            .length > 0
+        ) {
+          await tx.taskAssignee.createMany(
+            {
+              data:
+                sourceTask.taskAssignees.map(
+                  (
+                    assignee
+                  ) => ({
+                    taskId:
+                      task.id,
+                    userId:
+                      assignee.userId,
+                  })
+                ),
+            }
+          );
+        }
 
-      },
+        if (
+          sourceTask.checklists
+            .length > 0
+        ) {
+          await tx.taskChecklist.createMany(
+            {
+              data:
+                sourceTask.checklists.map(
+                  (
+                    checklist
+                  ) => ({
+                    taskId:
+                      task.id,
 
-    });
-      if (
-    task.taskAssignees.length
-  ) {
+                    title:
+                      checklist.title,
 
-    await prisma.taskAssignee.createMany({
+                    completed:
+                      checklist.completed,
+                  })
+                ),
+            }
+          );
+        }
 
-      data:
-        task.taskAssignees.map(
-          (assignee) => ({
-
-            taskId:
-              newTask.id,
-
-            userId:
-              assignee.userId,
-
-          })
-        ),
-
-    });
-
-  }
-    if (
-    task.checklists.length
-  ) {
-
-    await prisma.taskChecklist.createMany({
-
-      data:
-        task.checklists.map(
-          (item) => ({
-
-            taskId:
-              newTask.id,
-
-            title:
-              item.title,
-
-            completed:
-              item.completed,
-
-        
-
-          })
-        ),
-
-    });
-
-  }
+        return task;
+      }
+    );
 
   await recordTaskDuplicated(
-  newTask.id,
-  task.createdById
-);
+    duplicatedTask.id,
+    user.id
+  );
 
-await notifyTaskDuplicated(
-  newTask.id,
-  "System"
-);
+  await notifyTaskDuplicated(
+    duplicatedTask.id,
+    "System"
+  );
 
-  
   revalidate(
-  task.spaceId,
-  task.projectId
-);
-  return newTask;
+    duplicatedTask.spaceId,
+    duplicatedTask.projectId
+  );
 
+  return duplicatedTask;
 }

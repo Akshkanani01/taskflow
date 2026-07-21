@@ -1,52 +1,54 @@
-import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
-import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
+import { requireUser } from "@/lib/auth/require-user";
+
 export async function GET() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  try {
+    const user =
+      await requireUser();
 
-  if (!session?.user) {
-    return NextResponse.json([], {
-      status: 401,
-    });
-  }
-
-  const workspaces =
-    await prisma.workspace.findMany({
-
-      where: {
-
-        members: {
-
-          some: {
-
-            userId: session.user.id,
-
+    const workspaces =
+      await prisma.workspace.findMany({
+        where: {
+          members: {
+            some: {
+              userId: user.id,
+            },
           },
-
         },
 
-      },
+        select: {
+          id: true,
 
-      select: {
+          name: true,
 
-        id: true,
+          slug: true,
 
-        name: true,
+          ownerId: true,
 
-      },
+          createdAt: true,
 
-      orderBy: {
+          updatedAt: true,
+        },
 
-        createdAt: "asc",
+        orderBy: {
+          createdAt: "asc",
+        },
+      });
 
-      },
+    return NextResponse.json(
+      workspaces
+    );
+  } catch (error) {
+    console.error(error);
 
-    });
-
-  return NextResponse.json(workspaces);
+    return NextResponse.json(
+      [],
+      {
+        status: 401,
+      }
+    );
+  }
 }

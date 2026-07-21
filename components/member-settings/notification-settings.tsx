@@ -4,9 +4,9 @@ import { useState, useTransition } from "react";
 import { Bell } from "lucide-react";
 
 import { updateNotificationPreferences } from "@/app/actions/member-actions";
-
+import type { NotificationPreference } from "@prisma/client";
 interface Props {
-  preference: any;
+  preference: NotificationPreference | null;
 }
 
 type Settings = {

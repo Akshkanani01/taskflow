@@ -9,7 +9,7 @@ Users,
 Target,
 TrendingUp,
 } from "lucide-react";
-
+import { TaskStatus } from "@prisma/client";
 export default async function ProjectOverviewPage({
 params,
 }: {
@@ -30,7 +30,7 @@ if (!project) notFound();
 const totalTasks = project.tasks.length;
 
 const completedTasks = project.tasks.filter(
-(t) => t.status === "done"
+(t) => t.status === TaskStatus.DONE
 ).length;
 
 const progress =

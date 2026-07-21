@@ -1,5 +1,5 @@
 "use client";
-
+import type { TaskStatus } from "@prisma/client";
 import {
   useState,
   useTransition,
@@ -17,23 +17,21 @@ type Props = {
   value: string;
 };
 
-const STATUS = [
-  "BACKLOG",
+const STATUSES: TaskStatus[] = [
   "TODO",
   "IN_PROGRESS",
   "REVIEW",
-  "TESTING",
   "DONE",
-  "CANCELLED",
 ];
 
 export default function TaskStatusEditor({
   taskId,
   value,
 }: Props) {
-
-  const [status, setStatus] =
-    useState(value);
+const [status, setStatus] =
+  useState<TaskStatus>(
+    value as TaskStatus
+  );
 
   const [
     pending,
@@ -41,17 +39,17 @@ export default function TaskStatusEditor({
   ] = useTransition();
 
   function change(
-    next: string
-  ) {
+  next: TaskStatus
+) {
 
     setStatus(next);
 
     startTransition(async () => {
 
       await updateTaskStatus(
-        taskId,
-        next as any
-      );
+  taskId,
+  next
+);
 
     });
 
@@ -73,10 +71,10 @@ export default function TaskStatusEditor({
           value={status}
           disabled={pending}
           onChange={(e) =>
-            change(
-              e.target.value
-            )
-          }
+  change(
+    e.target.value as TaskStatus
+  )
+}
           className="
             h-11
             w-full
@@ -92,7 +90,7 @@ export default function TaskStatusEditor({
           "
         >
 
-          {STATUS.map((item) => (
+          {STATUSES.map((item) => (
 
             <option
               key={item}

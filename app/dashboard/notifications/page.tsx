@@ -259,15 +259,14 @@ export default async function NotificationsPage() {
                 No Notifications
               </h3>
 
-              <p
-                className="
-                  mt-2
-                  text-slate-500
-                "
-              >
-                You're all caught up.
-              </p>
-
+             <p
+  className="
+    mt-2
+    text-slate-500
+  "
+>
+  You&apos;re all caught up.
+</p>
             </div>
 
           ) : (

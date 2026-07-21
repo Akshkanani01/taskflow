@@ -32,7 +32,66 @@ type Props = {
     size: number | null;
   };
 };
+function FileIcon({
+  mime,
+}: {
+  mime: string;
+}) {
+  if (mime.includes("pdf")) {
+    return (
+      <FileText
+        size={60}
+        className="text-red-400"
+      />
+    );
+  }
 
+  if (
+    mime.includes("sheet") ||
+    mime.includes("excel")
+  ) {
+    return (
+      <FileSpreadsheet
+        size={60}
+        className="text-green-400"
+      />
+    );
+  }
+
+  if (mime.includes("video")) {
+    return (
+      <FileVideo
+        size={60}
+        className="text-indigo-400"
+      />
+    );
+  }
+
+  if (mime.includes("zip")) {
+    return (
+      <FileArchive
+        size={60}
+        className="text-yellow-400"
+      />
+    );
+  }
+
+  if (mime.includes("image")) {
+    return (
+      <FileImage
+        size={60}
+        className="text-blue-400"
+      />
+    );
+  }
+
+  return (
+    <File
+      size={60}
+      className="text-slate-500"
+    />
+  );
+}
 export default function AttachmentCard({
   attachment,
 }: Props) {
@@ -51,72 +110,7 @@ export default function AttachmentCard({
   const isImage =
     mime.startsWith("image");
 
-  function FileIcon() {
-
-    if (
-      mime.includes("pdf")
-    ) {
       return (
-        <FileText
-          size={60}
-          className="text-red-400"
-        />
-      );
-    }
-
-    if (
-      mime.includes("sheet") ||
-      mime.includes("excel")
-    ) {
-      return (
-        <FileSpreadsheet
-          size={60}
-          className="text-green-400"
-        />
-      );
-    }
-
-    if (
-      mime.includes("video")
-    ) {
-      return (
-        <FileVideo
-          size={60}
-          className="text-indigo-400"
-        />
-      );
-    }
-
-    if (
-      mime.includes("zip")
-    ) {
-      return (
-        <FileArchive
-          size={60}
-          className="text-yellow-400"
-        />
-      );
-    }
-
-    if (
-      mime.includes("image")
-    ) {
-      return (
-        <FileImage
-          size={60}
-          className="text-blue-400"
-        />
-      );
-    }
-
-    return (
-      <File
-        size={60}
-        className="text-slate-500"
-      />
-    );
-  }
-    return (
     <>
       <div
         className="
@@ -148,7 +142,7 @@ export default function AttachmentCard({
 
           ) : (
 
-            <FileIcon />
+            <FileIcon mime={mime} />
 
           )}
 

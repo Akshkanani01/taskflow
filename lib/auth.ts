@@ -22,7 +22,7 @@ const transporter = nodemailer.createTransport({
   },
 
 });
-await transporter.verify();
+
 
 console.log("SMTP Connected");
 
@@ -33,40 +33,30 @@ export const auth = betterAuth({
 
   plugins: [
     magicLink({
-      sendMagicLink: async ({ email, url }) => {
-        await transporter.sendMail({
-          from: process.env.EMAIL_FROM,
-          to: email,
-          subject: "Sign in to TaskFlow",
-          html: `
-            <div style="font-family:Arial,sans-serif">
-              <h2>TaskFlow Login</h2>
+  sendMagicLink: async ({ email, url }) => {
+    console.log("===== MAGIC LINK =====");
+    console.log("To:", email);
+    console.log("URL:", url);
 
-              <p>Click the button below to sign in.</p>
+    try {
+      const info = await transporter.sendMail({
+        from: `"TaskFlow" <${process.env.EMAIL_FROM}>`,
+        to: email,
+        subject: "Sign in to TaskFlow",
+        html: `
+          <h2>TaskFlow Login</h2>
+          <a href="${url}">Sign In</a>
+        `,
+      });
 
-              <a
-                href="${url}"
-                style="
-                  display:inline-block;
-                  padding:12px 20px;
-                  background:#000;
-                  color:#fff;
-                  text-decoration:none;
-                  border-radius:8px;
-                "
-              >
-                Sign In
-              </a>
-
-              <p style="margin-top:20px;">
-                Or copy this link:
-              </p>
-
-              <p>${url}</p>
-            </div>
-          `,
-        });
-      },
-    }),
+      console.log("MAIL SENT");
+      console.log(info);
+    } catch (err) {
+      console.error("MAIL ERROR");
+      console.error(err);
+      throw err;
+    }
+  },
+}),
   ],
 });

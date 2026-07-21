@@ -79,8 +79,8 @@ export default function DeleteProjectDialog({
           </p>
 
           <p className="font-semibold text-white">
-            "{projectName}"
-          </p>
+  &quot;{projectName}&quot;
+</p>
 
           <p className="text-sm text-red-400">
             This action cannot be undone.

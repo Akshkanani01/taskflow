@@ -1,67 +1,95 @@
-import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request) {
-try {
-const body = await req.json();
+import { prisma } from "@/lib/prisma";
 
-const name = body.name?.trim();
+import { requireUser } from "@/lib/auth/require-user";
 
-if (!name) {
-  return NextResponse.json(
-    { error: "Workspace name required" },
-    { status: 400 }
-  );
-}
+export async function POST(
+  req: Request
+) {
+  try {
+    const user =
+      await requireUser();
 
-const user = await prisma.user.findFirst();
+    const body =
+      await req.json();
 
-if (!user) {
-  return NextResponse.json(
-    { error: "No user found in database" },
-    { status: 400 }
-  );
-}
+    const name =
+      body.name?.trim();
 
-const workspace =
-  await prisma.workspace.create({
-    data: {
-      name,
-      slug:
-        name
-          .toLowerCase()
-          .replace(/\s+/g, "-") +
-        "-" +
-        Date.now(),
+    if (!name) {
+      return NextResponse.json(
+        {
+          error:
+            "Workspace name required",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
 
-      ownerId: user.id,
-    },
-  });
+    const slug =
+      `${name
+        .toLowerCase()
+        .replace(/\s+/g, "-")}-${Date.now()}`;
 
-await prisma.space.create({
-  data: {
-    name: "General",
-    workspaceId: workspace.id,
-  },
-});
+    const workspace =
+      await prisma.$transaction(
+        async (tx) => {
+          const workspace =
+            await tx.workspace.create({
+              data: {
+                name,
 
-return NextResponse.json(
-  workspace
-);
+                slug,
 
+                ownerId:
+                  user.id,
 
-} catch (error) {
-console.error(error);
+                members: {
+                  create: {
+                    userId:
+                      user.id,
 
+                    role:
+                      "OWNER",
+                  },
+                },
+              },
+            });
 
-return NextResponse.json(
-  {
-    error:
-      "Failed to create workspace",
-  },
-  {
-    status: 500,
+          await tx.space.create({
+            data: {
+              name:
+                "General",
+
+              workspaceId:
+                workspace.id,
+            },
+          });
+
+          return workspace;
+        }
+      );
+
+    return NextResponse.json(
+      workspace,
+      {
+        status: 201,
+      }
+    );
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      {
+        error:
+          "Failed to create workspace",
+      },
+      {
+        status: 500,
+      }
+    );
   }
-);
-}
 }

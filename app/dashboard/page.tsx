@@ -714,9 +714,8 @@ const completionRate =
                   >
 
                     <p className="font-medium text-white">
-                      {(activity as any).message ??
-                        activity.action}
-                    </p>
+  {activity.action}
+</p>
 
                     <p className="mt-2 text-xs text-slate-500">
                       {activity.createdAt.toLocaleString("en-GB")}

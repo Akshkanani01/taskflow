@@ -64,9 +64,9 @@ export default function PermissionRole({
           Space Role
         </h3>
 
-        <p className="mt-1 text-sm text-zinc-500">
-          Choose the member's role.
-        </p>
+    <p className="mt-1 text-sm text-zinc-500">
+  Choose the member&apos;s role.
+</p>
       </div>
 
       <div className="grid gap-3">

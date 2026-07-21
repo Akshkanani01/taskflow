@@ -11,7 +11,7 @@ import {
 import TaskTable from "@/components/tasks/task-table";
 import CreateTaskModal from "@/components/tasks/dialogs/create-task-modal";
 import CreateTaskForm from "./create-task-form";
-
+import type { TaskTableItem } from "@/components/tasks/task-table";
 type Member = {
   id: string;
   name: string;
@@ -29,7 +29,7 @@ type Props = {
     name: string;
   };
 
-  tasks: any[];
+  tasks: TaskTableItem[];
 
   members: Member[];
 };

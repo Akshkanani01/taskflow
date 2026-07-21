@@ -88,10 +88,9 @@ return ( <div className="space-y-8">
   </div>
 
   <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
-
-    <h2 className="mb-6 text-xl font-semibold text-white">
-      Today's Schedule
-    </h2>
+<h2 className="mb-6 text-xl font-semibold text-white">
+  Today&apos;s Schedule
+</h2>
 
     <div className="space-y-4">
 

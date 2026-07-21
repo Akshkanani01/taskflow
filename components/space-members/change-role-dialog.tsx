@@ -33,7 +33,13 @@ interface Props {
   onSave?: (role: string) => void;
 }
 
-const roles = [
+const roles: {
+  value: Props["currentRole"];
+  label: string;
+  icon: typeof Crown;
+  color: string;
+  description: string;
+}[] = [
   {
     value: "OWNER",
     label: "Owner",
@@ -121,7 +127,7 @@ export default function ChangeRoleDialog({
                 key={role.value}
                 type="button"
                 onClick={() =>
-                  setSelected(role.value as any)
+                  setSelected(role.value)
                 }
                 className={`
                   flex

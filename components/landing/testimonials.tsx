@@ -59,8 +59,8 @@ return ( <section className="py-32"> <div className="container mx-auto px-6">
           </div>
 
           <p className="text-slate-300">
-            "{item.review}"
-          </p>
+  &quot;{item.review}&quot;
+</p>
 
           <div className="mt-8">
             <h4 className="font-semibold text-white">

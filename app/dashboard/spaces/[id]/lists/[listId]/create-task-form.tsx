@@ -12,7 +12,10 @@ import {
 } from "lucide-react";
 
 import { createTask } from "./actions";
-
+import {
+  Priority,
+  TaskStatus,
+} from "@prisma/client";
 type Member = {
   id: string;
   name: string;
@@ -106,15 +109,11 @@ const filteredMembers =
         projectId:
           listId,
 
-        spaceId,
+        // createdById is not a valid property for createTask; removed to match the expected input
 
-        createdById,
+       priority: priority as Priority,
 
-        priority:
-          priority as any,
-
-        status:
-          status as any,
+status: status as TaskStatus,
 
         dueDate:
           dueDate

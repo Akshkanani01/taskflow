@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-
+import { Prisma } from "@prisma/client";
 import {
   NotificationPriority,
   NotificationType,
@@ -60,7 +60,7 @@ async function logActivity(
   userId: string,
   action: string,
   message: string,
-  metadata?: any
+  metadata?: Prisma.InputJsonValue
 ) {
   await prisma.taskActivity.create({
     data: {

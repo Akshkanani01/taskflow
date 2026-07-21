@@ -4,7 +4,7 @@ import {
   useState,
   useTransition,
 } from "react";
-
+import type { Priority } from "@prisma/client";
 import {
   ChevronDown,
   Check,
@@ -17,20 +17,21 @@ type Props = {
   value: string;
 };
 
-const PRIORITIES = [
+const PRIORITIES: Priority[] = [
   "LOW",
   "MEDIUM",
   "HIGH",
   "URGENT",
 ];
-
 export default function TaskPriorityEditor({
   taskId,
   value,
 }: Props) {
 
   const [priority, setPriority] =
-    useState(value);
+  useState<Priority>(
+    value as Priority
+  );
 
   const [
     pending,
@@ -38,17 +39,17 @@ export default function TaskPriorityEditor({
   ] = useTransition();
 
   function change(
-    next: string
-  ) {
+  next: Priority
+) {
 
     setPriority(next);
 
     startTransition(async () => {
 
       await updateTaskPriority(
-        taskId,
-        next as any
-      );
+  taskId,
+  next
+);
 
     });
 
@@ -71,7 +72,7 @@ export default function TaskPriorityEditor({
           disabled={pending}
           onChange={(e) =>
             change(
-              e.target.value
+              e.target.value as Priority
             )
           }
           className="

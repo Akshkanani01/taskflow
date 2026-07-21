@@ -1,5 +1,5 @@
 "use server";
-
+import { InviteStatus } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { createAuditLog } from "@/lib/audit";
 import { redirect } from "next/navigation";
@@ -34,7 +34,7 @@ throw new Error(
 
 if (
 invite.status ===
-"accepted"
+InviteStatus.ACCEPTED
 ) {
 redirect("/dashboard");
 }
@@ -105,37 +105,13 @@ await createAuditLog({
 }
 
 await prisma.workspaceInvite.update({
-where: {
-id: invite.id,
-},
+  where: {
+    id: invite.id,
+  },
 
-data: {
-  status: "accepted",
-},
-
-
+  data: {
+    status: InviteStatus.ACCEPTED,
+  },
 });
-
-await createAuditLog({
-workspaceId:
-invite.workspaceId,
-
-actorId:
-  userId,
-
-action:
-  "INVITE_ACCEPTED",
-
-target:
-  invite.email,
-
-metadata: {
-  role:
-    invite.role,
-},
-
-
-});
-
-redirect("/dashboard/team");
+  redirect("/dashboard/team");
 }

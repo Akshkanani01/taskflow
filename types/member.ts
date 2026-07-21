@@ -7,11 +7,9 @@ import {
   WorkspaceRole,
 } from "@prisma/client";
 
-export interface MemberUser
-  extends User {}
+export type MemberUser = User;
 
-export interface MemberWorkspace
-  extends Workspace {}
+export type MemberWorkspace = Workspace;
 
 export interface MemberSpace
   extends Space {
@@ -24,8 +22,8 @@ export interface MemberSettingsData
   space: MemberSpace;
 }
 
-export interface NotificationPreferenceData
-  extends NotificationPreference {}
+export type NotificationPreferenceData =
+  NotificationPreference;
 
 export interface ProfileCardProps {
   member: MemberSettingsData;

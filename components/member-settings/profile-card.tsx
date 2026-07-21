@@ -8,7 +8,6 @@ import {
   Calendar,
   Save,
   Loader2,
-  Camera,
 } from "lucide-react";
 
 import { toast } from "sonner";
@@ -50,14 +49,15 @@ export default function ProfileCard({
           "Profile updated successfully."
         );
 
-      } catch (error: any) {
+      } catch (error: unknown) {
 
-        toast.error(
-          error.message ??
-            "Unable to update profile."
-        );
+  toast.error(
+    error instanceof Error
+      ? error.message
+      : "Unable to update profile."
+  );
 
-      }
+}
 
     });
 
