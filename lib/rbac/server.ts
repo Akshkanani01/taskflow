@@ -3,13 +3,11 @@ import { WorkspaceRole } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 
 import { hasPermission } from "./matrix";
-
 import type { Permission } from "./types";
 
 export class PermissionError extends Error {
   constructor(message = "Forbidden") {
     super(message);
-
     this.name = "PermissionError";
   }
 }
@@ -18,25 +16,31 @@ export async function getWorkspaceRole(
   userId: string,
   workspaceId: string
 ): Promise<WorkspaceRole | null> {
-  const member =
-    await prisma.workspaceMember.findUnique({
-      where: {
-        workspaceId_userId: {
-          workspaceId,
-          userId,
-        },
-      },
-
-      select: {
-        role: true,
-      },
-    });
-
-  if (!member) {
+  if (!userId || !workspaceId) {
     return null;
   }
 
-  return member.role;
+  const member = await prisma.workspaceMember.findUnique({
+    where: {
+      workspaceId_userId: {
+        workspaceId,
+        userId,
+      },
+    },
+    select: {
+      role: true,
+    },
+  });
+
+  if (process.env.NODE_ENV !== "production") {
+    console.log("[RBAC] getWorkspaceRole", {
+      userId,
+      workspaceId,
+      role: member?.role ?? null,
+    });
+  }
+
+  return member?.role ?? null;
 }
 
 export async function hasWorkspacePermission(
@@ -44,20 +48,16 @@ export async function hasWorkspacePermission(
   workspaceId: string,
   permission: Permission
 ): Promise<boolean> {
-  const role =
-    await getWorkspaceRole(
-      userId,
-      workspaceId
-    );
+  const role = await getWorkspaceRole(
+    userId,
+    workspaceId
+  );
 
   if (!role) {
     return false;
   }
 
-  return hasPermission(
-    role,
-    permission
-  );
+  return hasPermission(role, permission);
 }
 
 export async function requirePermission(
@@ -65,27 +65,20 @@ export async function requirePermission(
   workspaceId: string,
   permission: Permission
 ): Promise<WorkspaceRole> {
-  const role =
-    await getWorkspaceRole(
-      userId,
-      workspaceId
-    );
+  const role = await getWorkspaceRole(
+    userId,
+    workspaceId
+  );
 
   if (!role) {
     throw new PermissionError(
-      "Workspace member not found."
+      `Workspace member not found. user=${userId} workspace=${workspaceId}`
     );
   }
 
-  const allowed =
-    hasPermission(
-      role,
-      permission
-    );
-
-  if (!allowed) {
+  if (!hasPermission(role, permission)) {
     throw new PermissionError(
-      "You do not have permission."
+      `Permission denied. role=${role} permission=${permission}`
     );
   }
 
@@ -96,11 +89,10 @@ export async function requireOwner(
   userId: string,
   workspaceId: string
 ): Promise<void> {
-  const role =
-    await getWorkspaceRole(
-      userId,
-      workspaceId
-    );
+  const role = await getWorkspaceRole(
+    userId,
+    workspaceId
+  );
 
   if (role !== WorkspaceRole.OWNER) {
     throw new PermissionError(
@@ -113,11 +105,10 @@ export async function requireAdmin(
   userId: string,
   workspaceId: string
 ): Promise<void> {
-  const role =
-    await getWorkspaceRole(
-      userId,
-      workspaceId
-    );
+  const role = await getWorkspaceRole(
+    userId,
+    workspaceId
+  );
 
   if (
     role !== WorkspaceRole.OWNER &&
@@ -133,11 +124,10 @@ export async function requireManager(
   userId: string,
   workspaceId: string
 ): Promise<void> {
-  const role =
-    await getWorkspaceRole(
-      userId,
-      workspaceId
-    );
+  const role = await getWorkspaceRole(
+    userId,
+    workspaceId
+  );
 
   if (
     role !== WorkspaceRole.OWNER &&

@@ -14,7 +14,7 @@ const searchParams = useSearchParams();
 
 const callbackURL =
   searchParams.get("callbackURL") ??
-  "/onboarding";
+  "/dashboard";
 async function handleSubmit(
 e: React.FormEvent<HTMLFormElement>
 ) {

@@ -92,8 +92,8 @@ export default async function InvitePage({
 
   if (!session) {
     redirect(
-      `/login?redirect=/invite/${token}`
-    );
+  `/login?callbackURL=${encodeURIComponent(`/invite/${token}`)}`
+);
   }
 
   return (

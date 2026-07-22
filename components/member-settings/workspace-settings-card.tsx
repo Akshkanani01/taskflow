@@ -30,6 +30,7 @@ const ROLE_OPTIONS: WorkspaceRole[] = [
 
 export default function WorkspaceSettingsCard({
   member,
+  currentUser,
 }: WorkspaceSettingsCardProps) {
   const router = useRouter();
 
@@ -48,17 +49,16 @@ export default function WorkspaceSettingsCard({
   const [error, setError] =
     useState("");
 
-  const currentUserId = member.userId;
+  const currentUserId = currentUser.id;
 
-// MemberSettingsData માં viewer/currentUser ની માહિતી નથી.
-// તેથી safe defaults રાખીએ.
-const currentUserRole =
-  WorkspaceRole.MEMBER as WorkspaceRole;
+const currentUserRole = currentUser.role;
 
-const isSelf = true;
+const isSelf =
+  currentUserId === member.userId;
 
-// Permissions પણ ઉપલબ્ધ નથી.
-const canEditRole = true;
+const canEditRole =
+  currentUserRole === WorkspaceRole.OWNER ||
+  currentUserRole === WorkspaceRole.ADMIN;
 
   const isDirty = useMemo(
     () => role !== member.role,

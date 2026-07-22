@@ -3,7 +3,10 @@ import { NextResponse } from "next/server";
 
 import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/auth/require-user";
-import { requirePermission } from "@/lib/rbac/server";
+import {
+  PermissionError,
+  requirePermission,
+} from "@/lib/rbac/server";
 import { Permissions } from "@/lib/rbac/permissions";
 
 export async function GET() {
@@ -12,18 +15,67 @@ export async function GET() {
 
     const cookieStore = await cookies();
 
-    const workspaceId =
-      cookieStore.get("workspaceId")?.value;
+    let workspaceId =
+      cookieStore.get("workspaceId")?.value ?? null;
 
     if (!workspaceId) {
-      return NextResponse.json(
-        {
-          error: "Workspace is required.",
+      const membership =
+        await prisma.workspaceMember.findFirst({
+          where: {
+            userId: user.id,
+          },
+          orderBy: {
+            joinedAt: "asc",
+          },
+          select: {
+            workspaceId: true,
+          },
+        });
+
+      if (!membership) {
+        return NextResponse.json([], {
+          status: 200,
+        });
+      }
+
+      workspaceId = membership.workspaceId;
+    }
+
+    const membership =
+      await prisma.workspaceMember.findUnique({
+        where: {
+          workspaceId_userId: {
+            workspaceId,
+            userId: user.id,
+          },
         },
-        {
-          status: 400,
-        }
-      );
+        select: {
+          workspaceId: true,
+        },
+      });
+
+    if (!membership) {
+      const fallbackMembership =
+        await prisma.workspaceMember.findFirst({
+          where: {
+            userId: user.id,
+          },
+          orderBy: {
+            joinedAt: "asc",
+          },
+          select: {
+            workspaceId: true,
+          },
+        });
+
+      if (!fallbackMembership) {
+        return NextResponse.json([], {
+          status: 200,
+        });
+      }
+
+      workspaceId =
+        fallbackMembership.workspaceId;
     }
 
     await requirePermission(
@@ -37,7 +89,6 @@ export async function GET() {
         where: {
           workspaceId,
         },
-
         include: {
           projects: {
             select: {
@@ -46,13 +97,11 @@ export async function GET() {
               status: true,
               createdAt: true,
             },
-
             orderBy: {
               createdAt: "asc",
             },
           },
         },
-
         orderBy: {
           createdAt: "asc",
         },
@@ -60,6 +109,17 @@ export async function GET() {
 
     return NextResponse.json(spaces);
   } catch (error) {
+    if (error instanceof PermissionError) {
+      return NextResponse.json(
+        {
+          error: error.message,
+        },
+        {
+          status: 403,
+        }
+      );
+    }
+
     console.error(error);
 
     return NextResponse.json(

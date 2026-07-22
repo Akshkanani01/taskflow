@@ -20,11 +20,13 @@ export default function MemberRow({
 
   return (
     <div
-      onClick={() =>
-        router.push(
-  `/dashboard/spaces/${spaceId}/members/${member.userId}`
-)
-      }
+      onClick={() => {
+  
+
+  router.push(
+    `/dashboard/spaces/${spaceId}/members/${member.id}`
+  );
+}}
       className="
         cursor-pointer
         group

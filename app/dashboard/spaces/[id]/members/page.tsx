@@ -108,47 +108,45 @@ export default async function SpaceMembersPage({
           ]);
 
           return {
+  /**
+   * Member Detail Page uses SpaceMember.id
+   */
 
-            /**
-             * IMPORTANT
-             * Member Detail Page
-             * userId use kare che.
-             */
+  id: member.id,
 
-            id: member.user.id,
+  userId: member.userId,
 
-            userId:
-              member.user.id,
+  name: member.user.name ?? "Unknown User",
 
-            name:
-              member.user.name ??
-              "Unknown User",
+  email: member.user.email,
 
-            email:
-              member.user.email,
+  avatar: member.user.image,
 
-            avatar:
-              member.user.image,
+  role: member.role as SpaceRole,
 
-            role:
-              member.role as SpaceRole,
+  joinedAt: member.joinedAt.toISOString(),
 
-            joinedAt:
-              member.joinedAt.toISOString(),
+  taskCount: assigned,
 
-            taskCount:
-              assigned,
-
-            completedTasks:
-              completed,
-
-          };
+  completedTasks: completed,
+};
 
         }
 
       )
 
     );
+    console.log("========== MEMBERS ==========");
+
+formattedMembers.forEach((m) => {
+  console.log({
+    id: m.id,
+    userId: m.userId,
+    name: m.name,
+  });
+});
+
+console.log("=============================");
       const pendingInvites =
     await prisma.workspaceInvite.findMany({
 

@@ -18,6 +18,12 @@ import { SpacesNav } from "@/components/spaces/spaces-nav";
 export function Sidebar() {
   const pathname = usePathname();
 
+const spaceMatch = pathname.match(
+  /^\/dashboard\/spaces\/([^/]+)/
+);
+
+const spaceId = spaceMatch?.[1];
+
 
   const isActive = (href: string) => {
   return (
@@ -184,27 +190,22 @@ export function Sidebar() {
 
 {/* MEMBERS */}
 
-<Section title="Members">
+{spaceId && (
+  <Section title="Members">
+    <Link
+      href={`/dashboard/spaces/${spaceId}/members`}
+      className={menuClass(
+        `/dashboard/spaces/${spaceId}/members`
+      )}
+    >
+      <Users size={18} />
 
-  <Link
-    href="/dashboard/members"
-    className={menuClass(
-      "/dashboard/members"
-    )}
-  >
-
-    <Users size={18} />
-
-    <span className="flex-1">
-      Members
-    </span>
-
-    
-
-  </Link>
-
-</Section>
-        
+      <span className="flex-1">
+        Members
+      </span>
+    </Link>
+  </Section>
+)}  
         {/* SETTINGS */}
 
         

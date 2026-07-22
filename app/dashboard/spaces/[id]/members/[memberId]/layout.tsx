@@ -83,44 +83,36 @@ export default async function MemberLayout({
     id: spaceId,
     memberId,
   } = await params;
-    const member =
-  await prisma.spaceMember.findFirst({
+  console.log("PARAMS", {
+  spaceId,
+  memberId,
+});  
+  console.log("LAYOUT PARAMS", { spaceId, memberId });
 
-    where: {
-
-      userId: memberId,
-
-      spaceId,
-
-    },
-
-    include: {
-
-      user: true,
-
-      space: {
-
-        include: {
-
-          workspace: true,
-
-        },
-
+const member = await prisma.spaceMember.findFirst({
+  where: {
+    id: memberId,
+    spaceId,
+  },
+  include: {
+    user: true,
+    space: {
+      include: {
+        workspace: true,
       },
-
     },
+  },
+});
 
-  });
+console.log("LAYOUT MEMBER", member?.id ?? null);
 
-  if (!member) {
+if (!member) {
+  console.log("LAYOUT -> NOT_FOUND");
+  notFound();
+}
 
-    notFound();
-
-  }
-
-  const base =
-  `/dashboard/spaces/${spaceId}/members/${member.userId}`;
-
+const base =
+  `/dashboard/spaces/${spaceId}/members/${member.id}`;
   const initials =
     (
       member.user.name ??

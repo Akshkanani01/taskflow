@@ -22,21 +22,24 @@ export default async function MemberOverviewPage({
 }: Props) {
   const { id, memberId } = await params;
 
-  const member =
-    await prisma.spaceMember.findFirst({
-      where: {
-        spaceId: id,
-        userId: memberId,
-      },
+  console.log("PAGE PARAMS", { id, memberId });
 
-      include: {
-        user: true,
-      },
-    });
+const member = await prisma.spaceMember.findFirst({
+  where: {
+    id: memberId,
+    spaceId: id,
+  },
+  include: {
+    user: true,
+  },
+});
 
-  if (!member) {
-    notFound();
-  }
+console.log("PAGE MEMBER", member?.id ?? null);
+
+if (!member) {
+  console.log("PAGE -> NOT_FOUND");
+  notFound();
+}
 
   const assignedTasks =
     await prisma.taskAssignee.count({

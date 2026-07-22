@@ -15,9 +15,18 @@ import { sendWorkspaceInviteEmail } from "@/lib/mail";
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    const hdrs = await headers();
+
+console.log("========== TEAM INVITE ==========");
+console.log("COOKIE:", hdrs.get("cookie"));
+
+const session = await auth.api.getSession({
+  headers: hdrs,
+});
+
+console.log("SESSION:", session);
+console.log("=================================");
+    
 
     if (!session?.user) {
       return NextResponse.json(

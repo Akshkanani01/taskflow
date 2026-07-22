@@ -194,3 +194,61 @@ body {
   background: #020617;
   color: #f8fafc;
 }
+/* ==========================================================
+   Appearance Settings
+========================================================== */
+
+/* Accent Colors */
+
+html[data-accent="blue"] {
+  --primary: #3b82f6;
+}
+
+html[data-accent="violet"] {
+  --primary: #8b5cf6;
+}
+
+html[data-accent="emerald"] {
+  --primary: #10b981;
+}
+
+html[data-accent="orange"] {
+  --primary: #f97316;
+}
+
+html[data-accent="rose"] {
+  --primary: #f43f5e;
+}
+
+html[data-accent="cyan"] {
+  --primary: #06b6d4;
+}
+
+/* Interface Density */
+
+html[data-density="comfortable"] {
+  --density-space: 1;
+}
+
+html[data-density="compact"] {
+  --density-space: 0.82;
+}
+
+/* Reduced Motion */
+
+html[data-motion="reduced"] *,
+html[data-motion="reduced"] *::before,
+html[data-motion="reduced"] *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* Smooth Transition */
+
+html,
+body {
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}

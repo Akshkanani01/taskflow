@@ -22,7 +22,7 @@ export default function SettingsPanelRenderer() {
   const { section } = useSettings();
 
   const ActivePanel =
-    PANELS[section] ?? GeneralPanel;
+    PANELS[section] ?? ProfilePanel;
 
   return <ActivePanel />;
 }

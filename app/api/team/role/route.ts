@@ -8,7 +8,7 @@ import {
   requirePermission,
 } from "@/lib/rbac/server";
 import { Permissions } from "@/lib/rbac/permissions";
-
+import { hasWorkspacePermission } from "@/lib/rbac/server";
 function isValidRole(role: unknown): role is WorkspaceRole {
   return (
     role === WorkspaceRole.OWNER ||
@@ -147,9 +147,15 @@ export async function POST(request: NextRequest) {
       user.id,
       workspaceId,
       Permissions.TEAM_ROLE_UPDATE
-    );
+    ); 
+    const hasPermission = await hasWorkspacePermission(
+  user.id,
+  workspaceId,
+  Permissions.TEAM_ROLE_UPDATE
+);
 
-    const actorMember = await prisma.workspaceMember.findUnique({
+console.log("HAS_PERMISSION =", hasPermission);
+        const actorMember = await prisma.workspaceMember.findUnique({
       where: {
         workspaceId_userId: {
           workspaceId,
@@ -172,6 +178,15 @@ export async function POST(request: NextRequest) {
         }
       );
     }
+    console.log("===== ROLE DEBUG =====");
+
+console.log({
+  currentUserId: user.id,
+  workspaceOwnerId: workspace.ownerId,
+  actorRole: actorMember.role,
+  targetRole: targetMember.role,
+  newRole: role,
+});
 
     if (targetMember.userId === workspace.ownerId) {
       return NextResponse.json(
@@ -197,45 +212,111 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (actorMember.role === WorkspaceRole.ADMIN) {
-      if (role === WorkspaceRole.OWNER || role === WorkspaceRole.ADMIN) {
+    /*
+    |--------------------------------------------------------------------------
+    | Enterprise Role Hierarchy
+    |--------------------------------------------------------------------------
+    |
+    | OWNER
+    |   → Can change ADMIN / MANAGER / MEMBER / VIEWER
+    |
+    | ADMIN
+    |   → Can change only MANAGER / MEMBER / VIEWER
+    |   → Cannot edit OWNER
+    |   → Cannot edit another ADMIN
+    |   → Cannot promote anyone to ADMIN/OWNER
+    |
+    | MANAGER
+    |   → Cannot change roles
+    |
+    | MEMBER / VIEWER
+    |   → Cannot change roles
+    |
+    */
+
+    switch (actorMember.role) {
+      case WorkspaceRole.OWNER:
+        break;
+
+      case WorkspaceRole.ADMIN: {
+        if (targetMember.role === WorkspaceRole.ADMIN) {
+          return NextResponse.json(
+            {
+              success: false,
+              message: "Admins cannot change another admin's role.",
+            },
+            {
+              status: 403,
+            }
+          );
+        }
+
+        if (
+          role === WorkspaceRole.ADMIN ||
+          role === WorkspaceRole.OWNER
+        ) {
+          return NextResponse.json(
+            {
+              success: false,
+              message:
+                "Admins can only assign Manager, Member or Viewer roles.",
+            },
+            {
+              status: 403,
+            }
+          );
+        }
+
+        break;
+      }
+
+      case WorkspaceRole.MANAGER:
         return NextResponse.json(
           {
             success: false,
-            message: "Admins can only assign Manager, Member or Viewer roles.",
+            message: "Managers cannot change member roles.",
           },
           {
             status: 403,
           }
         );
-      }
+
+      case WorkspaceRole.MEMBER:
+      case WorkspaceRole.VIEWER:
+        return NextResponse.json(
+          {
+            success: false,
+            message: "You do not have permission to change roles.",
+          },
+          {
+            status: 403,
+          }
+        );
+
+      default:
+        return NextResponse.json(
+          {
+            success: false,
+            message: "Invalid workspace role.",
+          },
+          {
+            status: 403,
+          }
+        );
     }
 
-    if (actorMember.role === WorkspaceRole.MANAGER) {
+    if (targetMember.role === role) {
       return NextResponse.json(
         {
           success: false,
-          message: "Managers are not allowed to change roles.",
+          message: "Member already has this role.",
         },
         {
-          status: 403,
+          status: 400,
         }
       );
     }
-
-    if (actorMember.role === WorkspaceRole.MEMBER || actorMember.role === WorkspaceRole.VIEWER) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "You do not have permission to change roles.",
-        },
-        {
-          status: 403,
-        }
-      );
-    }
-
-    const updatedMember = await prisma.$transaction(async (tx) => {
+        const updatedMember = await prisma.$transaction(async (tx) => {
       const workspaceUpdatedMember = await tx.workspaceMember.update({
         where: {
           workspaceId_userId: {
@@ -291,12 +372,15 @@ export async function POST(request: NextRequest) {
           metadata: {
             previousRole: targetMember.role,
             newRole: role,
+            workspaceName: workspace.name,
+            workspaceId,
+            spaceName: space.name,
             spaceId,
             targetUserId,
-            targetUserEmail: targetMember.user.email,
             targetUserName: targetMember.user.name,
-            workspaceName: workspace.name,
-            spaceName: space.name,
+            targetUserEmail: targetMember.user.email,
+            changedBy: user.id,
+            changedAt: new Date().toISOString(),
           },
         },
       });
@@ -341,12 +425,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.error(error);
+    console.error("[TEAM_ROLE_UPDATE]", error);
 
     return NextResponse.json(
       {
         success: false,
-        message: error instanceof Error ? error.message : "Internal Server Error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Internal Server Error",
       },
       {
         status: 500,

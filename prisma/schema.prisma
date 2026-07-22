@@ -7,9 +7,334 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-/**
- * ================= ENUMS =================
- */
+model User {
+  id                     String                  @id
+  email                  String                  @unique
+  name                   String?
+  image                  String?
+  emailVerified          Boolean                 @default(false)
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+  accounts               Account[]
+  notifications          Notification[]
+  notificationPreference NotificationPreference?
+  sessions               Session[]
+  spaceMembers           SpaceMember[]
+  createdTasks           Task[]                  @relation("TaskCreatedBy")
+  activities             TaskActivity[]
+  taskAssignees          TaskAssignee[]
+  taskAttachments        TaskAttachment[]
+  comments               TaskComment[]
+  preferences            UserPreference?
+  ownedWorkspaces        Workspace[]             @relation("WorkspaceOwner")
+  acceptedInvites        WorkspaceInvite[]       @relation("WorkspaceInviteAccepter")
+  sentInvites            WorkspaceInvite[]       @relation("WorkspaceInviteSender")
+  workspaces             WorkspaceMember[]
+}
+
+model Session {
+  id        String   @id
+  token     String   @unique
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Account {
+  id        String   @id
+  userId    String
+  provider  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Workspace {
+  id        String            @id @default(cuid())
+  name      String
+  slug      String            @unique
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  ownerId   String
+  auditLogs AuditLog[]
+  spaces    Space[]
+  owner     User              @relation("WorkspaceOwner", fields: [ownerId], references: [id])
+  invites   WorkspaceInvite[]
+  members   WorkspaceMember[]
+}
+
+model Space {
+  id          String            @id @default(cuid())
+  name        String
+  color       String            @default("blue")
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  workspaceId String
+  projects    Project[]
+  workspace   Workspace         @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  members     SpaceMember[]
+  tasks       Task[]
+  invites     WorkspaceInvite[]
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  status      String   @default("active")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  spaceId     String
+  space       Space    @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  tasks       Task[]
+}
+
+model Task {
+  id             String           @id @default(cuid())
+  title          String
+  description    String?
+  dueDate        DateTime?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  projectId      String
+  archived       Boolean          @default(false)
+  completedAt    DateTime?
+  createdById    String
+  estimatedHours Int?
+  position       Int              @default(0)
+  spaceId        String
+  startDate      DateTime?
+  status         TaskStatus       @default(TODO)
+  priority       Priority         @default(MEDIUM)
+  createdBy      User             @relation("TaskCreatedBy", fields: [createdById], references: [id], onDelete: Cascade)
+  project        Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  space          Space            @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  activities     TaskActivity[]
+  taskAssignees  TaskAssignee[]
+  attachments    TaskAttachment[]
+  checklists     TaskChecklist[]
+  comments       TaskComment[]
+
+  @@index([projectId])
+  @@index([spaceId])
+  @@index([status])
+  @@index([priority])
+  @@index([position])
+}
+
+model WorkspaceMember {
+  id          String        @id @default(cuid())
+  workspaceId String
+  userId      String
+  role        WorkspaceRole @default(MEMBER)
+  joinedAt    DateTime      @default(now())
+  user        User          @relation(fields: [userId], references: [id])
+  workspace   Workspace     @relation(fields: [workspaceId], references: [id])
+
+  @@unique([workspaceId, userId])
+  @@index([workspaceId])
+  @@index([userId])
+}
+
+model TaskAssignee {
+  id     String @id @default(cuid())
+  taskId String
+  userId String
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([taskId, userId])
+  @@index([taskId])
+  @@index([userId])
+}
+
+model TaskAttachment {
+  id         String   @id @default(cuid())
+  taskId     String
+  uploaderId String?
+  mimeType   String?
+  createdAt  DateTime @default(now())
+  name       String
+  size       Int?
+  url        String
+  extension  String?
+  task       Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  uploader   User?    @relation(fields: [uploaderId], references: [id])
+}
+
+model TaskComment {
+  id        String   @id @default(cuid())
+  taskId    String
+  userId    String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model TaskChecklist {
+  id        String   @id @default(cuid())
+  taskId    String
+  title     String
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+}
+
+model TaskActivity {
+  id        String   @id @default(cuid())
+  taskId    String
+  action    String
+  metadata  Json?
+  createdAt DateTime @default(now())
+  message   String?
+  userId    String?
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  user      User?    @relation(fields: [userId], references: [id])
+
+  @@index([taskId])
+  @@index([userId])
+}
+
+model Notification {
+  id        String               @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  type      NotificationType
+  priority  NotificationPriority @default(MEDIUM)
+  read      Boolean              @default(false)
+  link      String?
+  createdAt DateTime             @default(now())
+  updatedAt DateTime             @updatedAt
+  user      User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model NotificationPreference {
+  id String @id @default(cuid())
+
+  userId String @unique
+
+  enabled Boolean @default(true)
+
+  desktopNotifications Boolean @default(true)
+
+  soundEnabled Boolean @default(true)
+
+  doNotDisturb Boolean @default(false)
+
+  dndFrom String @default("22:00")
+
+  dndUntil String @default("08:00")
+
+  taskAssigned Boolean @default(true)
+
+  taskCompleted Boolean @default(true)
+
+  taskCommented Boolean @default(true)
+
+  mentions Boolean @default(true)
+
+  invites Boolean @default(true)
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  user User @relation( fields: [userId], references: [id], onDelete: Cascade )
+}
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+model WorkspaceInvite {
+  id           String        @id @default(cuid())
+  workspaceId  String
+  email        String
+  role         WorkspaceRole @default(MEMBER)
+  token        String        @unique
+  expiresAt    DateTime
+  createdAt    DateTime      @default(now())
+  acceptedAt   DateTime?
+  acceptedById String?
+  invitedById  String?
+  status       InviteStatus  @default(PENDING)
+  spaceId      String?
+  acceptedBy   User?         @relation("WorkspaceInviteAccepter", fields: [acceptedById], references: [id])
+  invitedBy    User?         @relation("WorkspaceInviteSender", fields: [invitedById], references: [id])
+  space        Space?        @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  workspace    Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+  @@index([spaceId])
+  @@index([email])
+  @@index([token])
+}
+
+model AuditLog {
+  id          String    @id @default(cuid())
+  workspaceId String
+  actorId     String?
+  action      String
+  target      String?
+  metadata    Json?
+  createdAt   DateTime  @default(now())
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
+
+model SpaceMember {
+  id       String        @id @default(cuid())
+  spaceId  String
+  userId   String
+  role     WorkspaceRole @default(MEMBER)
+  joinedAt DateTime      @default(now())
+  space    Space         @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  user     User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([spaceId, userId])
+  @@index([spaceId])
+  @@index([userId])
+}
+
+model UserPreference {
+  id                 String             @id @default(cuid())
+
+  userId             String             @unique
+
+  // General
+  language           String             @default("en")
+  timeZone           String             @default("Asia/Kolkata")
+  dateFormat         String             @default("DD/MM/YYYY")
+  timeFormat         String             @default("24")
+  weekStartsOn       String             @default("MONDAY")
+  compactMode        Boolean            @default(false)
+  autoSave           Boolean            @default(true)
+
+  // Appearance
+  theme              ThemeMode          @default(SYSTEM)
+  interfaceDensity   InterfaceDensity   @default(COMFORTABLE)
+  accentColor        AccentColor        @default(BLUE)
+  reducedMotion      Boolean            @default(false)
+
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  user               User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 
 enum WorkspaceRole {
   OWNER
@@ -20,73 +345,35 @@ enum WorkspaceRole {
 }
 
 enum NotificationType {
-  // ==========================
-  // Task
-  // ==========================
-
   TASK_CREATED
   TASK_ASSIGNED
   TASK_COMPLETED
   TASK_MOVED
-
   TASK_STATUS_CHANGED
   TASK_PRIORITY_CHANGED
   TASK_TITLE_CHANGED
   TASK_DESCRIPTION_CHANGED
   TASK_DUE_DATE_CHANGED
   TASK_ESTIMATE_CHANGED
-
   TASK_ARCHIVED
   TASK_RESTORED
   TASK_DELETED
   TASK_DUPLICATED
-
-  // ==========================
-  // Checklist
-  // ==========================
-
   CHECKLIST_CREATED
   CHECKLIST_COMPLETED
   CHECKLIST_DELETED
-
-  // ==========================
-  // Comment
-  // ==========================
-
   TASK_COMMENTED
   TASK_MENTIONED
-
-  // ==========================
-  // Attachment
-  // ==========================
-
   FILE_UPLOADED
   FILE_DELETED
-
-  // ==========================
-  // Members
-  // ==========================
-
   INVITE_SENT
   INVITE_ACCEPTED
-
   MEMBER_JOINED
   MEMBER_REMOVED
-
   ROLE_CHANGED
-
-  // ==========================
-  // Workspace
-  // ==========================
-
   WORKSPACE_CREATED
   SPACE_CREATED
   LIST_CREATED
-
-  // ==========================
-  // System
-  // ==========================
-
   SYSTEM
 }
 
@@ -121,457 +408,22 @@ enum InviteStatus {
   REVOKED
 }
 
-/**
- * ================= USER =================
- */
-
-model User {
-  id            String   @id
-  email         String   @unique
-  name          String?
-  image         String?
-  emailVerified Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  workspaces      WorkspaceMember[]
-  spaceMembers    SpaceMember[]
-  ownedWorkspaces Workspace[]       @relation("WorkspaceOwner")
-
-  accounts      Account[]
-  sessions      Session[]
-  notifications Notification[]
-  createdTasks  Task[]         @relation("TaskCreatedBy")
-
-  taskAttachments        TaskAttachment[]
-  taskAssignees          TaskAssignee[]
-  activities             TaskActivity[]
-  comments               TaskComment[]
-  notificationPreference NotificationPreference?
-  preferences UserPreference?
-  sentInvites WorkspaceInvite[] @relation("WorkspaceInviteSender")
-
-acceptedInvites WorkspaceInvite[] @relation("WorkspaceInviteAccepter")
-
+enum ThemeMode {
+  SYSTEM
+  LIGHT
+  DARK
 }
 
-
-/**
- * ================= SESSION =================
- */
-
-model Session {
-  id        String   @id
-  token     String   @unique
-  expiresAt DateTime
-  ipAddress String?
-  userAgent String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+enum InterfaceDensity {
+  COMFORTABLE
+  COMPACT
 }
 
-/**
- * ================= ACCOUNT =================
- */
-
-model Account {
-  id        String   @id
-  userId    String
-  provider  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-/**
- * ================= WORKSPACE =================
- */
-
-model Workspace {
-  id   String @id @default(cuid())
-  name String
-  slug String @unique
-
-  ownerId String
-  owner   User   @relation("WorkspaceOwner", fields: [ownerId], references: [id])
-
-  members   WorkspaceMember[]
-  spaces    Space[]
-  invites   WorkspaceInvite[]
-  auditLogs AuditLog[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-/**
- * ================= SPACE =================
- */
-
-model Space {
-  id    String @id @default(cuid())
-  name  String
-  color String @default("blue")
-
-  workspaceId String
-  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-
-  projects  Project[]
-  tasks     Task[]
-  members   SpaceMember[]
-  invites   WorkspaceInvite[]
-  createdAt DateTime          @default(now())
-  updatedAt DateTime          @updatedAt
-}
-
-/**
- * ================= PROJECT =================
- */
-
-model Project {
-  id          String  @id @default(cuid())
-  name        String
-  description String?
-  status      String  @default("active")
-
-  spaceId String
-  space   Space  @relation(fields: [spaceId], references: [id], onDelete: Cascade)
-
-  tasks Task[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-/**
- * ================= TASK =================
- */
-
-model Task {
-  id          String  @id @default(cuid())
-  title       String
-  description String?
-
-  status   TaskStatus @default(TODO)
-  priority Priority   @default(MEDIUM)
-
-  startDate   DateTime?
-  dueDate     DateTime?
-  completedAt DateTime?
-
-  estimatedHours Int?
-
-  position Int @default(0)
-
-  archived Boolean @default(false)
-
-  projectId String
-  spaceId   String
-
-  createdById String
-
-  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  space   Space   @relation(fields: [spaceId], references: [id], onDelete: Cascade)
-
-  createdBy User @relation("TaskCreatedBy", fields: [createdById], references: [id], onDelete: Cascade)
-
-  taskAssignees TaskAssignee[]
-  attachments   TaskAttachment[]
-  comments      TaskComment[]
-  checklists    TaskChecklist[]
-  activities    TaskActivity[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([projectId])
-  @@index([spaceId])
-  @@index([status])
-  @@index([priority])
-  @@index([position])
-}
-
-/**
- * ================= WORKSPACE MEMBER =================
- */
-
-model WorkspaceMember {
-  id String @id @default(cuid())
-
-  userId      String
-  workspaceId String
-
-  role     WorkspaceRole @default(MEMBER)
-  joinedAt DateTime      @default(now())
-
-  user      User      @relation(fields: [userId], references: [id])
-  workspace Workspace @relation(fields: [workspaceId], references: [id])
-
-  @@unique([workspaceId, userId])
-  @@index([workspaceId])
-  @@index([userId])
-}
-
-/**
- * ================= TASK ASSIGNEE =================
- */
-
-model TaskAssignee {
-  id     String @id @default(cuid())
-  taskId String
-  userId String
-
-  task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([taskId, userId])
-  @@index([taskId])
-  @@index([userId])
-}
-
-/**
- * ================= TASK ATTACHMENT =================
- */
-
-model TaskAttachment {
-  id String @id @default(cuid())
-
-  taskId String
-  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
-
-  uploaderId String?
-  uploader   User?   @relation(fields: [uploaderId], references: [id])
-
-  name String
-
-  url       String
-  extension String?
-  mimeType  String?
-
-  size Int?
-
-  createdAt DateTime @default(now())
-}
-
-/**
- * ================= COMMENTS =================
- */
-
-model TaskComment {
-  id String @id @default(cuid())
-
-  taskId String
-  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  content String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-/**
- * ================= CHECKLIST =================
- */
-
-model TaskChecklist {
-  id String @id @default(cuid())
-
-  taskId String
-  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
-
-  title     String
-  completed Boolean @default(false)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-/**
- * ================= ACTIVITY =================
- */
-
-model TaskActivity {
-  id String @id @default(cuid())
-
-  taskId String
-  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
-
-  userId String?
-  user   User?   @relation(fields: [userId], references: [id])
-
-  action String
-
-  message String?
-
-  metadata Json?
-
-  createdAt DateTime @default(now())
-
-  @@index([taskId])
-  @@index([userId])
-}
-
-/**
- * ================= NOTIFICATION =================
- */
-
-model Notification {
-  id String @id @default(cuid())
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  title   String
-  message String
-
-  type     NotificationType
-  priority NotificationPriority @default(MEDIUM)
-
-  read Boolean @default(false)
-  link String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-/**
- * ================= NOTIFICATION PREF =================
- */
-
-model NotificationPreference {
-  id String @id @default(cuid())
-
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  emailEnabled Boolean @default(true)
-  pushEnabled  Boolean @default(true)
-
-  taskAssigned  Boolean @default(true)
-  taskCompleted Boolean @default(true)
-  taskCommented Boolean @default(true)
-  mentions      Boolean @default(true)
-  invites       Boolean @default(true)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-/**
- * ================= VERIFICATION =================
- */
-
-model Verification {
-  id         String   @id @default(cuid())
-  identifier String
-  value      String
-  expiresAt  DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  @@index([identifier])
-  @@map("verification")
-}
-
-/**
- * ================= WORKSPACE INVITE =================
- */
-
-model WorkspaceInvite {
-  id String @id @default(cuid())
-
-  workspaceId String
-  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-
-  spaceId String?
-  space   Space?  @relation(fields: [spaceId], references: [id], onDelete: Cascade)
-
-  email String
-
-  role WorkspaceRole @default(MEMBER)
-
-  token String @unique
-
-  status InviteStatus @default(PENDING)
-
-  invitedById String?
-
-invitedBy User? @relation( "WorkspaceInviteSender", fields: [invitedById], references: [id] )
-
-acceptedById String?
-
-acceptedBy User? @relation( "WorkspaceInviteAccepter", fields: [acceptedById], references: [id] )
-
-  acceptedAt DateTime?
-
-  expiresAt DateTime
-
-  createdAt DateTime @default(now())
-
-  @@index([workspaceId])
-  @@index([spaceId])
-  @@index([email])
-  @@index([token])
-}
-
-/**
- * ================= AUDIT LOG =================
- */
-
-model AuditLog {
-  id String @id @default(cuid())
-
-  workspaceId String
-  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-
-  actorId  String?
-  action   String
-  target   String?
-  metadata Json?
-
-  createdAt DateTime @default(now())
-}
-
-model SpaceMember {
-  id String @id @default(cuid())
-
-  spaceId String
-  userId  String
-
-  role WorkspaceRole @default(MEMBER)
-
-  joinedAt DateTime @default(now())
-
-  space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
-  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([spaceId, userId])
-  @@index([spaceId])
-  @@index([userId])
-}
-
-model UserPreference {
-  id String @id @default(cuid())
-
-  userId String @unique
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  language String @default("en")
-  timeZone String @default("Asia/Kolkata")
-  dateFormat String @default("DD/MM/YYYY")
-  timeFormat String @default("24")
-  weekStartsOn String @default("MONDAY")
-
-  compactMode Boolean @default(false)
-  autoSave Boolean @default(true)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+enum AccentColor {
+  BLUE
+  VIOLET
+  EMERALD
+  ORANGE
+  ROSE
+  CYAN
 }

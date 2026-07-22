@@ -28,34 +28,20 @@ export default async function MemberPermissionsPage({
     memberId,
   } = await params;
 
-  const member =
-    await prisma.spaceMember.findFirst({
-
-      where: {
-
-        spaceId,
-
-        userId: memberId,
-
-      },
-
-      include: {
-
-        user: true,
-
-        space: {
-
-          include: {
-
-            workspace: true,
-
-          },
-
+  const member = await prisma.spaceMember.findFirst({
+    where: {
+      id: memberId,
+      spaceId,
+    },
+    include: {
+      user: true,
+      space: {
+        include: {
+          workspace: true,
         },
-
       },
-
-    });
+    },
+  });
 
   if (!member) {
 
