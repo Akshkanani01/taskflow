@@ -3,7 +3,6 @@
 import { useTransition } from "react";
 
 import { useRouter } from "next/navigation";
-
 import Link from "next/link";
 
 import {
@@ -25,38 +24,24 @@ import {
 } from "@/app/dashboard/spaces/[id]/lists/[listId]/actions";
 
 type Props = {
-
   taskId: string;
-
   spaceId: string;
-
   listId: string;
-
   archived?: boolean;
-
 };
 
 export default function TaskActionsMenu({
-
   taskId,
-
   spaceId,
-
   listId,
-
   archived = false,
-
 }: Props) {
+  const router = useRouter();
 
-  const router =
-    useRouter();
+  const [pending, startTransition] =
+    useTransition();
 
-  const [
-    pending,
-    startTransition,
-  ] = useTransition();
-    function onDelete() {
-
+  function onDelete() {
     if (
       !confirm(
         "Delete this task?"
@@ -65,105 +50,67 @@ export default function TaskActionsMenu({
       return;
     }
 
-    startTransition(
-      async () => {
+    startTransition(async () => {
+      await deleteTask(taskId);
 
-        await deleteTask(
-          taskId
-        );
-
-        router.refresh();
-
-      }
-    );
-
+      router.refresh();
+    });
   }
 
   function onArchive() {
-
-    startTransition(
-      async () => {
-
-        if (archived) {
-
-          await restoreTask(
-            taskId
-          );
-
-        } else {
-
-          await archiveTask(
-            taskId
-          );
-
-        }
-
-        router.refresh();
-
+    startTransition(async () => {
+      if (archived) {
+        await restoreTask(taskId);
+      } else {
+        await archiveTask(taskId);
       }
-    );
-
-  }
-  function onDuplicate() {
-
-  startTransition(
-    async () => {
-
-      await duplicateTask(
-        taskId
-      );
 
       router.refresh();
+    });
+  }
 
-    }
-  );
+  function onDuplicate() {
+    startTransition(async () => {
+      await duplicateTask(taskId);
 
-}
-    return (
+      router.refresh();
+    });
+  }
 
+  return (
     <DropdownMenu.Root>
-
       <DropdownMenu.Trigger asChild>
-
         <button
-
           type="button"
-
           disabled={pending}
-
           className="
             flex
-            h-9
-            w-9
+            h-8
+            w-8
             items-center
             justify-center
-            rounded-xl
+            rounded-lg
             border
             border-white/10
-            bg-slate-900
+            bg-slate-900/80
             text-slate-400
             transition-all
+            duration-200
+            hover:border-white/20
             hover:bg-slate-800
             hover:text-white
+            disabled:pointer-events-none
             disabled:opacity-50
           "
-
         >
-
-          <MoreHorizontal size={16} />
-
+          <MoreHorizontal size={15} />
         </button>
-
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
-
-        <DropdownMenu.Content
-
-          sideOffset={8}
-
+                <DropdownMenu.Content
+          sideOffset={10}
           align="end"
-
           className="
             z-50
             w-60
@@ -173,15 +120,12 @@ export default function TaskActionsMenu({
             bg-[#111827]
             p-2
             shadow-2xl
+            backdrop-blur-xl
           "
-
         >
-                      <DropdownMenu.Item asChild>
-
+          <DropdownMenu.Item asChild>
             <Link
-
               href={`/dashboard/spaces/${spaceId}/lists/${listId}/tasks/${taskId}`}
-
               className="
                 flex
                 cursor-pointer
@@ -193,22 +137,19 @@ export default function TaskActionsMenu({
                 text-sm
                 text-slate-200
                 outline-none
-                transition
+                transition-colors
+                duration-150
                 hover:bg-slate-800
+                data-[highlighted]:bg-slate-800
               "
-
             >
-
               <Eye size={16} />
-
               Open Task
-
             </Link>
-
           </DropdownMenu.Item>
 
           <DropdownMenu.Item
-
+            onClick={onDuplicate}
             className="
               flex
               cursor-pointer
@@ -220,19 +161,17 @@ export default function TaskActionsMenu({
               text-sm
               text-slate-200
               outline-none
-              transition
+              transition-colors
+              duration-150
               hover:bg-slate-800
+              data-[highlighted]:bg-slate-800
             "
-onClick={onDuplicate}
-
           >
-
             <Copy size={16} />
-
             Duplicate
-
           </DropdownMenu.Item>
-                    <DropdownMenu.Separator
+
+          <DropdownMenu.Separator
             className="
               my-2
               h-px
@@ -241,9 +180,7 @@ onClick={onDuplicate}
           />
 
           <DropdownMenu.Item
-
             onClick={onArchive}
-
             className="
               flex
               cursor-pointer
@@ -255,40 +192,27 @@ onClick={onDuplicate}
               text-sm
               text-slate-200
               outline-none
-              transition
+              transition-colors
+              duration-150
               hover:bg-slate-800
+              data-[highlighted]:bg-slate-800
             "
-
           >
-
             {archived ? (
-
               <>
-
                 <RotateCcw size={16} />
-
                 Restore Task
-
               </>
-
             ) : (
-
               <>
-
                 <Archive size={16} />
-
                 Archive Task
-
               </>
-
             )}
-
           </DropdownMenu.Item>
 
           <DropdownMenu.Item
-
             onClick={onDelete}
-
             className="
               flex
               cursor-pointer
@@ -300,24 +224,17 @@ onClick={onDuplicate}
               text-sm
               text-red-400
               outline-none
-              transition
+              transition-colors
+              duration-150
               hover:bg-red-500/10
+              data-[highlighted]:bg-red-500/10
             "
-
           >
-
             <Trash2 size={16} />
-
             Delete Task
-
           </DropdownMenu.Item>
-
         </DropdownMenu.Content>
-
       </DropdownMenu.Portal>
-
     </DropdownMenu.Root>
-
   );
-
 }

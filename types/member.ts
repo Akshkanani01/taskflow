@@ -29,8 +29,14 @@ export interface ProfileCardProps {
   member: MemberSettingsData;
 }
 
+export interface CurrentUserData {
+  id: string;
+  role: WorkspaceRole;
+}
+
 export interface WorkspaceSettingsCardProps {
   member: MemberSettingsData;
+  currentUser: CurrentUserData;
 }
 
 export interface DangerZoneProps {

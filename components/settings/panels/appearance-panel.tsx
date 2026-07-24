@@ -48,97 +48,142 @@ export default function AppearancePanel() {
 
       {/* Theme */}
 
-      <section className="rounded-2xl border border-white/10 bg-slate-900/40">
-        <div className="border-b border-white/10 px-6 py-5">
-          <h3 className="text-base font-semibold text-white">
-            Theme
-          </h3>
+<section className="rounded-2xl border border-white/10 bg-slate-900/40">
+  <div className="border-b border-white/10 px-6 py-4">
+    <h3 className="text-base font-semibold text-white">
+      Theme
+    </h3>
 
-          <p className="mt-1 text-sm text-slate-400">
-            Select your preferred appearance.
-          </p>
-        </div>
+    <p className="mt-1 text-sm text-slate-400">
+      Choose how TaskFlow should appear.
+    </p>
+  </div>
 
-        <div className="grid gap-4 p-6 md:grid-cols-3">
-          <button
-            type="button"
-            disabled={isUpdating}
-            onClick={() =>
-              void setTheme(
-                ThemeMode.DARK
-              )
-            }
-            className={`rounded-2xl border p-5 text-left transition ${
-              theme ===
-              ThemeMode.DARK
-                ? "border-blue-500/30 bg-blue-500/10"
-                : "border-white/10 bg-slate-950 hover:border-white/20"
-            }`}
-          >
-            <Moon className="mb-4 h-6 w-6 text-blue-400" />
+  <div className="grid gap-3 p-5 md:grid-cols-3">
+    <button
+      type="button"
+      disabled={isUpdating}
+      onClick={() =>
+        void setTheme(ThemeMode.DARK)
+      }
+      className={`rounded-xl border p-4 text-left transition ${
+        theme === ThemeMode.DARK
+          ? "border-blue-500/30 bg-blue-500/10"
+          : "border-white/10 bg-slate-950 hover:border-white/20"
+      }`}
+    >
+      <Moon className="mb-3 h-5 w-5 text-blue-400" />
 
-            <h4 className="font-medium text-white">
-              Dark
-            </h4>
+      <h4 className="font-medium text-white">
+        Dark
+      </h4>
 
-            <p className="mt-1 text-sm text-slate-400">
-              Optimized for low-light environments.
-            </p>
-          </button>
+      <p className="mt-1 text-xs text-slate-400">
+        Low-light workspace.
+      </p>
+    </button>
 
-          <button
-            type="button"
-            disabled={isUpdating}
-            onClick={() =>
-              void setTheme(
-                ThemeMode.LIGHT
-              )
-            }
-            className={`rounded-2xl border p-5 text-left transition ${
-              theme ===
-              ThemeMode.LIGHT
-                ? "border-blue-500/30 bg-blue-500/10"
-                : "border-white/10 bg-slate-950 hover:border-white/20"
-            }`}
-          >
-            <Sun className="mb-4 h-6 w-6 text-amber-400" />
+    <button
+      type="button"
+      disabled={isUpdating}
+      onClick={() =>
+        void setTheme(ThemeMode.LIGHT)
+      }
+      className={`rounded-xl border p-4 text-left transition ${
+        theme === ThemeMode.LIGHT
+          ? "border-blue-500/30 bg-blue-500/10"
+          : "border-white/10 bg-slate-950 hover:border-white/20"
+      }`}
+    >
+      <Sun className="mb-3 h-5 w-5 text-amber-400" />
 
-            <h4 className="font-medium text-white">
-              Light
-            </h4>
+      <h4 className="font-medium text-white">
+        Light
+      </h4>
 
-            <p className="mt-1 text-sm text-slate-400">
-              Bright interface for daytime use.
-            </p>
-          </button>
+      <p className="mt-1 text-xs text-slate-400">
+        Bright daytime interface.
+      </p>
+    </button>
 
-          <button
-            type="button"
-            disabled={isUpdating}
-            onClick={() =>
-              void setTheme(
-                ThemeMode.SYSTEM
-              )
-            }
-            className={`rounded-2xl border p-5 text-left transition ${
-              theme ===
-              ThemeMode.SYSTEM
-                ? "border-blue-500/30 bg-blue-500/10"
-                : "border-white/10 bg-slate-950 hover:border-white/20"
-            }`}
-          >
-            <Laptop className="mb-4 h-6 w-6 text-violet-400" />
+    <button
+      type="button"
+      disabled={isUpdating}
+      onClick={() =>
+        void setTheme(ThemeMode.SYSTEM)
+      }
+      className={`rounded-xl border p-4 text-left transition ${
+        theme === ThemeMode.SYSTEM
+          ? "border-blue-500/30 bg-blue-500/10"
+          : "border-white/10 bg-slate-950 hover:border-white/20"
+      }`}
+    >
+      <Laptop className="mb-3 h-5 w-5 text-violet-400" />
 
-            <h4 className="font-medium text-white">
-              System
-            </h4>
+      <h4 className="font-medium text-white">
+        System
+      </h4>
 
-            <p className="mt-1 text-sm text-slate-400">
-              Follow your operating system.
-            </p>
-          </button>
-        </div>
-      </section>
+      <p className="mt-1 text-xs text-slate-400">
+        Follow device settings.
+      </p>
+    </button>
+  </div>
+  <div className="border-t border-white/10 px-5 py-4">
+  <div className="mb-3 flex items-center gap-2">
+    <Palette className="h-4 w-4 text-pink-400" />
+
+    <h4 className="text-sm font-medium text-white">
+      Accent Color
+    </h4>
+  </div>
+
+  <div className="flex flex-wrap gap-3">
+    {[
+      {
+        value: AccentColor.BLUE,
+        className: "bg-blue-500",
+      },
+      {
+        value: AccentColor.VIOLET,
+        className: "bg-violet-500",
+      },
+      {
+        value: AccentColor.EMERALD,
+        className: "bg-emerald-500",
+      },
+      {
+        value: AccentColor.ORANGE,
+        className: "bg-orange-500",
+      },
+      {
+        value: AccentColor.ROSE,
+        className: "bg-rose-500",
+      },
+      {
+        value: AccentColor.CYAN,
+        className: "bg-cyan-500",
+      },
+    ].map((color) => (
+      <button
+        key={color.value}
+        type="button"
+        disabled={isUpdating}
+        onClick={() =>
+          void setAccentColor(color.value)
+        }
+        className={`h-10 w-10 rounded-full transition hover:scale-105 ${
+          color.className
+        } ${
+          accentColor === color.value
+            ? "ring-4 ring-white"
+            : "ring-2 ring-transparent hover:ring-white/20"
+        }`}
+      />
+    ))}
+  </div>
+</div>
+</section>
             {/* Density */}
 
       <section className="rounded-2xl border border-white/10 bg-slate-900/40">
@@ -224,70 +269,7 @@ export default function AppearancePanel() {
       </section>
             {/* Accent */}
 
-      <section className="rounded-2xl border border-white/10 bg-slate-900/40">
-        <div className="border-b border-white/10 px-6 py-5">
-          <div className="flex items-center gap-2">
-            <Palette className="h-5 w-5 text-pink-400" />
-
-            <h3 className="text-base font-semibold text-white">
-              Accent Color
-            </h3>
-          </div>
-
-          <p className="mt-1 text-sm text-slate-400">
-            Choose the primary accent color.
-          </p>
-        </div>
-
-        <div className="flex flex-wrap gap-4 p-6">
-          {[
-            {
-              value: AccentColor.BLUE,
-              className: "bg-blue-500",
-            },
-            {
-              value: AccentColor.VIOLET,
-              className: "bg-violet-500",
-            },
-            {
-              value: AccentColor.EMERALD,
-              className: "bg-emerald-500",
-            },
-            {
-              value: AccentColor.ORANGE,
-              className: "bg-orange-500",
-            },
-            {
-              value: AccentColor.ROSE,
-              className: "bg-rose-500",
-            },
-            {
-              value: AccentColor.CYAN,
-              className: "bg-cyan-500",
-            },
-          ].map((color) => (
-            <button
-              key={color.value}
-              type="button"
-              disabled={isUpdating}
-              onClick={() =>
-                void setAccentColor(
-                  color.value
-                )
-              }
-              className={`h-11 w-11 rounded-full transition hover:scale-105 ${
-                color.className
-              } ${
-                accentColor ===
-                color.value
-                  ? "ring-4 ring-white"
-                  : "ring-2 ring-transparent hover:ring-white/20"
-              }`}
-            />
-          ))}
-        </div>
-      </section>
-            {/* Reduced Motion */}
+                  {/* Reduced Motion */}
 
       <section className="rounded-2xl border border-white/10 bg-slate-900/40">
         <div className="border-b border-white/10 px-6 py-5">

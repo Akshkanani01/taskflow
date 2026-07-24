@@ -268,7 +268,7 @@ const completionRate =
           <FolderKanban className="mb-4 h-8 w-8 text-cyan-400" />
 
           <p className="text-sm text-slate-400">
-            Projects
+            Lists
           </p>
 
           <h2 className="mt-2 text-4xl font-bold text-white">

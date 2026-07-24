@@ -3,63 +3,62 @@ type Props = {
 };
 
 const styles = {
-
   TODO: {
     label: "Todo",
     color:
-      "bg-slate-700/60 text-slate-200 border-slate-600",
+      "border-slate-600 bg-slate-700/50 text-slate-200",
     dot: "bg-slate-300",
   },
 
   IN_PROGRESS: {
     label: "In Progress",
     color:
-      "bg-blue-500/15 text-blue-300 border-blue-500/30",
+      "border-blue-500/30 bg-blue-500/15 text-blue-300",
     dot: "bg-blue-400",
   },
 
   IN_REVIEW: {
     label: "In Review",
     color:
-      "bg-amber-500/15 text-amber-300 border-amber-500/30",
+      "border-amber-500/30 bg-amber-500/15 text-amber-300",
     dot: "bg-amber-400",
   },
 
   DONE: {
     label: "Done",
     color:
-      "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
+      "border-emerald-500/30 bg-emerald-500/15 text-emerald-300",
     dot: "bg-emerald-400",
   },
-
 } as const;
 
 export default function StatusBadge({
   status,
 }: Props) {
-    const badge =
+  const badge =
     styles[
       status as keyof typeof styles
-    ] ??
-    styles.TODO;
+    ] ?? styles.TODO;
 
   return (
-
-    <div
+    <span
       className={`
         inline-flex
+        h-8
+        min-w-[92px]
         items-center
+        justify-center
         gap-2
         rounded-full
         border
         px-3
-        py-1.5
         text-xs
         font-semibold
+        whitespace-nowrap
+        transition-colors
         ${badge.color}
       `}
     >
-
       <span
         className={`
           h-2
@@ -70,9 +69,6 @@ export default function StatusBadge({
       />
 
       {badge.label}
-
-    </div>
-
+    </span>
   );
-
 }
