@@ -64,7 +64,7 @@ export default function PermissionDrawer({
           border-zinc-800
           bg-[#0B1017]
           p-0
-          text-white
+          text-foreground
           sm:max-w-2xl
         "
       >
@@ -72,7 +72,7 @@ export default function PermissionDrawer({
 
         <SheetHeader className="border-b border-zinc-800 px-8 py-6">
 
-          <SheetTitle className="text-left text-2xl font-semibold text-white">
+          <SheetTitle className="text-left text-2xl font-semibold text-foreground">
             Manage Permissions
           </SheetTitle>
 
@@ -167,7 +167,7 @@ export default function PermissionDrawer({
               p-6
             "
           >
-            <h3 className="text-base font-semibold text-white">
+            <h3 className="text-base font-semibold text-foreground">
               Advanced Permissions
             </h3>
 

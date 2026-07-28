@@ -2,8 +2,8 @@ export function ListChart() {
 return ( <div
    className="
      rounded-3xl
-     border border-white/10
-     bg-slate-900
+     border border-border
+     bg-card
      p-6
    "
  > <div className="flex items-center justify-between">
@@ -11,11 +11,11 @@ return ( <div
 
     <div>
 
-      <h3 className="text-xl font-semibold text-white">
+      <h3 className="text-xl font-semibold text-foreground">
         Project Progress
       </h3>
 
-      <p className="mt-1 text-sm text-slate-400">
+      <p className="mt-1 text-sm text-muted-foreground">
         Monthly performance overview
       </p>
 
@@ -24,9 +24,9 @@ return ( <div
     <button
       className="
         rounded-xl
-        border border-white/10
+        border border-border
         px-4 py-2
-        text-sm text-slate-300
+        text-sm text-foreground
       "
     >
       Last 30 Days
@@ -40,42 +40,42 @@ return ( <div
 
       <div className="flex flex-1 flex-col items-center">
         <div className="h-24 w-full rounded-t-xl bg-indigo-500" />
-        <span className="mt-2 text-xs text-slate-500">
+        <span className="mt-2 text-xs text-muted-foreground">
           Jan
         </span>
       </div>
 
       <div className="flex flex-1 flex-col items-center">
         <div className="h-36 w-full rounded-t-xl bg-indigo-500" />
-        <span className="mt-2 text-xs text-slate-500">
+        <span className="mt-2 text-xs text-muted-foreground">
           Feb
         </span>
       </div>
 
       <div className="flex flex-1 flex-col items-center">
         <div className="h-28 w-full rounded-t-xl bg-indigo-500" />
-        <span className="mt-2 text-xs text-slate-500">
+        <span className="mt-2 text-xs text-muted-foreground">
           Mar
         </span>
       </div>
 
       <div className="flex flex-1 flex-col items-center">
         <div className="h-44 w-full rounded-t-xl bg-indigo-500" />
-        <span className="mt-2 text-xs text-slate-500">
+        <span className="mt-2 text-xs text-muted-foreground">
           Apr
         </span>
       </div>
 
       <div className="flex flex-1 flex-col items-center">
         <div className="h-52 w-full rounded-t-xl bg-indigo-500" />
-        <span className="mt-2 text-xs text-slate-500">
+        <span className="mt-2 text-xs text-muted-foreground">
           May
         </span>
       </div>
 
       <div className="flex flex-1 flex-col items-center">
         <div className="h-60 w-full rounded-t-xl bg-indigo-500" />
-        <span className="mt-2 text-xs text-slate-500">
+        <span className="mt-2 text-xs text-muted-foreground">
           Jun
         </span>
       </div>

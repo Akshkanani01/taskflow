@@ -85,7 +85,7 @@ export default function DocumentationPage() {
               <Link
                 key={item.title}
                 href={item.href}
-                className="group rounded-2xl border bg-card p-6 transition-all hover:-translate-y-1 hover:border-primary"
+                className="group rounded-2xl border bg-background p-6 transition-all hover:-translate-y-1 hover:border-primary"
               >
                 <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
                   <Icon className="h-6 w-6 text-primary" />

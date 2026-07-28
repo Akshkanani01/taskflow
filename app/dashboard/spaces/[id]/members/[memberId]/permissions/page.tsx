@@ -183,7 +183,7 @@ export default async function MemberPermissionsPage({
 
       {/* Header */}
 
-      <section className="rounded-3xl border border-white/10 bg-[#111827] p-8">
+      <section className="rounded-3xl border border-border bg-[#111827] p-8">
 
         <div className="flex items-center gap-5">
 
@@ -195,13 +195,13 @@ export default async function MemberPermissionsPage({
 
           <div>
 
-            <h1 className="text-3xl font-bold text-white">
+            <h1 className="text-3xl font-bold text-foreground">
 
               Permissions
 
             </h1>
 
-            <p className="mt-2 text-slate-400">
+            <p className="mt-2 text-muted-foreground">
 
               Review this member&apos;s access level and workspace permissions.
 
@@ -216,19 +216,19 @@ export default async function MemberPermissionsPage({
 
       <section className="grid gap-6 xl:grid-cols-[340px_1fr]">
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-7">
+        <div className="rounded-3xl border border-border bg-[#111827] p-7">
 
           <div className="flex items-center justify-between">
 
             <div>
 
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-muted-foreground">
 
                 Current Role
 
               </p>
 
-              <h2 className="mt-2 text-3xl font-bold text-white">
+              <h2 className="mt-2 text-3xl font-bold text-foreground">
 
                 {member.role}
 
@@ -252,7 +252,7 @@ export default async function MemberPermissionsPage({
 
               ) : (
 
-                <Users className="h-9 w-9 text-slate-400" />
+                <Users className="h-9 w-9 text-muted-foreground" />
 
               )}
 
@@ -396,17 +396,17 @@ export default async function MemberPermissionsPage({
 
       {/* Permission Matrix */}
 
-      <section className="rounded-3xl border border-white/10 bg-[#111827] p-7">
+      <section className="rounded-3xl border border-border bg-[#111827] p-7">
 
         <div className="mb-8">
 
-          <h2 className="text-2xl font-bold text-white">
+          <h2 className="text-2xl font-bold text-foreground">
 
             Permission Matrix
 
           </h2>
 
-          <p className="mt-2 text-slate-400">
+          <p className="mt-2 text-muted-foreground">
 
             Access granted based on the current member role.
 
@@ -432,17 +432,17 @@ export default async function MemberPermissionsPage({
 
       {/* Role Hierarchy */}
 
-      <section className="rounded-3xl border border-white/10 bg-[#111827] p-7">
+      <section className="rounded-3xl border border-border bg-[#111827] p-7">
 
         <div className="mb-8">
 
-          <h2 className="text-2xl font-bold text-white">
+          <h2 className="text-2xl font-bold text-foreground">
 
             Workspace Role Hierarchy
 
           </h2>
 
-          <p className="mt-2 text-slate-400">
+          <p className="mt-2 text-muted-foreground">
 
             Higher roles automatically inherit permissions from lower roles.
 
@@ -530,9 +530,9 @@ function PermissionSummaryRow({
 
   return (
 
-    <div className="flex items-center justify-between rounded-xl border border-white/10 bg-slate-900 px-4 py-3">
+    <div className="flex items-center justify-between rounded-xl border border-border bg-card px-4 py-3">
 
-      <span className="text-sm text-slate-300">
+      <span className="text-sm text-foreground">
 
         {label}
 
@@ -566,13 +566,13 @@ function StatCard({
 
   return (
 
-    <div className="rounded-3xl border border-white/10 bg-[#111827] p-7">
+    <div className="rounded-3xl border border-border bg-[#111827] p-7">
 
       <div className="flex items-center justify-between">
 
         {icon}
 
-        <p className="text-xs uppercase tracking-widest text-slate-500">
+        <p className="text-xs uppercase tracking-widest text-muted-foreground">
 
           {title}
 
@@ -580,7 +580,7 @@ function StatCard({
 
       </div>
 
-      <h3 className="mt-6 text-3xl font-bold text-white">
+      <h3 className="mt-6 text-3xl font-bold text-foreground">
 
         {value}
 
@@ -614,7 +614,7 @@ function PermissionCard({
 
       <div className="flex items-center justify-between">
 
-        <h3 className="font-semibold text-white">
+        <h3 className="font-semibold text-foreground">
 
           {title}
 
@@ -632,7 +632,7 @@ function PermissionCard({
 
       </div>
 
-      <p className="mt-3 text-sm text-slate-400">
+      <p className="mt-3 text-sm text-muted-foreground">
 
         {description}
 
@@ -669,7 +669,7 @@ function RoleCard({
       "border-emerald-500/20 bg-emerald-500/5 text-emerald-300",
 
     slate:
-      "border-slate-500/20 bg-slate-500/5 text-slate-300",
+      "border-slate-500/20 bg-slate-500/5 text-foreground",
 
   };
 

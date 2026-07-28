@@ -31,7 +31,7 @@ export default function MemberOverview({
 
       <div>
 
-        <h1 className="text-4xl font-bold text-white">
+        <h1 className="text-4xl font-bold text-foreground">
           Member Overview
         </h1>
 
@@ -88,7 +88,7 @@ export default function MemberOverview({
           "
         >
 
-          <h2 className="text-xl font-semibold text-white">
+          <h2 className="text-xl font-semibold text-foreground">
             Member Information
           </h2>
 
@@ -141,7 +141,7 @@ export default function MemberOverview({
           "
         >
 
-          <h2 className="text-xl font-semibold text-white">
+          <h2 className="text-xl font-semibold text-foreground">
             Workspace Progress
           </h2>
 
@@ -157,7 +157,7 @@ export default function MemberOverview({
                 Progress
               </span>
 
-              <span className="font-semibold text-white">
+              <span className="font-semibold text-foreground">
                 75%
               </span>
 
@@ -207,7 +207,7 @@ export default function MemberOverview({
 
           <div>
 
-            <h2 className="text-xl font-semibold text-white">
+            <h2 className="text-xl font-semibold text-foreground">
               Recent Tasks
             </h2>
 
@@ -285,7 +285,7 @@ export default function MemberOverview({
 
               font-medium
 
-              text-white
+              text-foreground
 
               transition
 
@@ -325,7 +325,7 @@ function StatCard({
             {title}
           </p>
 
-          <h3 className="mt-3 text-3xl font-bold text-white">
+          <h3 className="mt-3 text-3xl font-bold text-foreground">
             {value}
           </h3>
 
@@ -363,7 +363,7 @@ function InfoRow({
           {label}
         </p>
 
-        <p className="font-medium text-white">
+        <p className="font-medium text-foreground">
           {value}
         </p>
 
@@ -383,7 +383,7 @@ function TaskItem({
   return (
     <div className="flex items-center justify-between rounded-2xl border border-zinc-800 bg-[#171F2B] px-5 py-4">
 
-      <span className="font-medium text-white">
+      <span className="font-medium text-foreground">
         {title}
       </span>
 

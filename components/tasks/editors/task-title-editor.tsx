@@ -37,7 +37,7 @@ export default function TaskTitleEditor({
     return (
       <div className="group flex items-center justify-between">
 
-        <h1 className="text-4xl font-bold text-white">
+        <h1 className="text-4xl font-bold text-foreground">
           {title}
         </h1>
 
@@ -48,11 +48,11 @@ export default function TaskTitleEditor({
           className="
             rounded-xl
             p-2
-            text-slate-400
+            text-muted-foreground
             opacity-0
             transition
-            hover:bg-slate-800
-            hover:text-white
+            hover:bg-background
+            hover:text-foreground
             group-hover:opacity-100
           "
         >
@@ -78,12 +78,12 @@ export default function TaskTitleEditor({
           w-full
           rounded-2xl
           border
-          border-white/10
-          bg-slate-950
+          border-border
+          bg-background
           p-4
           text-3xl
           font-bold
-          text-white
+          text-foreground
           outline-none
           focus:border-indigo-500
         "
@@ -102,7 +102,7 @@ export default function TaskTitleEditor({
             bg-emerald-600
             px-4
             py-2
-            text-white
+            text-foreground
           "
         >
           <Check size={16} />
@@ -119,10 +119,10 @@ export default function TaskTitleEditor({
             items-center
             gap-2
             rounded-xl
-            bg-slate-700
+            bg-muted
             px-4
             py-2
-            text-white
+            text-foreground
           "
         >
           <X size={16} />

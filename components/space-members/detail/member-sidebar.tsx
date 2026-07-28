@@ -100,7 +100,7 @@ export default function MemberSidebar({
             transition
 
             hover:bg-zinc-800
-            hover:text-white
+            hover:text-foreground
           "
         >
           <ArrowLeft size={16} />
@@ -124,7 +124,7 @@ export default function MemberSidebar({
 
         </div>
 
-        <h2 className="mt-6 text-center text-2xl font-bold text-white">
+        <h2 className="mt-6 text-center text-2xl font-bold text-foreground">
 
           {member.name}
 
@@ -185,8 +185,8 @@ export default function MemberSidebar({
 
           ${
             active
-              ? "bg-blue-600 text-white"
-              : "text-zinc-400 hover:bg-zinc-800 hover:text-white"
+              ? "bg-blue-600 text-foreground"
+              : "text-zinc-400 hover:bg-zinc-800 hover:text-foreground"
           }
         `}
       >

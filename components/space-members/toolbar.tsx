@@ -63,7 +63,7 @@ export default function MembersToolbar({
                 border-[#2A3443]
                 bg-[#0F141C]
                 pl-10
-                text-white
+                text-foreground
               "
             />
 
@@ -84,7 +84,7 @@ export default function MembersToolbar({
               bg-[#0F141C]
               px-4
               text-sm
-              text-white
+              text-foreground
             "
           >
             <option value="ALL">

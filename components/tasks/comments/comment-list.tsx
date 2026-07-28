@@ -21,7 +21,7 @@ export default function CommentList({
 }: Props) {
   if (comments.length === 0) {
     return (
-      <div className="py-10 text-center text-slate-500">
+      <div className="py-10 text-center text-muted-foreground">
         No comments yet.
       </div>
     );

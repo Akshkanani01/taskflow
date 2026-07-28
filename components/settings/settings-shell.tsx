@@ -17,12 +17,13 @@ export default function SettingsShell() {
           shrink-0
           flex-col
           border-r
-          border-white/10
-          bg-slate-950
+          border-border
+          bg-background
         "
       >
         <SettingsSidebar />
       </aside>
+
 
       {/* Content */}
 
@@ -33,12 +34,14 @@ export default function SettingsShell() {
           min-w-0
           flex-1
           flex-col
-          bg-slate-950
+          bg-background
         "
       >
+
         {/* Sticky Header */}
 
         <SettingsHeader />
+
 
         {/* Scroll Area */}
 
@@ -50,6 +53,7 @@ export default function SettingsShell() {
             overflow-x-hidden
           "
         >
+
           <div
             className="
               mx-auto
@@ -59,9 +63,13 @@ export default function SettingsShell() {
               py-8
             "
           >
+
             <SettingsPanelRenderer />
+
           </div>
+
         </div>
+
       </section>
     </>
   );

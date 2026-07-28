@@ -101,17 +101,17 @@ export default function ListPageClient({
 
         {/* HEADER */}
 
-        <section className="rounded-3xl border border-white/10 bg-[#111827] p-8">
+        <section className="rounded-3xl border border-border bg-[#111827] p-8">
 
           <div className="flex items-center justify-between">
 
             <div>
 
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-muted-foreground">
                 Project
               </p>
 
-              <h1 className="mt-2 text-3xl font-bold text-white">
+              <h1 className="mt-2 text-3xl font-bold text-foreground">
                 {project.name}
               </h1>
 
@@ -129,7 +129,7 @@ export default function ListPageClient({
                 px-5
                 py-3
                 font-semibold
-                text-white
+                text-foreground
                 transition-all
                 hover:bg-indigo-500
               "
@@ -155,7 +155,7 @@ export default function ListPageClient({
                   left-4
                   top-1/2
                   -translate-y-1/2
-                  text-slate-500
+                  text-muted-foreground
                 "
               />
 
@@ -170,11 +170,11 @@ export default function ListPageClient({
                   w-full
                   rounded-2xl
                   border
-                  border-white/10
-                  bg-slate-950
+                  border-border
+                  bg-background
                   pl-12
                   pr-4
-                  text-white
+                  text-foreground
                   outline-none
                 "
               />
@@ -190,10 +190,10 @@ export default function ListPageClient({
                 justify-center
                 rounded-2xl
                 border
-                border-white/10
-                bg-slate-900
+                border-border
+                bg-card
                 transition
-                hover:bg-slate-800
+                hover:bg-background
               "
             >
               <Filter size={18} />
@@ -211,18 +211,18 @@ export default function ListPageClient({
               rounded-3xl
               border
               border-dashed
-              border-white/10
+              border-border
               bg-[#111827]
               py-24
               text-center
             "
           >
 
-            <h2 className="text-2xl font-semibold text-white">
+            <h2 className="text-2xl font-semibold text-foreground">
               No Tasks Found
             </h2>
 
-            <p className="mt-3 text-slate-500">
+            <p className="mt-3 text-muted-foreground">
               Create your first task to get started.
             </p>
 
@@ -239,7 +239,7 @@ export default function ListPageClient({
                 px-6
                 py-3
                 font-medium
-                text-white
+                text-foreground
                 transition
                 hover:bg-indigo-500
               "
@@ -259,7 +259,7 @@ export default function ListPageClient({
               overflow-hidden
               rounded-3xl
               border
-              border-white/10
+              border-border
               bg-[#111827]
             "
           >

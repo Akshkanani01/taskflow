@@ -42,8 +42,8 @@ export default function TeamActivity() {
       className="
         rounded-3xl
         border
-        border-white/10
-        bg-slate-900
+        border-border
+        bg-card
       "
     >
       {logs.map((log, index) => (
@@ -51,7 +51,7 @@ export default function TeamActivity() {
           key={index}
           className="
             border-b
-            border-white/5
+            border-border
             p-6
           "
         >
@@ -59,17 +59,17 @@ export default function TeamActivity() {
 
             <div>
 
-              <p className="font-medium text-white">
+              <p className="font-medium text-foreground">
                 {log.action}
               </p>
 
-              <p className="mt-1 text-sm text-slate-400">
+              <p className="mt-1 text-sm text-muted-foreground">
                 {log.user}
               </p>
 
             </div>
 
-            <div className="text-sm text-slate-500">
+            <div className="text-sm text-muted-foreground">
               {log.time}
             </div>
 

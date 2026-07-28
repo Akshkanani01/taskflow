@@ -23,13 +23,13 @@ return ( <section className="py-32"> <div className="container mx-auto px-6">
 
       <div className="relative">
 
-        <h2 className="text-5xl font-bold text-white">
+        <h2 className="text-5xl font-bold text-foreground">
           Ready To Transform
           <br />
           Your Workflow?
         </h2>
 
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-300">
+        <p className="mx-auto mt-6 max-w-2xl text-lg text-foreground">
           Manage lists, collaborate with teams and
           track progress — all from one workspace.
         </p>
@@ -42,8 +42,8 @@ return ( <section className="py-32"> <div className="container mx-auto px-6">
               h-14
               px-10
               text-lg
-              bg-white
-              text-black
+              bg-background
+              text-foreground
               hover:bg-slate-200
             "
           >

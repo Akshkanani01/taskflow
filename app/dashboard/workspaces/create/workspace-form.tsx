@@ -42,8 +42,8 @@ setLoading(true);
 return ( <div
    className="
      rounded-3xl
-     border border-white/10
-     bg-slate-900
+     border border-border
+     bg-card
      p-8
    "
  > <div className="space-y-5">
@@ -55,10 +55,10 @@ placeholder="Workspace Name"
 className="
 w-full
 rounded-xl
-border border-white/10
-bg-slate-950
+border border-border
+bg-background
 px-4 py-3
-text-white
+text-foreground
 "
 />
 
@@ -70,7 +70,7 @@ text-white
         rounded-xl
         bg-indigo-600
         px-5 py-3
-        text-white
+        text-foreground
       "
     >
       {loading ? "Creating..." : "Create Workspace"}

@@ -65,7 +65,7 @@ export default function ActivityTab({
 
       <div>
 
-        <h2 className="text-xl font-semibold text-white">
+        <h2 className="text-xl font-semibold text-foreground">
           Activity Timeline
         </h2>
 
@@ -127,7 +127,7 @@ export default function ActivityTab({
 
                     <div>
 
-                      <h3 className="font-semibold text-white">
+                      <h3 className="font-semibold text-foreground">
                         {item.title}
                       </h3>
 

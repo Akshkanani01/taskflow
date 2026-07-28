@@ -32,7 +32,7 @@ const tabs = [
 
 export default function TaskTabs() {
   return (
-    <div className="rounded-2xl border bg-white p-2 shadow-sm">
+    <div className="rounded-2xl border bg-background p-2 shadow-sm">
       <div className="flex flex-wrap gap-2">
         {tabs.map((tab, index) => {
           const Icon = tab.icon;
@@ -43,7 +43,7 @@ export default function TaskTabs() {
               className={cn(
                 "flex items-center gap-3 rounded-xl px-5 py-3 transition-all",
                 index === 0
-                  ? "bg-slate-900 text-white shadow"
+                  ? "bg-card text-foreground shadow"
                   : "hover:bg-slate-100"
               )}
             >
@@ -57,7 +57,7 @@ export default function TaskTabs() {
                 className={cn(
                   "rounded-full px-2 py-0.5 text-xs font-semibold",
                   index === 0
-                    ? "bg-white/20"
+                    ? "bg-background/20"
                     : "bg-slate-200"
                 )}
               >

@@ -142,7 +142,7 @@ function StatCard({
 
       </div>
 
-      <h2 className="mt-5 text-4xl font-bold text-white">
+      <h2 className="mt-5 text-4xl font-bold text-foreground">
         {value}
       </h2>
 

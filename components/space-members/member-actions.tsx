@@ -46,7 +46,7 @@ export default function MemberActions({
             transition-all
             hover:border-zinc-700
             hover:bg-zinc-800
-            hover:text-white
+            hover:text-foreground
           "
         >
           <MoreHorizontal size={18} />
@@ -60,7 +60,7 @@ export default function MemberActions({
           rounded-xl
           border-zinc-800
           bg-[#141A24]
-          text-white
+          text-foreground
         "
       >
         <DropdownMenuItem

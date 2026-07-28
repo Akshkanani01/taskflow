@@ -97,7 +97,7 @@ export default function InviteDialog({
         }
       }}
     >
-      <DialogContent className="max-w-lg rounded-2xl border border-zinc-800 bg-[#111827] p-0 text-white">
+      <DialogContent className="max-w-lg rounded-2xl border border-zinc-800 bg-[#111827] p-0 text-foreground">
         <DialogHeader className="border-b border-zinc-800 p-6">
           <DialogTitle className="flex items-center gap-3 text-xl">
             <UserPlus className="h-5 w-5 text-blue-400" />
@@ -159,7 +159,7 @@ export default function InviteDialog({
                   e.target.value
                 )
               }
-              className="h-11 w-full rounded-lg border border-zinc-700 bg-[#0F172A] px-3 text-white outline-none"
+              className="h-11 w-full rounded-lg border border-zinc-700 bg-[#0F172A] px-3 text-foreground outline-none"
             >
               <option value="OWNER">
                 Owner
@@ -194,7 +194,7 @@ export default function InviteDialog({
                 )
               }
               placeholder="Welcome to our workspace..."
-              className="w-full rounded-lg border border-zinc-700 bg-[#0F172A] p-3 text-sm text-white outline-none"
+              className="w-full rounded-lg border border-zinc-700 bg-[#0F172A] p-3 text-sm text-foreground outline-none"
             />
 
             <p className="text-xs text-zinc-500">

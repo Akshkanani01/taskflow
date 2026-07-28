@@ -6,8 +6,8 @@ const styles = {
   TODO: {
     label: "Todo",
     color:
-      "border-slate-600 bg-slate-700/50 text-slate-200",
-    dot: "bg-slate-300",
+      "border-border bg-muted text-foreground",
+    dot: "bg-muted-foreground",
   },
 
   IN_PROGRESS: {

@@ -97,7 +97,7 @@ export default function TaskRow({
               truncate
               text-[15px]
               font-semibold
-              text-white
+              text-foreground
             "
           >
             {title}
@@ -110,7 +110,7 @@ export default function TaskRow({
               items-center
               gap-5
               text-xs
-              text-slate-500
+              text-muted-foreground
             "
           >
             <span className="flex items-center gap-1">
@@ -150,14 +150,14 @@ export default function TaskRow({
               items-center
               justify-center
               rounded-xl
-              bg-slate-800
-              text-slate-400
+              bg-background
+              text-muted-foreground
             "
           >
             <Calendar size={17} />
           </div>
                     <div>
-            <p className="text-xs font-semibold text-white">
+            <p className="text-xs font-semibold text-foreground">
               {dueDate
                 ? dueDate.toLocaleDateString("en-GB", {
                     day: "2-digit",
@@ -167,7 +167,7 @@ export default function TaskRow({
                 : "No Due Date"}
             </p>
 
-            <p className="mt-1 text-[11px] text-slate-500">
+            <p className="mt-1 text-[11px] text-muted-foreground">
               Due
             </p>
           </div>
@@ -195,7 +195,7 @@ export default function TaskRow({
           )}
 
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium text-white">
+            <p className="truncate text-sm font-medium text-foreground">
               {assignee?.name || "Unassigned"}
             </p>
 
@@ -207,7 +207,7 @@ export default function TaskRow({
                     max-w-[150px]
                     truncate
                     text-xs
-                    text-slate-500
+                    text-muted-foreground
                   "
                 >
                   {assignee.email}

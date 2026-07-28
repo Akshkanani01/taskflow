@@ -58,11 +58,11 @@ return ( <section
         Features
       </p>
 
-      <h2 className="mt-4 text-5xl font-bold text-white">
+      <h2 className="mt-4 text-5xl font-bold text-foreground">
         Everything You Need
       </h2>
 
-      <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-400">
+      <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
         Manage lists, collaborate with teams,
         and monitor progress from one powerful workspace.
       </p>
@@ -80,8 +80,8 @@ return ( <section
             className="
               rounded-3xl
               border
-              border-white/10
-              bg-slate-900
+              border-border
+              bg-card
               p-8
               transition-all
               duration-300
@@ -103,11 +103,11 @@ return ( <section
               <Icon className="h-7 w-7 text-indigo-400" />
             </div>
 
-            <h3 className="mt-6 text-2xl font-semibold text-white">
+            <h3 className="mt-6 text-2xl font-semibold text-foreground">
               {feature.title}
             </h3>
 
-            <p className="mt-4 text-slate-400">
+            <p className="mt-4 text-muted-foreground">
               {feature.description}
             </p>
           </div>

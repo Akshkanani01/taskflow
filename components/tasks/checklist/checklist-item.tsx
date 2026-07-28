@@ -64,7 +64,7 @@ export default function ChecklistItem({
   }
 
   return (
-    <div className="group flex items-center justify-between rounded-2xl border border-white/10 bg-slate-950 px-4 py-3">
+    <div className="group flex items-center justify-between rounded-2xl border border-border bg-background px-4 py-3">
 
       <div className="flex items-center gap-3 flex-1">
 
@@ -94,7 +94,7 @@ export default function ChecklistItem({
                 e.target.value
               )
             }
-            className="h-10 flex-1 rounded-lg border border-white/10 bg-slate-900 px-3 text-white outline-none"
+            className="h-10 flex-1 rounded-lg border border-border bg-card px-3 text-foreground outline-none"
           />
 
         ) : (
@@ -102,8 +102,8 @@ export default function ChecklistItem({
           <span
             className={`flex-1 ${
               item.completed
-                ? "text-slate-500 line-through"
-                : "text-white"
+                ? "text-muted-foreground line-through"
+                : "text-foreground"
             }`}
           >
             {item.title}
@@ -135,7 +135,7 @@ export default function ChecklistItem({
                   item.title
                 );
               }}
-              className="rounded-lg p-2 text-slate-400 hover:bg-slate-800"
+              className="rounded-lg p-2 text-muted-foreground hover:bg-background"
             >
               <X size={16} />
             </button>
@@ -146,7 +146,7 @@ export default function ChecklistItem({
               onClick={() =>
                 setEditing(true)
               }
-              className="rounded-lg p-2 text-slate-400 hover:bg-slate-800"
+              className="rounded-lg p-2 text-muted-foreground hover:bg-background"
             >
               <Pencil
                 size={16}

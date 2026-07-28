@@ -114,10 +114,10 @@ export function WorkspaceSwitcher() {
         className="
           flex items-center gap-3
           rounded-xl
-          border border-white/10
-          bg-slate-900
+          border border-border
+          bg-card
           px-4 py-3
-          text-white
+          text-foreground
         "
       >
         <span className="font-medium">
@@ -134,8 +134,8 @@ export function WorkspaceSwitcher() {
             z-50
             w-80
             rounded-2xl
-            border border-white/10
-            bg-slate-900
+            border border-border
+            bg-card
             p-3
             shadow-2xl
           "
@@ -147,7 +147,7 @@ export function WorkspaceSwitcher() {
               font-medium
               uppercase
               tracking-wider
-              text-slate-500
+              text-muted-foreground
             "
           >
             Workspaces
@@ -168,8 +168,8 @@ export function WorkspaceSwitcher() {
                   rounded-xl
                   px-3 py-3
                   text-left
-                  text-white
-                  hover:bg-slate-800
+                  text-foreground
+                  hover:bg-background
                 "
               >
                 <div className="flex items-center gap-3">
@@ -203,7 +203,7 @@ export function WorkspaceSwitcher() {
             ))}
           </div>
 
-          <div className="my-3 border-t border-white/10" />
+          <div className="my-3 border-t border-border" />
 
           <Link
             href="/dashboard/workspaces/create"
@@ -211,8 +211,8 @@ export function WorkspaceSwitcher() {
               flex items-center gap-3
               rounded-xl
               px-3 py-3
-              text-white
-              hover:bg-slate-800
+              text-foreground
+              hover:bg-background
             "
           >
             <Plus size={18} />

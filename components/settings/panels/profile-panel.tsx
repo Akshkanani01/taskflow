@@ -1,73 +1,187 @@
 "use client";
 
-import { Camera, Mail, User2 } from "lucide-react";
+import {
+  Mail,
+  User2,
+} from "lucide-react";
+
 import AvatarUpload from "@/components/settings/profile/avatar-upload";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { UserAvatar } from "@/components/dashboard/user-avatar";
 
 export default function ProfilePanel() {
+
   const { user } = useCurrentUser();
+
 
   return (
     <div className="space-y-8">
+
+
       {/* Header */}
 
       <div>
-        <h2 className="text-2xl font-semibold tracking-tight text-white">
+
+        <h2
+          className="
+            text-2xl
+            font-semibold
+            tracking-tight
+            text-foreground
+          "
+        >
           Profile
         </h2>
 
-        <p className="mt-2 text-sm text-slate-400">
+
+        <p className="mt-2 text-sm text-muted-foreground">
           Manage your personal profile information.
         </p>
+
+
       </div>
+
+
 
       {/* Avatar */}
 
-      <section className="rounded-2xl border border-white/10 bg-slate-900/40">
-        <div className="border-b border-white/10 px-6 py-5">
-          <h3 className="text-base font-semibold text-white">
+      <section
+        className="
+          rounded-2xl
+          border
+          border-border
+          bg-card/80
+        "
+      >
+
+        <div
+          className="
+            border-b
+            border-border
+            px-6
+            py-5
+          "
+        >
+
+          <h3
+            className="
+              text-base
+              font-semibold
+              text-foreground
+            "
+          >
             Profile Photo
           </h3>
 
-          <p className="mt-1 text-sm text-slate-400">
+
+          <p className="mt-1 text-sm text-muted-foreground">
             Upload a profile picture visible across your workspace.
           </p>
+
+
         </div>
+
 
         <div className="flex items-center gap-6 p-6">
-          <UserAvatar className="h-24 w-24 text-2xl" />
+
+          <UserAvatar
+            className="h-24 w-24 text-2xl"
+          />
+
 
           <div className="space-y-3">
-            <AvatarUpload endpoint="avatarUploader" />
-            <p className="text-xs text-slate-500">
+
+            <AvatarUpload
+              endpoint="avatarUploader"
+            />
+
+
+            <p className="text-xs text-muted-foreground">
               PNG, JPG or WebP up to 5 MB.
             </p>
+
+
           </div>
+
+
         </div>
+
+
       </section>
+
+
 
       {/* Personal Information */}
 
-      <section className="rounded-2xl border border-white/10 bg-slate-900/40">
-        <div className="border-b border-white/10 px-6 py-5">
-          <h3 className="text-base font-semibold text-white">
+
+      <section
+        className="
+          rounded-2xl
+          border
+          border-border
+          bg-card/80
+        "
+      >
+
+        <div
+          className="
+            border-b
+            border-border
+            px-6
+            py-5
+          "
+        >
+
+          <h3
+            className="
+              text-base
+              font-semibold
+              text-foreground
+            "
+          >
             Personal Information
           </h3>
 
-          <p className="mt-1 text-sm text-slate-400">
+
+          <p className="mt-1 text-sm text-muted-foreground">
             Update your display name and account details.
           </p>
+
+
         </div>
 
+
+
         <div className="grid gap-6 p-6 md:grid-cols-2">
+
+
           <div className="space-y-2 md:col-span-2">
-            <label className="text-sm font-medium text-slate-300">
+
+            <label
+              className="
+                text-sm
+                font-medium
+                text-muted-foreground
+              "
+            >
               Full Name
             </label>
 
+
             <div className="relative">
-              <User2 className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+
+              <User2
+                className="
+                  absolute
+                  left-4
+                  top-1/2
+                  h-4
+                  w-4
+                  -translate-y-1/2
+                  text-muted-foreground
+                "
+              />
+
 
               <input
                 defaultValue={user.name ?? ""}
@@ -77,11 +191,11 @@ export default function ProfilePanel() {
                   w-full
                   rounded-xl
                   border
-                  border-white/10
-                  bg-slate-950
+                  border-border
+                  bg-background
                   pl-11
                   pr-4
-                  text-white
+                  text-foreground
                   outline-none
                   transition
                   focus:border-blue-500/40
@@ -89,16 +203,43 @@ export default function ProfilePanel() {
                   focus:ring-blue-500/20
                 "
               />
+
             </div>
+
           </div>
 
+
+
+
           <div className="space-y-2 md:col-span-2">
-            <label className="text-sm font-medium text-slate-300">
+
+
+            <label
+              className="
+                text-sm
+                font-medium
+                text-muted-foreground
+              "
+            >
               Email Address
             </label>
 
+
             <div className="relative">
-              <Mail className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+
+
+              <Mail
+                className="
+                  absolute
+                  left-4
+                  top-1/2
+                  h-4
+                  w-4
+                  -translate-y-1/2
+                  text-muted-foreground
+                "
+              />
+
 
               <input
                 value={user.email}
@@ -109,25 +250,38 @@ export default function ProfilePanel() {
                   cursor-not-allowed
                   rounded-xl
                   border
-                  border-white/10
-                  bg-slate-900/70
+                  border-border
+                  bg-muted
                   pl-11
                   pr-4
-                  text-slate-400
+                  text-muted-foreground
                 "
               />
+
+
             </div>
 
-            <p className="text-xs text-slate-500">
+
+            <p className="text-xs text-muted-foreground">
               Your email is managed by your authentication provider.
             </p>
+
+
           </div>
+
+
         </div>
+
+
       </section>
+
+
 
       {/* Actions */}
 
+
       <div className="flex justify-end">
+
         <button
           type="button"
           className="
@@ -140,14 +294,18 @@ export default function ProfilePanel() {
             px-6
             text-sm
             font-medium
-            text-white
+            text-foreground
             transition
             hover:bg-blue-500
           "
         >
           Save Changes
         </button>
+
+
       </div>
+
+
     </div>
   );
 }

@@ -4,11 +4,11 @@ export default function TeamHeader() {
   return (
     <div className="flex items-center justify-between">
       <div>
-        <h1 className="text-5xl font-bold text-white">
+        <h1 className="text-5xl font-bold text-foreground">
           Team
         </h1>
 
-        <p className="mt-2 text-slate-400">
+        <p className="mt-2 text-muted-foreground">
           Manage members, roles, invites and permissions
         </p>
       </div>
@@ -21,7 +21,7 @@ export default function TeamHeader() {
           px-5
           py-3
           font-medium
-          text-white
+          text-foreground
           transition
           hover:bg-indigo-500
         "

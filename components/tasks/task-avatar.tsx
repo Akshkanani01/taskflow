@@ -61,7 +61,7 @@ export default function TaskAvatar({
         to-fuchsia-600
         text-xs
         font-semibold
-        text-white
+        text-foreground
         ring-2
         ring-white/10
       "

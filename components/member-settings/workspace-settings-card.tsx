@@ -152,47 +152,47 @@ const canEditRole =
     }
   }
     return (
-    <section className="rounded-3xl border border-white/10 bg-[#111827] p-7">
+    <section className="rounded-3xl border border-border bg-[#111827] p-7">
       <div className="mb-8 flex items-center gap-3">
         <Building2 className="h-6 w-6 text-indigo-400" />
         <div>
-          <h2 className="text-xl font-semibold text-white">
+          <h2 className="text-xl font-semibold text-foreground">
             Workspace Information
           </h2>
 
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-muted-foreground">
             Manage this member&apos;s workspace role and access.
           </p>
         </div>
       </div>
 
       <div className="grid gap-5 lg:grid-cols-2">
-        <div className="rounded-2xl border border-white/10 bg-slate-900 p-5">
-          <p className="text-xs uppercase tracking-widest text-slate-500">
+        <div className="rounded-2xl border border-border bg-card p-5">
+          <p className="text-xs uppercase tracking-widest text-muted-foreground">
             Workspace
           </p>
 
-          <h3 className="mt-3 text-xl font-semibold text-white">
+          <h3 className="mt-3 text-xl font-semibold text-foreground">
             {member.space.workspace.name}
           </h3>
         </div>
 
-        <div className="rounded-2xl border border-white/10 bg-slate-900 p-5">
-          <p className="text-xs uppercase tracking-widest text-slate-500">
+        <div className="rounded-2xl border border-border bg-card p-5">
+          <p className="text-xs uppercase tracking-widest text-muted-foreground">
             Space
           </p>
 
-          <h3 className="mt-3 text-xl font-semibold text-white">
+          <h3 className="mt-3 text-xl font-semibold text-foreground">
             {member.space.name}
           </h3>
         </div>
 
-        <div className="rounded-2xl border border-white/10 bg-slate-900 p-5">
+        <div className="rounded-2xl border border-border bg-card p-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Shield className="h-5 w-5 text-indigo-400" />
 
-              <span className="text-xs uppercase tracking-widest text-slate-500">
+              <span className="text-xs uppercase tracking-widest text-muted-foreground">
                 Workspace Role
               </span>
             </div>
@@ -206,7 +206,7 @@ const canEditRole =
           </div>
 
           <div className="mt-5">
-            <label className="mb-2 block text-sm text-slate-400">
+            <label className="mb-2 block text-sm text-muted-foreground">
               Change Role
             </label>
 
@@ -220,11 +220,11 @@ const canEditRole =
                 w-full
                 rounded-xl
                 border
-                border-white/10
-                bg-slate-950
+                border-border
+                bg-background
                 px-4
                 py-3
-                text-white
+                text-foreground
                 outline-none
                 transition
                 focus:border-indigo-500
@@ -279,7 +279,7 @@ const canEditRole =
                 py-2.5
                 text-sm
                 font-semibold
-                text-white
+                text-foreground
                 transition
                 hover:bg-indigo-500
                 disabled:cursor-not-allowed
@@ -311,14 +311,14 @@ const canEditRole =
               className="
                 rounded-xl
                 border
-                border-white/10
+                border-border
                 px-5
                 py-2.5
                 text-sm
                 font-semibold
-                text-white
+                text-foreground
                 transition
-                hover:bg-white/5
+                hover:bg-background/5
                 disabled:cursor-not-allowed
                 disabled:opacity-50
               "
@@ -340,25 +340,25 @@ const canEditRole =
           )}
         </div>
 
-        <div className="rounded-2xl border border-white/10 bg-slate-900 p-5">
+        <div className="rounded-2xl border border-border bg-card p-5">
           <div className="flex items-center gap-2">
             <Calendar className="h-5 w-5 text-indigo-400" />
 
-            <span className="text-xs uppercase tracking-widest text-slate-500">
+            <span className="text-xs uppercase tracking-widest text-muted-foreground">
               Joined
             </span>
           </div>
 
-          <h3 className="mt-3 text-lg font-semibold text-white">
+          <h3 className="mt-3 text-lg font-semibold text-foreground">
             {new Date(member.joinedAt).toLocaleDateString("en-GB")}
           </h3>
         </div>
 
-        <div className="rounded-2xl border border-white/10 bg-slate-900 p-5">
+        <div className="rounded-2xl border border-border bg-card p-5">
           <div className="flex items-center gap-2">
             <MailCheck className="h-5 w-5 text-emerald-400" />
 
-            <span className="text-xs uppercase tracking-widest text-slate-500">
+            <span className="text-xs uppercase tracking-widest text-muted-foreground">
               Email Status
             </span>
           </div>
@@ -373,10 +373,10 @@ const canEditRole =
         
       </div>
             <div className="mt-8 grid gap-5 md:grid-cols-3">
-        <div className="rounded-2xl border border-white/10 bg-slate-900 p-6 text-center">
+        <div className="rounded-2xl border border-border bg-card p-6 text-center">
           <Users className="mx-auto mb-3 h-8 w-8 text-indigo-400" />
 
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-muted-foreground">
             Workspace Role
           </p>
 
@@ -399,7 +399,7 @@ const canEditRole =
                     ? "bg-indigo-500/20 text-indigo-300"
                     : member.role === WorkspaceRole.MEMBER
                     ? "bg-emerald-500/20 text-emerald-300"
-                    : "bg-slate-700 text-slate-300"
+                    : "bg-slate-700 text-foreground"
                 }
               `}
             >
@@ -408,18 +408,18 @@ const canEditRole =
           </div>
         </div>
 
-        <div className="rounded-2xl border border-white/10 bg-slate-900 p-6 text-center">
+        <div className="rounded-2xl border border-border bg-card p-6 text-center">
           <Calendar className="mx-auto mb-3 h-8 w-8 text-cyan-400" />
 
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-muted-foreground">
             Member Since
           </p>
 
-          <h3 className="mt-2 text-lg font-bold text-white">
+          <h3 className="mt-2 text-lg font-bold text-foreground">
             {new Date(member.joinedAt).getFullYear()}
           </h3>
 
-          <p className="mt-2 text-xs text-slate-500">
+          <p className="mt-2 text-xs text-muted-foreground">
             Joined on{" "}
             {new Date(member.joinedAt).toLocaleDateString(
               "en-GB"
@@ -427,18 +427,18 @@ const canEditRole =
           </p>
         </div>
 
-        <div className="rounded-2xl border border-white/10 bg-slate-900 p-6 text-center">
+        <div className="rounded-2xl border border-border bg-card p-6 text-center">
           <Shield className="mx-auto mb-3 h-8 w-8 text-emerald-400" />
 
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-muted-foreground">
             Access Level
           </p>
 
-          <h3 className="mt-2 text-lg font-bold text-white">
+          <h3 className="mt-2 text-lg font-bold text-foreground">
             {member.role}
           </h3>
 
-          <p className="mt-2 text-xs text-slate-500">
+          <p className="mt-2 text-xs text-muted-foreground">
             {member.user.emailVerified
               ? "Verified Account"
               : "Email Verification Pending"}

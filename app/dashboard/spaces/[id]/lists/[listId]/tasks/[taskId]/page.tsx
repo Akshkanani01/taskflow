@@ -94,13 +94,13 @@ export default async function TaskDetailPage({
     <div className="min-h-screen bg-[#0B1220]">
             {/* HEADER */}
 
-      <div className="border-b border-white/10 bg-[#111827]">
+      <div className="border-b border-border bg-[#111827]">
 
         <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-6">
 
           <div>
 
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-muted-foreground">
 
               Workspace
               {" / "}
@@ -110,7 +110,7 @@ export default async function TaskDetailPage({
 
             </p>
 
-            <h1 className="mt-2 text-3xl font-bold text-white">
+            <h1 className="mt-2 text-3xl font-bold text-foreground">
 
               {task.title}
 
@@ -125,14 +125,14 @@ export default async function TaskDetailPage({
   className="
     rounded-xl
     border
-    border-white/10
-    bg-slate-900
+    border-border
+    bg-card
     px-4
     py-2
     text-sm
-    text-slate-300
+    text-foreground
     transition
-    hover:bg-slate-800
+    hover:bg-background
   "
 >
   ← Back
@@ -165,7 +165,7 @@ export default async function TaskDetailPage({
         <div className="space-y-8">
                     {/* TITLE */}
 
-          <section className="rounded-3xl border border-white/10 bg-[#111827] p-8">
+          <section className="rounded-3xl border border-border bg-[#111827] p-8">
 
             <TaskTitleEditor
               taskId={task.id}
@@ -176,7 +176,7 @@ export default async function TaskDetailPage({
 
           {/* DESCRIPTION */}
 
-          <section className="rounded-3xl border border-white/10 bg-[#111827] p-8">
+          <section className="rounded-3xl border border-border bg-[#111827] p-8">
 
             <DescriptionEditor
               taskId={task.id}
@@ -187,11 +187,11 @@ export default async function TaskDetailPage({
 
           {/* CHECKLIST */}
 
-          <section className="rounded-3xl border border-white/10 bg-[#111827] p-8">
+          <section className="rounded-3xl border border-border bg-[#111827] p-8">
 
             <div className="mb-6">
 
-              <h2 className="text-lg font-semibold text-white">
+              <h2 className="text-lg font-semibold text-foreground">
                 Checklist
               </h2>
 
@@ -206,11 +206,11 @@ export default async function TaskDetailPage({
 
           {/* COMMENTS */}
 
-          <section className="rounded-3xl border border-white/10 bg-[#111827] p-8">
+          <section className="rounded-3xl border border-border bg-[#111827] p-8">
 
             <div className="mb-6">
 
-              <h2 className="text-lg font-semibold text-white">
+              <h2 className="text-lg font-semibold text-foreground">
                 Comments
               </h2>
 
@@ -225,11 +225,11 @@ export default async function TaskDetailPage({
 
           {/* ATTACHMENTS */}
 
-          <section className="rounded-3xl border border-white/10 bg-[#111827] p-8">
+          <section className="rounded-3xl border border-border bg-[#111827] p-8">
 
             <div className="mb-6">
 
-              <h2 className="text-lg font-semibold text-white">
+              <h2 className="text-lg font-semibold text-foreground">
                 Attachments
               </h2>
 
@@ -244,11 +244,11 @@ export default async function TaskDetailPage({
 
           {/* ACTIVITY */}
 
-          <section className="rounded-3xl border border-white/10 bg-[#111827] p-8">
+          <section className="rounded-3xl border border-border bg-[#111827] p-8">
 
             <div className="mb-6">
 
-              <h2 className="text-lg font-semibold text-white">
+              <h2 className="text-lg font-semibold text-foreground">
                 Activity
               </h2>
 
@@ -266,9 +266,9 @@ export default async function TaskDetailPage({
 
         <aside className="space-y-6">
 
-          <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+          <div className="rounded-3xl border border-border bg-[#111827] p-6">
 
-            <h2 className="mb-6 text-lg font-semibold text-white">
+            <h2 className="mb-6 text-lg font-semibold text-foreground">
               Task Details
             </h2>
 
@@ -306,13 +306,13 @@ export default async function TaskDetailPage({
 
               {/* PROJECT */}
 
-              <div className="rounded-2xl border border-white/10 bg-slate-950 p-4">
+              <div className="rounded-2xl border border-border bg-background p-4">
 
-                <p className="text-xs uppercase tracking-wider text-slate-500">
+                <p className="text-xs uppercase tracking-wider text-muted-foreground">
                   Project
                 </p>
 
-                <p className="mt-2 text-sm font-medium text-white">
+                <p className="mt-2 text-sm font-medium text-foreground">
                   {task.project.name}
                 </p>
 
@@ -320,13 +320,13 @@ export default async function TaskDetailPage({
 
               {/* CREATED BY */}
 
-              <div className="rounded-2xl border border-white/10 bg-slate-950 p-4">
+              <div className="rounded-2xl border border-border bg-background p-4">
 
-                <p className="text-xs uppercase tracking-wider text-slate-500">
+                <p className="text-xs uppercase tracking-wider text-muted-foreground">
                   Created By
                 </p>
 
-                <p className="mt-2 text-sm text-white">
+                <p className="mt-2 text-sm text-foreground">
                   {task.createdBy.name ??
                     task.createdBy.email}
                 </p>
@@ -335,13 +335,13 @@ export default async function TaskDetailPage({
 
               {/* CREATED */}
 
-              <div className="rounded-2xl border border-white/10 bg-slate-950 p-4">
+              <div className="rounded-2xl border border-border bg-background p-4">
 
-                <p className="text-xs uppercase tracking-wider text-slate-500">
+                <p className="text-xs uppercase tracking-wider text-muted-foreground">
                   Created
                 </p>
 
-                <p className="mt-2 text-sm text-white">
+                <p className="mt-2 text-sm text-foreground">
                   {task.createdAt.toLocaleDateString("en-GB")}
                 </p>
 
@@ -349,13 +349,13 @@ export default async function TaskDetailPage({
 
               {/* UPDATED */}
 
-              <div className="rounded-2xl border border-white/10 bg-slate-950 p-4">
+              <div className="rounded-2xl border border-border bg-background p-4">
 
-                <p className="text-xs uppercase tracking-wider text-slate-500">
+                <p className="text-xs uppercase tracking-wider text-muted-foreground">
                   Updated
                 </p>
 
-                <p className="mt-2 text-sm text-white">
+                <p className="mt-2 text-sm text-foreground">
                   {task.updatedAt.toLocaleDateString("en-GB")}
                 </p>
 

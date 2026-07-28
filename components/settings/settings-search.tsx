@@ -13,8 +13,10 @@ export default function SettingsSearch({
   onChange,
   placeholder = "Search settings...",
 }: SettingsSearchProps) {
+
   return (
     <div className="relative w-full max-w-md">
+
       <Search
         className="
           pointer-events-none
@@ -24,9 +26,10 @@ export default function SettingsSearch({
           h-4
           w-4
           -translate-y-1/2
-          text-slate-500
+          text-muted-foreground
         "
       />
+
 
       <input
         type="text"
@@ -38,13 +41,13 @@ export default function SettingsSearch({
           w-full
           rounded-xl
           border
-          border-white/10
-          bg-slate-900
+          border-border
+          bg-card
           pl-11
           pr-4
           text-sm
-          text-white
-          placeholder:text-slate-500
+          text-foreground
+          placeholder:text-muted-foreground
           outline-none
           transition-all
           duration-200
@@ -53,6 +56,7 @@ export default function SettingsSearch({
           focus:ring-blue-500/20
         "
       />
+
     </div>
   );
 }

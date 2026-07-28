@@ -43,8 +43,8 @@ return ( <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         key={stat.title}
         className="
           rounded-3xl
-          border border-white/10
-          bg-slate-900
+          border border-border
+          bg-card
           p-6
         "
       >
@@ -53,11 +53,11 @@ return ( <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
 
           <div>
 
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-muted-foreground">
               {stat.title}
             </p>
 
-            <h3 className="mt-3 text-4xl font-bold text-white">
+            <h3 className="mt-3 text-4xl font-bold text-foreground">
               {stat.value}
             </h3>
 

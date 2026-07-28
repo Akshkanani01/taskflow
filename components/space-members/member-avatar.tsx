@@ -78,7 +78,7 @@ const sizes = {
             from-violet-600
             to-blue-600
             font-semibold
-            text-white
+            text-foreground
             transition-all
             duration-200
             group-hover:scale-105

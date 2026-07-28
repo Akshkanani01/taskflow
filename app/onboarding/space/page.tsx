@@ -10,7 +10,7 @@ workspaceId: string;
 const { workspaceId } =
 await searchParams;
 
-return ( <main className="flex min-h-screen items-center justify-center bg-slate-950 px-6">
+return ( <main className="flex min-h-screen items-center justify-center bg-background px-6">
 
   <form
     action={createSpace}
@@ -19,13 +19,13 @@ return ( <main className="flex min-h-screen items-center justify-center bg-slate
       max-w-xl
       rounded-3xl
       border
-      border-white/10
-      bg-slate-900
+      border-border
+      bg-card
       p-8
     "
   >
 
-    <h1 className="mb-8 text-4xl font-bold text-white">
+    <h1 className="mb-8 text-4xl font-bold text-foreground">
       Create Space
     </h1>
 
@@ -40,12 +40,12 @@ return ( <main className="flex min-h-screen items-center justify-center bg-slate
       <input
         name="name"
         placeholder="Development"
-        className="h-12 w-full rounded-xl bg-slate-800 px-4 text-white"
+        className="h-12 w-full rounded-xl bg-background px-4 text-foreground"
       />
 
       <select
         name="color"
-        className="h-12 w-full rounded-xl bg-slate-800 px-4 text-white"
+        className="h-12 w-full rounded-xl bg-background px-4 text-foreground"
       >
         <option value="blue">Blue</option>
         <option value="purple">
@@ -62,7 +62,7 @@ return ( <main className="flex min-h-screen items-center justify-center bg-slate
           w-full
           rounded-xl
           bg-indigo-600
-          text-white
+          text-foreground
         "
       >
         Launch Dashboard

@@ -38,7 +38,7 @@ export default function TaskStatusSelect({
           router.refresh();
         })
       }
-      className="h-8 rounded-lg border border-white/10 bg-slate-900 px-2 text-xs text-white outline-none"
+      className="h-8 rounded-lg border border-border bg-card px-2 text-xs text-foreground outline-none"
     >
       {Object.values(TaskStatus).map(
         (status) => (

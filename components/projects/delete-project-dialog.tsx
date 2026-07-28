@@ -62,9 +62,9 @@ export default function DeleteProjectDialog({
         className="
           max-w-md
           border
-          border-white/10
-          bg-slate-900
-          text-white
+          border-border
+          bg-card
+          text-foreground
         "
       >
         <DialogHeader>
@@ -74,11 +74,11 @@ export default function DeleteProjectDialog({
         </DialogHeader>
 
         <div className="space-y-2 py-2">
-          <p className="text-slate-300">
+          <p className="text-foreground">
             Are you sure you want to delete
           </p>
 
-          <p className="font-semibold text-white">
+          <p className="font-semibold text-foreground">
   &quot;{projectName}&quot;
 </p>
 
@@ -97,11 +97,11 @@ export default function DeleteProjectDialog({
             className="
               rounded-xl
               border
-              border-white/10
+              border-border
               px-4
               py-2
-              text-white
-              hover:bg-slate-800
+              text-foreground
+              hover:bg-background
             "
           >
             Cancel
@@ -117,7 +117,7 @@ export default function DeleteProjectDialog({
               px-4
               py-2
               font-medium
-              text-white
+              text-foreground
               hover:bg-red-500
               disabled:opacity-50
             "

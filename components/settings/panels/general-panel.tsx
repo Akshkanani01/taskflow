@@ -1,221 +1,315 @@
 "use client";
 
-import { Globe, CalendarDays, Clock3, TimerReset } from "lucide-react";
+import {
+  AlertTriangle,
+  Download,
+  Eraser,
+  Trash2,
+} from "lucide-react";
 
-export default function GeneralPanel() {
+export default function DangerZonePanel() {
   return (
     <div className="space-y-8">
-      {/* Page Header */}
+
+      {/* Header */}
 
       <div>
-        <h2 className="text-2xl font-semibold tracking-tight text-white">
-          General
+
+        <h2
+          className="
+            text-2xl
+            font-semibold
+            tracking-tight
+            text-foreground
+          "
+        >
+          Danger Zone
         </h2>
 
-        <p className="mt-2 text-sm text-slate-400">
-          Manage your personal preferences across TaskFlow.
+
+        <p className="mt-2 text-sm text-muted-foreground">
+          These actions may permanently affect your account and data. Please
+          proceed carefully.
         </p>
+
       </div>
 
-      {/* Language */}
 
-      <section className="rounded-2xl border border-white/10 bg-slate-900/40">
-        <div className="border-b border-white/10 px-6 py-5">
-          <div className="flex items-center gap-3">
-            <Globe className="h-5 w-5 text-blue-400" />
+
+      {/* Export Data */}
+
+
+      <section
+        className="
+          rounded-2xl
+          border
+          border-border
+          bg-card/80
+        "
+      >
+
+        <div
+          className="
+            flex
+            items-start
+            justify-between
+            gap-6
+            p-6
+          "
+        >
+
+          <div className="flex gap-4">
+
+
+            <div
+              className="
+                flex
+                h-11
+                w-11
+                items-center
+                justify-center
+                rounded-xl
+                bg-blue-500/10
+              "
+            >
+
+              <Download className="h-5 w-5 text-blue-400" />
+
+            </div>
+
+
 
             <div>
-              <h3 className="font-medium text-white">
-                Language
+
+              <h3 className="font-semibold text-foreground">
+                Export Personal Data
               </h3>
 
-              <p className="mt-1 text-sm text-slate-400">
-                Select your preferred language.
-              </p>
-            </div>
-          </div>
-        </div>
 
-        <div className="p-6">
-          <select
-            className="
-              h-11
-              w-full
-              rounded-xl
-              border
-              border-white/10
-              bg-slate-950
-              px-4
-              text-sm
-              text-white
-              outline-none
-              transition
-              focus:border-blue-500/40
-              focus:ring-2
-              focus:ring-blue-500/20
-            "
-            defaultValue="en"
-          >
-            <option value="en">English</option>
-            <option value="gu">Gujarati</option>
-          </select>
-        </div>
-      </section>
-
-      {/* Date & Time */}
-
-      <section className="rounded-2xl border border-white/10 bg-slate-900/40">
-        <div className="border-b border-white/10 px-6 py-5">
-          <div className="flex items-center gap-3">
-            <CalendarDays className="h-5 w-5 text-violet-400" />
-
-            <div>
-              <h3 className="font-medium text-white">
-                Date & Time
-              </h3>
-
-              <p className="mt-1 text-sm text-slate-400">
-                Configure how dates and times appear.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid gap-6 p-6 md:grid-cols-2">
-          <div className="space-y-2">
-            <label className="text-sm text-slate-300">
-              Time Zone
-            </label>
-
-            <select className="h-11 w-full rounded-xl border border-white/10 bg-slate-950 px-4 text-sm text-white outline-none focus:border-blue-500/40 focus:ring-2 focus:ring-blue-500/20">
-              <option>Asia/Kolkata</option>
-            </select>
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm text-slate-300">
-              Date Format
-            </label>
-
-            <select className="h-11 w-full rounded-xl border border-white/10 bg-slate-950 px-4 text-sm text-white outline-none focus:border-blue-500/40 focus:ring-2 focus:ring-blue-500/20">
-              <option>DD/MM/YYYY</option>
-              <option>MM/DD/YYYY</option>
-              <option>YYYY-MM-DD</option>
-            </select>
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm text-slate-300">
-              Time Format
-            </label>
-
-            <select className="h-11 w-full rounded-xl border border-white/10 bg-slate-950 px-4 text-sm text-white outline-none focus:border-blue-500/40 focus:ring-2 focus:ring-blue-500/20">
-              <option>24 Hour</option>
-              <option>12 Hour</option>
-            </select>
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm text-slate-300">
-              Week Starts On
-            </label>
-
-            <select className="h-11 w-full rounded-xl border border-white/10 bg-slate-950 px-4 text-sm text-white outline-none focus:border-blue-500/40 focus:ring-2 focus:ring-blue-500/20">
-              <option>Monday</option>
-              <option>Sunday</option>
-            </select>
-          </div>
-        </div>
-      </section>
-
-      {/* Productivity */}
-
-      <section className="rounded-2xl border border-white/10 bg-slate-900/40">
-        <div className="border-b border-white/10 px-6 py-5">
-          <div className="flex items-center gap-3">
-            <Clock3 className="h-5 w-5 text-emerald-400" />
-
-            <div>
-              <h3 className="font-medium text-white">
-                Productivity
-              </h3>
-
-              <p className="mt-1 text-sm text-slate-400">
-                Personal productivity preferences.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="space-y-5 p-6">
-          <label className="flex items-center justify-between">
-            <div>
-              <p className="font-medium text-white">
-                Compact Mode
+              <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
+                Download a copy of your profile information and personal
+                preferences.
               </p>
 
-              <p className="text-sm text-slate-400">
-                Reduce spacing across the interface.
-              </p>
+
             </div>
 
-            <input type="checkbox" className="h-5 w-5" />
-          </label>
 
-          <label className="flex items-center justify-between">
-            <div>
-              <p className="font-medium text-white">
-                Auto Save
-              </p>
-
-              <p className="text-sm text-slate-400">
-                Save supported changes automatically.
-              </p>
-            </div>
-
-            <input type="checkbox" className="h-5 w-5" defaultChecked />
-          </label>
-        </div>
-      </section>
-
-      {/* Reset */}
-
-      <section className="rounded-2xl border border-amber-500/20 bg-amber-500/5">
-        <div className="flex items-center justify-between p-6">
-          <div className="flex items-center gap-3">
-            <TimerReset className="h-5 w-5 text-amber-400" />
-
-            <div>
-              <h3 className="font-medium text-white">
-                Reset Preferences
-              </h3>
-
-              <p className="mt-1 text-sm text-slate-400">
-                Restore all personal settings to their defaults.
-              </p>
-            </div>
           </div>
+
+
 
           <button
             type="button"
             className="
               rounded-xl
               border
-              border-white/10
-              bg-white/5
+              border-border
+              bg-muted
               px-4
               py-2
               text-sm
               font-medium
-              text-white
+              text-foreground
               transition
-              hover:bg-white/10
+              hover:bg-accent
+            "
+          >
+            Export
+          </button>
+
+
+        </div>
+
+
+      </section>
+
+
+
+      {/* Reset Preferences */}
+
+
+      <section
+        className="
+          rounded-2xl
+          border
+          border-amber-500/20
+          bg-amber-500/5
+        "
+      >
+
+        <div
+          className="
+            flex
+            items-start
+            justify-between
+            gap-6
+            p-6
+          "
+        >
+
+          <div className="flex gap-4">
+
+
+            <div
+              className="
+                flex
+                h-11
+                w-11
+                items-center
+                justify-center
+                rounded-xl
+                bg-amber-500/10
+              "
+            >
+
+              <Eraser className="h-5 w-5 text-amber-400" />
+
+            </div>
+
+
+
+            <div>
+
+              <h3 className="font-semibold text-foreground">
+                Reset Preferences
+              </h3>
+
+
+              <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
+                Restore your appearance, notification and personal settings to
+                their default values.
+              </p>
+
+
+            </div>
+
+
+          </div>
+
+
+
+          <button
+            type="button"
+            className="
+              rounded-xl
+              border
+              border-amber-500/30
+              bg-amber-500/10
+              px-4
+              py-2
+              text-sm
+              font-medium
+              text-amber-300
+              transition
+              hover:bg-amber-500/20
             "
           >
             Reset
           </button>
+
+
         </div>
+
+
       </section>
+
+
+
+      {/* Delete Account */}
+
+
+      <section
+        className="
+          rounded-2xl
+          border
+          border-red-500/20
+          bg-red-500/5
+        "
+      >
+
+        <div
+          className="
+            flex
+            items-start
+            justify-between
+            gap-6
+            p-6
+          "
+        >
+
+          <div className="flex gap-4">
+
+
+            <div
+              className="
+                flex
+                h-11
+                w-11
+                items-center
+                justify-center
+                rounded-xl
+                bg-red-500/10
+              "
+            >
+
+              <AlertTriangle className="h-5 w-5 text-red-400" />
+
+            </div>
+
+
+
+            <div>
+
+              <h3 className="font-semibold text-foreground">
+                Delete Account
+              </h3>
+
+
+              <p className="mt-1 max-w-2xl text-muted-foreground text-sm">
+                Permanently delete your account and remove all personal data.
+                This action cannot be undone.
+              </p>
+
+
+            </div>
+
+
+          </div>
+
+
+
+          <button
+            type="button"
+            className="
+              inline-flex
+              items-center
+              gap-2
+              rounded-xl
+              bg-red-600
+              px-4
+              py-2
+              text-sm
+              font-medium
+              text-foreground
+              transition
+              hover:bg-accent
+            "
+          >
+
+            <Trash2 className="h-4 w-4" />
+
+            Delete Account
+
+          </button>
+
+
+        </div>
+
+
+      </section>
+
+
     </div>
   );
 }

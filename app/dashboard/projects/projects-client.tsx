@@ -34,7 +34,7 @@ export default function ProjectsClient({
               px-4
               py-2
               font-medium
-              text-white
+              text-foreground
               transition
               hover:bg-indigo-500
             "
@@ -51,15 +51,15 @@ export default function ProjectsClient({
               className="
                 rounded-2xl
                 border
-                border-white/10
-                bg-slate-900
+                border-border
+                bg-card
                 p-5
                 transition-all
                 hover:border-indigo-500
-                hover:bg-slate-800
+                hover:bg-background
               "
             >
-              <h3 className="font-semibold text-white">
+              <h3 className="font-semibold text-foreground">
                 {project.name}
               </h3>
             </Link>

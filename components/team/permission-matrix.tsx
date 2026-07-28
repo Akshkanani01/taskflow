@@ -62,8 +62,8 @@ const permissions = [
 
 export default function PermissionMatrix() {
   return (
-    <div className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950 shadow-2xl">
-      <div className="border-b border-white/10 px-8 py-6">
+    <div className="overflow-hidden rounded-3xl border border-border bg-background shadow-2xl">
+      <div className="border-b border-border px-8 py-6">
 
         
       </div>
@@ -71,8 +71,8 @@ export default function PermissionMatrix() {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[1200px]">
           <thead>
-            <tr className="border-b border-white/10 bg-white/[0.02]">
-              <th className="px-6 py-5 text-left text-sm font-semibold text-slate-400">
+            <tr className="border-b border-border bg-background/[0.02]">
+              <th className="px-6 py-5 text-left text-sm font-semibold text-muted-foreground">
                 Permission
               </th>
 
@@ -92,7 +92,7 @@ export default function PermissionMatrix() {
                 Member
               </th>
 
-              <th className="px-6 py-5 text-center text-sm font-semibold text-slate-400">
+              <th className="px-6 py-5 text-center text-sm font-semibold text-muted-foreground">
                 Viewer
               </th>
             </tr>
@@ -113,9 +113,9 @@ export default function PermissionMatrix() {
                 {section.items.map((item) => (
                   <tr
                     key={`${section.category}-${item[0]}`}
-                    className="border-b border-white/5 transition-colors hover:bg-white/[0.03]"
+                    className="border-b border-border transition-colors hover:bg-background/[0.03]"
                   >
-                    <td className="px-6 py-4 text-white">
+                    <td className="px-6 py-4 text-foreground">
                       {item[0]}
                     </td>
 
@@ -129,7 +129,7 @@ export default function PermissionMatrix() {
                             ✓
                           </span>
                         ) : (
-                          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-800 text-slate-600">
+                          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-background text-slate-600">
                             —
                           </span>
                         )}

@@ -16,8 +16,8 @@ return ( <section className="py-24"> <div className="container mx-auto px-6">
           className="
             rounded-3xl
             border
-            border-white/10
-            bg-slate-900
+            border-border
+            bg-card
             p-8
             text-center
           "
@@ -26,7 +26,7 @@ return ( <section className="py-24"> <div className="container mx-auto px-6">
             {stat.value}
           </h3>
 
-          <p className="mt-3 text-slate-400">
+          <p className="mt-3 text-muted-foreground">
             {stat.label}
           </p>
         </div>

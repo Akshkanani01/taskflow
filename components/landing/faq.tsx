@@ -45,11 +45,11 @@ return ( <section
         FAQ
       </p>
 
-      <h2 className="mt-4 text-5xl font-bold text-white">
+      <h2 className="mt-4 text-5xl font-bold text-foreground">
         Frequently Asked Questions
       </h2>
 
-      <p className="mt-6 text-lg text-slate-400">
+      <p className="mt-6 text-lg text-muted-foreground">
         Everything you need to know about TaskFlow.
       </p>
 
@@ -67,16 +67,16 @@ return ( <section
           className="
             rounded-2xl
             border
-            border-white/10
-            bg-slate-900
+            border-border
+            bg-card
             px-6
           "
         >
-          <AccordionTrigger className="text-left text-lg text-white">
+          <AccordionTrigger className="text-left text-lg text-foreground">
             {faq.question}
           </AccordionTrigger>
 
-          <AccordionContent className="text-slate-400">
+          <AccordionContent className="text-muted-foreground">
             {faq.answer}
           </AccordionContent>
 

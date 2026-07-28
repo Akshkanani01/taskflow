@@ -35,7 +35,7 @@ export default function CreateTaskContent({
           font-semibold
           uppercase
           tracking-[0.2em]
-          text-slate-500
+          text-muted-foreground
           "
         >
           Task Title
@@ -54,11 +54,11 @@ export default function CreateTaskContent({
           w-full
           rounded-2xl
           border
-          border-white/10
-          bg-slate-950
+          border-border
+          bg-background
           px-5
           text-lg
-          text-white
+          text-foreground
           outline-none
           transition
           focus:border-indigo-500
@@ -79,7 +79,7 @@ export default function CreateTaskContent({
           font-semibold
           uppercase
           tracking-[0.2em]
-          text-slate-500
+          text-muted-foreground
           "
         >
           Description
@@ -99,11 +99,11 @@ export default function CreateTaskContent({
           resize-none
           rounded-2xl
           border
-          border-white/10
-          bg-slate-950
+          border-border
+          bg-background
           p-5
           leading-7
-          text-white
+          text-foreground
           outline-none
           transition
           focus:border-indigo-500
@@ -119,23 +119,23 @@ export default function CreateTaskContent({
         rounded-3xl
         border
         border-dashed
-        border-white/10
-        bg-slate-950
+        border-border
+        bg-background
         p-6
         "
       >
 
-        <p className="mb-3 text-xs uppercase tracking-[0.2em] text-slate-500">
+        <p className="mb-3 text-xs uppercase tracking-[0.2em] text-muted-foreground">
           Preview
         </p>
 
-        <h3 className="text-2xl font-bold text-white">
+        <h3 className="text-2xl font-bold text-foreground">
 
           {title || "Untitled Task"}
 
         </h3>
 
-        <p className="mt-4 whitespace-pre-wrap leading-7 text-slate-400">
+        <p className="mt-4 whitespace-pre-wrap leading-7 text-muted-foreground">
 
           {description ||
             "Task description will appear here."}

@@ -130,17 +130,17 @@ export default async function MemberTasksPage({
 
       <div className="grid gap-6 md:grid-cols-4">
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-[#111827] p-6">
 
           <Clock3 className="mb-4 h-8 w-8 text-indigo-400" />
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
 
             Assigned
 
           </p>
 
-          <h2 className="mt-2 text-4xl font-bold text-white">
+          <h2 className="mt-2 text-4xl font-bold text-foreground">
 
             {assigned}
 
@@ -148,17 +148,17 @@ export default async function MemberTasksPage({
 
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-[#111827] p-6">
 
           <CheckCircle2 className="mb-4 h-8 w-8 text-emerald-400" />
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
 
             Completed
 
           </p>
 
-          <h2 className="mt-2 text-4xl font-bold text-white">
+          <h2 className="mt-2 text-4xl font-bold text-foreground">
 
             {completed}
 
@@ -166,17 +166,17 @@ export default async function MemberTasksPage({
 
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-[#111827] p-6">
 
           <AlertTriangle className="mb-4 h-8 w-8 text-amber-400" />
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
 
             Overdue
 
           </p>
 
-          <h2 className="mt-2 text-4xl font-bold text-white">
+          <h2 className="mt-2 text-4xl font-bold text-foreground">
 
             {overdue}
 
@@ -184,17 +184,17 @@ export default async function MemberTasksPage({
 
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-[#111827] p-6">
 
           <Calendar className="mb-4 h-8 w-8 text-cyan-400" />
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
 
             Progress
 
           </p>
 
-          <h2 className="mt-2 text-4xl font-bold text-white">
+          <h2 className="mt-2 text-4xl font-bold text-foreground">
 
             {progress}%
 
@@ -205,19 +205,19 @@ export default async function MemberTasksPage({
       </div>
             {/* TASKS */}
 
-      <section className="rounded-3xl border border-white/10 bg-[#111827]">
+      <section className="rounded-3xl border border-border bg-[#111827]">
 
-        <div className="flex items-center justify-between border-b border-white/10 p-6">
+        <div className="flex items-center justify-between border-b border-border p-6">
 
           <div>
 
-            <h2 className="text-xl font-semibold text-white">
+            <h2 className="text-xl font-semibold text-foreground">
 
               Assigned Tasks
 
             </h2>
 
-            <p className="mt-1 text-sm text-slate-400">
+            <p className="mt-1 text-sm text-muted-foreground">
 
               Tasks currently assigned to {member.user.name ?? member.user.email}
 
@@ -225,7 +225,7 @@ export default async function MemberTasksPage({
 
           </div>
 
-          <div className="rounded-xl border border-white/10 bg-slate-900 px-4 py-2 text-sm text-slate-300">
+          <div className="rounded-xl border border-border bg-card px-4 py-2 text-sm text-foreground">
 
             {assigned} Total
 
@@ -239,13 +239,13 @@ export default async function MemberTasksPage({
 
             <Clock3 className="mb-5 h-14 w-14 text-slate-600" />
 
-            <h3 className="text-xl font-semibold text-white">
+            <h3 className="text-xl font-semibold text-foreground">
 
               No Tasks Assigned
 
             </h3>
 
-            <p className="mt-2 text-slate-500">
+            <p className="mt-2 text-muted-foreground">
 
               This member doesn&apos;t have any assigned tasks yet.
 
@@ -262,7 +262,7 @@ export default async function MemberTasksPage({
               <Link
                 key={task.id}
                 href={`/dashboard/spaces/${task.spaceId}/lists/${task.projectId}/tasks/${task.id}`}
-                className="block transition hover:bg-slate-900/50"
+                className="block transition hover:bg-card/50"
               >
 
                 <div className="flex items-center justify-between gap-8 p-6">
@@ -273,7 +273,7 @@ export default async function MemberTasksPage({
 
                     <div className="flex items-center gap-3">
 
-                      <h3 className="truncate text-lg font-semibold text-white">
+                      <h3 className="truncate text-lg font-semibold text-foreground">
 
                         {task.title}
 
@@ -293,7 +293,7 @@ export default async function MemberTasksPage({
                               ? "bg-indigo-500/20 text-indigo-300"
                               : task.status === "REVIEW"
                               ? "bg-yellow-500/20 text-yellow-300"
-                              : "bg-slate-700 text-slate-300"
+                              : "bg-slate-700 text-foreground"
                           }
                         `}
                       >
@@ -304,13 +304,13 @@ export default async function MemberTasksPage({
 
                     </div>
 
-                    <div className="mt-3 flex flex-wrap items-center gap-6 text-sm text-slate-400">
+                    <div className="mt-3 flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
 
                       <span>
 
                         Project
 
-                        <span className="ml-2 font-medium text-white">
+                        <span className="ml-2 font-medium text-foreground">
 
                           {task.project.name}
 
@@ -324,7 +324,7 @@ export default async function MemberTasksPage({
 
                           Due
 
-                          <span className="ml-2 font-medium text-white">
+                          <span className="ml-2 font-medium text-foreground">
 
                             {task.dueDate.toLocaleDateString("en-GB")}
 
@@ -356,7 +356,7 @@ export default async function MemberTasksPage({
                             ? "bg-orange-500/20 text-orange-300"
                             : task.priority === "MEDIUM"
                             ? "bg-yellow-500/20 text-yellow-300"
-                            : "bg-slate-700 text-slate-300"
+                            : "bg-slate-700 text-foreground"
                         }
                       `}
                     >
@@ -365,7 +365,7 @@ export default async function MemberTasksPage({
 
                     </div>
 
-                    <ArrowRight className="h-5 w-5 text-slate-500 transition group-hover:text-white" />
+                    <ArrowRight className="h-5 w-5 text-muted-foreground transition group-hover:text-foreground" />
 
                   </div>
 
@@ -386,11 +386,11 @@ export default async function MemberTasksPage({
 
         {/* Completion */}
 
-        <section className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <section className="rounded-3xl border border-border bg-[#111827] p-6">
 
           <div className="flex items-center justify-between">
 
-            <h2 className="text-lg font-semibold text-white">
+            <h2 className="text-lg font-semibold text-foreground">
 
               Completion Rate
 
@@ -404,7 +404,7 @@ export default async function MemberTasksPage({
 
           </div>
 
-          <div className="mt-6 h-3 overflow-hidden rounded-full bg-slate-800">
+          <div className="mt-6 h-3 overflow-hidden rounded-full bg-background">
 
             <div
               className="h-full rounded-full bg-emerald-500 transition-all duration-500"
@@ -417,15 +417,15 @@ export default async function MemberTasksPage({
 
           <div className="mt-6 grid grid-cols-2 gap-4">
 
-            <div className="rounded-2xl border border-white/10 bg-slate-900 p-4">
+            <div className="rounded-2xl border border-border bg-card p-4">
 
-              <p className="text-xs uppercase tracking-wider text-slate-500">
+              <p className="text-xs uppercase tracking-wider text-muted-foreground">
 
                 Completed
 
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-white">
+              <p className="mt-2 text-3xl font-bold text-foreground">
 
                 {completed}
 
@@ -433,15 +433,15 @@ export default async function MemberTasksPage({
 
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-slate-900 p-4">
+            <div className="rounded-2xl border border-border bg-card p-4">
 
-              <p className="text-xs uppercase tracking-wider text-slate-500">
+              <p className="text-xs uppercase tracking-wider text-muted-foreground">
 
                 Remaining
 
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-white">
+              <p className="mt-2 text-3xl font-bold text-foreground">
 
                 {assigned - completed}
 
@@ -455,9 +455,9 @@ export default async function MemberTasksPage({
 
         {/* Summary */}
 
-        <section className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <section className="rounded-3xl border border-border bg-[#111827] p-6">
 
-          <h2 className="text-lg font-semibold text-white">
+          <h2 className="text-lg font-semibold text-foreground">
 
             Performance Summary
 
@@ -465,15 +465,15 @@ export default async function MemberTasksPage({
 
           <div className="mt-6 space-y-4">
 
-            <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-4">
+            <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
 
-              <span className="text-slate-400">
+              <span className="text-muted-foreground">
 
                 Total Assigned
 
               </span>
 
-              <span className="font-semibold text-white">
+              <span className="font-semibold text-foreground">
 
                 {assigned}
 
@@ -481,9 +481,9 @@ export default async function MemberTasksPage({
 
             </div>
 
-            <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-4">
+            <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
 
-              <span className="text-slate-400">
+              <span className="text-muted-foreground">
 
                 Completed
 
@@ -497,9 +497,9 @@ export default async function MemberTasksPage({
 
             </div>
 
-            <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-4">
+            <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
 
-              <span className="text-slate-400">
+              <span className="text-muted-foreground">
 
                 Overdue
 
@@ -513,9 +513,9 @@ export default async function MemberTasksPage({
 
             </div>
 
-            <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-4">
+            <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
 
-              <span className="text-slate-400">
+              <span className="text-muted-foreground">
 
                 Success Rate
 

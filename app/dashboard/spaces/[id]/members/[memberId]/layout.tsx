@@ -131,7 +131,7 @@ const base =
           overflow-hidden
           rounded-[32px]
           border
-          border-white/10
+          border-border
           bg-gradient-to-br
           from-[#111827]
           via-[#0F172A]
@@ -159,14 +159,14 @@ const base =
                 gap-2
                 rounded-xl
                 border
-                border-white/10
-                bg-white/5
+                border-border
+                bg-background/5
                 px-4
                 py-2
                 text-sm
-                text-slate-300
+                text-foreground
                 transition
-                hover:bg-white/10
+                hover:bg-background/10
               "
             >
 
@@ -190,7 +190,7 @@ const base =
                       w-24
                       rounded-full
                       border-4
-                      border-white/10
+                      border-border
                       object-cover
                     "
                   />
@@ -208,7 +208,7 @@ const base =
                       bg-indigo-600
                       text-4xl
                       font-bold
-                      text-white
+                      text-foreground
                     "
                   >
 
@@ -222,7 +222,7 @@ const base =
 
                   <div className="flex flex-wrap items-center gap-3">
 
-                    <h1 className="text-4xl font-bold text-white">
+                    <h1 className="text-4xl font-bold text-foreground">
 
                       {member.user.name ||
                         member.user.email}
@@ -249,7 +249,7 @@ const base =
 
                   </div>
 
-                  <div className="mt-4 flex flex-wrap gap-6 text-sm text-slate-400">
+                  <div className="mt-4 flex flex-wrap gap-6 text-sm text-muted-foreground">
 
                     <div className="flex items-center gap-2">
 
@@ -289,19 +289,19 @@ const base =
                   className="
                     rounded-2xl
                     border
-                    border-white/10
-                    bg-white/5
+                    border-border
+                    bg-background/5
                     p-5
                   "
                 >
 
-                  <p className="text-xs uppercase tracking-widest text-slate-500">
+                  <p className="text-xs uppercase tracking-widest text-muted-foreground">
 
                     Workspace
 
                   </p>
 
-                  <p className="mt-3 text-lg font-semibold text-white">
+                  <p className="mt-3 text-lg font-semibold text-foreground">
 
                     {member.space.workspace.name}
 
@@ -313,19 +313,19 @@ const base =
                   className="
                     rounded-2xl
                     border
-                    border-white/10
-                    bg-white/5
+                    border-border
+                    bg-background/5
                     p-5
                   "
                 >
 
-                  <p className="text-xs uppercase tracking-widest text-slate-500">
+                  <p className="text-xs uppercase tracking-widest text-muted-foreground">
 
                     Space
 
                   </p>
 
-                  <p className="mt-3 text-lg font-semibold text-white">
+                  <p className="mt-3 text-lg font-semibold text-foreground">
 
                     {member.space.name}
 
@@ -346,7 +346,7 @@ const base =
 
       <div className="sticky top-20 z-20">
 
-        <div className="flex gap-3 overflow-x-auto rounded-3xl border border-white/10 bg-[#111827]/95 p-3 backdrop-blur-xl">
+        <div className="flex gap-3 overflow-x-auto rounded-3xl border border-border bg-[#111827]/95 p-3 backdrop-blur-xl">
 
           {tabs.map((tab) => {
 
@@ -367,11 +367,11 @@ const base =
                   py-3
                   text-sm
                   font-medium
-                  text-slate-300
+                  text-foreground
                   transition-all
                   duration-200
                   hover:bg-indigo-600
-                  hover:text-white
+                  hover:text-foreground
                 "
               >
 
@@ -395,7 +395,7 @@ const base =
         className="
           rounded-3xl
           border
-          border-white/10
+          border-border
           bg-[#111827]
           p-8
         "

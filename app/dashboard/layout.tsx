@@ -46,7 +46,7 @@ export default async function DashboardLayout({
           <div className="ml-72">
             <Topbar />
 
-            <main className="min-h-screen bg-slate-950 p-8">
+            <main className="min-h-screen bg-background p-8">
               {children}
             </main>
           </div>

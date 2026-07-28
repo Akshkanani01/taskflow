@@ -46,7 +46,7 @@ export function UserAvatar({
 
   return (
     <div
-      className={`flex items-center justify-center rounded-full bg-indigo-600 text-sm font-semibold text-white ${className}`}
+      className={`flex items-center justify-center rounded-full bg-indigo-600 text-sm font-semibold text-foreground ${className}`}
     >
       {initials || (
         <User className="h-4 w-4" />

@@ -16,7 +16,7 @@ export default function RoleSelector({
       "bg-emerald-500/20 text-emerald-300",
 
     VIEWER:
-      "bg-slate-500/20 text-slate-300",
+      "bg-slate-500/20 text-foreground",
   };
 
   return (

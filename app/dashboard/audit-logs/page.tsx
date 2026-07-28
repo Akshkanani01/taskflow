@@ -46,11 +46,11 @@ return ( <div className="space-y-8">
 
     <div>
 
-      <h1 className="text-4xl font-bold text-white">
+      <h1 className="text-4xl font-bold text-foreground">
         Audit Logs
       </h1>
 
-      <p className="mt-2 text-slate-400">
+      <p className="mt-2 text-muted-foreground">
         Track security events and workspace activity.
       </p>
 
@@ -62,7 +62,7 @@ return ( <div className="space-y-8">
         rounded-xl
         bg-indigo-600
         px-5 py-3
-        text-white
+        text-foreground
       "
     >
       <Download size={18} />
@@ -73,42 +73,42 @@ return ( <div className="space-y-8">
 
   <div className="grid gap-6 md:grid-cols-4">
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Activity className="mb-4 text-indigo-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         4,821
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Events Logged
       </p>
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <User className="mb-4 text-emerald-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         186
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         User Actions
       </p>
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Lock className="mb-4 text-pink-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         12
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Security Events
       </p>
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Shield className="mb-4 text-amber-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         SOC 2
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Compliance Ready
       </p>
     </div>
@@ -118,13 +118,13 @@ return ( <div className="space-y-8">
   <div
     className="
       rounded-3xl
-      border border-white/10
-      bg-slate-900
+      border border-border
+      bg-card
       p-6
     "
   >
 
-    <h2 className="mb-6 text-xl font-semibold text-white">
+    <h2 className="mb-6 text-xl font-semibold text-foreground">
       Activity Timeline
     </h2>
 
@@ -136,19 +136,19 @@ return ( <div className="space-y-8">
           className="
             flex items-center justify-between
             rounded-2xl
-            border border-white/10
-            bg-slate-950
+            border border-border
+            bg-background
             p-5
           "
         >
 
           <div>
 
-            <h3 className="font-medium text-white">
+            <h3 className="font-medium text-foreground">
               {log.action}
             </h3>
 
-            <p className="mt-1 text-slate-400">
+            <p className="mt-1 text-muted-foreground">
               {log.user}
             </p>
 
@@ -159,16 +159,16 @@ return ( <div className="space-y-8">
             <div
               className="
                 rounded-full
-                bg-slate-800
+                bg-background
                 px-3 py-1
                 text-xs
-                text-slate-300
+                text-foreground
               "
             >
               {log.type}
             </div>
 
-            <p className="mt-2 text-sm text-slate-500">
+            <p className="mt-2 text-sm text-muted-foreground">
               {log.time}
             </p>
 

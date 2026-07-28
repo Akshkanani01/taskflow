@@ -65,11 +65,11 @@ export default async function NotificationsPage() {
 
         <div>
 
-          <h1 className="text-4xl font-bold text-white">
+          <h1 className="text-4xl font-bold text-foreground">
             Notifications
           </h1>
 
-          <p className="mt-2 text-slate-400">
+          <p className="mt-2 text-muted-foreground">
             Stay updated with workspace activity.
           </p>
 
@@ -79,10 +79,10 @@ export default async function NotificationsPage() {
           className="
             rounded-xl
             border
-            border-white/10
+            border-border
             px-4
             py-3
-            text-slate-300
+            text-foreground
           "
         >
           Mark All Read
@@ -96,8 +96,8 @@ export default async function NotificationsPage() {
           className="
             rounded-3xl
             border
-            border-white/10
-            bg-slate-900
+            border-border
+            bg-card
             p-6
           "
         >
@@ -113,7 +113,7 @@ export default async function NotificationsPage() {
             className="
               text-3xl
               font-bold
-              text-white
+              text-foreground
             "
           >
             {totalNotifications}
@@ -121,7 +121,7 @@ export default async function NotificationsPage() {
 
           <p
             className="
-              text-slate-400
+              text-muted-foreground
             "
           >
             Total Notifications
@@ -133,8 +133,8 @@ export default async function NotificationsPage() {
           className="
             rounded-3xl
             border
-            border-white/10
-            bg-slate-900
+            border-border
+            bg-card
             p-6
           "
         >
@@ -150,7 +150,7 @@ export default async function NotificationsPage() {
             className="
               text-3xl
               font-bold
-              text-white
+              text-foreground
             "
           >
             {unreadNotifications.length}
@@ -158,7 +158,7 @@ export default async function NotificationsPage() {
 
           <p
             className="
-              text-slate-400
+              text-muted-foreground
             "
           >
             Unread
@@ -170,8 +170,8 @@ export default async function NotificationsPage() {
           className="
             rounded-3xl
             border
-            border-white/10
-            bg-slate-900
+            border-border
+            bg-card
             p-6
           "
         >
@@ -187,7 +187,7 @@ export default async function NotificationsPage() {
             className="
               text-3xl
               font-bold
-              text-white
+              text-foreground
             "
           >
             {importantNotifications.length}
@@ -195,7 +195,7 @@ export default async function NotificationsPage() {
 
           <p
             className="
-              text-slate-400
+              text-muted-foreground
             "
           >
             Important Alerts
@@ -209,8 +209,8 @@ export default async function NotificationsPage() {
         className="
           rounded-3xl
           border
-          border-white/10
-          bg-slate-900
+          border-border
+          bg-card
           p-6
         "
       >
@@ -220,7 +220,7 @@ export default async function NotificationsPage() {
             mb-6
             text-xl
             font-semibold
-            text-white
+            text-foreground
           "
         >
           Recent Notifications
@@ -238,7 +238,7 @@ export default async function NotificationsPage() {
                 rounded-2xl
                 border
                 border-dashed
-                border-white/10
+                border-border
                 py-20
               "
             >
@@ -253,7 +253,7 @@ export default async function NotificationsPage() {
                   mt-6
                   text-2xl
                   font-semibold
-                  text-white
+                  text-foreground
                 "
               >
                 No Notifications
@@ -262,7 +262,7 @@ export default async function NotificationsPage() {
              <p
   className="
     mt-2
-    text-slate-500
+    text-muted-foreground
   "
 >
   You&apos;re all caught up.
@@ -319,7 +319,7 @@ export default async function NotificationsPage() {
 
                     ? "text-indigo-400"
 
-                    : "text-slate-400";
+                    : "text-muted-foreground";
 
                 return (
 
@@ -334,11 +334,11 @@ export default async function NotificationsPage() {
                       ${
                         notification.read
 
-                          ? "border-white/10"
+                          ? "border-border"
 
                           : "border-indigo-500/30"
                       }
-                      bg-slate-950
+                      bg-background
                       p-5
                       transition
                       hover:border-indigo-500/40
@@ -353,7 +353,7 @@ export default async function NotificationsPage() {
                         items-center
                         justify-center
                         rounded-xl
-                        bg-slate-800
+                        bg-background
                       "
                     >
 
@@ -378,7 +378,7 @@ export default async function NotificationsPage() {
                         <h3
                           className="
                             font-semibold
-                            text-white
+                            text-foreground
                           "
                         >
                           {notification.title}
@@ -388,7 +388,7 @@ export default async function NotificationsPage() {
                           className="
                             whitespace-nowrap
                             text-xs
-                            text-slate-500
+                            text-muted-foreground
                           "
                         >
                           {formatDistanceToNowStrict(
@@ -405,7 +405,7 @@ export default async function NotificationsPage() {
                         className="
                           mt-2
                           text-sm
-                          text-slate-400
+                          text-muted-foreground
                         "
                       >
                         {notification.message}
@@ -461,8 +461,8 @@ export default async function NotificationsPage() {
           justify-between
           rounded-3xl
           border
-          border-white/10
-          bg-slate-900
+          border-border
+          bg-card
           p-6
         "
       >
@@ -473,7 +473,7 @@ export default async function NotificationsPage() {
             className="
               text-lg
               font-semibold
-              text-white
+              text-foreground
             "
           >
             Notification Summary
@@ -483,7 +483,7 @@ export default async function NotificationsPage() {
             className="
               mt-2
               text-sm
-              text-slate-400
+              text-muted-foreground
             "
           >
             Total {totalNotifications} notifications
@@ -506,13 +506,13 @@ export default async function NotificationsPage() {
           className="
             rounded-xl
             border
-            border-white/10
-            bg-slate-800
+            border-border
+            bg-background
             px-5
             py-3
             text-sm
             font-medium
-            text-white
+            text-foreground
             transition
             hover:bg-slate-700
           "

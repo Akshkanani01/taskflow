@@ -88,7 +88,7 @@ export default function TaskAssigneeEditor({
 
     <div>
 
-      <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-500">
+      <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
 
         Assignees
 
@@ -100,7 +100,7 @@ export default function TaskAssigneeEditor({
 
         <Search
           size={16}
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
         />
 
         <input
@@ -116,11 +116,11 @@ export default function TaskAssigneeEditor({
             w-full
             rounded-xl
             border
-            border-white/10
-            bg-slate-900
+            border-border
+            bg-card
             pl-10
             pr-4
-            text-white
+            text-foreground
             outline-none
             focus:border-indigo-500
           "
@@ -130,11 +130,11 @@ export default function TaskAssigneeEditor({
 
       {/* MEMBER LIST */}
 
-      <div className="max-h-72 space-y-2 overflow-y-auto rounded-xl border border-white/10 bg-slate-900 p-2">
+      <div className="max-h-72 space-y-2 overflow-y-auto rounded-xl border border-border bg-card p-2">
 
         {filtered.length === 0 ? (
 
-          <div className="py-6 text-center text-sm text-slate-500">
+          <div className="py-6 text-center text-sm text-muted-foreground">
 
             No members found
 
@@ -171,8 +171,8 @@ export default function TaskAssigneeEditor({
 
                   ${
                     active
-                      ? "bg-indigo-600 text-white"
-                      : "hover:bg-slate-800 text-slate-300"
+                      ? "bg-indigo-600 text-foreground"
+                      : "hover:bg-background text-foreground"
                   }
                 `}
               >
@@ -187,7 +187,7 @@ export default function TaskAssigneeEditor({
                       items-center
                       justify-center
                       rounded-full
-                      bg-slate-700
+                      bg-muted
                       text-sm
                       font-semibold
                     "

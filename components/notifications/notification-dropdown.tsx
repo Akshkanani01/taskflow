@@ -24,6 +24,7 @@ type Props = {
 export default function NotificationDropdown({
   close,
 }: Props) {
+
   const {
     notifications,
     unreadCount,
@@ -32,7 +33,8 @@ export default function NotificationDropdown({
     remove,
   } =
     useNotificationContext();
-      return (
+
+  return (
 
     <div
       className="
@@ -44,18 +46,19 @@ export default function NotificationDropdown({
         overflow-hidden
         rounded-2xl
         border
-        border-white/10
-        bg-slate-900
+        border-border
+        bg-card
         shadow-2xl
       "
     >
-              <div
+
+      <div
         className="
           flex
           items-center
           justify-between
           border-b
-          border-white/10
+          border-border
           px-5
           py-4
         "
@@ -67,26 +70,27 @@ export default function NotificationDropdown({
             className="
               text-lg
               font-semibold
-              text-white
+              text-foreground
             "
           >
             Notifications
           </h3>
 
+
           <p
             className="
               mt-1
               text-xs
-              text-slate-500
+              text-muted-foreground
             "
           >
-            {unreadCount}
-            {" "}
-            unread
+            {unreadCount} unread
           </p>
 
         </div>
-                <button
+
+
+        <button
 
           onClick={() =>
             markAllRead()
@@ -98,32 +102,33 @@ export default function NotificationDropdown({
             gap-2
             rounded-lg
             border
-            border-white/10
+            border-border
             px-3
             py-2
             text-xs
-            text-slate-300
+            text-muted-foreground
             transition
-            hover:bg-slate-800
+            hover:bg-accent
           "
         >
 
-          <CheckCheck
-            size={15}
-          />
+          <CheckCheck size={15} />
 
           Mark all
 
         </button>
 
       </div>
-            <div
+
+
+      <div
         className="
           max-h-[550px]
           overflow-y-auto
         "
       >
-                {notifications.length === 0 && (
+
+        {notifications.length === 0 && (
 
           <div
             className="
@@ -138,9 +143,7 @@ export default function NotificationDropdown({
 
             <Bell
               size={42}
-              className="
-                text-slate-600
-              "
+              className="text-muted-foreground"
             />
 
             <h4
@@ -148,7 +151,7 @@ export default function NotificationDropdown({
                 mt-5
                 text-lg
                 font-semibold
-                text-white
+                text-foreground
               "
             >
               No notifications
@@ -159,7 +162,7 @@ export default function NotificationDropdown({
                 mt-2
                 text-center
                 text-sm
-                text-slate-500
+                text-muted-foreground
               "
             >
               Everything is up to date.
@@ -168,7 +171,8 @@ export default function NotificationDropdown({
           </div>
 
         )}
-                {notifications.map(
+        
+        {notifications.map(
           (notification) => {
 
             const priorityColor =
@@ -188,8 +192,10 @@ export default function NotificationDropdown({
 
                 ? "border-indigo-500/30"
 
-                : "border-white/10";
-                            return (
+                : "border-border";
+
+
+            return (
 
               <div
                 key={notification.id}
@@ -198,12 +204,12 @@ export default function NotificationDropdown({
                   relative
                   border-b
                   ${priorityColor}
-                  border-white/10
                   transition
-                  hover:bg-slate-800/50
+                  hover:bg-accent/50
                 `}
               >
-                                {!notification.read && (
+
+                {!notification.read && (
 
                   <div
                     className="
@@ -218,7 +224,9 @@ export default function NotificationDropdown({
                   />
 
                 )}
-                                <div
+
+
+                <div
                   className="
                     flex
                     items-start
@@ -227,7 +235,8 @@ export default function NotificationDropdown({
                     py-4
                   "
                 >
-                                      <div
+
+                  <div
                     className="
                       mt-1
                       flex
@@ -236,19 +245,19 @@ export default function NotificationDropdown({
                       items-center
                       justify-center
                       rounded-xl
-                      bg-slate-800
+                      bg-muted
                     "
                   >
 
                     <Bell
                       size={18}
-                      className="
-                        text-indigo-400
-                      "
+                      className="text-indigo-400"
                     />
 
                   </div>
-                                    <div
+
+
+                  <div
                     className="
                       min-w-0
                       flex-1
@@ -259,27 +268,30 @@ export default function NotificationDropdown({
                       className="
                         truncate
                         font-medium
-                        text-white
+                        text-foreground
                       "
                     >
                       {notification.title}
                     </h4>
+
 
                     <p
                       className="
                         mt-1
                         line-clamp-2
                         text-sm
-                        text-slate-400
+                        text-muted-foreground
                       "
                     >
                       {notification.message}
                     </p>
-                                        <p
+
+
+                    <p
                       className="
                         mt-3
                         text-xs
-                        text-slate-500
+                        text-muted-foreground
                       "
                     >
                       {formatDistanceToNowStrict(
@@ -293,7 +305,9 @@ export default function NotificationDropdown({
                     </p>
 
                   </div>
-                                    <div
+
+
+                  <div
                     className="
                       flex
                       flex-col
@@ -301,7 +315,8 @@ export default function NotificationDropdown({
                       gap-2
                     "
                   >
-                                        {notification.link && (
+
+                    {notification.link && (
 
                       <Link
 
@@ -328,12 +343,12 @@ export default function NotificationDropdown({
                         className="
                           rounded-lg
                           border
-                          border-white/10
+                          border-border
                           p-2
-                          text-slate-400
+                          text-muted-foreground
                           transition
-                          hover:bg-slate-700
-                          hover:text-white
+                          hover:bg-accent
+                          hover:text-foreground
                         "
                       >
 
@@ -344,7 +359,9 @@ export default function NotificationDropdown({
                       </Link>
 
                     )}
-                                        <button
+
+
+                    <button
 
                       onClick={async () => {
 
@@ -370,7 +387,9 @@ export default function NotificationDropdown({
                       />
 
                     </button>
-                                      </div>
+
+                  </div>
+
 
                 </div>
 
@@ -380,12 +399,14 @@ export default function NotificationDropdown({
 
           }
         )}
-              </div>
+
+      </div>
+
 
       <div
         className="
           border-t
-          border-white/10
+          border-border
           p-4
         "
       >
@@ -403,14 +424,14 @@ export default function NotificationDropdown({
             justify-center
             rounded-xl
             border
-            border-white/10
-            bg-slate-800
+            border-border
+            bg-muted
             py-3
             text-sm
             font-medium
-            text-white
+            text-foreground
             transition
-            hover:bg-slate-700
+            hover:bg-accent
           "
         >
 
@@ -419,6 +440,7 @@ export default function NotificationDropdown({
         </Link>
 
       </div>
+
 
     </div>
 

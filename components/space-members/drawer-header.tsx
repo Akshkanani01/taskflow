@@ -56,7 +56,7 @@ export default function DrawerHeader({
 
         <div className="min-w-0 flex-1">
 
-          <h1 className="truncate text-3xl font-bold text-white">
+          <h1 className="truncate text-3xl font-bold text-foreground">
             {member.name}
           </h1>
 

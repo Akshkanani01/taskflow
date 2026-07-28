@@ -60,7 +60,7 @@ export default function PermissionRole({
     <div className="space-y-3">
 
       <div>
-        <h3 className="text-base font-semibold text-white">
+        <h3 className="text-base font-semibold text-foreground">
           Space Role
         </h3>
 
@@ -126,7 +126,7 @@ export default function PermissionRole({
 
                 <div>
 
-                  <h4 className="font-medium text-white">
+                  <h4 className="font-medium text-foreground">
                     {role.title}
                   </h4>
 
@@ -157,7 +157,7 @@ export default function PermissionRole({
                 `}
               >
                 {active && (
-                  <div className="h-2 w-2 rounded-full bg-white" />
+                  <div className="h-2 w-2 rounded-full bg-background" />
                 )}
               </div>
 

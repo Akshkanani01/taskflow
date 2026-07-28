@@ -39,16 +39,16 @@ export default function CreateProjectDialog({
         className="
           max-w-2xl
           border
-          border-white/10
-          bg-slate-900
+          border-border
+          bg-card
           p-0
-          text-white
+          text-foreground
         "
       >
         <DialogHeader
           className="
             border-b
-            border-white/10
+            border-border
             px-8
             py-6
           "

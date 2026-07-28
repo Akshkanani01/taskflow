@@ -46,7 +46,7 @@ export function SpaceNav({ spaceId }: Props) {
   ];
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-slate-900/70 p-2 backdrop-blur">
+    <div className="rounded-2xl border border-border bg-card/70 p-2 backdrop-blur">
       <nav className="flex flex-wrap gap-2">
         {nav.map((item) => {
           const Icon = item.icon;
@@ -61,8 +61,8 @@ export function SpaceNav({ spaceId }: Props) {
               href={item.href}
               className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
                 active
-                  ? "bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-500/25"
-                  : "text-slate-400 hover:bg-slate-800 hover:text-white"
+                  ? "bg-gradient-to-r from-indigo-600 to-violet-600 text-foreground shadow-lg shadow-indigo-500/25"
+                  : "text-muted-foreground hover:bg-background hover:text-foreground"
               }`}
             >
               <Icon size={17} />

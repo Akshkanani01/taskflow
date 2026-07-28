@@ -96,7 +96,7 @@ export default function ChangeRoleDialog({
       open={open}
       onOpenChange={onOpenChange}
     >
-      <DialogContent className="max-w-xl rounded-2xl border border-zinc-800 bg-[#111827] p-0 text-white">
+      <DialogContent className="max-w-xl rounded-2xl border border-zinc-800 bg-[#111827] p-0 text-foreground">
 
         <DialogHeader className="border-b border-zinc-800 p-6">
 
@@ -106,7 +106,7 @@ export default function ChangeRoleDialog({
 
           <DialogDescription>
             Update the role for{" "}
-            <span className="font-medium text-white">
+            <span className="font-medium text-foreground">
               {memberName}
             </span>
           </DialogDescription>

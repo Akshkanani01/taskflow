@@ -58,7 +58,7 @@ export default function DescriptionEditor({
 
         <div className="mb-4 flex items-center justify-between">
 
-          <h2 className="text-lg font-semibold text-white">
+          <h2 className="text-lg font-semibold text-foreground">
 
             Description
 
@@ -71,11 +71,11 @@ export default function DescriptionEditor({
             className="
               rounded-lg
               p-2
-              text-slate-500
+              text-muted-foreground
               opacity-0
               transition
-              hover:bg-slate-800
-              hover:text-white
+              hover:bg-background
+              hover:text-foreground
               group-hover:opacity-100
             "
           >
@@ -86,7 +86,7 @@ export default function DescriptionEditor({
 
         </div>
 
-        <p className="whitespace-pre-wrap leading-7 text-slate-300">
+        <p className="whitespace-pre-wrap leading-7 text-foreground">
 
           {description ||
             "No description"}
@@ -115,10 +115,10 @@ export default function DescriptionEditor({
           w-full
           rounded-2xl
           border
-          border-white/10
-          bg-slate-950
+          border-border
+          bg-background
           p-5
-          text-white
+          text-foreground
           outline-none
           focus:border-indigo-500
         "
@@ -137,7 +137,7 @@ export default function DescriptionEditor({
             bg-emerald-600
             px-5
             py-2
-            text-white
+            text-foreground
           "
         >
 
@@ -160,10 +160,10 @@ export default function DescriptionEditor({
             items-center
             gap-2
             rounded-xl
-            bg-slate-700
+            bg-muted
             px-5
             py-2
-            text-white
+            text-foreground
           "
         >
 

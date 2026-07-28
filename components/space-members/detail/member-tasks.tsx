@@ -32,7 +32,7 @@ export default function MemberTasks({
 
       <div className="mb-10">
 
-        <h1 className="text-4xl font-bold text-white">
+        <h1 className="text-4xl font-bold text-foreground">
           Assigned Tasks
         </h1>
 
@@ -88,7 +88,7 @@ export default function MemberTasks({
                 className="text-blue-400"
               />
 
-              <span className="font-medium text-white">
+              <span className="font-medium text-foreground">
                 {task.title}
               </span>
 

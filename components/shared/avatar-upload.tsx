@@ -27,11 +27,9 @@ export default function AvatarUpload({
 
   return (
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
 
       <div className="flex flex-col items-center">
-
-        {/* Avatar */}
 
         {value ? (
 
@@ -43,7 +41,7 @@ export default function AvatarUpload({
               w-36
               rounded-full
               border-4
-              border-white/10
+              border-border
               object-cover
             "
           />
@@ -59,7 +57,7 @@ export default function AvatarUpload({
               justify-center
               rounded-full
               bg-indigo-600
-              text-white
+              text-foreground
             "
           >
 
@@ -71,30 +69,33 @@ export default function AvatarUpload({
 
         )}
 
-        <p className="mt-5 text-sm text-slate-500">
+        <p className="mt-5 text-sm text-muted-foreground">
 
           JPG, PNG, WEBP
 
         </p>
 
-        <p className="text-xs text-slate-600">
+        <p className="text-xs text-muted-foreground">
 
           Maximum 4 MB
 
         </p>
 
         <div className="mt-6 w-full">
-                      <UploadButton
+
+          <UploadButton
             endpoint="avatarUploader"
             appearance={{
               button:
-                "w-full rounded-xl bg-indigo-600 px-4 py-3 font-medium text-white transition hover:bg-indigo-500 ut-ready:bg-indigo-600 ut-uploading:bg-indigo-700",
+                "w-full rounded-xl bg-indigo-600 px-4 py-3 font-medium text-foreground transition hover:bg-indigo-500 ut-ready:bg-indigo-600 ut-uploading:bg-indigo-700",
               container: "w-full",
               allowedContent: "hidden",
             }}
             content={{
               button({ ready }) {
+
                 if (uploading) {
+
                   return (
                     <div className="flex items-center gap-2">
 
@@ -107,6 +108,7 @@ export default function AvatarUpload({
 
                     </div>
                   );
+
                 }
 
                 return ready
@@ -206,5 +208,4 @@ export default function AvatarUpload({
     </div>
 
   );
-
 }

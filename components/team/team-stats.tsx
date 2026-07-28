@@ -33,11 +33,11 @@ return ( <div className="grid gap-6 lg:grid-cols-3">
        className="
          rounded-3xl
          border
-         border-white/10
-         bg-slate-900
+         border-border
+         bg-card
          p-6
        "
-     > <p className="text-sm text-slate-400">
+     > <p className="text-sm text-muted-foreground">
 {stat.title} </p>
 
       <div
@@ -51,7 +51,7 @@ return ( <div className="grid gap-6 lg:grid-cols-3">
         {stat.value}
       </div>
 
-      <div className="mt-4 h-2 rounded-full bg-slate-800">
+      <div className="mt-4 h-2 rounded-full bg-background">
         <div
           className="
             h-2

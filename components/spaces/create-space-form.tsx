@@ -48,10 +48,10 @@ return ( <div className="space-y-6">
     placeholder="Space Name"
     className="
       w-full rounded-xl
-      border border-white/10
-      bg-slate-900
+      border border-border
+      bg-card
       px-4 py-3
-      text-white
+      text-foreground
     "
   />
 
@@ -60,10 +60,10 @@ return ( <div className="space-y-6">
     onChange={(e) => setColor(e.target.value)}
     className="
       w-full rounded-xl
-      border border-white/10
-      bg-slate-900
+      border border-border
+      bg-card
       px-4 py-3
-      text-white
+      text-foreground
     "
   >
     <option value="blue">Blue</option>
@@ -79,7 +79,7 @@ return ( <div className="space-y-6">
       rounded-xl
       bg-indigo-600
       px-6 py-3
-      text-white
+      text-foreground
     "
   >
     {loading ? "Creating..." : "Create Space"}

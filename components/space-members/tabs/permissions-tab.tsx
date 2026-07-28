@@ -188,7 +188,7 @@ export default function PermissionsTab({
           Current Role
         </p>
 
-        <h2 className="mt-2 text-3xl font-bold text-white">
+        <h2 className="mt-2 text-3xl font-bold text-foreground">
           {config.title}
         </h2>
 
@@ -216,7 +216,7 @@ export default function PermissionsTab({
                 <Icon size={18} />
               </div>
 
-              <h3 className="text-lg font-semibold text-white">
+              <h3 className="text-lg font-semibold text-foreground">
                 {group.title}
               </h3>
 

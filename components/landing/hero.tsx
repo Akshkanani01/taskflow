@@ -21,7 +21,7 @@ return ( <section className="relative overflow-hidden pt-40 pb-32">
           text-6xl
           font-bold
           tracking-tight
-          text-white
+          text-foreground
           md:text-8xl
           lg:text-9xl
         "
@@ -37,7 +37,7 @@ return ( <section className="relative overflow-hidden pt-40 pb-32">
           mt-8
           max-w-3xl
           text-xl
-          text-slate-400
+          text-muted-foreground
           md:text-2xl
         "
       >

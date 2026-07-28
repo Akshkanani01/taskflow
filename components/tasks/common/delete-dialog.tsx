@@ -39,7 +39,7 @@ export default function DeleteDialog({
       open={open}
       onOpenChange={onClose}
     >
-      <AlertDialogContent className="border-white/10 bg-[#0F172A]">
+      <AlertDialogContent className="border-border bg-[#0F172A]">
 
         <AlertDialogHeader>
 
@@ -49,11 +49,11 @@ export default function DeleteDialog({
 
           </div>
 
-          <AlertDialogTitle className="text-center text-2xl text-white">
+          <AlertDialogTitle className="text-center text-2xl text-foreground">
             {title}
           </AlertDialogTitle>
 
-          <AlertDialogDescription className="pt-2 text-center text-slate-400">
+          <AlertDialogDescription className="pt-2 text-center text-muted-foreground">
             {description}
           </AlertDialogDescription>
 
@@ -63,7 +63,7 @@ export default function DeleteDialog({
 
           <AlertDialogCancel
             disabled={loading}
-            className="border-white/10 bg-slate-900 text-white hover:bg-slate-800"
+            className="border-border bg-card text-foreground hover:bg-background"
           >
             Cancel
           </AlertDialogCancel>
@@ -82,7 +82,7 @@ export default function DeleteDialog({
     py-2
     text-sm
     font-medium
-    text-white
+    text-foreground
     transition
     hover:bg-red-500
     disabled:cursor-not-allowed

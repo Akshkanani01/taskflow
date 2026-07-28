@@ -22,7 +22,7 @@ export default function CreateTaskButton({
         py-2.5
         text-sm
         font-medium
-        text-white
+        text-foreground
         transition
         hover:bg-indigo-500
       "

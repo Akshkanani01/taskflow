@@ -40,11 +40,11 @@ return ( <div className="space-y-8">
   <div className="flex items-center justify-between">
 
     <div>
-      <h1 className="text-4xl font-bold text-white">
+      <h1 className="text-4xl font-bold text-foreground">
         Documents
       </h1>
 
-      <p className="mt-2 text-slate-400">
+      <p className="mt-2 text-muted-foreground">
         Centralized knowledge and file management.
       </p>
     </div>
@@ -55,7 +55,7 @@ return ( <div className="space-y-8">
         rounded-xl
         bg-indigo-600
         px-5 py-3
-        text-white
+        text-foreground
       "
     >
       <Plus size={18} />
@@ -66,42 +66,42 @@ return ( <div className="space-y-8">
 
   <div className="grid gap-6 md:grid-cols-4">
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <FileText className="mb-4 text-indigo-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         248
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Documents
       </p>
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Folder className="mb-4 text-emerald-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         36
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Folders
       </p>
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Clock className="mb-4 text-pink-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         18
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Recent Updates
       </p>
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Star className="mb-4 text-amber-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         42
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Favorites
       </p>
     </div>
@@ -112,7 +112,7 @@ return ( <div className="space-y-8">
 
     <Search
       size={18}
-      className="absolute left-4 top-3.5 text-slate-500"
+      className="absolute left-4 top-3.5 text-muted-foreground"
     />
 
     <input
@@ -120,10 +120,10 @@ return ( <div className="space-y-8">
       className="
         h-12 w-full
         rounded-xl
-        border border-white/10
-        bg-slate-900
+        border border-border
+        bg-card
         pl-11
-        text-white
+        text-foreground
       "
     />
 
@@ -132,17 +132,17 @@ return ( <div className="space-y-8">
   <div
     className="
       rounded-3xl
-      border border-white/10
-      bg-slate-900
+      border border-border
+      bg-card
       overflow-hidden
     "
   >
 
     <table className="w-full">
 
-      <thead className="border-b border-white/10">
+      <thead className="border-b border-border">
 
-        <tr className="text-left text-slate-400">
+        <tr className="text-left text-muted-foreground">
 
           <th className="p-5">Document</th>
           <th className="p-5">Owner</th>
@@ -158,21 +158,21 @@ return ( <div className="space-y-8">
         {documents.map((doc) => (
           <tr
             key={doc.name}
-            className="border-b border-white/5"
+            className="border-b border-border"
           >
-            <td className="p-5 text-white">
+            <td className="p-5 text-foreground">
               {doc.name}
             </td>
 
-            <td className="p-5 text-slate-400">
+            <td className="p-5 text-muted-foreground">
               {doc.owner}
             </td>
 
-            <td className="p-5 text-slate-400">
+            <td className="p-5 text-muted-foreground">
               {doc.updated}
             </td>
 
-            <td className="p-5 text-slate-400">
+            <td className="p-5 text-muted-foreground">
               {doc.size}
             </td>
           </tr>

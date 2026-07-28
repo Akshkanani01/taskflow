@@ -34,7 +34,7 @@ export default function PendingInvites({
   return (
     <div className="rounded-2xl border border-[#232B38] bg-[#121722]">
       <div className="border-b border-[#232B38] p-5">
-        <h2 className="text-lg font-semibold text-white">
+        <h2 className="text-lg font-semibold text-foreground">
           Pending Invitations
         </h2>
 
@@ -58,7 +58,7 @@ export default function PendingInvites({
                     className="text-blue-400"
                   />
 
-                  <p className="font-medium text-white">
+                  <p className="font-medium text-foreground">
                     {invite.email}
                   </p>
                 </div>

@@ -24,7 +24,7 @@ export default function MemberSettings({
       {/* Header */}
 
       <div>
-        <h1 className="text-4xl font-bold text-white">
+        <h1 className="text-4xl font-bold text-foreground">
           Member Settings
         </h1>
 
@@ -46,13 +46,13 @@ export default function MemberSettings({
 
           <div className="flex-1">
 
-            <h2 className="text-xl font-semibold text-white">
+            <h2 className="text-xl font-semibold text-foreground">
               Change Role
             </h2>
 
             <p className="mt-1 text-zinc-500">
               Current Role:{" "}
-              <span className="font-medium text-white">
+              <span className="font-medium text-foreground">
                 {member.role ?? "MEMBER"}
               </span>
             </p>
@@ -66,7 +66,7 @@ export default function MemberSettings({
               px-5
               py-3
               font-medium
-              text-white
+              text-foreground
               transition
               hover:bg-blue-500
             "
@@ -90,7 +90,7 @@ export default function MemberSettings({
 
           <div className="flex-1">
 
-            <h2 className="text-xl font-semibold text-white">
+            <h2 className="text-xl font-semibold text-foreground">
               Transfer Ownership
             </h2>
 
@@ -157,7 +157,7 @@ export default function MemberSettings({
               py-3
 
               font-medium
-              text-white
+              text-foreground
 
               transition
 

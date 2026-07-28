@@ -17,23 +17,23 @@ return ( <div
      overflow-hidden
      rounded-3xl
      border
-     border-white/10
-     bg-slate-900
+     border-border
+     bg-card
    "
  > <div
      className="
        flex items-center
        justify-between
        border-b
-       border-white/10
+       border-border
        px-6
        py-5
      "
-   > <div> <h3 className="text-xl font-semibold text-white">
+   > <div> <h3 className="text-xl font-semibold text-foreground">
 Pending Invitations </h3>
 
 
-      <p className="mt-1 text-sm text-slate-400">
+      <p className="mt-1 text-sm text-muted-foreground">
         Invitations waiting for acceptance
       </p>
     </div>
@@ -58,7 +58,7 @@ Pending Invitations </h3>
         flex h-40
         items-center
         justify-center
-        text-slate-500
+        text-muted-foreground
       "
     >
       No pending invitations
@@ -84,7 +84,7 @@ Pending Invitations </h3>
               rounded-full
               bg-indigo-600
               font-semibold
-              text-white
+              text-foreground
             "
           >
             {invite.email
@@ -93,7 +93,7 @@ Pending Invitations </h3>
           </div>
 
           <div>
-            <p className="font-medium text-white">
+            <p className="font-medium text-foreground">
               {invite.email}
             </p>
 
@@ -111,7 +111,7 @@ Pending Invitations </h3>
                 {invite.role}
               </span>
 
-              <span className="text-xs text-slate-500">
+              <span className="text-xs text-muted-foreground">
                 {new Date(
                   invite.createdAt
                 ).toLocaleDateString()}
@@ -138,11 +138,11 @@ Pending Invitations </h3>
             className="
               rounded-xl
               border
-              border-white/10
+              border-border
               px-4 py-2
               text-sm
-              text-slate-300
-              hover:bg-slate-800
+              text-foreground
+              hover:bg-background
             "
           >
             Resend

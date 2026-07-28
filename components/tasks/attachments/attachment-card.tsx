@@ -88,7 +88,7 @@ function FileIcon({
   return (
     <File
       size={60}
-      className="text-slate-500"
+      className="text-muted-foreground"
     />
   );
 }
@@ -118,7 +118,7 @@ export default function AttachmentCard({
           overflow-hidden
           rounded-2xl
           border
-          border-white/10
+          border-border
           bg-[#111827]
           transition-all
           duration-300
@@ -154,13 +154,13 @@ export default function AttachmentCard({
 
           <div>
 
-            <h3 className="truncate text-sm font-semibold text-white">
+            <h3 className="truncate text-sm font-semibold text-foreground">
 
               {attachment.name}
 
             </h3>
 
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-muted-foreground">
 
               {attachment.size
                 ? `${(
@@ -186,9 +186,9 @@ export default function AttachmentCard({
                 justify-center
                 rounded-xl
                 border
-                border-white/10
+                border-border
                 transition
-                hover:bg-slate-800
+                hover:bg-background
               "
             >
 
@@ -209,9 +209,9 @@ export default function AttachmentCard({
                 justify-center
                 rounded-xl
                 border
-                border-white/10
+                border-border
                 transition
-                hover:bg-slate-800
+                hover:bg-background
               "
             >
 

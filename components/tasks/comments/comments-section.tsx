@@ -37,13 +37,13 @@ export default function CommentsSection({
 
       {comments.length === 0 ? (
 
-        <div className="rounded-2xl border border-dashed border-white/10 bg-slate-950 py-12 text-center">
+        <div className="rounded-2xl border border-dashed border-border bg-background py-12 text-center">
 
-          <h3 className="text-lg font-medium text-white">
+          <h3 className="text-lg font-medium text-foreground">
             No comments yet
           </h3>
 
-          <p className="mt-2 text-sm text-slate-500">
+          <p className="mt-2 text-sm text-muted-foreground">
             Start the discussion by writing the first comment.
           </p>
 

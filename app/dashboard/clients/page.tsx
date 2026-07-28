@@ -38,11 +38,11 @@ return ( <div className="space-y-8">
 
     <div>
 
-      <h1 className="text-4xl font-bold text-white">
+      <h1 className="text-4xl font-bold text-foreground">
         Clients
       </h1>
 
-      <p className="mt-2 text-slate-400">
+      <p className="mt-2 text-muted-foreground">
         Manage clients, contracts and revenue.
       </p>
 
@@ -54,7 +54,7 @@ return ( <div className="space-y-8">
         rounded-xl
         bg-indigo-600
         px-5 py-3
-        text-white
+        text-foreground
       "
     >
       <Plus size={18} />
@@ -65,42 +65,42 @@ return ( <div className="space-y-8">
 
   <div className="grid gap-6 md:grid-cols-4">
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Building2 className="mb-4 text-indigo-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         42
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Total Clients
       </p>
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <DollarSign className="mb-4 text-emerald-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         $148K
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Revenue
       </p>
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <FolderKanban className="mb-4 text-pink-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         29
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Active lists
       </p>
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Mail className="mb-4 text-amber-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         96%
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Retention Rate
       </p>
     </div>
@@ -111,7 +111,7 @@ return ( <div className="space-y-8">
 
     <Search
       size={18}
-      className="absolute left-4 top-3.5 text-slate-500"
+      className="absolute left-4 top-3.5 text-muted-foreground"
     />
 
     <input
@@ -119,10 +119,10 @@ return ( <div className="space-y-8">
       className="
         h-12 w-full
         rounded-xl
-        border border-white/10
-        bg-slate-900
+        border border-border
+        bg-card
         pl-11
-        text-white
+        text-foreground
       "
     />
 
@@ -135,8 +135,8 @@ return ( <div className="space-y-8">
         key={client.name}
         className="
           rounded-3xl
-          border border-white/10
-          bg-slate-900
+          border border-border
+          bg-card
           p-6
         "
       >
@@ -145,11 +145,11 @@ return ( <div className="space-y-8">
 
           <div>
 
-            <h3 className="text-xl font-semibold text-white">
+            <h3 className="text-xl font-semibold text-foreground">
               {client.name}
             </h3>
 
-            <p className="mt-2 text-slate-400">
+            <p className="mt-2 text-muted-foreground">
               {client.contact}
             </p>
 
@@ -172,21 +172,21 @@ return ( <div className="space-y-8">
         <div className="mt-6 grid grid-cols-2 gap-6 md:grid-cols-4">
 
           <div>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-muted-foreground">
               lists
             </p>
 
-            <h4 className="mt-1 text-lg font-semibold text-white">
+            <h4 className="mt-1 text-lg font-semibold text-foreground">
               {client.lists}
             </h4>
           </div>
 
           <div>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-muted-foreground">
               Revenue
             </p>
 
-            <h4 className="mt-1 text-lg font-semibold text-white">
+            <h4 className="mt-1 text-lg font-semibold text-foreground">
               {client.revenue}
             </h4>
           </div>

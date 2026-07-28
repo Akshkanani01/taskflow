@@ -1,15 +1,28 @@
 "use client";
 
-import { useActionState, useEffect, useTransition } from "react";
-import { useFormStatus } from "react-dom";
-import { toast } from "sonner";
+import {
+  useActionState,
+  useEffect,
+  useTransition,
+} from "react";
+
+import {
+  useFormStatus,
+} from "react-dom";
+
+import {
+  toast,
+} from "sonner";
 
 import {
   updateProfile,
   type UpdateProfileState,
 } from "@/app/actions/settings/update-profile";
 
-import { useCurrentUser } from "@/hooks/use-current-user";
+import {
+  useCurrentUser,
+} from "@/hooks/use-current-user";
+
 
 const initialState: UpdateProfileState = {
   success: false,
@@ -18,10 +31,17 @@ const initialState: UpdateProfileState = {
   user: undefined,
 };
 
+
+
 function SaveButton() {
-  const { pending } = useFormStatus();
+
+  const {
+    pending,
+  } = useFormStatus();
+
 
   return (
+
     <button
       type="submit"
       disabled={pending}
@@ -35,81 +55,177 @@ function SaveButton() {
         px-6
         text-sm
         font-medium
-        text-white
+        text-foreground
         transition
         hover:bg-blue-500
         disabled:pointer-events-none
         disabled:opacity-50
       "
     >
-      {pending ? "Saving..." : "Save Changes"}
+
+      {pending
+        ? "Saving..."
+        : "Save Changes"}
+
     </button>
+
   );
+
 }
 
-export default function ProfileForm() {
-  const { user, updateUser } = useCurrentUser();
 
-  const [state, formAction] = useActionState(
+
+export default function ProfileForm() {
+
+  const {
+    user,
+    updateUser,
+  } = useCurrentUser();
+
+
+
+  const [
+    state,
+    formAction,
+  ] = useActionState(
     updateProfile,
     initialState
   );
 
-  const [, startTransition] = useTransition();
+
+
+  const [
+    ,
+    startTransition,
+  ] = useTransition();
+
+
 
   useEffect(() => {
+
     if (!state.message) return;
 
+
     if (state.success) {
-      toast.success(state.message);
+
+      toast.success(
+        state.message
+      );
+
 
       if (state.user) {
-  const updatedUser = state.user;
 
-  startTransition(() => {
-    updateUser(updatedUser);
-  });
-}
+        const updatedUser =
+          state.user;
+
+
+        startTransition(() => {
+
+          updateUser(
+            updatedUser
+          );
+
+        });
+
+      }
+
+
     } else {
-      toast.error(state.message);
+
+      toast.error(
+        state.message
+      );
+
     }
-  }, [state, updateUser, startTransition]);
+
+
+  }, [
+    state,
+    updateUser,
+    startTransition,
+  ]);
+
+
 
   return (
+
     <form
       action={formAction}
       className="space-y-8"
     >
-      <section className="rounded-2xl border border-white/10 bg-slate-900/40">
-        <div className="border-b border-white/10 px-6 py-5">
-          <h3 className="text-base font-semibold text-white">
+
+      <section
+        className="
+          rounded-2xl
+          border
+          border-border
+          bg-card/80
+        "
+      >
+
+        <div
+          className="
+            border-b
+            border-border
+            px-6
+            py-5
+          "
+        >
+
+          <h3
+            className="
+              text-base
+              font-semibold
+              text-foreground
+            "
+          >
             Personal Information
           </h3>
 
-          <p className="mt-1 text-sm text-slate-400">
+
+          <p className="mt-1 text-sm text-muted-foreground">
+
             Update your profile information.
+
           </p>
+
+
         </div>
 
+
+
         <div className="p-6">
+
+
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300">
+
+
+            <label
+              className="
+                text-sm
+                font-medium
+                text-muted-foreground
+              "
+            >
               Full Name
             </label>
 
+
             <input
               name="name"
-              defaultValue={user.name ?? ""}
+              defaultValue={
+                user.name ?? ""
+              }
               placeholder="Enter your full name"
               className="
                 h-11
                 w-full
                 rounded-xl
                 border
-                border-white/10
-                bg-slate-950
+                border-border
+                bg-background
                 px-4
-                text-white
+                text-foreground
                 outline-none
                 transition
                 focus:border-blue-500/40
@@ -118,20 +234,40 @@ export default function ProfileForm() {
               "
             />
 
+
             {state.errors?.name?.length ? (
+
               <p className="text-sm text-red-400">
+
                 {state.errors.name[0]}
+
               </p>
+
             ) : null}
+
+
           </div>
 
+
+
           <div className="mt-6 space-y-2">
-            <label className="text-sm font-medium text-slate-300">
+
+
+            <label
+              className="
+                text-sm
+                font-medium
+                text-muted-foreground
+              "
+            >
               Email
             </label>
 
+
             <input
-              value={user.email}
+              value={
+                user.email
+              }
               readOnly
               disabled
               className="
@@ -140,23 +276,40 @@ export default function ProfileForm() {
                 cursor-not-allowed
                 rounded-xl
                 border
-                border-white/10
-                bg-slate-900
+                border-border
+                bg-muted
                 px-4
-                text-slate-400
+                text-muted-foreground
               "
             />
 
-            <p className="text-xs text-slate-500">
+
+            <p className="text-xs text-muted-foreground">
+
               Email address is managed by your authentication provider.
+
             </p>
+
+
           </div>
+
+
         </div>
+
+
       </section>
 
+
+
       <div className="flex justify-end">
+
         <SaveButton />
+
       </div>
+
+
     </form>
+
   );
+
 }

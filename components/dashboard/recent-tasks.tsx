@@ -14,18 +14,18 @@ const tasks = await prisma.task.findMany({
 return ( <div
    className="
      rounded-3xl
-     border border-white/10
-     bg-slate-900
+     border border-border
+     bg-card
      p-6
    "
  > <div className="flex items-center justify-between">
 
     <div>
-      <h3 className="text-xl font-semibold text-white">
+      <h3 className="text-xl font-semibold text-foreground">
         Recent Tasks
       </h3>
 
-      <p className="mt-1 text-sm text-slate-400">
+      <p className="mt-1 text-sm text-muted-foreground">
         Latest workspace activity
       </p>
     </div>
@@ -38,21 +38,21 @@ return ( <div
 
       <thead>
 
-        <tr className="border-b border-white/10">
+        <tr className="border-b border-border">
 
-          <th className="pb-4 text-left text-sm text-slate-400">
+          <th className="pb-4 text-left text-sm text-muted-foreground">
             Task
           </th>
 
-          <th className="pb-4 text-left text-sm text-slate-400">
+          <th className="pb-4 text-left text-sm text-muted-foreground">
             Project
           </th>
 
-          <th className="pb-4 text-left text-sm text-slate-400">
+          <th className="pb-4 text-left text-sm text-muted-foreground">
             Status
           </th>
 
-          <th className="pb-4 text-left text-sm text-slate-400">
+          <th className="pb-4 text-left text-sm text-muted-foreground">
             Priority
           </th>
 
@@ -65,14 +65,14 @@ return ( <div
         {tasks.map((task) => (
           <tr
             key={task.id}
-            className="border-b border-white/5"
+            className="border-b border-border"
           >
 
-            <td className="py-4 text-white">
+            <td className="py-4 text-foreground">
               {task.title}
             </td>
 
-            <td className="py-4 text-slate-300">
+            <td className="py-4 text-foreground">
               {task.project?.name}
             </td>
 
@@ -92,7 +92,7 @@ return ( <div
 
             </td>
 
-            <td className="py-4 text-slate-300">
+            <td className="py-4 text-foreground">
               {task.priority}
             </td>
 

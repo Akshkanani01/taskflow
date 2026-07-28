@@ -24,20 +24,20 @@ return ( <div
      overflow-hidden
      rounded-3xl
      border
-     border-white/10
-     bg-slate-900
+     border-border
+     bg-card
    "
  > <div
      className="
        border-b
-       border-white/10
+       border-border
        px-6
        py-5
      "
-   > <h3 className="text-xl font-semibold text-white">
+   > <h3 className="text-xl font-semibold text-foreground">
 Team Members </h3>
 
-    <p className="mt-1 text-sm text-slate-400">
+    <p className="mt-1 text-sm text-muted-foreground">
       Workspace members and permissions
     </p>
   </div>
@@ -48,12 +48,12 @@ Team Members </h3>
         <tr
           className="
             border-b
-            border-white/10
+            border-border
             text-left
             text-xs
             uppercase
             tracking-wider
-            text-slate-500
+            text-muted-foreground
           "
         >
           <th className="px-6 py-4">
@@ -83,7 +83,7 @@ Team Members </h3>
             key={member.id}
             className="
               border-b
-              border-white/5
+              border-border
             "
           >
             <td className="px-6 py-5">
@@ -97,21 +97,21 @@ Team Members </h3>
                     bg-indigo-600
                     text-lg
                     font-semibold
-                    text-white
+                    text-foreground
                   "
                 >
                   {member.user.name?.charAt(0) || "U"}
                 </div>
 
                 <div>
-                  <p className="font-medium text-white">
+                  <p className="font-medium text-foreground">
                     {member.user.name}
                   </p>
                 </div>
               </div>
             </td>
 
-            <td className="px-6 py-5 text-slate-300">
+            <td className="px-6 py-5 text-foreground">
               {member.user.email}
             </td>
 
@@ -121,7 +121,7 @@ Team Members </h3>
               />
             </td>
 
-            <td className="px-6 py-5 text-slate-400">
+            <td className="px-6 py-5 text-muted-foreground">
               {new Date(
                 member.joinedAt
               ).toLocaleDateString()}

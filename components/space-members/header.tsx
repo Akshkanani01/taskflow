@@ -40,7 +40,7 @@ export default function MembersHeader({
             </div>
 
             <div>
-              <h1 className="text-3xl font-bold text-white">
+              <h1 className="text-3xl font-bold text-foreground">
                 Space Members
               </h1>
 
@@ -77,7 +77,7 @@ export default function MembersHeader({
             Total Members
           </p>
 
-          <p className="mt-2 text-3xl font-bold text-white">
+          <p className="mt-2 text-3xl font-bold text-foreground">
             {totalMembers}
           </p>
         </div>
@@ -104,7 +104,7 @@ export default function MembersHeader({
             </p>
           </div>
 
-          <p className="mt-2 text-lg font-semibold text-white">
+          <p className="mt-2 text-lg font-semibold text-foreground">
             Space Based
           </p>
         </div>

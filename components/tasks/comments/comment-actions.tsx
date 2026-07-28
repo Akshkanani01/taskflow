@@ -37,7 +37,7 @@ export default function CommentActions({
           onChange={(e) =>
             setText(e.target.value)
           }
-          className="w-full rounded-xl border border-white/10 bg-slate-900 p-3 text-white"
+          className="w-full rounded-xl border border-border bg-card p-3 text-foreground"
         />
 
         <div className="flex gap-3">
@@ -56,7 +56,7 @@ export default function CommentActions({
                 router.refresh();
               })
             }
-            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm text-white"
+            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm text-foreground"
           >
             Save
           </button>
@@ -65,7 +65,7 @@ export default function CommentActions({
             onClick={() =>
               setEditing(false)
             }
-            className="rounded-lg border border-white/10 px-4 py-2 text-sm text-white"
+            className="rounded-lg border border-border px-4 py-2 text-sm text-foreground"
           >
             Cancel
           </button>

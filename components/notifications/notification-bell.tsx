@@ -18,7 +18,8 @@ export default function NotificationBell() {
     connected,
   } =
     useNotificationContext();
-      return (
+
+  return (
 
     <div className="relative">
 
@@ -34,17 +35,18 @@ export default function NotificationBell() {
           relative
           rounded-xl
           border
-          border-white/10
-          bg-slate-900
+          border-border
+          bg-card
           p-3
-          text-slate-300
+          text-foreground
           transition
-          hover:bg-slate-800
+          hover:bg-accent
         "
       >
 
         <Bell size={18} />
-                {unreadCount > 0 && (
+
+        {unreadCount > 0 && (
 
           <span
             className="
@@ -61,7 +63,7 @@ export default function NotificationBell() {
               px-1
               text-[10px]
               font-bold
-              text-white
+              text-foreground
             "
           >
 
@@ -72,7 +74,8 @@ export default function NotificationBell() {
           </span>
 
         )}
-                <span
+
+        <span
           className={`
             absolute
             bottom-1
@@ -89,7 +92,8 @@ export default function NotificationBell() {
         />
 
       </button>
-            {open && (
+
+      {open && (
 
         <NotificationDropdown
 

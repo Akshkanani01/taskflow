@@ -31,7 +31,7 @@ export default function MemberFiles({
 
       <div className="mb-10">
 
-        <h1 className="text-4xl font-bold text-white">
+        <h1 className="text-4xl font-bold text-foreground">
           Files
         </h1>
 
@@ -76,7 +76,7 @@ export default function MemberFiles({
                 className="text-blue-400"
               />
 
-              <span className="font-medium text-white">
+              <span className="font-medium text-foreground">
                 {file.name}
               </span>
 

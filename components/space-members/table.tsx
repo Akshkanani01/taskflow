@@ -15,7 +15,7 @@ export default function MembersTable({
     return (
       <div className="flex h-[500px] items-center justify-center rounded-2xl border border-zinc-800 bg-[#121722]">
         <div className="text-center">
-          <h3 className="text-lg font-semibold text-white">
+          <h3 className="text-lg font-semibold text-foreground">
             No Members Found
           </h3>
 

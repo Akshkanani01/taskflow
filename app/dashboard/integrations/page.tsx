@@ -67,11 +67,11 @@ return ( <div className="space-y-8">
 
     <div>
 
-      <h1 className="text-4xl font-bold text-white">
+      <h1 className="text-4xl font-bold text-foreground">
         Integrations
       </h1>
 
-      <p className="mt-2 text-slate-400">
+      <p className="mt-2 text-muted-foreground">
         Connect your favorite apps and services.
       </p>
 
@@ -82,7 +82,7 @@ return ( <div className="space-y-8">
         rounded-xl
         bg-indigo-600
         px-5 py-3
-        text-white
+        text-foreground
       "
     >
       Browse Marketplace
@@ -92,53 +92,53 @@ return ( <div className="space-y-8">
 
   <div className="grid gap-6 md:grid-cols-4">
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Plug className="mb-4 text-indigo-400" />
 
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         28
       </h2>
 
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Available Apps
       </p>
 
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <CheckCircle className="mb-4 text-emerald-400" />
 
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         12
       </h2>
 
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Connected
       </p>
 
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Cloud className="mb-4 text-sky-400" />
 
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         1.2TB
       </h2>
 
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Synced Files
       </p>
 
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Shield className="mb-4 text-pink-400" />
 
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         Enterprise
       </h2>
 
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Security Enabled
       </p>
 
@@ -156,8 +156,8 @@ return ( <div className="space-y-8">
           key={integration.name}
           className="
             rounded-3xl
-            border border-white/10
-            bg-slate-900
+            border border-border
+            bg-card
             p-6
           "
         >
@@ -171,7 +171,7 @@ return ( <div className="space-y-8">
                   flex h-14 w-14
                   items-center justify-center
                   rounded-2xl
-                  bg-slate-800
+                  bg-background
                 "
               >
                 <Icon
@@ -182,11 +182,11 @@ return ( <div className="space-y-8">
 
               <div>
 
-                <h3 className="text-xl font-semibold text-white">
+                <h3 className="text-xl font-semibold text-foreground">
                   {integration.name}
                 </h3>
 
-                <p className="mt-2 text-slate-400">
+                <p className="mt-2 text-muted-foreground">
                   {integration.description}
                 </p>
 
@@ -200,7 +200,7 @@ return ( <div className="space-y-8">
                 ${
                   integration.connected
                     ? "bg-emerald-500/20 text-emerald-300"
-                    : "bg-slate-800 text-slate-400"
+                    : "bg-background text-muted-foreground"
                 }
               `}
             >
@@ -216,8 +216,8 @@ return ( <div className="space-y-8">
             <button
               className={
                 integration.connected
-                  ? "rounded-xl border border-white/10 px-4 py-2 text-white"
-                  : "rounded-xl bg-indigo-600 px-4 py-2 text-white"
+                  ? "rounded-xl border border-border px-4 py-2 text-foreground"
+                  : "rounded-xl bg-indigo-600 px-4 py-2 text-foreground"
               }
             >
               {integration.connected

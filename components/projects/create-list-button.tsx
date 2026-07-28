@@ -23,7 +23,7 @@ export default function CreateListButton({
           px-5
           py-3
           font-medium
-          text-white
+          text-foreground
           transition-all
           hover:bg-indigo-500
         "

@@ -27,7 +27,7 @@ export default function CommentItem({
     useTransition();
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-slate-950 p-5">
+    <div className="rounded-2xl border border-border bg-background p-5">
 
       <div className="mb-3 flex items-center justify-between">
 
@@ -47,11 +47,11 @@ export default function CommentItem({
 
           <div>
 
-            <p className="font-medium text-white">
+            <p className="font-medium text-foreground">
               {name}
             </p>
 
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-muted-foreground">
               {createdAt}
             </p>
 
@@ -75,7 +75,7 @@ export default function CommentItem({
 
       </div>
 
-      <p className="whitespace-pre-wrap text-slate-300">
+      <p className="whitespace-pre-wrap text-foreground">
         {content}
       </p>
 

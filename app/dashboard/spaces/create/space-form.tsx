@@ -89,7 +89,7 @@ onSubmit={
 handleSubmit
 }
 className="space-y-5"
-> <div> <label className="mb-2 block text-sm text-slate-400">
+> <div> <label className="mb-2 block text-sm text-muted-foreground">
 Workspace </label>
 
     <select
@@ -103,10 +103,10 @@ Workspace </label>
       }
       className="
         w-full rounded-xl
-        border border-white/10
-        bg-slate-950
+        border border-border
+        bg-background
         px-4 py-3
-        text-white
+        text-foreground
       "
     >
       {workspaces.map(
@@ -131,7 +131,7 @@ Workspace </label>
   </div>
 
   <div>
-    <label className="mb-2 block text-sm text-slate-400">
+    <label className="mb-2 block text-sm text-muted-foreground">
       Space Name
     </label>
 
@@ -145,16 +145,16 @@ Workspace </label>
       placeholder="Development"
       className="
         w-full rounded-xl
-        border border-white/10
-        bg-slate-950
+        border border-border
+        bg-background
         px-4 py-3
-        text-white
+        text-foreground
       "
     />
   </div>
 
   <div>
-    <label className="mb-2 block text-sm text-slate-400">
+    <label className="mb-2 block text-sm text-muted-foreground">
       Color
     </label>
 
@@ -167,10 +167,10 @@ Workspace </label>
       }
       className="
         w-full rounded-xl
-        border border-white/10
-        bg-slate-950
+        border border-border
+        bg-background
         px-4 py-3
-        text-white
+        text-foreground
       "
     >
       <option value="blue">
@@ -199,7 +199,7 @@ Workspace </label>
       rounded-xl
       bg-indigo-600
       px-5 py-3
-      text-white
+      text-foreground
     "
   >
     {loading

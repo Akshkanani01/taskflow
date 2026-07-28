@@ -45,9 +45,9 @@ export default function TaskTable({
           justify-center
           rounded-3xl
           border
-          border-white/10
+          border-border
           bg-[#111827]
-          text-slate-500
+          text-muted-foreground
         "
       >
         No Tasks Found
@@ -61,7 +61,7 @@ export default function TaskTable({
         overflow-hidden
         rounded-3xl
         border
-        border-white/10
+        border-border
         bg-[#111827]
       "
     >
@@ -73,7 +73,7 @@ export default function TaskTable({
           grid-cols-[360px_130px_130px_170px_240px_64px]
           items-center
           border-b
-          border-white/10
+          border-border
           bg-[#131C2E]
           px-7
           py-4
@@ -81,7 +81,7 @@ export default function TaskTable({
           font-semibold
           uppercase
           tracking-[0.18em]
-          text-slate-400
+          text-muted-foreground
         "
       >
         <div className="pl-2">

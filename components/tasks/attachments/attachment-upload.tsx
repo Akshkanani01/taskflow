@@ -31,8 +31,8 @@ export default function AttachmentUpload({
         rounded-2xl
         border
         border-dashed
-        border-white/10
-        bg-slate-950/70
+        border-border
+        bg-background/70
         p-6
       "
     >
@@ -57,11 +57,11 @@ export default function AttachmentUpload({
 
         <div>
 
-          <h3 className="font-semibold text-white">
+          <h3 className="font-semibold text-foreground">
             Upload Attachments
           </h3>
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
             Images, PDF, DOCX, ZIP, Videos
           </p>
 
@@ -80,13 +80,13 @@ export default function AttachmentUpload({
             "text-indigo-400",
 
           label:
-            "text-white text-base font-medium",
+            "text-foreground text-base font-medium",
 
           allowedContent:
-            "text-slate-500 text-sm",
+            "text-muted-foreground text-sm",
 
           button:
-            "rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white",
+            "rounded-xl bg-indigo-600 hover:bg-indigo-500 text-foreground",
         }}
 
         content={{

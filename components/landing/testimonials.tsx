@@ -31,11 +31,11 @@ return ( <section className="py-32"> <div className="container mx-auto px-6">
         Testimonials
       </p>
 
-      <h2 className="mt-4 text-5xl font-bold text-white">
+      <h2 className="mt-4 text-5xl font-bold text-foreground">
         Loved By Teams Worldwide
       </h2>
 
-      <p className="mt-6 text-lg text-slate-400">
+      <p className="mt-6 text-lg text-muted-foreground">
         See what our users say about TaskFlow.
       </p>
 
@@ -49,8 +49,8 @@ return ( <section className="py-32"> <div className="container mx-auto px-6">
           className="
             rounded-3xl
             border
-            border-white/10
-            bg-slate-900
+            border-border
+            bg-card
             p-8
           "
         >
@@ -58,16 +58,16 @@ return ( <section className="py-32"> <div className="container mx-auto px-6">
             ★★★★★
           </div>
 
-          <p className="text-slate-300">
+          <p className="text-foreground">
   &quot;{item.review}&quot;
 </p>
 
           <div className="mt-8">
-            <h4 className="font-semibold text-white">
+            <h4 className="font-semibold text-foreground">
               {item.name}
             </h4>
 
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-muted-foreground">
               {item.role} • {item.company}
             </p>
           </div>

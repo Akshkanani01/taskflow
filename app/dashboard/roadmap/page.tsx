@@ -49,11 +49,11 @@ return ( <div className="space-y-8">
 
   <div>
 
-    <h1 className="text-4xl font-bold text-white">
+    <h1 className="text-4xl font-bold text-foreground">
       Product Roadmap
     </h1>
 
-    <p className="mt-2 text-slate-400">
+    <p className="mt-2 text-muted-foreground">
       Strategic planning and release management.
     </p>
 
@@ -61,42 +61,42 @@ return ( <div className="space-y-8">
 
   <div className="grid gap-6 md:grid-cols-4">
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Rocket className="mb-4 text-indigo-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         24
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Features Planned
       </p>
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Target className="mb-4 text-emerald-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         18
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Completed
       </p>
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Flag className="mb-4 text-pink-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         12
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Milestones
       </p>
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Calendar className="mb-4 text-amber-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         Q4
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Next Release
       </p>
     </div>
@@ -110,25 +110,25 @@ return ( <div className="space-y-8">
         key={phase.quarter}
         className="
           rounded-3xl
-          border border-white/10
-          bg-slate-900
+          border border-border
+          bg-card
           p-6
         "
       >
 
         <div className="flex items-center justify-between">
 
-          <h2 className="text-2xl font-bold text-white">
+          <h2 className="text-2xl font-bold text-foreground">
             {phase.quarter}
           </h2>
 
-          <span className="text-slate-400">
+          <span className="text-muted-foreground">
             {phase.progress}% Complete
           </span>
 
         </div>
 
-        <div className="mt-4 h-3 rounded-full bg-slate-800">
+        <div className="mt-4 h-3 rounded-full bg-background">
 
           <div
             className="h-3 rounded-full bg-indigo-500"
@@ -146,12 +146,12 @@ return ( <div className="space-y-8">
               key={item}
               className="
                 rounded-2xl
-                border border-white/10
-                bg-slate-950
+                border border-border
+                bg-background
                 p-4
               "
             >
-              <h3 className="font-medium text-white">
+              <h3 className="font-medium text-foreground">
                 {item}
               </h3>
             </div>

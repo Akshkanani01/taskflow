@@ -132,7 +132,7 @@ export default function MemberPermissions({
 
       <div>
 
-        <h1 className="text-4xl font-bold text-white">
+        <h1 className="text-4xl font-bold text-foreground">
           Permissions
         </h1>
 
@@ -144,7 +144,7 @@ export default function MemberPermissions({
 
       <div className="rounded-3xl border border-zinc-800 bg-[#121A26] p-8">
 
-        <h2 className="text-2xl font-semibold text-white">
+        <h2 className="text-2xl font-semibold text-foreground">
 
           {role}
 
@@ -180,7 +180,7 @@ export default function MemberPermissions({
 
                 </div>
 
-                <h2 className="text-xl font-semibold text-white">
+                <h2 className="text-xl font-semibold text-foreground">
 
                   {title}
 

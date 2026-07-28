@@ -12,8 +12,8 @@ return ( <header className="fixed top-6 left-0 right-0 z-50"> <div className="mx
         justify-between
         rounded-2xl
         border
-        border-white/10
-        bg-slate-900/80
+        border-border
+        bg-card/80
         px-8
         backdrop-blur-xl
         shadow-2xl
@@ -21,7 +21,7 @@ return ( <header className="fixed top-6 left-0 right-0 z-50"> <div className="mx
     >
       <Link
         href="/"
-        className="text-3xl font-bold tracking-tight text-white"
+        className="text-3xl font-bold tracking-tight text-foreground"
       >
         ⚡ TaskFlow
       </Link>
@@ -30,28 +30,28 @@ return ( <header className="fixed top-6 left-0 right-0 z-50"> <div className="mx
 
         <a
           href="#features"
-          className="text-slate-300 transition hover:text-white"
+          className="text-foreground transition hover:text-foreground"
         >
           Features
         </a>
 
         <a
           href="#how-it-works"
-          className="text-slate-300 transition hover:text-white"
+          className="text-foreground transition hover:text-foreground"
         >
           How It Works
         </a>
 
         <a
           href="#faq"
-          className="text-slate-300 transition hover:text-white"
+          className="text-foreground transition hover:text-foreground"
         >
           FAQ
         </a>
 
         <a
           href="#contact"
-          className="text-slate-300 transition hover:text-white"
+          className="text-foreground transition hover:text-foreground"
         >
           Contact
         </a>

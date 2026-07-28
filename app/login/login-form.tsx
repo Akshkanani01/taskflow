@@ -42,23 +42,23 @@ try {
 }
 
 if (sent) {
-return ( <main className="flex min-h-screen items-center justify-center bg-slate-950 px-6"> <div className="w-full max-w-md rounded-3xl border border-white/10 bg-slate-900 p-8 text-center">
+return ( <main className="flex min-h-screen items-center justify-center bg-background px-6"> <div className="w-full max-w-md rounded-3xl border border-border bg-card p-8 text-center">
 
       <CheckCircle2 className="mx-auto h-16 w-16 text-green-500" />
 
-      <h1 className="mt-6 text-3xl font-bold text-white">
+      <h1 className="mt-6 text-3xl font-bold text-foreground">
         Check your email
       </h1>
 
-      <p className="mt-3 text-slate-400">
+      <p className="mt-3 text-muted-foreground">
         We sent a secure  link to:
       </p>
 
-      <p className="mt-2 font-medium text-white">
+      <p className="mt-2 font-medium text-foreground">
         {email}
       </p>
 
-      <p className="mt-6 text-sm text-slate-500">
+      <p className="mt-6 text-sm text-muted-foreground">
         Open your inbox and click the link to continue.
       </p>
 
@@ -69,18 +69,18 @@ return ( <main className="flex min-h-screen items-center justify-center bg-slate
 
 }
 
-return ( <main className="flex min-h-screen items-center justify-center bg-slate-950 px-6">
+return ( <main className="flex min-h-screen items-center justify-center bg-background px-6">
 
 
-  <div className="w-full max-w-md rounded-3xl border border-white/10 bg-slate-900 p-8">
+  <div className="w-full max-w-md rounded-3xl border border-border bg-card p-8">
 
     <div className="mb-8 text-center">
 
-      <h1 className="text-4xl font-bold text-white">
+      <h1 className="text-4xl font-bold text-foreground">
         Welcome Back
       </h1>
 
-      <p className="mt-3 text-slate-400">
+      <p className="mt-3 text-muted-foreground">
         Continue with Magic Link
       </p>
 
@@ -93,7 +93,7 @@ return ( <main className="flex min-h-screen items-center justify-center bg-slate
 
       <div className="relative">
 
-        <Mail className="absolute left-4 top-4 h-5 w-5 text-slate-500" />
+        <Mail className="absolute left-4 top-4 h-5 w-5 text-muted-foreground" />
 
         <input
           type="email"
@@ -103,7 +103,7 @@ return ( <main className="flex min-h-screen items-center justify-center bg-slate
             setEmail(e.target.value)
           }
           placeholder="you@example.com"
-          className="h-12 w-full rounded-xl border border-white/10 bg-slate-800 pl-12 text-white outline-none"
+          className="h-12 w-full rounded-xl border border-border bg-background pl-12 text-foreground outline-none"
         />
 
       </div>
@@ -117,7 +117,7 @@ return ( <main className="flex min-h-screen items-center justify-center bg-slate
       <button
         type="submit"
         disabled={loading}
-        className="h-12 w-full rounded-xl bg-indigo-600 font-medium text-white transition hover:bg-indigo-500 disabled:opacity-50"
+        className="h-12 w-full rounded-xl bg-indigo-600 font-medium text-foreground transition hover:bg-indigo-500 disabled:opacity-50"
       >
         {loading
           ? "Sending..."

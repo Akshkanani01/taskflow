@@ -10,10 +10,10 @@ export default function MemberActions() {
       className="
         rounded-xl
         p-2
-        text-slate-400
+        text-muted-foreground
         transition
-        hover:bg-slate-800
-        hover:text-white
+        hover:bg-background
+        hover:text-foreground
       "
     >
       <MoreHorizontal size={16} />

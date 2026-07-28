@@ -34,11 +34,11 @@ return ( <div className="space-y-8">
 
     <div>
 
-      <h1 className="text-4xl font-bold text-white">
+      <h1 className="text-4xl font-bold text-foreground">
         Time Tracking
       </h1>
 
-      <p className="mt-2 text-slate-400">
+      <p className="mt-2 text-muted-foreground">
         Track productivity, billable hours and team effort.
       </p>
 
@@ -52,7 +52,7 @@ return ( <div className="space-y-8">
           rounded-xl
           bg-emerald-600
           px-5 py-3
-          text-white
+          text-foreground
         "
       >
         <Play size={18} />
@@ -63,9 +63,9 @@ return ( <div className="space-y-8">
         className="
           flex items-center gap-2
           rounded-xl
-          border border-white/10
+          border border-border
           px-5 py-3
-          text-white
+          text-foreground
         "
       >
         <Pause size={18} />
@@ -78,53 +78,53 @@ return ( <div className="space-y-8">
 
   <div className="grid gap-6 md:grid-cols-4">
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Clock3 className="mb-4 text-indigo-400" />
 
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         186h
       </h2>
 
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Total Hours
       </p>
 
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Timer className="mb-4 text-emerald-400" />
 
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         128h
       </h2>
 
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Billable Hours
       </p>
 
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Calendar className="mb-4 text-pink-400" />
 
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         21
       </h2>
 
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Active Days
       </p>
 
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Clock3 className="mb-4 text-amber-400" />
 
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         7.2h
       </h2>
 
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Avg / Day
       </p>
 
@@ -135,13 +135,13 @@ return ( <div className="space-y-8">
   <div
     className="
       rounded-3xl
-      border border-white/10
-      bg-slate-900
+      border border-border
+      bg-card
       p-6
     "
   >
 
-    <h2 className="mb-6 text-xl font-semibold text-white">
+    <h2 className="mb-6 text-xl font-semibold text-foreground">
       Recent Entries
     </h2>
 
@@ -153,19 +153,19 @@ return ( <div className="space-y-8">
           className="
             flex items-center justify-between
             rounded-2xl
-            border border-white/10
-            bg-slate-950
+            border border-border
+            bg-background
             p-5
           "
         >
 
           <div>
 
-            <h3 className="font-semibold text-white">
+            <h3 className="font-semibold text-foreground">
               {entry.project}
             </h3>
 
-            <p className="mt-1 text-slate-400">
+            <p className="mt-1 text-muted-foreground">
               {entry.user}
             </p>
 
@@ -173,11 +173,11 @@ return ( <div className="space-y-8">
 
           <div className="text-right">
 
-            <h4 className="font-semibold text-white">
+            <h4 className="font-semibold text-foreground">
               {entry.duration}
             </h4>
 
-            <p className="text-slate-500">
+            <p className="text-muted-foreground">
               {entry.date}
             </p>
 

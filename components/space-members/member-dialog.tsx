@@ -61,7 +61,7 @@ export default function MemberDialog({
 
           p-0
 
-          text-white
+          text-foreground
 
           shadow-2xl
         "

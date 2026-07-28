@@ -31,7 +31,7 @@ export default async function SpacePage({
 
   if (!space) {
     return (
-      <div className="text-white">
+      <div className="text-foreground">
         Space not found
       </div>
     );
@@ -41,11 +41,11 @@ export default async function SpacePage({
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-4xl font-bold text-white">
+          <h1 className="text-4xl font-bold text-foreground">
             {space.name}
           </h1>
 
-          <p className="mt-2 text-slate-400">
+          <p className="mt-2 text-muted-foreground">
             Lists in this Space
           </p>
         </div>
@@ -75,10 +75,10 @@ export default async function SpacePage({
               rounded-2xl
               border
               border-dashed
-              border-white/10
+              border-border
               p-10
               text-center
-              text-slate-500
+              text-muted-foreground
             "
           >
             No Lists Found

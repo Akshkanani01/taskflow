@@ -16,12 +16,12 @@ export default function ActivitySection({
   return (
     <div className="space-y-4">
 
-      <h2 className="text-lg font-semibold text-white">
+      <h2 className="text-lg font-semibold text-foreground">
         Activity
       </h2>
 
       {activities.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-white/10 bg-slate-950 py-10 text-center text-slate-500">
+        <div className="rounded-2xl border border-dashed border-border bg-background py-10 text-center text-muted-foreground">
           No activity yet.
         </div>
       ) : (
@@ -30,13 +30,13 @@ export default function ActivitySection({
           {activities.map((activity) => (
             <div
               key={activity.id}
-              className="rounded-xl border border-white/10 bg-slate-950 p-4"
+              className="rounded-xl border border-border bg-background p-4"
             >
-              <p className="text-white">
+              <p className="text-foreground">
                 {activity.action}
               </p>
 
-              <p className="mt-2 text-xs text-slate-500">
+              <p className="mt-2 text-xs text-muted-foreground">
   {new Intl.DateTimeFormat("en-GB", {
     day: "2-digit",
     month: "short",

@@ -65,7 +65,7 @@ export default function MemberActivity({
 
       <div className="mb-10">
 
-        <h1 className="text-4xl font-bold text-white">
+        <h1 className="text-4xl font-bold text-foreground">
           Activity
         </h1>
 
@@ -131,7 +131,7 @@ export default function MemberActivity({
                 >
                   <div className="flex items-center justify-between">
 
-                    <h3 className="font-semibold text-white">
+                    <h3 className="font-semibold text-foreground">
                       {activity.title}
                     </h3>
 

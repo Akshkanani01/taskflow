@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 type ProjectFormProps = {
   spaceId: string;
@@ -20,7 +21,11 @@ export default function ProjectForm({
 
   async function createList() {
     if (!name.trim()) {
-      alert("List name is required.");
+      toast.error("List name is required", {
+        description:
+          "Please enter a name before creating the list.",
+      });
+
       return;
     }
 
@@ -41,8 +46,16 @@ export default function ProjectForm({
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error ?? "Failed to create list");
+
+        throw new Error(
+          error.error ?? "Failed to create list"
+        );
       }
+
+      toast.success("List created", {
+        description:
+          "Your new list has been created successfully.",
+      });
 
       if (onSuccess) {
         setName("");
@@ -52,14 +65,16 @@ export default function ProjectForm({
       }
 
       router.push(`/dashboard/spaces/${spaceId}`);
+      router.refresh();
     } catch (error) {
       console.error(error);
 
-      alert(
-        error instanceof Error
-          ? error.message
-          : "Failed to create list."
-      );
+      toast.error("Failed to create list", {
+        description:
+          error instanceof Error
+            ? error.message
+            : "An unexpected error occurred. Please try again.",
+      });
     } finally {
       setLoading(false);
     }
@@ -68,24 +83,26 @@ export default function ProjectForm({
   return (
     <div className="space-y-6">
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-300">
+        <label className="mb-2 block text-sm font-medium text-foreground">
           List Name
         </label>
 
         <input
           autoFocus
           value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Website Redesign"
+          onChange={(e) =>
+            setName(e.target.value)
+          }
+          placeholder="Enter your list name here"
           className="
             w-full
             rounded-xl
             border
-            border-white/10
-            bg-slate-950
+            border-border
+            bg-background
             px-4
             py-3
-            text-white
+            text-foreground
             outline-none
             transition
             focus:border-indigo-500
@@ -94,7 +111,7 @@ export default function ProjectForm({
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-300">
+        <label className="mb-2 block text-sm font-medium text-foreground">
           Description
         </label>
 
@@ -109,11 +126,11 @@ export default function ProjectForm({
             w-full
             rounded-xl
             border
-            border-white/10
-            bg-slate-950
+            border-border
+            bg-background
             px-4
             py-3
-            text-white
+            text-foreground
             outline-none
             transition
             focus:border-indigo-500
@@ -134,7 +151,7 @@ export default function ProjectForm({
           bg-indigo-600
           py-3
           font-medium
-          text-white
+          text-foreground
           transition
           hover:bg-indigo-500
           disabled:cursor-not-allowed

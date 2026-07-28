@@ -63,7 +63,7 @@ export default function SettingsOverlay() {
           absolute
           inset-0
           cursor-default
-          bg-black/55
+          bg-background/55
           backdrop-blur-md
         "
       />

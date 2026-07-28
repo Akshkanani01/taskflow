@@ -26,8 +26,8 @@ export default function ProjectCard({
       className="
         rounded-2xl
         border
-        border-white/10
-        bg-slate-900
+        border-border
+        bg-card
         transition-all
         hover:border-indigo-500
       "
@@ -38,21 +38,21 @@ export default function ProjectCard({
           className="flex-1"
         >
           <div>
-            <h3 className="text-lg font-semibold text-white">
+            <h3 className="text-lg font-semibold text-foreground">
               {project.name}
             </h3>
 
-            <p className="mt-1 text-sm text-slate-400">
+            <p className="mt-1 text-sm text-muted-foreground">
               {project.description || "No description"}
             </p>
           </div>
 
           <div className="mt-4 text-right">
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-muted-foreground">
               Tasks
             </p>
 
-            <p className="font-semibold text-white">
+            <p className="font-semibold text-foreground">
               {project.tasks.length}
             </p>
           </div>

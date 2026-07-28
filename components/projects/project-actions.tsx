@@ -31,10 +31,10 @@ export default function ProjectActions({
           className="
             rounded-lg
             p-2
-            text-slate-400
+            text-muted-foreground
             transition
-            hover:bg-slate-800
-            hover:text-white
+            hover:bg-background
+            hover:text-foreground
           "
         >
           <MoreHorizontal size={18} />
@@ -57,8 +57,8 @@ export default function ProjectActions({
                 overflow-hidden
                 rounded-xl
                 border
-                border-white/10
-                bg-slate-900
+                border-border
+                bg-card
                 shadow-2xl
               "
             >
@@ -81,7 +81,7 @@ export default function ProjectActions({
                   text-sm
                   text-red-400
                   transition
-                  hover:bg-slate-800
+                  hover:bg-background
                 "
               >
                 <Trash2 size={16} />

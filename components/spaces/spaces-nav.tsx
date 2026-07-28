@@ -98,7 +98,7 @@ return ( <div
        px-3
        py-2
        text-xs
-       text-slate-500
+       text-muted-foreground
      "
    >
 Loading spaces... </div>
@@ -111,7 +111,7 @@ return ( <div
        px-3
        py-2
        text-xs
-       text-slate-500
+       text-muted-foreground
      "
    >
 No spaces found </div>
@@ -153,14 +153,14 @@ pathname.startsWith(
                   bg-gradient-to-r
                   from-indigo-600
                   to-violet-600
-                  text-white
+                  text-foreground
                   shadow-lg
                   shadow-indigo-500/20
                 `
                 : `
-                  text-slate-400
-                  hover:bg-slate-900
-                  hover:text-white
+                  text-muted-foreground
+                  hover:bg-card
+                  hover:text-foreground
                 `
             }
           `}

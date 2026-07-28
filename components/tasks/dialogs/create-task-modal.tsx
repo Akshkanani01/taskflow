@@ -72,7 +72,7 @@ export default function CreateTaskModal({
           fixed
           inset-0
           z-40
-          bg-black/70
+          bg-background/70
           backdrop-blur-md
           animate-in
           fade-in
@@ -105,7 +105,7 @@ export default function CreateTaskModal({
             overflow-hidden
             rounded-3xl
             border
-            border-white/10
+            border-border
             bg-[#111827]
             shadow-2xl
           "
@@ -120,13 +120,13 @@ export default function CreateTaskModal({
               items-center
               justify-between
               border-b
-              border-white/10
+              border-border
               px-8
               py-6
             "
           >
 
-            <h2 className="text-2xl font-bold text-white">
+            <h2 className="text-2xl font-bold text-foreground">
 
               Create Task
 
@@ -139,10 +139,10 @@ export default function CreateTaskModal({
               className="
                 rounded-xl
                 p-2
-                text-slate-400
+                text-muted-foreground
                 transition
-                hover:bg-white/10
-                hover:text-white
+                hover:bg-background/10
+                hover:text-foreground
               "
 
             >

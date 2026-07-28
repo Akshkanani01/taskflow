@@ -54,7 +54,7 @@ export default function CreateTaskSidebar({
 
       <div>
 
-        <label className="mb-2 flex items-center gap-2 text-xs uppercase tracking-wider text-slate-500">
+        <label className="mb-2 flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
 
           <Flag size={14} />
 
@@ -74,10 +74,10 @@ export default function CreateTaskSidebar({
             w-full
             rounded-xl
             border
-            border-white/10
-            bg-slate-900
+            border-border
+            bg-card
             px-3
-            text-white
+            text-foreground
           "
         >
           <option value="LOW">
@@ -102,7 +102,7 @@ export default function CreateTaskSidebar({
 
       <div>
 
-        <label className="mb-2 flex items-center gap-2 text-xs uppercase tracking-wider text-slate-500">
+        <label className="mb-2 flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
 
           <Calendar size={14} />
 
@@ -123,10 +123,10 @@ export default function CreateTaskSidebar({
             w-full
             rounded-xl
             border
-            border-white/10
-            bg-slate-900
+            border-border
+            bg-card
             px-3
-            text-white
+            text-foreground
           "
         />
 
@@ -134,7 +134,7 @@ export default function CreateTaskSidebar({
 
       <div>
 
-        <label className="mb-2 flex items-center gap-2 text-xs uppercase tracking-wider text-slate-500">
+        <label className="mb-2 flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
 
           <Clock3 size={14} />
 
@@ -156,10 +156,10 @@ export default function CreateTaskSidebar({
             w-full
             rounded-xl
             border
-            border-white/10
-            bg-slate-900
+            border-border
+            bg-card
             px-3
-            text-white
+            text-foreground
           "
         />
 
@@ -167,7 +167,7 @@ export default function CreateTaskSidebar({
 
       <div>
 
-        <label className="mb-2 flex items-center gap-2 text-xs uppercase tracking-wider text-slate-500">
+        <label className="mb-2 flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
 
           <User2 size={14} />
 
@@ -193,10 +193,10 @@ export default function CreateTaskSidebar({
             w-full
             rounded-xl
             border
-            border-white/10
-            bg-slate-900
+            border-border
+            bg-card
             p-3
-            text-white
+            text-foreground
           "
         >
           {members.map((member) => (

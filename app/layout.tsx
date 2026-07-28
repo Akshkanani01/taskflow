@@ -13,6 +13,7 @@ import {
 } from "@prisma/client";
 
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "TaskFlow",
@@ -26,13 +27,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   let initialTheme: ThemeMode =
-  ThemeMode.SYSTEM;
+    ThemeMode.SYSTEM;
 
   let initialAccentColor: AccentColor =
-  AccentColor.BLUE;
+    AccentColor.BLUE;
 
-let initialInterfaceDensity: InterfaceDensity =
-  InterfaceDensity.COMFORTABLE;
+  let initialInterfaceDensity: InterfaceDensity =
+    InterfaceDensity.COMFORTABLE;
 
   let initialReducedMotion =
     false;
@@ -99,6 +100,14 @@ let initialInterfaceDensity: InterfaceDensity =
           }
         >
           {children}
+
+          <Toaster
+            position="top-right"
+            richColors
+            closeButton
+            expand
+            visibleToasts={5}
+          />
         </ThemeProvider>
       </body>
     </html>

@@ -65,9 +65,9 @@ export default function ProfileCard({
 
   return (
 
-    <section className="rounded-3xl border border-white/10 bg-[#111827]">
+    <section className="rounded-3xl border border-border bg-[#111827]">
 
-      <div className="border-b border-white/10 p-7">
+      <div className="border-b border-border p-7">
 
         <div className="flex items-center gap-3">
 
@@ -75,13 +75,13 @@ export default function ProfileCard({
 
           <div>
 
-            <h2 className="text-xl font-semibold text-white">
+            <h2 className="text-xl font-semibold text-foreground">
 
               Profile
 
             </h2>
 
-            <p className="mt-1 text-sm text-slate-400">
+            <p className="mt-1 text-sm text-muted-foreground">
 
               Update your personal information.
 
@@ -113,7 +113,7 @@ export default function ProfileCard({
 
           <div>
 
-            <label className="mb-2 block text-sm font-medium text-slate-400">
+            <label className="mb-2 block text-sm font-medium text-muted-foreground">
 
               Full Name
 
@@ -133,11 +133,11 @@ export default function ProfileCard({
                 w-full
                 rounded-xl
                 border
-                border-white/10
+                border-border
                 bg-[#0F172A]
                 px-4
                 py-3
-                text-white
+                text-foreground
                 outline-none
                 transition
                 focus:border-indigo-500
@@ -147,7 +147,7 @@ export default function ProfileCard({
 
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-slate-900 p-5">
+          <div className="rounded-2xl border border-border bg-card p-5">
 
             <div className="flex items-center gap-3">
 
@@ -155,13 +155,13 @@ export default function ProfileCard({
 
               <div>
 
-                <p className="text-xs uppercase tracking-wider text-slate-500">
+                <p className="text-xs uppercase tracking-wider text-muted-foreground">
 
                   Email Address
 
                 </p>
 
-                <p className="mt-1 text-white">
+                <p className="mt-1 text-foreground">
 
                   {member.user.email}
 
@@ -173,7 +173,7 @@ export default function ProfileCard({
 
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-slate-900 p-5">
+          <div className="rounded-2xl border border-border bg-card p-5">
 
             <div className="flex items-center gap-3">
 
@@ -181,13 +181,13 @@ export default function ProfileCard({
 
               <div>
 
-                <p className="text-xs uppercase tracking-wider text-slate-500">
+                <p className="text-xs uppercase tracking-wider text-muted-foreground">
 
                   Joined
 
                 </p>
 
-                <p className="mt-1 text-white">
+                <p className="mt-1 text-foreground">
 
                   {new Date(
                     member.joinedAt
@@ -222,7 +222,7 @@ export default function ProfileCard({
                 px-6
                 py-3
                 font-medium
-                text-white
+                text-foreground
                 transition
                 hover:bg-indigo-500
                 disabled:cursor-not-allowed

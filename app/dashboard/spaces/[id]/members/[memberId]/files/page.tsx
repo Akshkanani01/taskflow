@@ -152,17 +152,17 @@ export default async function MemberFilesPage({
 
       <div className="grid gap-6 md:grid-cols-4">
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-[#111827] p-6">
 
           <FolderOpen className="mb-4 h-8 w-8 text-indigo-400" />
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
 
             Files
 
           </p>
 
-          <h2 className="mt-2 text-4xl font-bold text-white">
+          <h2 className="mt-2 text-4xl font-bold text-foreground">
 
             {totalFiles}
 
@@ -170,17 +170,17 @@ export default async function MemberFilesPage({
 
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-[#111827] p-6">
 
           <ImageIcon className="mb-4 h-8 w-8 text-emerald-400" />
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
 
             Images
 
           </p>
 
-          <h2 className="mt-2 text-4xl font-bold text-white">
+          <h2 className="mt-2 text-4xl font-bold text-foreground">
 
             {imageCount}
 
@@ -188,17 +188,17 @@ export default async function MemberFilesPage({
 
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-[#111827] p-6">
 
           <FileText className="mb-4 h-8 w-8 text-cyan-400" />
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
 
             Documents
 
           </p>
 
-          <h2 className="mt-2 text-4xl font-bold text-white">
+          <h2 className="mt-2 text-4xl font-bold text-foreground">
 
             {documentCount}
 
@@ -206,17 +206,17 @@ export default async function MemberFilesPage({
 
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-[#111827] p-6">
 
           <HardDrive className="mb-4 h-8 w-8 text-yellow-400" />
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
 
             Storage
 
           </p>
 
-          <h2 className="mt-2 text-2xl font-bold text-white">
+          <h2 className="mt-2 text-2xl font-bold text-foreground">
 
             {formatBytes(totalStorage)}
 
@@ -227,19 +227,19 @@ export default async function MemberFilesPage({
       </div>
             {/* FILES */}
 
-      <section className="overflow-hidden rounded-3xl border border-white/10 bg-[#111827]">
+      <section className="overflow-hidden rounded-3xl border border-border bg-[#111827]">
 
-        <div className="flex items-center justify-between border-b border-white/10 p-6">
+        <div className="flex items-center justify-between border-b border-border p-6">
 
           <div>
 
-            <h2 className="text-xl font-semibold text-white">
+            <h2 className="text-xl font-semibold text-foreground">
 
               Uploaded Files
 
             </h2>
 
-            <p className="mt-1 text-sm text-slate-400">
+            <p className="mt-1 text-sm text-muted-foreground">
 
               Files uploaded by {member.user.name ?? member.user.email}
 
@@ -247,7 +247,7 @@ export default async function MemberFilesPage({
 
           </div>
 
-          <div className="rounded-xl border border-white/10 bg-slate-900 px-4 py-2 text-sm text-slate-300">
+          <div className="rounded-xl border border-border bg-card px-4 py-2 text-sm text-foreground">
 
             {totalFiles} Files
 
@@ -261,13 +261,13 @@ export default async function MemberFilesPage({
 
             <FolderOpen className="mb-5 h-16 w-16 text-slate-700" />
 
-            <h3 className="text-xl font-semibold text-white">
+            <h3 className="text-xl font-semibold text-foreground">
 
               No Files Uploaded
 
             </h3>
 
-            <p className="mt-2 text-slate-500">
+            <p className="mt-2 text-muted-foreground">
 
               This member hasn&apos;t uploaded any files yet.
 
@@ -290,7 +290,7 @@ export default async function MemberFilesPage({
 
                 <div
                   key={file.id}
-                  className="flex items-center justify-between gap-6 p-6 transition hover:bg-slate-900/40"
+                  className="flex items-center justify-between gap-6 p-6 transition hover:bg-card/80"
                 >
 
                   {/* LEFT */}
@@ -317,13 +317,13 @@ export default async function MemberFilesPage({
 
                     <div className="min-w-0 flex-1">
 
-                      <h3 className="truncate text-lg font-semibold text-white">
+                      <h3 className="truncate text-lg font-semibold text-foreground">
 
                         {file.name}
 
                       </h3>
 
-                      <div className="mt-2 flex flex-wrap items-center gap-5 text-sm text-slate-400">
+                      <div className="mt-2 flex flex-wrap items-center gap-5 text-sm text-muted-foreground">
 
                         <span>
 
@@ -378,7 +378,7 @@ export default async function MemberFilesPage({
 
                     <Link
                       href={`/dashboard/spaces/${file.task.spaceId}/lists/${file.task.projectId}/tasks/${file.task.id}`}
-                      className="rounded-xl border border-white/10 px-4 py-2 text-sm text-white transition hover:bg-slate-800"
+                      className="rounded-xl border border-border px-4 py-2 text-sm text-foreground transition hover:bg-background"
                     >
 
                       View Task
@@ -389,7 +389,7 @@ export default async function MemberFilesPage({
                       href={file.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="rounded-xl bg-indigo-600 p-3 text-white transition hover:bg-indigo-500"
+                      className="rounded-xl bg-indigo-600 p-3 text-foreground transition hover:bg-indigo-500"
                     >
 
                       <Download className="h-5 w-5" />
@@ -415,11 +415,11 @@ export default async function MemberFilesPage({
 
         {/* Storage */}
 
-        <section className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <section className="rounded-3xl border border-border bg-[#111827] p-6">
 
           <div className="flex items-center justify-between">
 
-            <h2 className="text-lg font-semibold text-white">
+            <h2 className="text-lg font-semibold text-foreground">
 
               Storage Usage
 
@@ -433,7 +433,7 @@ export default async function MemberFilesPage({
 
           </div>
 
-          <div className="mt-6 h-3 overflow-hidden rounded-full bg-slate-800">
+          <div className="mt-6 h-3 overflow-hidden rounded-full bg-background">
 
             <div
               className="h-full rounded-full bg-indigo-500 transition-all duration-500"
@@ -451,7 +451,7 @@ export default async function MemberFilesPage({
 
           </div>
 
-          <p className="mt-4 text-sm text-slate-400">
+          <p className="mt-4 text-sm text-muted-foreground">
 
             Based on a 50 MB workspace quota.
 
@@ -459,9 +459,9 @@ export default async function MemberFilesPage({
 
           <div className="mt-8 grid grid-cols-2 gap-4">
 
-            <div className="rounded-2xl border border-white/10 bg-slate-900 p-4">
+            <div className="rounded-2xl border border-border bg-card p-4">
 
-              <p className="text-xs uppercase tracking-wider text-slate-500">
+              <p className="text-xs uppercase tracking-wider text-muted-foreground">
 
                 Images
 
@@ -475,9 +475,9 @@ export default async function MemberFilesPage({
 
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-slate-900 p-4">
+            <div className="rounded-2xl border border-border bg-card p-4">
 
-              <p className="text-xs uppercase tracking-wider text-slate-500">
+              <p className="text-xs uppercase tracking-wider text-muted-foreground">
 
                 Documents
 
@@ -497,9 +497,9 @@ export default async function MemberFilesPage({
 
         {/* Summary */}
 
-        <section className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <section className="rounded-3xl border border-border bg-[#111827] p-6">
 
-          <h2 className="text-lg font-semibold text-white">
+          <h2 className="text-lg font-semibold text-foreground">
 
             Upload Summary
 
@@ -507,15 +507,15 @@ export default async function MemberFilesPage({
 
           <div className="mt-6 space-y-4">
 
-            <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-4">
+            <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
 
-              <span className="text-slate-400">
+              <span className="text-muted-foreground">
 
                 Total Files
 
               </span>
 
-              <span className="font-semibold text-white">
+              <span className="font-semibold text-foreground">
 
                 {totalFiles}
 
@@ -523,9 +523,9 @@ export default async function MemberFilesPage({
 
             </div>
 
-            <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-4">
+            <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
 
-              <span className="text-slate-400">
+              <span className="text-muted-foreground">
 
                 Images
 
@@ -539,9 +539,9 @@ export default async function MemberFilesPage({
 
             </div>
 
-            <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-4">
+            <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
 
-              <span className="text-slate-400">
+              <span className="text-muted-foreground">
 
                 Documents
 
@@ -555,9 +555,9 @@ export default async function MemberFilesPage({
 
             </div>
 
-            <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-4">
+            <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
 
-              <span className="text-slate-400">
+              <span className="text-muted-foreground">
 
                 Total Storage
 
@@ -571,15 +571,15 @@ export default async function MemberFilesPage({
 
             </div>
 
-            <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-4">
+            <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
 
-              <span className="text-slate-400">
+              <span className="text-muted-foreground">
 
                 Latest Upload
 
               </span>
 
-              <span className="font-semibold text-white">
+              <span className="font-semibold text-foreground">
 
                 {attachments.length
                   ? attachments[0].createdAt.toLocaleDateString(

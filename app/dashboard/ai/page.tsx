@@ -22,8 +22,8 @@ return ( <div className="h-[calc(100vh-140px)]">
       className="
         flex flex-col
         rounded-3xl
-        border border-white/10
-        bg-slate-900
+        border border-border
+        bg-card
         p-5
       "
     >
@@ -34,7 +34,7 @@ return ( <div className="h-[calc(100vh-140px)]">
           rounded-xl
           bg-indigo-600
           py-3
-          text-white
+          text-foreground
         "
       >
         <Plus size={18} />
@@ -43,7 +43,7 @@ return ( <div className="h-[calc(100vh-140px)]">
 
       <div className="mt-8">
 
-        <h3 className="mb-4 text-sm font-semibold text-slate-400">
+        <h3 className="mb-4 text-sm font-semibold text-muted-foreground">
           RECENT PROMPTS
         </h3>
 
@@ -54,10 +54,10 @@ return ( <div className="h-[calc(100vh-140px)]">
               key={prompt}
               className="
                 w-full rounded-xl
-                border border-white/10
-                bg-slate-950
+                border border-border
+                bg-background
                 p-3 text-left
-                text-sm text-slate-300
+                text-sm text-foreground
                 hover:border-indigo-500/30
               "
             >
@@ -85,11 +85,11 @@ return ( <div className="h-[calc(100vh-140px)]">
             size={22}
           />
 
-          <h4 className="font-semibold text-white">
+          <h4 className="font-semibold text-foreground">
             AI Pro
           </h4>
 
-          <p className="mt-2 text-sm text-slate-300">
+          <p className="mt-2 text-sm text-foreground">
             Generate tasks, reports and project plans.
           </p>
 
@@ -103,15 +103,15 @@ return ( <div className="h-[calc(100vh-140px)]">
       className="
         flex h-full flex-col
         rounded-3xl
-        border border-white/10
-        bg-slate-900
+        border border-border
+        bg-card
       "
     >
 
       <div
         className="
           flex items-center gap-3
-          border-b border-white/10
+          border-b border-border
           p-5
         "
       >
@@ -123,11 +123,11 @@ return ( <div className="h-[calc(100vh-140px)]">
 
         <div>
 
-          <h2 className="font-semibold text-white">
+          <h2 className="font-semibold text-foreground">
             TaskFlow AI
           </h2>
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
             Workspace Assistant
           </p>
 
@@ -145,12 +145,12 @@ return ( <div className="h-[calc(100vh-140px)]">
               className="
                 max-w-2xl
                 rounded-3xl
-                bg-slate-950
+                bg-background
                 p-5
               "
             >
 
-              <p className="text-white">
+              <p className="text-foreground">
                 Create a sprint plan for next week.
               </p>
 
@@ -166,7 +166,7 @@ return ( <div className="h-[calc(100vh-140px)]">
                 rounded-3xl
                 bg-indigo-600
                 p-5
-                text-white
+                text-foreground
               "
             >
 
@@ -186,7 +186,7 @@ return ( <div className="h-[calc(100vh-140px)]">
 
       <div
         className="
-          border-t border-white/10
+          border-t border-border
           p-5
         "
       >
@@ -195,8 +195,8 @@ return ( <div className="h-[calc(100vh-140px)]">
           className="
             flex items-center gap-3
             rounded-2xl
-            border border-white/10
-            bg-slate-950
+            border border-border
+            bg-background
             p-3
           "
         >
@@ -206,7 +206,7 @@ return ( <div className="h-[calc(100vh-140px)]">
             className="
               flex-1
               bg-transparent
-              text-white
+              text-foreground
               outline-none
             "
           />
@@ -216,7 +216,7 @@ return ( <div className="h-[calc(100vh-140px)]">
               rounded-xl
               bg-indigo-600
               p-3
-              text-white
+              text-foreground
             "
           >
             <Send size={18} />
@@ -228,10 +228,10 @@ return ( <div className="h-[calc(100vh-140px)]">
 
           <Clock3
             size={14}
-            className="text-slate-500"
+            className="text-muted-foreground"
           />
 
-          <span className="text-xs text-slate-500">
+          <span className="text-xs text-muted-foreground">
             AI responses are generated
             from workspace data.
           </span>

@@ -75,9 +75,9 @@ export default function TaskMenu({
 
         <DropdownMenuTrigger asChild>
 
-          <button className="rounded-lg p-2 transition hover:bg-slate-800">
+          <button className="rounded-lg p-2 transition hover:bg-background">
 
-            <MoreHorizontal className="h-4 w-4 text-slate-400" />
+            <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
 
           </button>
 
@@ -85,7 +85,7 @@ export default function TaskMenu({
 
         <DropdownMenuContent
           align="end"
-          className="w-56 border-white/10 bg-slate-900 text-white"
+          className="w-56 border-border bg-card text-foreground"
         >
 
           <DropdownMenuItem onClick={openTask}>

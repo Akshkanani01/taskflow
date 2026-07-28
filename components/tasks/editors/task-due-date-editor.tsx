@@ -59,7 +59,7 @@ export default function TaskDueDateEditor({
 
     <div>
 
-      <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-500">
+      <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
 
         Due Date
 
@@ -69,7 +69,7 @@ export default function TaskDueDateEditor({
 
         <Calendar
           size={16}
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
         />
 
         <input
@@ -86,11 +86,11 @@ export default function TaskDueDateEditor({
             w-full
             rounded-xl
             border
-            border-white/10
-            bg-slate-900
+            border-border
+            bg-card
             pl-10
             pr-4
-            text-white
+            text-foreground
             outline-none
             focus:border-indigo-500
           "

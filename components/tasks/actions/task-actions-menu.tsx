@@ -91,14 +91,14 @@ export default function TaskActionsMenu({
             justify-center
             rounded-lg
             border
-            border-white/10
-            bg-slate-900/80
-            text-slate-400
+            border-border
+            bg-card/80
+            text-muted-foreground
             transition-all
             duration-200
-            hover:border-white/20
-            hover:bg-slate-800
-            hover:text-white
+            hover:border-border
+            hover:bg-background
+            hover:text-foreground
             disabled:pointer-events-none
             disabled:opacity-50
           "
@@ -116,7 +116,7 @@ export default function TaskActionsMenu({
             w-60
             rounded-2xl
             border
-            border-white/10
+            border-border
             bg-[#111827]
             p-2
             shadow-2xl
@@ -135,12 +135,12 @@ export default function TaskActionsMenu({
                 px-3
                 py-2.5
                 text-sm
-                text-slate-200
+                text-foreground
                 outline-none
                 transition-colors
                 duration-150
-                hover:bg-slate-800
-                data-[highlighted]:bg-slate-800
+                hover:bg-background
+                data-[highlighted]:bg-background
               "
             >
               <Eye size={16} />
@@ -163,8 +163,8 @@ export default function TaskActionsMenu({
               outline-none
               transition-colors
               duration-150
-              hover:bg-slate-800
-              data-[highlighted]:bg-slate-800
+              hover:bg-background
+              data-[highlighted]:bg-background
             "
           >
             <Copy size={16} />
@@ -175,7 +175,7 @@ export default function TaskActionsMenu({
             className="
               my-2
               h-px
-              bg-white/10
+              bg-background/10
             "
           />
 
@@ -194,8 +194,8 @@ export default function TaskActionsMenu({
               outline-none
               transition-colors
               duration-150
-              hover:bg-slate-800
-              data-[highlighted]:bg-slate-800
+              hover:bg-background
+              data-[highlighted]:bg-background
             "
           >
             {archived ? (

@@ -18,11 +18,11 @@ return ( <div className="space-y-8">
 
     <div>
 
-      <h1 className="text-5xl font-bold text-white">
+      <h1 className="text-5xl font-bold text-foreground">
         Spaces
       </h1>
 
-      <p className="mt-2 text-slate-400">
+      <p className="mt-2 text-muted-foreground">
         Organize workspaces into spaces.
       </p>
 
@@ -35,7 +35,7 @@ return ( <div className="space-y-8">
         rounded-2xl
         bg-indigo-600
         px-5 py-3
-        text-white
+        text-foreground
       "
     >
       <Plus size={18} />
@@ -49,8 +49,8 @@ return ( <div className="space-y-8">
       className="
         flex h-96 flex-col items-center
         justify-center rounded-3xl
-        border border-dashed border-white/10
-        bg-slate-900
+        border border-dashed border-border
+        bg-card
       "
     >
       <FolderKanban
@@ -58,7 +58,7 @@ return ( <div className="space-y-8">
         className="mb-4 text-slate-600"
       />
 
-      <h2 className="text-2xl font-semibold text-white">
+      <h2 className="text-2xl font-semibold text-foreground">
         No Spaces Found
       </h2>
 
@@ -72,8 +72,8 @@ return ( <div className="space-y-8">
           href={`/dashboard/spaces/${space.id}`}
           className="
             rounded-3xl
-            border border-white/10
-            bg-slate-900
+            border border-border
+            bg-card
             p-6
             transition
             hover:border-indigo-500/50
@@ -87,11 +87,11 @@ return ( <div className="space-y-8">
             }}
           />
 
-          <h2 className="text-xl font-semibold text-white">
+          <h2 className="text-xl font-semibold text-foreground">
             {space.name}
           </h2>
 
-          <p className="mt-2 text-slate-400">
+          <p className="mt-2 text-muted-foreground">
             Workspace:
             {" "}
             {space.workspace.name}

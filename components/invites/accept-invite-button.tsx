@@ -112,7 +112,7 @@ export function AcceptInviteButton({
           px-5
           py-3
           font-semibold
-          text-white
+          text-foreground
           transition
           hover:bg-indigo-500
           disabled:cursor-not-allowed

@@ -9,8 +9,8 @@ return ( <div
      className="
        max-w-lg
        rounded-3xl
-       border border-white/10
-       bg-slate-900
+       border border-border
+       bg-card
        p-10
        text-center
      "
@@ -28,11 +28,11 @@ return ( <div
 🚀 </div>
 
 
-    <h1 className="text-3xl font-bold text-white">
+    <h1 className="text-3xl font-bold text-foreground">
       Coming Soon
     </h1>
 
-    <p className="mt-4 text-slate-400">
+    <p className="mt-4 text-muted-foreground">
       This module is currently under development.
       It will be available in the next update.
     </p>

@@ -10,7 +10,7 @@ import { CTA } from "@/components/landing/cta";
 import { Footer } from "@/components/landing/footer";
 
 export default function HomePage() {
-return ( <main className="relative min-h-screen overflow-x-hidden bg-slate-950 text-white">
+return ( <main className="relative min-h-screen overflow-x-hidden bg-background text-foreground">
 
   {/* Background Glow Effects */}
   <div className="absolute left-0 top-0 h-[600px] w-[600px] rounded-full bg-indigo-600/10 blur-[180px]" />

@@ -38,7 +38,7 @@ export default function OverviewTab({
 
           <div>
 
-            <h2 className="text-xl font-semibold text-white">
+            <h2 className="text-xl font-semibold text-foreground">
               Member Information
             </h2>
 
@@ -80,7 +80,7 @@ export default function OverviewTab({
 
         <div className="mb-6">
 
-          <h2 className="text-xl font-semibold text-white">
+          <h2 className="text-xl font-semibold text-foreground">
             Workspace Statistics
           </h2>
 
@@ -112,7 +112,7 @@ export default function OverviewTab({
               Completion Rate
             </span>
 
-            <span className="font-semibold text-white">
+            <span className="font-semibold text-foreground">
               {progress}%
             </span>
 
@@ -162,7 +162,7 @@ export default function OverviewTab({
               py-3
               text-sm
               font-medium
-              text-white
+              text-foreground
               transition
               hover:bg-red-500
             "
@@ -203,7 +203,7 @@ function InfoCard({
             {label}
           </p>
 
-          <p className="mt-1 font-medium text-white">
+          <p className="mt-1 font-medium text-foreground">
             {value}
           </p>
 
@@ -236,7 +236,7 @@ function StatCard({
           className="text-emerald-400"
         />
 
-        <span className="text-3xl font-bold text-white">
+        <span className="text-3xl font-bold text-foreground">
           {value}
         </span>
 

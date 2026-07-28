@@ -6,7 +6,7 @@ export default function Loading() {
         min-h-screen
         items-center
         justify-center
-        bg-slate-950
+        bg-background
       "
     >
       <div

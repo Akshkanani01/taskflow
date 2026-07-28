@@ -41,11 +41,11 @@ return ( <div className="space-y-8">
 
   <div>
 
-    <h1 className="text-4xl font-bold text-white">
+    <h1 className="text-4xl font-bold text-foreground">
       Workload Management
     </h1>
 
-    <p className="mt-2 text-slate-400">
+    <p className="mt-2 text-muted-foreground">
       Monitor team capacity and prevent burnout.
     </p>
 
@@ -53,42 +53,42 @@ return ( <div className="space-y-8">
 
   <div className="grid gap-6 md:grid-cols-4">
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Users className="mb-4 text-indigo-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         24
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Team Members
       </p>
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <TrendingUp className="mb-4 text-emerald-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         76%
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Avg Utilization
       </p>
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Briefcase className="mb-4 text-sky-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         182
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Active Tasks
       </p>
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <AlertTriangle className="mb-4 text-amber-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         3
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Burnout Risks
       </p>
     </div>
@@ -98,13 +98,13 @@ return ( <div className="space-y-8">
   <div
     className="
       rounded-3xl
-      border border-white/10
-      bg-slate-900
+      border border-border
+      bg-card
       p-6
     "
   >
 
-    <h2 className="mb-6 text-xl font-semibold text-white">
+    <h2 className="mb-6 text-xl font-semibold text-foreground">
       Team Capacity Overview
     </h2>
 
@@ -115,8 +115,8 @@ return ( <div className="space-y-8">
           key={member.name}
           className="
             rounded-2xl
-            border border-white/10
-            bg-slate-950
+            border border-border
+            bg-background
             p-5
           "
         >
@@ -125,11 +125,11 @@ return ( <div className="space-y-8">
 
             <div>
 
-              <h3 className="font-semibold text-white">
+              <h3 className="font-semibold text-foreground">
                 {member.name}
               </h3>
 
-              <p className="mt-1 text-slate-400">
+              <p className="mt-1 text-muted-foreground">
                 {member.role}
               </p>
 
@@ -158,17 +158,17 @@ return ( <div className="space-y-8">
 
             <div className="mb-2 flex justify-between text-sm">
 
-              <span className="text-slate-400">
+              <span className="text-muted-foreground">
                 Utilization
               </span>
 
-              <span className="text-white">
+              <span className="text-foreground">
                 {member.utilization}%
               </span>
 
             </div>
 
-            <div className="h-3 rounded-full bg-slate-800">
+            <div className="h-3 rounded-full bg-background">
 
               <div
                 className={`
@@ -190,7 +190,7 @@ return ( <div className="space-y-8">
 
           </div>
 
-          <div className="mt-4 text-sm text-slate-400">
+          <div className="mt-4 text-sm text-muted-foreground">
             {member.tasks} Active Tasks
           </div>
 

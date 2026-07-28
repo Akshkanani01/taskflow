@@ -53,7 +53,7 @@ export default function TaskToolbar() {
               );
             }
           }}
-          className="h-11 w-72 rounded-xl border border-white/10 bg-slate-900 px-4 text-sm text-white outline-none"
+          className="h-11 w-72 rounded-xl border border-border bg-card px-4 text-sm text-foreground outline-none"
         />
 
         <select
@@ -67,7 +67,7 @@ export default function TaskToolbar() {
               e.target.value
             )
           }
-          className="h-11 rounded-xl border border-white/10 bg-slate-900 px-4 text-white"
+          className="h-11 rounded-xl border border-border bg-card px-4 text-foreground"
         >
           <option value="">
             All Status
@@ -98,7 +98,7 @@ export default function TaskToolbar() {
               e.target.value
             )
           }
-          className="h-11 rounded-xl border border-white/10 bg-slate-900 px-4 text-white"
+          className="h-11 rounded-xl border border-border bg-card px-4 text-foreground"
         >
           <option value="">
             Priority
@@ -130,7 +130,7 @@ export default function TaskToolbar() {
             e.target.value
           )
         }
-        className="h-11 rounded-xl border border-white/10 bg-slate-900 px-4 text-white"
+        className="h-11 rounded-xl border border-border bg-card px-4 text-foreground"
       >
         <option value="position">
           Sort

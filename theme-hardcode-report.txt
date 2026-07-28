@@ -1,0 +1,346 @@
+components\create\create-menu.tsx:64:text-foreground
+components\create\create-menu.tsx:100:          text-foreground
+components\create\create-menu.tsx:101:          hover:bg-background
+components\create\create-menu.tsx:114:          text-foreground
+components\create\create-menu.tsx:115:          hover:bg-background
+components\create\create-menu.tsx:128:    text-foreground
+components\create\create-menu.tsx:129:    hover:bg-background
+components\create\create-menu.tsx:142:          text-foreground
+components\create\create-menu.tsx:143:          hover:bg-background
+components\create\create-menu.tsx:156:          text-foreground
+components\create\create-menu.tsx:157:          hover:bg-background
+components\dashboard\project-chart.tsx:14:      <h3 className="text-xl font-semibold text-foreground">
+components\dashboard\recent-tasks.tsx:24:      <h3 className="text-xl font-semibold text-foreground">
+components\dashboard\recent-tasks.tsx:68:            className="border-b border-border"
+components\dashboard\recent-tasks.tsx:71:            <td className="py-4 text-foreground">
+components\dashboard\stats-grid.tsx:60:            <h3 className="mt-3 text-4xl font-bold text-foreground">
+components\dashboard\team-performance.tsx:28: > <h3 className="text-xl font-semibold text-foreground">
+components\dashboard\team-performance.tsx:42:          <span className="text-foreground">
+components\dashboard\team-performance.tsx:57:            bg-background
+components\dashboard\upcoming-deadlines.tsx:24: > <h3 className="text-xl font-semibold text-foreground">
+components\dashboard\upcoming-deadlines.tsx:36:          bg-background
+components\dashboard\upcoming-deadlines.tsx:41:        <span className="text-foreground">
+components\dashboard\user-avatar.tsx:49:      className={`flex items-center justify-center rounded-full bg-indigo-600 text-sm font-semibold text-foreground ${className}`}
+components\dashboard\workspace-switcher.tsx:120:          text-foreground
+components\dashboard\workspace-switcher.tsx:171:                  text-foreground
+components\dashboard\workspace-switcher.tsx:172:                  hover:bg-background
+components\dashboard\workspace-switcher.tsx:214:              text-foreground
+components\dashboard\workspace-switcher.tsx:215:              hover:bg-background
+components\invites\accept-invite-button.tsx:115:          text-foreground
+components\landing\cta.tsx:26:        <h2 className="text-5xl font-bold text-foreground">
+components\landing\cta.tsx:45:              bg-background
+components\landing\cta.tsx:47:              hover:bg-slate-200
+components\landing\faq.tsx:48:      <h2 className="mt-4 text-5xl font-bold text-foreground">
+components\landing\faq.tsx:75:          <AccordionTrigger className="text-left text-lg text-foreground">
+components\landing\features.tsx:61:      <h2 className="mt-4 text-5xl font-bold text-foreground">
+components\landing\features.tsx:106:            <h3 className="mt-6 text-2xl font-semibold text-foreground">
+components\landing\footer.tsx:12:        <h3 className="text-3xl font-bold text-foreground">
+components\landing\footer.tsx:23:        <h4 className="font-semibold text-foreground">
+components\landing\footer.tsx:51:        <h4 className="font-semibold text-foreground">
+components\landing\footer.tsx:91:        <h4 className="font-semibold text-foreground">
+components\landing\hero.tsx:24:          text-foreground
+components\landing\how-it-works.tsx:52:      <h2 className="mt-4 text-5xl font-bold text-foreground">
+components\landing\how-it-works.tsx:65:      <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-background/10 lg:block" />
+components\landing\how-it-works.tsx:106:                  <h3 className="mt-2 text-2xl font-bold text-foreground">
+components\landing\navbar.tsx:24:        className="text-3xl font-bold tracking-tight text-foreground"
+components\landing\navbar.tsx:33:          className="text-foreground transition hover:text-foreground"
+components\landing\navbar.tsx:40:          className="text-foreground transition hover:text-foreground"
+components\landing\navbar.tsx:47:          className="text-foreground transition hover:text-foreground"
+components\landing\navbar.tsx:54:          className="text-foreground transition hover:text-foreground"
+components\landing\showcase.tsx:21:      <h2 className="mt-4 text-5xl font-bold text-foreground">
+components\landing\showcase.tsx:45:        <div className="rounded-2xl bg-background p-6">
+components\landing\showcase.tsx:52:          <h3 className="mt-2 text-4xl font-bold text-foreground">
+components\landing\showcase.tsx:57:        <div className="rounded-2xl bg-background p-6">
+components\landing\showcase.tsx:64:          <h3 className="mt-2 text-4xl font-bold text-foreground">
+components\landing\showcase.tsx:69:        <div className="rounded-2xl bg-background p-6">
+components\landing\showcase.tsx:76:          <h3 className="mt-2 text-4xl font-bold text-foreground">
+components\landing\showcase.tsx:81:        <div className="rounded-2xl bg-background p-6">
+components\landing\showcase.tsx:95:      <div className="mt-8 rounded-2xl bg-background p-8">
+components\landing\showcase.tsx:98:          <h3 className="text-xl font-semibold text-foreground">
+components\landing\showcase.tsx:115:              <span className="text-foreground">
+components\landing\showcase.tsx:120:            <div className="h-3 rounded-full bg-slate-700">
+components\landing\showcase.tsx:131:              <span className="text-foreground">
+components\landing\showcase.tsx:136:            <div className="h-3 rounded-full bg-slate-700">
+components\landing\showcase.tsx:147:              <span className="text-foreground">
+components\landing\showcase.tsx:152:            <div className="h-3 rounded-full bg-slate-700">
+components\landing\testimonials.tsx:34:      <h2 className="mt-4 text-5xl font-bold text-foreground">
+components\landing\testimonials.tsx:66:            <h4 className="font-semibold text-foreground">
+components\landing\trusted-by.tsx:33:      <h2 className="mt-4 text-4xl font-bold text-foreground">
+components\landing\trusted-by.tsx:55:          <h3 className="text-4xl font-bold text-foreground">
+components\member-settings\danger-zone.tsx:145:                    <h3 className="text-lg font-semibold text-foreground">
+components\member-settings\danger-zone.tsx:164:                  text-foreground
+components\member-settings\danger-zone.tsx:187:                    <h3 className="text-lg font-semibold text-foreground">
+components\member-settings\danger-zone.tsx:206:                  text-foreground
+components\member-settings\danger-zone.tsx:229:                    <h3 className="text-lg font-semibold text-foreground">
+components\member-settings\danger-zone.tsx:248:                  text-foreground
+components\member-settings\danger-zone.tsx:271:            <AlertDialogTitle className="text-foreground">
+components\member-settings\danger-zone.tsx:319:            <AlertDialogTitle className="text-foreground">
+components\member-settings\notification-settings.tsx:104:        <h2 className="text-xl font-semibold text-foreground">
+components\member-settings\notification-settings.tsx:116:              <h3 className="font-semibold text-foreground">
+components\member-settings\notification-settings.tsx:133:                  : "bg-slate-700"
+components\member-settings\notification-settings.tsx:137:                className={`absolute top-1 h-5 w-5 rounded-full bg-background transition ${
+components\member-settings\profile-card.tsx:78:            <h2 className="text-xl font-semibold text-foreground">
+components\member-settings\profile-card.tsx:140:                text-foreground
+components\member-settings\profile-card.tsx:164:                <p className="mt-1 text-foreground">
+components\member-settings\profile-card.tsx:190:                <p className="mt-1 text-foreground">
+components\member-settings\profile-card.tsx:225:                text-foreground
+components\member-settings\workspace-settings-card.tsx:159:          <h2 className="text-xl font-semibold text-foreground">
+components\member-settings\workspace-settings-card.tsx:175:          <h3 className="mt-3 text-xl font-semibold text-foreground">
+components\member-settings\workspace-settings-card.tsx:185:          <h3 className="mt-3 text-xl font-semibold text-foreground">
+components\member-settings\workspace-settings-card.tsx:227:                text-foreground
+components\member-settings\workspace-settings-card.tsx:282:                text-foreground
+components\member-settings\workspace-settings-card.tsx:319:                text-foreground
+components\member-settings\workspace-settings-card.tsx:321:                hover:bg-background/5
+components\member-settings\workspace-settings-card.tsx:352:          <h3 className="mt-3 text-lg font-semibold text-foreground">
+components\member-settings\workspace-settings-card.tsx:402:                    : "bg-slate-700 text-foreground"
+components\member-settings\workspace-settings-card.tsx:418:          <h3 className="mt-2 text-lg font-bold text-foreground">
+components\member-settings\workspace-settings-card.tsx:437:          <h3 className="mt-2 text-lg font-bold text-foreground">
+components\notifications\notification-bell.tsx:66:              text-foreground
+components\projects\create-list-button.tsx:26:          text-foreground
+components\projects\create-project-dialog.tsx:45:          text-foreground
+components\projects\delete-project-dialog.tsx:67:          text-foreground
+components\projects\delete-project-dialog.tsx:81:          <p className="font-semibold text-foreground">
+components\projects\delete-project-dialog.tsx:103:              text-foreground
+components\projects\delete-project-dialog.tsx:104:              hover:bg-background
+components\projects\delete-project-dialog.tsx:120:              text-foreground
+components\projects\project-actions.tsx:36:            hover:bg-background
+components\projects\project-actions.tsx:37:            hover:text-foreground
+components\projects\project-actions.tsx:84:                  hover:bg-background
+components\projects\project-card.tsx:41:            <h3 className="text-lg font-semibold text-foreground">
+components\projects\project-card.tsx:55:            <p className="font-semibold text-foreground">
+components\settings\forms\profile-form.tsx:58:        text-foreground
+components\settings\panels\danger-zone-panel.tsx:304:              text-foreground
+components\settings\panels\profile-panel.tsx:297:            text-foreground
+components\settings\profile\avatar-upload.tsx:27:          "h-11 rounded-xl bg-blue-600 px-5 text-sm font-medium text-foreground hover:bg-blue-500 ut-ready:bg-blue-600 ut-uploading:cursor-not-allowed",
+components\shared\avatar-upload.tsx:60:              text-foreground
+components\shared\avatar-upload.tsx:90:                "w-full rounded-xl bg-indigo-600 px-4 py-3 font-medium text-foreground transition hover:bg-indigo-500 ut-ready:bg-indigo-600 ut-uploading:bg-indigo-700",
+components\shared\delete-dialog.tsx:113:              text-foreground
+components\space-members\change-role-dialog.tsx:99:      <DialogContent className="max-w-xl rounded-2xl border border-zinc-800 bg-[#111827] p-0 text-foreground">
+components\space-members\change-role-dialog.tsx:109:            <span className="font-medium text-foreground">
+components\space-members\detail\member-activity.tsx:68:        <h1 className="text-4xl font-bold text-foreground">
+components\space-members\detail\member-activity.tsx:134:                    <h3 className="font-semibold text-foreground">
+components\space-members\detail\member-files.tsx:34:        <h1 className="text-4xl font-bold text-foreground">
+components\space-members\detail\member-files.tsx:79:              <span className="font-medium text-foreground">
+components\space-members\detail\member-overview.tsx:34:        <h1 className="text-4xl font-bold text-foreground">
+components\space-members\detail\member-overview.tsx:91:          <h2 className="text-xl font-semibold text-foreground">
+components\space-members\detail\member-overview.tsx:144:          <h2 className="text-xl font-semibold text-foreground">
+components\space-members\detail\member-overview.tsx:160:              <span className="font-semibold text-foreground">
+components\space-members\detail\member-overview.tsx:210:            <h2 className="text-xl font-semibold text-foreground">
+components\space-members\detail\member-overview.tsx:288:              text-foreground
+components\space-members\detail\member-overview.tsx:328:          <h3 className="mt-3 text-3xl font-bold text-foreground">
+components\space-members\detail\member-overview.tsx:366:        <p className="font-medium text-foreground">
+components\space-members\detail\member-overview.tsx:386:      <span className="font-medium text-foreground">
+components\space-members\detail\member-permissions.tsx:135:        <h1 className="text-4xl font-bold text-foreground">
+components\space-members\detail\member-permissions.tsx:147:        <h2 className="text-2xl font-semibold text-foreground">
+components\space-members\detail\member-permissions.tsx:183:                <h2 className="text-xl font-semibold text-foreground">
+components\space-members\detail\member-settings.tsx:27:        <h1 className="text-4xl font-bold text-foreground">
+components\space-members\detail\member-settings.tsx:49:            <h2 className="text-xl font-semibold text-foreground">
+components\space-members\detail\member-settings.tsx:55:              <span className="font-medium text-foreground">
+components\space-members\detail\member-settings.tsx:69:              text-foreground
+components\space-members\detail\member-settings.tsx:93:            <h2 className="text-xl font-semibold text-foreground">
+components\space-members\detail\member-settings.tsx:160:              text-foreground
+components\space-members\detail\member-sidebar.tsx:103:            hover:text-foreground
+components\space-members\detail\member-sidebar.tsx:127:        <h2 className="mt-6 text-center text-2xl font-bold text-foreground">
+components\space-members\detail\member-sidebar.tsx:188:              ? "bg-blue-600 text-foreground"
+components\space-members\detail\member-sidebar.tsx:189:              : "text-zinc-400 hover:bg-zinc-800 hover:text-foreground"
+components\space-members\detail\member-tasks.tsx:35:        <h1 className="text-4xl font-bold text-foreground">
+components\space-members\detail\member-tasks.tsx:91:              <span className="font-medium text-foreground">
+components\space-members\drawer-header.tsx:59:          <h1 className="truncate text-3xl font-bold text-foreground">
+components\space-members\drawer-tabs.tsx:54:            data-[state=active]:text-foreground
+components\space-members\drawer-tabs.tsx:77:            data-[state=active]:text-foreground
+components\space-members\drawer-tabs.tsx:100:            data-[state=active]:text-foreground
+components\space-members\header.tsx:43:              <h1 className="text-3xl font-bold text-foreground">
+components\space-members\header.tsx:80:          <p className="mt-2 text-3xl font-bold text-foreground">
+components\space-members\header.tsx:107:          <p className="mt-2 text-lg font-semibold text-foreground">
+components\space-members\invite-dialog.tsx:100:      <DialogContent className="max-w-lg rounded-2xl border border-zinc-800 bg-[#111827] p-0 text-foreground">
+components\space-members\invite-dialog.tsx:162:              className="h-11 w-full rounded-lg border border-zinc-700 bg-[#0F172A] px-3 text-foreground outline-none"
+components\space-members\invite-dialog.tsx:197:              className="w-full rounded-lg border border-zinc-700 bg-[#0F172A] p-3 text-sm text-foreground outline-none"
+components\space-members\member-actions.tsx:49:            hover:text-foreground
+components\space-members\member-actions.tsx:63:          text-foreground
+components\space-members\member-avatar.tsx:81:            text-foreground
+components\space-members\member-dialog.tsx:64:          text-foreground
+components\space-members\pending-invites.tsx:37:        <h2 className="text-lg font-semibold text-foreground">
+components\space-members\pending-invites.tsx:61:                  <p className="font-medium text-foreground">
+components\space-members\permission-drawer.tsx:67:          text-foreground
+components\space-members\permission-drawer.tsx:75:          <SheetTitle className="text-left text-2xl font-semibold text-foreground">
+components\space-members\permission-drawer.tsx:170:            <h3 className="text-base font-semibold text-foreground">
+components\space-members\permission-role.tsx:63:        <h3 className="text-base font-semibold text-foreground">
+components\space-members\permission-role.tsx:129:                  <h4 className="font-medium text-foreground">
+components\space-members\permission-role.tsx:160:                  <div className="h-2 w-2 rounded-full bg-background" />
+components\space-members\permission-summary.tsx:26:        <h3 className="text-base font-semibold text-foreground">
+components\space-members\row.tsx:55:          <h3 className="truncate text-sm font-semibold text-foreground">
+components\space-members\row.tsx:72:        <p className="text-sm font-semibold text-foreground">
+components\space-members\table.tsx:18:          <h3 className="text-lg font-semibold text-foreground">
+components\space-members\tabs\activity-tab.tsx:68:        <h2 className="text-xl font-semibold text-foreground">
+components\space-members\tabs\activity-tab.tsx:130:                      <h3 className="font-semibold text-foreground">
+components\space-members\tabs\general-tab.tsx:42:            <h2 className="text-xl font-semibold text-foreground">
+components\space-members\tabs\general-tab.tsx:69:          <h3 className="font-semibold text-foreground">
+components\space-members\tabs\general-tab.tsx:90:              <span className="text-foreground">
+components\space-members\tabs\general-tab.tsx:111:              <span className="font-medium text-foreground">
+components\space-members\tabs\general-tab.tsx:132:              <span className="font-medium text-foreground">
+components\space-members\tabs\general-tab.tsx:154:          <span className="font-semibold text-foreground">
+components\space-members\tabs\general-tab.tsx:189:            <h4 className="font-medium text-foreground">
+components\space-members\tabs\overview-tab.tsx:41:            <h2 className="text-xl font-semibold text-foreground">
+components\space-members\tabs\overview-tab.tsx:83:          <h2 className="text-xl font-semibold text-foreground">
+components\space-members\tabs\overview-tab.tsx:115:            <span className="font-semibold text-foreground">
+components\space-members\tabs\overview-tab.tsx:165:              text-foreground
+components\space-members\tabs\overview-tab.tsx:206:          <p className="mt-1 font-medium text-foreground">
+components\space-members\tabs\overview-tab.tsx:239:        <span className="text-3xl font-bold text-foreground">
+components\space-members\tabs\permissions-tab.tsx:191:        <h2 className="mt-2 text-3xl font-bold text-foreground">
+components\space-members\tabs\permissions-tab.tsx:219:              <h3 className="text-lg font-semibold text-foreground">
+components\space-members\toolbar.tsx:66:                text-foreground
+components\space-members\toolbar.tsx:87:              text-foreground
+components\spaces\create-space-form.tsx:54:      text-foreground
+components\spaces\create-space-form.tsx:66:      text-foreground
+components\spaces\create-space-form.tsx:82:      text-foreground
+components\spaces\space-nav.tsx:64:                  ? "bg-gradient-to-r from-indigo-600 to-violet-600 text-foreground shadow-lg shadow-indigo-500/25"
+components\spaces\space-nav.tsx:65:                  : "text-muted-foreground hover:bg-background hover:text-foreground"
+components\spaces\spaces-nav.tsx:156:                  text-foreground
+components\spaces\spaces-nav.tsx:163:                  hover:text-foreground
+components\tasks\actions\task-actions-menu.tsx:99:            hover:border-white/20
+components\tasks\actions\task-actions-menu.tsx:100:            hover:bg-background
+components\tasks\actions\task-actions-menu.tsx:101:            hover:text-foreground
+components\tasks\actions\task-actions-menu.tsx:138:                text-slate-200
+components\tasks\actions\task-actions-menu.tsx:142:                hover:bg-background
+components\tasks\actions\task-actions-menu.tsx:143:                data-[highlighted]:bg-background
+components\tasks\actions\task-actions-menu.tsx:162:              text-slate-200
+components\tasks\actions\task-actions-menu.tsx:166:              hover:bg-background
+components\tasks\actions\task-actions-menu.tsx:167:              data-[highlighted]:bg-background
+components\tasks\actions\task-actions-menu.tsx:178:              bg-background/10
+components\tasks\actions\task-actions-menu.tsx:193:              text-slate-200
+components\tasks\actions\task-actions-menu.tsx:197:              hover:bg-background
+components\tasks\actions\task-actions-menu.tsx:198:              data-[highlighted]:bg-background
+components\tasks\activity\activity-section.tsx:19:      <h2 className="text-lg font-semibold text-foreground">
+components\tasks\activity\activity-section.tsx:35:              <p className="text-foreground">
+components\tasks\attachments\attachment-card.tsx:157:            <h3 className="truncate text-sm font-semibold text-foreground">
+components\tasks\attachments\attachment-card.tsx:191:                hover:bg-background
+components\tasks\attachments\attachment-card.tsx:214:                hover:bg-background
+components\tasks\attachments\attachment-upload.tsx:60:          <h3 className="font-semibold text-foreground">
+components\tasks\attachments\attachment-upload.tsx:83:            "text-foreground text-base font-medium",
+components\tasks\attachments\attachment-upload.tsx:89:            "rounded-xl bg-indigo-600 hover:bg-indigo-500 text-foreground",
+components\tasks\attachments\attachments-section.tsx:59:                bg-background
+components\tasks\attachments\attachments-section.tsx:67:            <h3 className="text-lg font-semibold text-foreground">
+components\tasks\attachments\task-attachments-list.tsx:75:                <h4 className="text-sm font-medium text-foreground">
+components\tasks\attachments\task-attachments-list.tsx:90:              className="rounded-lg border border-border p-2 text-foreground hover:bg-background"
+components\tasks\attachments\task-upload-button.tsx:81:        className="flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-medium text-foreground transition hover:bg-indigo-500 disabled:opacity-50"
+components\tasks\back-button.tsx:11:      className="rounded-xl border border-border px-4 py-2 text-foreground hover:bg-background"
+components\tasks\checklist\checklist-form.tsx:49:        className="h-11 flex-1 rounded-xl border border-border bg-background px-4 text-foreground outline-none"
+components\tasks\checklist\checklist-form.tsx:55:        className="flex h-11 items-center gap-2 rounded-xl bg-indigo-600 px-5 text-foreground hover:bg-indigo-500"
+components\tasks\checklist\checklist-item.tsx:97:            className="h-10 flex-1 rounded-lg border border-border bg-card px-3 text-foreground outline-none"
+components\tasks\checklist\checklist-item.tsx:106:                : "text-foreground"
+components\tasks\checklist\checklist-item.tsx:138:              className="rounded-lg p-2 text-muted-foreground hover:bg-background"
+components\tasks\checklist\checklist-item.tsx:149:              className="rounded-lg p-2 text-muted-foreground hover:bg-background"
+components\tasks\checklist\checklist-section.tsx:39:          <h2 className="text-xl font-semibold text-foreground">
+components\tasks\checklist\checklist-section.tsx:59:      <div className="mb-6 h-2 overflow-hidden rounded-full bg-background">
+components\tasks\checklist\checklist-section.tsx:82:            <p className="font-medium text-foreground">
+components\tasks\comments\comment-actions.tsx:40:          className="w-full rounded-xl border border-border bg-card p-3 text-foreground"
+components\tasks\comments\comment-actions.tsx:59:            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm text-foreground"
+components\tasks\comments\comment-actions.tsx:68:            className="rounded-lg border border-border px-4 py-2 text-sm text-foreground"
+components\tasks\comments\comment-form.tsx:52:        className="w-full rounded-xl border border-border bg-background p-4 text-foreground outline-none"
+components\tasks\comments\comment-form.tsx:60:          className="flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2 text-foreground hover:bg-indigo-500"
+components\tasks\comments\comment-item.tsx:50:            <p className="font-medium text-foreground">
+components\tasks\comments\comments-section.tsx:42:          <h3 className="text-lg font-medium text-foreground">
+components\tasks\common\delete-dialog.tsx:52:          <AlertDialogTitle className="text-center text-2xl text-foreground">
+components\tasks\common\delete-dialog.tsx:66:            className="border-border bg-card text-foreground hover:bg-background"
+components\tasks\common\delete-dialog.tsx:85:    text-foreground
+components\tasks\create\create-task-content.tsx:61:          text-foreground
+components\tasks\create\create-task-content.tsx:106:          text-foreground
+components\tasks\create\create-task-content.tsx:132:        <h3 className="text-2xl font-bold text-foreground">
+components\tasks\create\create-task-footer.tsx:21:        className="rounded-xl border border-border px-6 py-3 text-sm font-medium text-foreground transition hover:bg-background"
+components\tasks\create\create-task-footer.tsx:29:        className="flex items-center gap-2 rounded-xl bg-indigo-600 px-7 py-3 text-sm font-semibold text-foreground transition hover:bg-indigo-500 disabled:opacity-50"
+components\tasks\create\create-task-modal.tsx:96:            <h2 className="text-2xl font-bold text-foreground">
+components\tasks\create\create-task-modal.tsx:107:                hover:bg-background/10
+components\tasks\create\create-task-modal.tsx:108:                hover:text-foreground
+components\tasks\create\create-task-sidebar.tsx:80:            text-foreground
+components\tasks\create\create-task-sidebar.tsx:129:            text-foreground
+components\tasks\create\create-task-sidebar.tsx:162:            text-foreground
+components\tasks\create\create-task-sidebar.tsx:199:            text-foreground
+components\tasks\create-task-button.tsx:25:        text-foreground
+components\tasks\dialogs\create-task-modal.tsx:129:            <h2 className="text-2xl font-bold text-foreground">
+components\tasks\dialogs\create-task-modal.tsx:144:                hover:bg-background/10
+components\tasks\dialogs\create-task-modal.tsx:145:                hover:text-foreground
+components\tasks\editors\description-editor.tsx:61:          <h2 className="text-lg font-semibold text-foreground">
+components\tasks\editors\description-editor.tsx:77:              hover:bg-background
+components\tasks\editors\description-editor.tsx:78:              hover:text-foreground
+components\tasks\editors\description-editor.tsx:121:          text-foreground
+components\tasks\editors\description-editor.tsx:140:            text-foreground
+components\tasks\editors\description-editor.tsx:163:            bg-slate-700
+components\tasks\editors\description-editor.tsx:166:            text-foreground
+components\tasks\editors\estimate-editor.tsx:92:            text-foreground
+components\tasks\editors\task-assignee-editor.tsx:123:            text-foreground
+components\tasks\editors\task-assignee-editor.tsx:174:                      ? "bg-indigo-600 text-foreground"
+components\tasks\editors\task-assignee-editor.tsx:175:                      : "hover:bg-background text-foreground"
+components\tasks\editors\task-assignee-editor.tsx:190:                      bg-slate-700
+components\tasks\editors\task-due-date-editor.tsx:93:            text-foreground
+components\tasks\editors\task-priority-editor.tsx:87:            text-foreground
+components\tasks\editors\task-status-editor.tsx:87:            text-foreground
+components\tasks\editors\task-title-editor.tsx:40:        <h1 className="text-4xl font-bold text-foreground">
+components\tasks\editors\task-title-editor.tsx:54:            hover:bg-background
+components\tasks\editors\task-title-editor.tsx:55:            hover:text-foreground
+components\tasks\editors\task-title-editor.tsx:86:          text-foreground
+components\tasks\editors\task-title-editor.tsx:105:            text-foreground
+components\tasks\editors\task-title-editor.tsx:122:            bg-slate-700
+components\tasks\editors\task-title-editor.tsx:125:            text-foreground
+components\tasks\status-badge.tsx:9:      "border-slate-600 bg-slate-700/50 text-slate-200",
+components\tasks\status-badge.tsx:10:    dot: "bg-slate-300",
+components\tasks\task-avatar.tsx:64:        text-foreground
+components\tasks\task-form.tsx:187:<div className="space-y-6 rounded-3xl border border-slate-800 bg-card p-8 shadow-2xl">
+components\tasks\task-form.tsx:191:<h2 className="text-2xl font-bold text-foreground">
+components\tasks\task-form.tsx:217:className="h-12 border-slate-700 bg-background text-foreground"
+components\tasks\task-form.tsx:253:border-slate-700
+components\tasks\task-form.tsx:256:text-foreground
+components\tasks\task-form.tsx:287:border-slate-700
+components\tasks\task-form.tsx:290:text-foreground
+components\tasks\task-form.tsx:338:border-slate-700
+components\tasks\task-form.tsx:341:text-foreground
+components\tasks\task-form.tsx:376:<div className="space-y-6 rounded-3xl border border-slate-800 bg-card p-8 shadow-2xl">
+components\tasks\task-form.tsx:399:    border-slate-700
+components\tasks\task-form.tsx:402:    text-foreground
+components\tasks\task-form.tsx:456:    border-slate-700
+components\tasks\task-form.tsx:458:    text-foreground
+components\tasks\task-form.tsx:481:  <div className="space-y-3 rounded-2xl border border-slate-800 bg-background p-4 max-h-72 overflow-y-auto">
+components\tasks\task-form.tsx:502:          hover:border-slate-700
+components\tasks\task-form.tsx:521:              text-foreground
+components\tasks\task-form.tsx:529:              <p className="font-medium text-foreground">
+components\tasks\task-form.tsx:589:<div className="rounded-2xl border border-slate-800 bg-background p-6">
+components\tasks\task-form.tsx:591:  <h3 className="text-lg font-semibold text-foreground">
+components\tasks\task-form.tsx:607:      <span className="font-semibold text-foreground">
+components\tasks\task-form.tsx:623:      <span className="font-semibold text-foreground">
+components\tasks\task-form.tsx:646:    className="border-slate-700 bg-card text-foreground"
+components\tasks\task-menu.tsx:78:          <button className="rounded-lg p-2 transition hover:bg-background">
+components\tasks\task-menu.tsx:88:          className="w-56 border-border bg-card text-foreground"
+components\tasks\task-priority-select.tsx:41:      className="h-8 rounded-lg border border-border bg-card px-2 text-xs text-foreground outline-none"
+components\tasks\task-row.tsx:100:              text-foreground
+components\tasks\task-row.tsx:153:              bg-background
+components\tasks\task-row.tsx:160:            <p className="text-xs font-semibold text-foreground">
+components\tasks\task-row.tsx:198:            <p className="truncate text-sm font-medium text-foreground">
+components\tasks\task-status-select.tsx:41:      className="h-8 rounded-lg border border-border bg-card px-2 text-xs text-foreground outline-none"
+components\tasks\task-tabs.tsx:35:    <div className="rounded-2xl border bg-background p-2 shadow-sm">
+components\tasks\task-tabs.tsx:46:                  ? "bg-card text-foreground shadow"
+components\tasks\task-tabs.tsx:47:                  : "hover:bg-slate-100"
+components\tasks\task-tabs.tsx:60:                    ? "bg-background/20"
+components\tasks\task-tabs.tsx:61:                    : "bg-slate-200"
+components\tasks\task-toolbar.tsx:56:          className="h-11 w-72 rounded-xl border border-border bg-card px-4 text-sm text-foreground outline-none"
+components\tasks\task-toolbar.tsx:70:          className="h-11 rounded-xl border border-border bg-card px-4 text-foreground"
+components\tasks\task-toolbar.tsx:101:          className="h-11 rounded-xl border border-border bg-card px-4 text-foreground"
+components\tasks\task-toolbar.tsx:133:        className="h-11 rounded-xl border border-border bg-card px-4 text-foreground"
+components\team\member-actions.tsx:15:        hover:bg-background
+components\team\member-actions.tsx:16:        hover:text-foreground
+components\team\members-table.tsx:37:   > <h3 className="text-xl font-semibold text-foreground">
+components\team\members-table.tsx:86:              border-border
+components\team\members-table.tsx:100:                    text-foreground
+components\team\members-table.tsx:107:                  <p className="font-medium text-foreground">
+components\team\pending-invites.tsx:32:   > <div> <h3 className="text-xl font-semibold text-foreground">
+components\team\pending-invites.tsx:87:              text-foreground
+components\team\pending-invites.tsx:96:            <p className="font-medium text-foreground">
+components\team\pending-invites.tsx:145:              hover:bg-background
+components\team\permission-matrix.tsx:74:            <tr className="border-b border-border bg-background/[0.02]">
+components\team\permission-matrix.tsx:116:                    className="border-b border-border transition-colors hover:bg-background/[0.03]"
+components\team\permission-matrix.tsx:118:                    <td className="px-6 py-4 text-foreground">
+components\team\permission-matrix.tsx:132:                          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-background text-slate-600">
+components\team\role-selector.tsx:19:      "bg-slate-500/20 text-foreground",
+components\team\team-activity.tsx:54:            border-border
+components\team\team-activity.tsx:62:              <p className="font-medium text-foreground">
+components\team\team-header.tsx:7:        <h1 className="text-5xl font-bold text-foreground">
+components\team\team-header.tsx:24:          text-foreground
+components\team\team-stats.tsx:54:      <div className="mt-4 h-2 rounded-full bg-background">

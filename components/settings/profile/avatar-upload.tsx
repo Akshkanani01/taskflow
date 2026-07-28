@@ -24,7 +24,7 @@ export default function AvatarUpload({
       endpoint={endpoint}
       appearance={{
         button:
-          "h-11 rounded-xl bg-blue-600 px-5 text-sm font-medium text-white hover:bg-blue-500 ut-ready:bg-blue-600 ut-uploading:cursor-not-allowed",
+          "h-11 rounded-xl bg-blue-600 px-5 text-sm font-medium text-foreground hover:bg-blue-500 ut-ready:bg-blue-600 ut-uploading:cursor-not-allowed",
         container: "w-fit",
         allowedContent: "hidden",
       }}

@@ -51,7 +51,7 @@ export default function DrawerTabs() {
             transition-all
 
             data-[state=active]:bg-blue-600
-            data-[state=active]:text-white
+            data-[state=active]:text-foreground
           "
         >
           <User size={16} />
@@ -74,7 +74,7 @@ export default function DrawerTabs() {
             transition-all
 
             data-[state=active]:bg-blue-600
-            data-[state=active]:text-white
+            data-[state=active]:text-foreground
           "
         >
           <ShieldCheck size={16} />
@@ -97,7 +97,7 @@ export default function DrawerTabs() {
             transition-all
 
             data-[state=active]:bg-blue-600
-            data-[state=active]:text-white
+            data-[state=active]:text-foreground
           "
         >
           <Activity size={16} />

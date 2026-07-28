@@ -47,8 +47,8 @@ export default async function ProjectLayout({
         className="
           overflow-x-auto
           rounded-3xl
-          border border-white/10
-          bg-slate-900
+          border border-border
+          bg-card
           p-2
         "
       >
@@ -63,10 +63,10 @@ export default async function ProjectLayout({
                 py-3
                 text-sm
                 font-medium
-                text-slate-300
+                text-foreground
                 transition
-                hover:bg-slate-800
-                hover:text-white
+                hover:bg-background
+                hover:text-foreground
               "
             >
               {tab.name}

@@ -127,7 +127,7 @@ const [transferOpen, setTransferOpen] = useState(false);
             <h2 className="text-xl font-semibold text-red-300">
               Danger Zone
             </h2>
-            <p className="mt-1 text-sm text-slate-500">
+            <p className="mt-1 text-sm text-muted-foreground">
               These actions permanently affect this member.
             </p>
           </div>
@@ -142,10 +142,10 @@ const [transferOpen, setTransferOpen] = useState(false);
                     <LogOut className="h-6 w-6 text-orange-400" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-white">
+                    <h3 className="text-lg font-semibold text-foreground">
                       Leave Workspace
                     </h3>
-                    <p className="mt-1 text-sm text-slate-400">
+                    <p className="mt-1 text-sm text-muted-foreground">
                       Remove yourself from this workspace permanently.
                     </p>
                   </div>
@@ -161,7 +161,7 @@ const [transferOpen, setTransferOpen] = useState(false);
                   px-5
                   py-3
                   font-medium
-                  text-white
+                  text-foreground
                   transition
                   hover:bg-orange-500
                   disabled:opacity-60
@@ -184,10 +184,10 @@ const [transferOpen, setTransferOpen] = useState(false);
                     <Crown className="h-6 w-6 text-yellow-400" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-white">
+                    <h3 className="text-lg font-semibold text-foreground">
                       Transfer Ownership
                     </h3>
-                    <p className="mt-1 text-sm text-slate-400">
+                    <p className="mt-1 text-sm text-muted-foreground">
                       Make this member the new owner of the workspace.
                     </p>
                   </div>
@@ -203,7 +203,7 @@ const [transferOpen, setTransferOpen] = useState(false);
                   px-5
                   py-3
                   font-medium
-                  text-white
+                  text-foreground
                   transition
                   hover:bg-yellow-500
                   disabled:opacity-60
@@ -226,10 +226,10 @@ const [transferOpen, setTransferOpen] = useState(false);
                     <Trash2 className="h-6 w-6 text-red-400" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-white">
+                    <h3 className="text-lg font-semibold text-foreground">
                       Remove Member
                     </h3>
-                    <p className="mt-1 text-sm text-slate-400">
+                    <p className="mt-1 text-sm text-muted-foreground">
                       Permanently remove this member from the workspace.
                     </p>
                   </div>
@@ -245,7 +245,7 @@ const [transferOpen, setTransferOpen] = useState(false);
                   px-5
                   py-3
                   font-medium
-                  text-white
+                  text-foreground
                   transition
                   hover:bg-red-500
                   disabled:opacity-60
@@ -266,16 +266,16 @@ const [transferOpen, setTransferOpen] = useState(false);
     open={removeOpen}
     onOpenChange={setRemoveOpen}
 >
-        <AlertDialogContent className="border-white/10 bg-[#111827]">
+        <AlertDialogContent className="border-border bg-[#111827]">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-white">
+            <AlertDialogTitle className="text-foreground">
               Leave Workspace?
               <p className="mt-4 text-orange-300">
     You will immediately lose access to this workspace.
 </p>
             </AlertDialogTitle>
             <AlertDialogDescription asChild>
-              <div className="text-slate-400">
+              <div className="text-muted-foreground">
                 <p>This member will immediately lose access to:</p>
                 <ul className="mt-4 list-disc space-y-2 pl-5">
                   <li>Workspace</li>
@@ -314,9 +314,9 @@ const [transferOpen, setTransferOpen] = useState(false);
     open={transferOpen}
     onOpenChange={setTransferOpen}
 >
-        <AlertDialogContent className="border-white/10 bg-[#111827]">
+        <AlertDialogContent className="border-border bg-[#111827]">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-white">
+            <AlertDialogTitle className="text-foreground">
               Transfer Ownership?
               <p className="mt-4 text-yellow-300 font-medium">
     New Owner:
@@ -324,7 +324,7 @@ const [transferOpen, setTransferOpen] = useState(false);
     {member.user.name}
 </p>
             </AlertDialogTitle>
-            <AlertDialogDescription className="text-slate-400">
+            <AlertDialogDescription className="text-muted-foreground">
               This member will become the new workspace owner.
               <br />
               Your role will automatically become <b>ADMIN</b>.
@@ -366,7 +366,7 @@ const [transferOpen, setTransferOpen] = useState(false);
     {member.user.name ?? member.user.email}
 </p>
             </AlertDialogTitle>
-            <AlertDialogDescription className="text-slate-400">
+            <AlertDialogDescription className="text-muted-foreground">
               This member will immediately lose access to:
               <ul className="mt-4 list-disc space-y-2 pl-5">
                 <li>Workspace</li>

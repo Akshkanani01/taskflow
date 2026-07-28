@@ -5,12 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Users,
-  BarChart3,
-  FileText,
-  Clock3,
-  Settings,
   Plus,
-  Sparkles,
 } from "lucide-react";
 
 import { SpacesNav } from "@/components/spaces/spaces-nav";
@@ -18,19 +13,18 @@ import { SpacesNav } from "@/components/spaces/spaces-nav";
 export function Sidebar() {
   const pathname = usePathname();
 
-const spaceMatch = pathname.match(
-  /^\/dashboard\/spaces\/([^/]+)/
-);
+  const spaceMatch = pathname.match(
+    /^\/dashboard\/spaces\/([^/]+)/
+  );
 
-const spaceId = spaceMatch?.[1];
-
+  const spaceId = spaceMatch?.[1];
 
   const isActive = (href: string) => {
-  return (
-    pathname === href ||
-    pathname.startsWith(href + "/")
-  );
-};
+    return (
+      pathname === href ||
+      pathname.startsWith(href + "/")
+    );
+  };
 
   const menuClass = (
     href: string
@@ -50,14 +44,14 @@ const spaceId = spaceMatch?.[1];
           bg-gradient-to-r
           from-indigo-600
           to-violet-600
-          text-white
+          text-primary-foreground
           shadow-lg
           shadow-indigo-500/25
         `
         : `
-          text-slate-400
-          hover:bg-slate-900
-          hover:text-white
+          text-muted-foreground
+          hover:bg-muted
+          hover:text-foreground
         `
     }
   `;
@@ -73,16 +67,14 @@ const spaceId = spaceMatch?.[1];
         w-72
         overflow-y-auto
         border-r
-        border-white/10
-        bg-slate-950
+        border-border
+        bg-background
       "
     >
-      {/* HEADER */}
-
       <div
         className="
           border-b
-          border-white/10
+          border-border
           p-6
         "
       >
@@ -99,7 +91,7 @@ const spaceId = spaceMatch?.[1];
               from-indigo-500
               to-violet-600
               font-bold
-              text-white
+              text-primary-foreground
               shadow-lg
               shadow-indigo-500/30
             "
@@ -112,7 +104,7 @@ const spaceId = spaceMatch?.[1];
               className="
                 text-lg
                 font-bold
-                text-white
+                text-foreground
               "
             >
               TaskFlow
@@ -121,7 +113,7 @@ const spaceId = spaceMatch?.[1];
             <p
               className="
                 text-xs
-                text-slate-500
+                text-muted-foreground
               "
             >
               Enterprise Suite
@@ -131,8 +123,6 @@ const spaceId = spaceMatch?.[1];
       </div>
 
       <div className="space-y-8 p-4">
-
-        {/* DASHBOARD */}
 
         <Section title="Dashboard">
           <Link
@@ -145,8 +135,6 @@ const spaceId = spaceMatch?.[1];
             Dashboard
           </Link>
         </Section>
-
-        {/* SPACES */}
 
         <Section title="Spaces">
 
@@ -164,21 +152,19 @@ const spaceId = spaceMatch?.[1];
                 text-xs
                 uppercase
                 tracking-wider
-                text-slate-500
+                text-muted-foreground
               "
-            >
-              
-            </span>
+            />
 
             <Link
               href="/dashboard/spaces/create"
               className="
                 rounded-lg
                 p-1
-                text-slate-400
+                text-muted-foreground
                 transition
-                hover:bg-slate-800
-                hover:text-white
+                hover:bg-muted
+                hover:text-foreground
               "
             >
               <Plus size={16} />
@@ -186,35 +172,28 @@ const spaceId = spaceMatch?.[1];
           </div>
 
           <SpacesNav />
+
         </Section>
 
-{/* MEMBERS */}
+        {spaceId && (
+          <Section title="Members">
+            <Link
+              href={`/dashboard/spaces/${spaceId}/members`}
+              className={menuClass(
+                `/dashboard/spaces/${spaceId}/members`
+              )}
+            >
+              <Users size={18} />
 
-{spaceId && (
-  <Section title="Members">
-    <Link
-      href={`/dashboard/spaces/${spaceId}/members`}
-      className={menuClass(
-        `/dashboard/spaces/${spaceId}/members`
-      )}
-    >
-      <Users size={18} />
+              <span className="flex-1">
+                Members
+              </span>
 
-      <span className="flex-1">
-        Members
-      </span>
-    </Link>
-  </Section>
-)}  
-        {/* SETTINGS */}
+            </Link>
+          </Section>
+        )}
 
-        
       </div>
-
-      {/* FOOTER */}
-
-      
-      
 
     </aside>
   );
@@ -236,7 +215,7 @@ function Section({
           text-xs
           uppercase
           tracking-wider
-          text-slate-500
+          text-muted-foreground
         "
       >
         {title}

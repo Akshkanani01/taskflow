@@ -45,11 +45,11 @@ return ( <div className="space-y-8">
 
     <div>
 
-      <h1 className="text-4xl font-bold text-white">
+      <h1 className="text-4xl font-bold text-foreground">
         Automation Center
       </h1>
 
-      <p className="mt-2 text-slate-400">
+      <p className="mt-2 text-muted-foreground">
         Automate repetitive workflows and boost productivity.
       </p>
 
@@ -61,7 +61,7 @@ return ( <div className="space-y-8">
         rounded-xl
         bg-indigo-600
         px-5 py-3
-        text-white
+        text-foreground
       "
     >
       <Plus size={18} />
@@ -72,42 +72,42 @@ return ( <div className="space-y-8">
 
   <div className="grid gap-6 md:grid-cols-4">
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Zap className="mb-4 text-indigo-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         12
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Active Workflows
       </p>
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <CheckCircle className="mb-4 text-emerald-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         3,281
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Executions
       </p>
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Bell className="mb-4 text-amber-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         842
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Notifications Sent
       </p>
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Mail className="mb-4 text-pink-400" />
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         156
       </h2>
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Emails Triggered
       </p>
     </div>
@@ -117,19 +117,19 @@ return ( <div className="space-y-8">
   <div
     className="
       rounded-3xl
-      border border-white/10
-      bg-slate-900
+      border border-border
+      bg-card
       p-6
     "
   >
 
     <div className="mb-6 flex items-center justify-between">
 
-      <h2 className="text-xl font-semibold text-white">
+      <h2 className="text-xl font-semibold text-foreground">
         Active Automations
       </h2>
 
-      <span className="text-sm text-slate-400">
+      <span className="text-sm text-muted-foreground">
         Enterprise Workflow Engine
       </span>
 
@@ -146,8 +146,8 @@ return ( <div className="space-y-8">
             className="
               flex items-center justify-between
               rounded-2xl
-              border border-white/10
-              bg-slate-950
+              border border-border
+              bg-background
               p-5
             "
           >
@@ -159,7 +159,7 @@ return ( <div className="space-y-8">
                   flex h-12 w-12
                   items-center justify-center
                   rounded-xl
-                  bg-slate-800
+                  bg-background
                 "
               >
                 <Icon
@@ -170,13 +170,13 @@ return ( <div className="space-y-8">
 
               <div>
 
-                <h3 className="font-medium text-white">
+                <h3 className="font-medium text-foreground">
                   {automation.name}
                 </h3>
 
                 <div className="mt-2 flex items-center gap-3 text-sm">
 
-                  <span className="text-slate-400">
+                  <span className="text-muted-foreground">
                     {automation.trigger}
                   </span>
 
@@ -185,7 +185,7 @@ return ( <div className="space-y-8">
                     className="text-slate-600"
                   />
 
-                  <span className="text-white">
+                  <span className="text-foreground">
                     {automation.action}
                   </span>
 
@@ -201,7 +201,7 @@ return ( <div className="space-y-8">
                 ${
                   automation.active
                     ? "bg-emerald-500/20 text-emerald-300"
-                    : "bg-slate-800 text-slate-400"
+                    : "bg-background text-muted-foreground"
                 }
               `}
             >
@@ -221,27 +221,27 @@ return ( <div className="space-y-8">
     <div
       className="
         rounded-3xl
-        border border-white/10
-        bg-slate-900
+        border border-border
+        bg-card
         p-6
       "
     >
 
-      <h2 className="mb-5 text-xl font-semibold text-white">
+      <h2 className="mb-5 text-xl font-semibold text-foreground">
         Popular Templates
       </h2>
 
       <div className="space-y-4">
 
-        <div className="rounded-2xl bg-slate-950 p-4">
+        <div className="rounded-2xl bg-background p-4">
           Task Created → Assign Team Member
         </div>
 
-        <div className="rounded-2xl bg-slate-950 p-4">
+        <div className="rounded-2xl bg-background p-4">
           Due Date Near → Send Reminder
         </div>
 
-        <div className="rounded-2xl bg-slate-950 p-4">
+        <div className="rounded-2xl bg-background p-4">
           Project Complete → Generate Report
         </div>
 
@@ -263,11 +263,11 @@ return ( <div className="space-y-8">
         size={28}
       />
 
-      <h2 className="text-2xl font-bold text-white">
+      <h2 className="text-2xl font-bold text-foreground">
         TaskFlow Automation
       </h2>
 
-      <p className="mt-3 text-slate-300">
+      <p className="mt-3 text-foreground">
         Connect tasks, lists, files,
         notifications and AI workflows
         without writing code.

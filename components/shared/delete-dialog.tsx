@@ -38,7 +38,7 @@ export default function DeleteDialog({
       open={open}
       onOpenChange={onOpenChange}
     >
-      <AlertDialogContent className="border-white/10 bg-[#0F172A] text-white">
+      <AlertDialogContent className="border-border bg-card text-foreground">
 
         <AlertDialogHeader>
 
@@ -73,7 +73,7 @@ export default function DeleteDialog({
             asChild
           >
 
-            <div className="mt-3 text-center text-slate-400">
+            <div className="mt-3 text-center text-muted-foreground">
 
               {description}
 
@@ -82,18 +82,19 @@ export default function DeleteDialog({
           </AlertDialogDescription>
 
         </AlertDialogHeader>
-                <AlertDialogFooter className="mt-8 flex-col gap-3 sm:flex-row">
+
+        <AlertDialogFooter className="mt-8 flex-col gap-3 sm:flex-row">
 
           <AlertDialogCancel
             disabled={loading}
             className="
               h-11
-              border-white/10
-              bg-white/5
-              text-white
+              border-border
+              bg-muted
+              text-foreground
               transition
-              hover:bg-white/10
-              hover:text-white
+              hover:bg-accent
+              hover:text-accent-foreground
             "
           >
             Cancel
@@ -109,7 +110,7 @@ export default function DeleteDialog({
               h-11
               min-w-[140px]
               bg-red-600
-              text-white
+              text-foreground
               transition
               hover:bg-red-500
               focus:ring-red-500
@@ -142,7 +143,6 @@ export default function DeleteDialog({
         </AlertDialogFooter>
 
       </AlertDialogContent>
-
     </AlertDialog>
   );
 }

@@ -145,17 +145,17 @@ export default async function MemberActivityPage({
 
       <div className="grid gap-6 md:grid-cols-4">
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-[#111827] p-6">
 
           <Activity className="mb-4 h-8 w-8 text-indigo-400" />
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
 
             Activities
 
           </p>
 
-          <h2 className="mt-2 text-4xl font-bold text-white">
+          <h2 className="mt-2 text-4xl font-bold text-foreground">
 
             {totalActivities}
 
@@ -163,17 +163,17 @@ export default async function MemberActivityPage({
 
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-[#111827] p-6">
 
           <MessageSquare className="mb-4 h-8 w-8 text-emerald-400" />
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
 
             Comments
 
           </p>
 
-          <h2 className="mt-2 text-4xl font-bold text-white">
+          <h2 className="mt-2 text-4xl font-bold text-foreground">
 
             {comments}
 
@@ -181,17 +181,17 @@ export default async function MemberActivityPage({
 
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-[#111827] p-6">
 
           <Paperclip className="mb-4 h-8 w-8 text-cyan-400" />
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
 
             Uploads
 
           </p>
 
-          <h2 className="mt-2 text-4xl font-bold text-white">
+          <h2 className="mt-2 text-4xl font-bold text-foreground">
 
             {uploads}
 
@@ -199,17 +199,17 @@ export default async function MemberActivityPage({
 
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-[#111827] p-6">
 
           <CheckSquare className="mb-4 h-8 w-8 text-yellow-400" />
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
 
             Tasks
 
           </p>
 
-          <h2 className="mt-2 text-4xl font-bold text-white">
+          <h2 className="mt-2 text-4xl font-bold text-foreground">
 
             {
               new Set(
@@ -226,17 +226,17 @@ export default async function MemberActivityPage({
       </div>
             {/* TIMELINE */}
 
-      <section className="overflow-hidden rounded-3xl border border-white/10 bg-[#111827]">
+      <section className="overflow-hidden rounded-3xl border border-border bg-[#111827]">
 
-        <div className="border-b border-white/10 p-6">
+        <div className="border-b border-border p-6">
 
-          <h2 className="text-xl font-semibold text-white">
+          <h2 className="text-xl font-semibold text-foreground">
 
             Activity Timeline
 
           </h2>
 
-          <p className="mt-2 text-sm text-slate-400">
+          <p className="mt-2 text-sm text-muted-foreground">
 
             Recent activities for {member.user.name ?? member.user.email}
 
@@ -250,13 +250,13 @@ export default async function MemberActivityPage({
 
             <Activity className="mb-5 h-16 w-16 text-slate-700" />
 
-            <h3 className="text-xl font-semibold text-white">
+            <h3 className="text-xl font-semibold text-foreground">
 
               No Activity Found
 
             </h3>
 
-            <p className="mt-2 text-slate-500">
+            <p className="mt-2 text-muted-foreground">
   This member hasn&apos;t performed any activity yet.
 </p>
 
@@ -266,13 +266,13 @@ export default async function MemberActivityPage({
 
           <div className="relative">
 
-            <div className="absolute left-10 top-0 bottom-0 w-px bg-white/10" />
+            <div className="absolute left-10 top-0 bottom-0 w-px bg-background/10" />
 
             {activities.map((activity) => (
 
               <div
                 key={activity.id}
-                className="relative flex gap-6 border-b border-white/5 p-6 last:border-none"
+                className="relative flex gap-6 border-b border-border p-6 last:border-none"
               >
 
                 {/* Timeline Dot */}
@@ -292,7 +292,7 @@ export default async function MemberActivityPage({
                   "
                 >
 
-                  <Activity className="h-5 w-5 text-white" />
+                  <Activity className="h-5 w-5 text-foreground" />
 
                 </div>
 
@@ -304,13 +304,13 @@ export default async function MemberActivityPage({
 
                     <div>
 
-                      <h3 className="font-semibold text-white">
+                      <h3 className="font-semibold text-foreground">
 
                         {activity.message ?? activity.action}
 
                       </h3>
 
-                      <div className="mt-2 flex flex-wrap gap-5 text-sm text-slate-400">
+                      <div className="mt-2 flex flex-wrap gap-5 text-sm text-muted-foreground">
 
                         <span>
 
@@ -330,7 +330,7 @@ export default async function MemberActivityPage({
 
                     <div className="text-right">
 
-                      <div className="flex items-center gap-2 text-xs text-slate-500">
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
 
                         <Calendar className="h-4 w-4" />
 
@@ -348,9 +348,9 @@ export default async function MemberActivityPage({
 
                   {activity.metadata && (
 
-                    <div className="mt-4 rounded-2xl border border-white/10 bg-slate-900 p-4">
+                    <div className="mt-4 rounded-2xl border border-border bg-card p-4">
 
-                      <pre className="overflow-auto whitespace-pre-wrap text-xs text-slate-400">
+                      <pre className="overflow-auto whitespace-pre-wrap text-xs text-muted-foreground">
 
                         {JSON.stringify(
                           activity.metadata,
@@ -374,13 +374,13 @@ export default async function MemberActivityPage({
                         gap-2
                         rounded-xl
                         border
-                        border-white/10
+                        border-border
                         px-4
                         py-2
                         text-sm
-                        text-white
+                        text-foreground
                         transition
-                        hover:bg-slate-900
+                        hover:bg-card
                       "
                     >
 
@@ -409,11 +409,11 @@ export default async function MemberActivityPage({
 
         {/* Activity Summary */}
 
-        <section className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <section className="rounded-3xl border border-border bg-[#111827] p-6">
 
           <div className="flex items-center justify-between">
 
-            <h2 className="text-lg font-semibold text-white">
+            <h2 className="text-lg font-semibold text-foreground">
 
               Activity Summary
 
@@ -425,15 +425,15 @@ export default async function MemberActivityPage({
 
           <div className="mt-6 space-y-4">
 
-            <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-4">
+            <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
 
-              <span className="text-slate-400">
+              <span className="text-muted-foreground">
 
                 Total Activities
 
               </span>
 
-              <span className="font-semibold text-white">
+              <span className="font-semibold text-foreground">
 
                 {totalActivities}
 
@@ -441,9 +441,9 @@ export default async function MemberActivityPage({
 
             </div>
 
-            <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-4">
+            <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
 
-              <span className="text-slate-400">
+              <span className="text-muted-foreground">
 
                 Comments Added
 
@@ -457,9 +457,9 @@ export default async function MemberActivityPage({
 
             </div>
 
-            <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-4">
+            <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
 
-              <span className="text-slate-400">
+              <span className="text-muted-foreground">
 
                 Files Uploaded
 
@@ -473,9 +473,9 @@ export default async function MemberActivityPage({
 
             </div>
 
-            <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900 p-4">
+            <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
 
-              <span className="text-slate-400">
+              <span className="text-muted-foreground">
 
                 Active Tasks
 
@@ -502,11 +502,11 @@ export default async function MemberActivityPage({
 
         {/* Latest Activity */}
 
-        <section className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <section className="rounded-3xl border border-border bg-[#111827] p-6">
 
           <div className="flex items-center justify-between">
 
-            <h2 className="text-lg font-semibold text-white">
+            <h2 className="text-lg font-semibold text-foreground">
 
               Latest Activity
 
@@ -518,11 +518,11 @@ export default async function MemberActivityPage({
 
           {activities.length === 0 ? (
 
-            <div className="mt-8 rounded-2xl border border-dashed border-white/10 py-14 text-center">
+            <div className="mt-8 rounded-2xl border border-dashed border-border py-14 text-center">
 
               <Activity className="mx-auto h-12 w-12 text-slate-700" />
 
-              <p className="mt-4 text-slate-500">
+              <p className="mt-4 text-muted-foreground">
 
                 No recent activity
 
@@ -540,23 +540,23 @@ export default async function MemberActivityPage({
 
                   <div
                     key={activity.id}
-                    className="rounded-2xl border border-white/10 bg-slate-900 p-4"
+                    className="rounded-2xl border border-border bg-card p-4"
                   >
 
-                    <p className="font-medium text-white">
+                    <p className="font-medium text-foreground">
 
                       {activity.message ??
                         activity.action}
 
                     </p>
 
-                    <p className="mt-2 text-sm text-slate-400">
+                    <p className="mt-2 text-sm text-muted-foreground">
 
                       {activity.task.title}
 
                     </p>
 
-                    <p className="mt-2 text-xs text-slate-500">
+                    <p className="mt-2 text-xs text-muted-foreground">
 
                       {activity.createdAt.toLocaleString(
                         "en-GB"

@@ -18,8 +18,8 @@ export function Topbar() {
         items-center
         justify-between
         border-b
-        border-white/10
-        bg-slate-950/80
+        border-border
+        bg-background/80
         px-8
         backdrop-blur-2xl
       "
@@ -42,7 +42,7 @@ export function Topbar() {
               left-4
               top-1/2
               -translate-y-1/2
-              text-slate-500
+              text-muted-foreground
             "
           />
 
@@ -57,13 +57,13 @@ export function Topbar() {
               w-full
               rounded-2xl
               border
-              border-white/10
-              bg-slate-900/70
+              border-border
+              bg-muted
               pl-11
               pr-20
               text-sm
-              text-white
-              placeholder:text-slate-500
+              text-foreground
+              placeholder:text-muted-foreground
               outline-none
               transition-all
               duration-200
@@ -85,12 +85,12 @@ export function Topbar() {
               gap-1
               rounded-lg
               border
-              border-white/10
-              bg-white/5
+              border-border
+              bg-muted
               px-2.5
               py-1
               text-xs
-              text-slate-400
+              text-muted-foreground
             "
           >
             <Command size={12} />

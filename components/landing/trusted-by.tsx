@@ -26,11 +26,11 @@ return ( <section className="py-24"> <div className="container mx-auto px-6">
 
     <div className="mb-12 text-center">
 
-      <p className="text-sm uppercase tracking-[0.3em] text-slate-500">
+      <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">
         Trusted By Modern Teams
       </p>
 
-      <h2 className="mt-4 text-4xl font-bold text-white">
+      <h2 className="mt-4 text-4xl font-bold text-foreground">
         Built For Productivity
       </h2>
 
@@ -44,19 +44,19 @@ return ( <section className="py-24"> <div className="container mx-auto px-6">
           className="
             rounded-3xl
             border
-            border-white/10
-            bg-slate-900
+            border-border
+            bg-card
             p-8
             text-center
             transition
             hover:border-indigo-500/30
           "
         >
-          <h3 className="text-4xl font-bold text-white">
+          <h3 className="text-4xl font-bold text-foreground">
             {stat.value}
           </h3>
 
-          <p className="mt-3 text-slate-400">
+          <p className="mt-3 text-muted-foreground">
             {stat.label}
           </p>
         </div>

@@ -184,17 +184,17 @@ className="space-y-8"
 
 {/* ================================= */}
 
-<div className="space-y-6 rounded-3xl border border-slate-800 bg-slate-900 p-8 shadow-2xl">
+<div className="space-y-6 rounded-3xl border border-border bg-card p-8 shadow-2xl">
 
 <div>
 
-<h2 className="text-2xl font-bold text-white">
+<h2 className="text-2xl font-bold text-foreground">
 
 Task Information
 
 </h2>
 
-<p className="mt-2 text-slate-400">
+<p className="mt-2 text-muted-foreground">
 
 Create a new task for your workspace.
 
@@ -206,7 +206,7 @@ Create a new task for your workspace.
 
 <div>
 
-<label className="mb-2 block text-sm font-semibold text-slate-300">
+<label className="mb-2 block text-sm font-semibold text-foreground">
 
 Task Title
 
@@ -214,7 +214,7 @@ Task Title
 
 <Input
 placeholder="Design Dashboard..."
-className="h-12 border-slate-700 bg-slate-950 text-white"
+className="h-12 border-border bg-background text-foreground"
 {...register("title")}
 />
 
@@ -234,7 +234,7 @@ className="h-12 border-slate-700 bg-slate-950 text-white"
 
 <div>
 
-<label className="mb-2 block text-sm font-semibold text-slate-300">
+<label className="mb-2 block text-sm font-semibold text-foreground">
 
 Description
 
@@ -250,10 +250,10 @@ className="
 w-full
 rounded-2xl
 border
-border-slate-700
-bg-slate-950
+border-border
+bg-background
 p-4
-text-white
+text-foreground
 outline-none
 transition
 focus:border-blue-500
@@ -269,7 +269,7 @@ focus:border-blue-500
 
 <div>
 
-<label className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-300">
+<label className="mb-2 flex items-center gap-2 text-sm font-semibold text-foreground">
 
 <Flag className="h-4 w-4"/>
 
@@ -284,10 +284,10 @@ h-12
 w-full
 rounded-xl
 border
-border-slate-700
-bg-slate-950
+border-border
+bg-background
 px-4
-text-white
+text-foreground
 "
 
 {...register("status")}
@@ -320,7 +320,7 @@ Done
 
 <div>
 
-<label className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-300">
+<label className="mb-2 flex items-center gap-2 text-sm font-semibold text-foreground">
 
 <Flag className="h-4 w-4"/>
 
@@ -335,10 +335,10 @@ h-12
 w-full
 rounded-xl
 border
-border-slate-700
-bg-slate-950
+border-border
+bg-background
 px-4
-text-white
+text-foreground
 "
 
 {...register("priority")}
@@ -373,7 +373,7 @@ High
 
 {/* RIGHT */}
 
-<div className="space-y-6 rounded-3xl border border-slate-800 bg-slate-900 p-8 shadow-2xl">
+<div className="space-y-6 rounded-3xl border border-border bg-card p-8 shadow-2xl">
     {/* =============================== */}
 
 {/* PROJECT */}
@@ -382,7 +382,7 @@ High
 
 <div>
 
-  <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-300">
+  <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-foreground">
 
     <FolderKanban className="h-4 w-4" />
 
@@ -396,10 +396,10 @@ High
     w-full
     rounded-xl
     border
-    border-slate-700
-    bg-slate-950
+    border-border
+    bg-background
     px-4
-    text-white
+    text-foreground
     "
     {...register("projectId")}
   >
@@ -441,7 +441,7 @@ High
 
 <div>
 
-  <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-300">
+  <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-foreground">
 
     <CalendarDays className="h-4 w-4" />
 
@@ -453,9 +453,9 @@ High
     type="date"
     className="
     h-12
-    border-slate-700
-    bg-slate-950
-    text-white
+    border-border
+    bg-background
+    text-foreground
     "
     {...register("dueDate")}
   />
@@ -470,7 +470,7 @@ High
 
 <div>
 
-  <label className="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-300">
+  <label className="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground">
 
     <User2 className="h-4 w-4" />
 
@@ -478,7 +478,7 @@ High
 
   </label>
 
-  <div className="space-y-3 rounded-2xl border border-slate-800 bg-slate-950 p-4 max-h-72 overflow-y-auto">
+  <div className="space-y-3 rounded-2xl border border-border bg-background p-4 max-h-72 overflow-y-auto">
 
     {members.map((member) => {
 
@@ -499,8 +499,8 @@ High
           border-transparent
           p-3
           transition-all
-          hover:border-slate-700
-          hover:bg-slate-900
+          hover:border-border
+          hover:bg-card
           "
         >
 
@@ -518,7 +518,7 @@ High
               from-blue-600
               to-indigo-600
               font-semibold
-              text-white
+              text-foreground
               "
             >
               {member.name.charAt(0)}
@@ -526,7 +526,7 @@ High
 
             <div>
 
-              <p className="font-medium text-white">
+              <p className="font-medium text-foreground">
 
                 {member.name}
 
@@ -586,9 +586,9 @@ High
 
 {/* =============================== */}
 
-<div className="rounded-2xl border border-slate-800 bg-slate-950 p-6">
+<div className="rounded-2xl border border-border bg-background p-6">
 
-  <h3 className="text-lg font-semibold text-white">
+  <h3 className="text-lg font-semibold text-foreground">
 
     Summary
 
@@ -598,13 +598,13 @@ High
 
     <div className="flex justify-between">
 
-      <span className="text-slate-400">
+      <span className="text-muted-foreground">
 
         Selected Members
 
       </span>
 
-      <span className="font-semibold text-white">
+      <span className="font-semibold text-foreground">
 
         {selectedAssignees.length}
 
@@ -614,13 +614,13 @@ High
 
     <div className="flex justify-between">
 
-      <span className="text-slate-400">
+      <span className="text-muted-foreground">
 
         Projects
 
       </span>
 
-      <span className="font-semibold text-white">
+      <span className="font-semibold text-foreground">
 
         {projects.length}
 
@@ -643,7 +643,7 @@ High
   <Button
     type="button"
     variant="outline"
-    className="border-slate-700 bg-slate-900 text-white"
+    className="border-border bg-card text-foreground"
     onClick={() => reset()}
   >
     Reset

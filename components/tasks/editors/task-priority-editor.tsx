@@ -59,7 +59,7 @@ export default function TaskPriorityEditor({
 
     <div>
 
-      <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-500">
+      <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
 
         Priority
 
@@ -81,10 +81,10 @@ export default function TaskPriorityEditor({
             appearance-none
             rounded-xl
             border
-            border-white/10
-            bg-slate-900
+            border-border
+            bg-card
             px-4
-            text-white
+            text-foreground
             outline-none
             focus:border-indigo-500
           "
@@ -105,7 +105,7 @@ export default function TaskPriorityEditor({
 
         <ChevronDown
           size={16}
-          className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-500"
+          className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground"
         />
 
       </div>

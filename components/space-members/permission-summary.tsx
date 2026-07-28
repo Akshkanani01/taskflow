@@ -23,7 +23,7 @@ export default function PermissionSummary({
 
       <div className="border-b border-zinc-800 p-5">
 
-        <h3 className="text-base font-semibold text-white">
+        <h3 className="text-base font-semibold text-foreground">
           Role Permissions
         </h3>
 

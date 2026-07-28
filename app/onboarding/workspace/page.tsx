@@ -1,7 +1,7 @@
 import { createWorkspace } from "../actions";
 
 export default function WorkspacePage() {
-return ( <main className="flex min-h-screen items-center justify-center bg-slate-950 px-6">
+return ( <main className="flex min-h-screen items-center justify-center bg-background px-6">
 
   <form
     action={createWorkspace}
@@ -10,13 +10,13 @@ return ( <main className="flex min-h-screen items-center justify-center bg-slate
       max-w-xl
       rounded-3xl
       border
-      border-white/10
-      bg-slate-900
+      border-border
+      bg-card
       p-8
     "
   >
 
-    <h1 className="mb-8 text-4xl font-bold text-white">
+    <h1 className="mb-8 text-4xl font-bold text-foreground">
       Create Workspace
     </h1>
 
@@ -25,7 +25,7 @@ return ( <main className="flex min-h-screen items-center justify-center bg-slate
       <input
         name="name"
         placeholder="Workspace Name"
-        className="h-12 w-full rounded-xl bg-slate-800 px-4 text-white"
+        className="h-12 w-full rounded-xl bg-background px-4 text-foreground"
       />
 
     
@@ -36,7 +36,7 @@ return ( <main className="flex min-h-screen items-center justify-center bg-slate
           w-full
           rounded-xl
           bg-indigo-600
-          text-white
+          text-foreground
         "
       >
         Continue

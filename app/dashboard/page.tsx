@@ -16,18 +16,17 @@ import {
 
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+
 export default async function DashboardPage() {
-  const session =
-    await auth.api.getSession({
-      headers: await headers(),
-    });
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   if (!session?.user) {
     redirect("/login");
   }
 
-  const userId =
-    session.user.id;
+  const userId = session.user.id;
 
   const workspaceMember =
     await prisma.workspaceMember.findFirst({
@@ -43,11 +42,11 @@ export default async function DashboardPage() {
     return (
       <div className="flex h-[70vh] items-center justify-center">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-white">
+          <h2 className="text-3xl font-bold text-foreground">
             Welcome to TaskFlow
           </h2>
 
-          <p className="mt-3 text-slate-400">
+          <p className="mt-3 text-muted-foreground">
             Create your first workspace.
           </p>
         </div>
@@ -55,271 +54,270 @@ export default async function DashboardPage() {
     );
   }
 
-  const workspaceId =
-    workspaceMember.workspaceId;
-    const [
-  totalSpaces,
-  totalProjects,
-  totalTasks,
-  completedTasks,
-  overdueTasks,
-  activeTasks,
-  notifications,
-  recentTasks,
-  upcomingTasks,
-  priorityTasks,
-  recentActivities,
-] = await Promise.all([
-  prisma.space.count({
-    where: {
-      workspaceId,
-    },
-  }),
+  const workspaceId = workspaceMember.workspaceId;
 
-  prisma.project.count({
-    where: {
-      space: {
+  const [
+    totalSpaces,
+    totalProjects,
+    totalTasks,
+    completedTasks,
+    overdueTasks,
+    activeTasks,
+    notifications,
+    recentTasks,
+    upcomingTasks,
+    priorityTasks,
+    recentActivities,
+  ] = await Promise.all([
+    prisma.space.count({
+      where: {
         workspaceId,
       },
-    },
-  }),
+    }),
 
-  prisma.task.count({
-    where: {
-      space: {
-        workspaceId,
-      },
-    },
-  }),
-
-  prisma.task.count({
-    where: {
-      status: "DONE",
-      space: {
-        workspaceId,
-      },
-    },
-  }),
-
-  prisma.task.count({
-    where: {
-      dueDate: {
-        lt: new Date(),
-      },
-      status: {
-        not: "DONE",
-      },
-      space: {
-        workspaceId,
-      },
-    },
-  }),
-
-  prisma.task.count({
-    where: {
-      status: "IN_PROGRESS",
-      space: {
-        workspaceId,
-      },
-    },
-  }),
-
-  prisma.notification.findMany({
-    where: {
-      userId,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-    take: 6,
-  }),
-
-  prisma.task.findMany({
-    where: {
-      space: {
-        workspaceId,
-      },
-    },
-    include: {
-      project: true,
-      taskAssignees: {
-        include: {
-          user: true,
+    prisma.project.count({
+      where: {
+        space: {
+          workspaceId,
         },
       },
-    },
-    orderBy: {
-      updatedAt: "desc",
-    },
-    take: 6,
-  }),
+    }),
 
-  prisma.task.findMany({
-    where: {
-      dueDate: {
-        not: null,
-        gte: new Date(),
+    prisma.task.count({
+      where: {
+        space: {
+          workspaceId,
+        },
       },
-      status: {
-        not: "DONE",
-      },
-      space: {
-        workspaceId,
-      },
-    },
-    orderBy: {
-      dueDate: "asc",
-    },
-    take: 5,
-  }),
+    }),
 
-  prisma.task.findMany({
-    where: {
-      priority: {
-        in: ["HIGH", "URGENT"],
+    prisma.task.count({
+      where: {
+        status: "DONE",
+        space: {
+          workspaceId,
+        },
       },
-      status: {
-        not: "DONE",
-      },
-      space: {
-        workspaceId,
-      },
-    },
-    include: {
-      project: true,
-    },
-    orderBy: {
-      updatedAt: "desc",
-    },
-    take: 5,
-  }),
+    }),
 
-  prisma.taskActivity.findMany({
-  where: {
-    task: {
-      space: {
-        workspaceId,
+    prisma.task.count({
+      where: {
+        dueDate: {
+          lt: new Date(),
+        },
+        status: {
+          not: "DONE",
+        },
+        space: {
+          workspaceId,
+        },
       },
-    },
-  },
-  include: {
-    task: {
+    }),
+
+    prisma.task.count({
+      where: {
+        status: "IN_PROGRESS",
+        space: {
+          workspaceId,
+        },
+      },
+    }),
+
+    prisma.notification.findMany({
+      where: {
+        userId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      take: 6,
+    }),
+
+    prisma.task.findMany({
+      where: {
+        space: {
+          workspaceId,
+        },
+      },
       include: {
         project: true,
-        space: true,
+        taskAssignees: {
+          include: {
+            user: true,
+          },
+        },
       },
-    },
-    user: true,
-  },
-  orderBy: {
-    createdAt: "desc",
-  },
-  take: 6,
-}),
-]);
-const completionRate =
-  totalTasks === 0
-    ? 0
-    : Math.round(
-        (completedTasks /
-          totalTasks) *
-          100
-      );
-      return (
-  <div className="mx-auto max-w-7xl space-y-8">
+      orderBy: {
+        updatedAt: "desc",
+      },
+      take: 6,
+    }),
 
-    <div className="flex items-center justify-between">
+    prisma.task.findMany({
+      where: {
+        dueDate: {
+          not: null,
+          gte: new Date(),
+        },
+        status: {
+          not: "DONE",
+        },
+        space: {
+          workspaceId,
+        },
+      },
+      orderBy: {
+        dueDate: "asc",
+      },
+      take: 5,
+    }),
 
-      <div>
+    prisma.task.findMany({
+      where: {
+        priority: {
+          in: ["HIGH", "URGENT"],
+        },
+        status: {
+          not: "DONE",
+        },
+        space: {
+          workspaceId,
+        },
+      },
+      include: {
+        project: true,
+      },
+      orderBy: {
+        updatedAt: "desc",
+      },
+      take: 5,
+    }),
 
-        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-indigo-400">
-          Workspace Overview
-        </p>
+    prisma.taskActivity.findMany({
+      where: {
+        task: {
+          space: {
+            workspaceId,
+          },
+        },
+      },
+      include: {
+        task: {
+          include: {
+            project: true,
+            space: true,
+          },
+        },
+        user: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      take: 6,
+    }),
+  ]);
 
-        <h1 className="mt-3 text-4xl font-bold text-white">
-          Welcome back,
-          {" "}
-          {session.user.name ??
-            session.user.email}
-        </h1>
+  const completionRate =
+    totalTasks === 0
+      ? 0
+      : Math.round(
+          (completedTasks / totalTasks) * 100
+        );
+          return (
+    <div className="mx-auto max-w-7xl space-y-8">
 
-        <p className="mt-3 max-w-3xl text-slate-400">
-          Monitor projects, tasks, notifications and team activity from one place.
-        </p>
+      <div className="flex items-center justify-between">
+
+        <div>
+
+          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-indigo-400">
+            Workspace Overview
+          </p>
+
+          <h1 className="mt-3 text-4xl font-bold text-foreground">
+            Welcome back,{" "}
+            {session.user.name ?? session.user.email}
+          </h1>
+
+          <p className="mt-3 max-w-3xl text-muted-foreground">
+            Monitor projects, tasks, notifications and team activity from one
+            place.
+          </p>
+
+        </div>
 
       </div>
 
-    </div>
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-6">
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-6">
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-card p-6">
           <LayoutGrid className="mb-4 h-8 w-8 text-indigo-400" />
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
             Spaces
           </p>
 
-          <h2 className="mt-2 text-4xl font-bold text-white">
+          <h2 className="mt-2 text-4xl font-bold text-foreground">
             {totalSpaces}
           </h2>
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-card p-6">
           <FolderKanban className="mb-4 h-8 w-8 text-cyan-400" />
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
             Lists
           </p>
 
-          <h2 className="mt-2 text-4xl font-bold text-white">
+          <h2 className="mt-2 text-4xl font-bold text-foreground">
             {totalProjects}
           </h2>
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-card p-6">
           <Activity className="mb-4 h-8 w-8 text-violet-400" />
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
             Active Tasks
           </p>
 
-          <h2 className="mt-2 text-4xl font-bold text-white">
+          <h2 className="mt-2 text-4xl font-bold text-foreground">
             {activeTasks}
           </h2>
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-card p-6">
           <CheckCircle2 className="mb-4 h-8 w-8 text-emerald-400" />
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
             Completed
           </p>
 
-          <h2 className="mt-2 text-4xl font-bold text-white">
+          <h2 className="mt-2 text-4xl font-bold text-foreground">
             {completionRate}%
           </h2>
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-card p-6">
           <AlertTriangle className="mb-4 h-8 w-8 text-amber-400" />
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
             Overdue
           </p>
 
-          <h2 className="mt-2 text-4xl font-bold text-white">
+          <h2 className="mt-2 text-4xl font-bold text-foreground">
             {overdueTasks}
           </h2>
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-card p-6">
           <Bell className="mb-4 h-8 w-8 text-pink-400" />
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted-foreground">
             Notifications
           </p>
 
-          <h2 className="mt-2 text-4xl font-bold text-white">
+          <h2 className="mt-2 text-4xl font-bold text-foreground">
             {notifications.length}
           </h2>
         </div>
@@ -331,18 +329,19 @@ const completionRate =
         {/* LEFT */}
 
         <div className="space-y-8">
+                    {/* RECENT TASKS */}
 
-          <section className="rounded-3xl border border-white/10 bg-[#111827] p-7">
+          <section className="rounded-3xl border border-border bg-card p-7">
 
             <div className="mb-6 flex items-center justify-between">
 
               <div>
 
-                <h2 className="text-2xl font-semibold text-white">
+                <h2 className="text-2xl font-semibold text-foreground">
                   Recent Tasks
                 </h2>
 
-                <p className="mt-2 text-sm text-slate-400">
+                <p className="mt-2 text-sm text-muted-foreground">
                   Latest updated tasks across your workspace
                 </p>
 
@@ -361,11 +360,11 @@ const completionRate =
 
               {recentTasks.length === 0 ? (
 
-                <div className="rounded-2xl border border-dashed border-white/10 py-16 text-center">
+                <div className="rounded-2xl border border-dashed border-border py-16 text-center">
 
                   <Clock3 className="mx-auto mb-4 h-10 w-10 text-slate-600" />
 
-                  <p className="text-slate-400">
+                  <p className="text-muted-foreground">
                     No recent tasks
                   </p>
 
@@ -378,18 +377,18 @@ const completionRate =
                   <Link
                     key={task.id}
                     href={`/dashboard/spaces/${task.spaceId}/lists/${task.projectId}/tasks/${task.id}`}
-                    className="block rounded-2xl border border-white/10 bg-slate-900/60 p-5 transition hover:border-indigo-500/40 hover:bg-slate-900"
+                    className="block rounded-2xl border border-border bg-card/60 p-5 transition hover:border-indigo-500/40 hover:bg-card"
                   >
 
                     <div className="flex items-start justify-between gap-4">
 
                       <div className="min-w-0 flex-1">
 
-                        <h3 className="truncate text-lg font-semibold text-white">
+                        <h3 className="truncate text-lg font-semibold text-foreground">
                           {task.title}
                         </h3>
 
-                        <p className="mt-1 text-sm text-slate-400">
+                        <p className="mt-1 text-sm text-muted-foreground">
                           {task.project.name}
                         </p>
 
@@ -411,7 +410,7 @@ const completionRate =
 
                             <div
                               key={member.id}
-                              className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#111827] bg-indigo-600 text-xs font-semibold text-white"
+                              className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-background bg-indigo-600 text-xs font-semibold text-foreground"
                             >
                               {(member.user.name ??
                                 member.user.email)
@@ -423,7 +422,7 @@ const completionRate =
 
                       </div>
 
-                      <span className="text-xs text-slate-500">
+                      <span className="text-xs text-muted-foreground">
                         {task.updatedAt.toLocaleDateString("en-GB")}
                       </span>
 
@@ -440,17 +439,17 @@ const completionRate =
           </section>
                     {/* UPCOMING DEADLINES */}
 
-          <section className="rounded-3xl border border-white/10 bg-[#111827] p-7">
+          <section className="rounded-3xl border border-border bg-card p-7">
 
             <div className="mb-6 flex items-center justify-between">
 
               <div>
 
-                <h2 className="text-2xl font-semibold text-white">
+                <h2 className="text-2xl font-semibold text-foreground">
                   Upcoming Deadlines
                 </h2>
 
-                <p className="mt-2 text-sm text-slate-400">
+                <p className="mt-2 text-sm text-muted-foreground">
                   Tasks that require attention soon
                 </p>
 
@@ -464,11 +463,11 @@ const completionRate =
 
               {upcomingTasks.length === 0 ? (
 
-                <div className="rounded-2xl border border-dashed border-white/10 py-12 text-center">
+                <div className="rounded-2xl border border-dashed border-border py-12 text-center">
 
                   <Clock3 className="mx-auto mb-3 h-10 w-10 text-slate-600" />
 
-                  <p className="text-slate-400">
+                  <p className="text-muted-foreground">
                     No upcoming deadlines
                   </p>
 
@@ -481,18 +480,18 @@ const completionRate =
                   <Link
                     key={task.id}
                     href={`/dashboard/spaces/${task.spaceId}/lists/${task.projectId}/tasks/${task.id}`}
-                    className="block rounded-2xl border border-white/10 bg-slate-900/50 p-5 transition hover:border-amber-500/40"
+                    className="block rounded-2xl border border-border bg-card/50 p-5 transition hover:border-amber-500/40"
                   >
 
                     <div className="flex items-center justify-between">
 
                       <div>
 
-                        <h3 className="font-semibold text-white">
+                        <h3 className="font-semibold text-foreground">
                           {task.title}
                         </h3>
 
-                        <p className="mt-1 text-sm text-slate-400">
+                        <p className="mt-1 text-sm text-muted-foreground">
                           Due{" "}
                           {task.dueDate?.toLocaleDateString("en-GB")}
                         </p>
@@ -512,21 +511,20 @@ const completionRate =
             </div>
 
           </section>
+                    {/* HIGH PRIORITY TASKS */}
 
-          {/* HIGH PRIORITY TASKS */}
-
-          <section className="rounded-3xl border border-white/10 bg-[#111827] p-7">
+          <section className="rounded-3xl border border-border bg-card p-7">
 
             <div className="mb-6 flex items-center justify-between">
 
               <div>
 
-                <h2 className="text-2xl font-semibold text-white">
+                <h2 className="text-2xl font-semibold text-foreground">
                   High Priority Tasks
                 </h2>
 
-                <p className="mt-2 text-sm text-slate-400">
-                  High & Urgent work
+                <p className="mt-2 text-sm text-muted-foreground">
+                  High &amp; Urgent work
                 </p>
 
               </div>
@@ -539,11 +537,11 @@ const completionRate =
 
               {priorityTasks.length === 0 ? (
 
-                <div className="rounded-2xl border border-dashed border-white/10 py-12 text-center">
+                <div className="rounded-2xl border border-dashed border-border py-12 text-center">
 
                   <AlertTriangle className="mx-auto mb-3 h-10 w-10 text-slate-600" />
 
-                  <p className="text-slate-400">
+                  <p className="text-muted-foreground">
                     No high priority tasks
                   </p>
 
@@ -556,18 +554,18 @@ const completionRate =
                   <Link
                     key={task.id}
                     href={`/dashboard/spaces/${task.spaceId}/lists/${task.projectId}/tasks/${task.id}`}
-                    className="block rounded-2xl border border-red-500/20 bg-slate-900/50 p-5 transition hover:border-red-500/50"
+                    className="block rounded-2xl border border-red-500/20 bg-card/50 p-5 transition hover:border-red-500/50"
                   >
 
                     <div className="flex items-center justify-between">
 
                       <div>
 
-                        <h3 className="font-semibold text-white">
+                        <h3 className="font-semibold text-foreground">
                           {task.title}
                         </h3>
 
-                        <p className="mt-1 text-sm text-slate-400">
+                        <p className="mt-1 text-sm text-muted-foreground">
                           {task.project.name}
                         </p>
 
@@ -591,16 +589,17 @@ const completionRate =
 
         </div>
 
-        {/* RIGHT SIDEBAR */}
+                  {/* RIGHT SIDEBAR */}
 
         <aside className="space-y-8">
 
           {/* NOTIFICATIONS */}
-                    <section className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+
+          <section className="rounded-3xl border border-border bg-card p-6">
 
             <div className="mb-6 flex items-center justify-between">
 
-              <h2 className="text-xl font-semibold text-white">
+              <h2 className="text-xl font-semibold text-foreground">
                 Notifications
               </h2>
 
@@ -612,11 +611,11 @@ const completionRate =
 
               {notifications.length === 0 ? (
 
-                <div className="rounded-2xl border border-dashed border-white/10 py-12 text-center">
+                <div className="rounded-2xl border border-dashed border-border py-12 text-center">
 
                   <Bell className="mx-auto mb-3 h-10 w-10 text-slate-600" />
 
-                  <p className="text-slate-400">
+                  <p className="text-muted-foreground">
                     No notifications
                   </p>
 
@@ -632,22 +631,22 @@ const completionRate =
                       notification.link ??
                       "/dashboard/notifications"
                     }
-                    className="block rounded-2xl border border-white/10 bg-slate-900/60 p-4 transition hover:border-indigo-500/40 hover:bg-slate-900"
+                    className="block rounded-2xl border border-border bg-card/60 p-4 transition hover:border-indigo-500/40 hover:bg-card"
                   >
 
                     <div className="flex items-start justify-between gap-3">
 
                       <div className="min-w-0 flex-1">
 
-                        <h3 className="truncate font-semibold text-white">
+                        <h3 className="truncate font-semibold text-foreground">
                           {notification.title}
                         </h3>
 
-                        <p className="mt-2 line-clamp-2 text-sm text-slate-400">
+                        <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">
                           {notification.message}
                         </p>
 
-                        <p className="mt-3 text-xs text-slate-500">
+                        <p className="mt-3 text-xs text-muted-foreground">
                           {notification.createdAt.toLocaleString("en-GB")}
                         </p>
 
@@ -669,20 +668,19 @@ const completionRate =
 
             <Link
               href="/dashboard/notifications"
-              className="mt-6 flex items-center justify-center rounded-2xl border border-white/10 py-3 text-sm font-medium text-indigo-400 transition hover:bg-slate-900"
+              className="mt-6 flex items-center justify-center rounded-2xl border border-border py-3 text-sm font-medium text-indigo-400 transition hover:bg-card"
             >
               View All Notifications
             </Link>
 
           </section>
+                    {/* RECENT ACTIVITY */}
 
-          {/* RECENT ACTIVITY */}
-
-          <section className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+          <section className="rounded-3xl border border-border bg-card p-6">
 
             <div className="mb-6 flex items-center justify-between">
 
-              <h2 className="text-xl font-semibold text-white">
+              <h2 className="text-xl font-semibold text-foreground">
                 Recent Activity
               </h2>
 
@@ -694,11 +692,11 @@ const completionRate =
 
               {recentActivities.length === 0 ? (
 
-                <div className="rounded-2xl border border-dashed border-white/10 py-12 text-center">
+                <div className="rounded-2xl border border-dashed border-border py-12 text-center">
 
                   <Activity className="mx-auto mb-3 h-10 w-10 text-slate-600" />
 
-                  <p className="text-slate-400">
+                  <p className="text-muted-foreground">
                     No recent activity
                   </p>
 
@@ -710,14 +708,14 @@ const completionRate =
 
                   <div
                     key={activity.id}
-                    className="rounded-2xl border border-white/10 bg-slate-900/60 p-4"
+                    className="rounded-2xl border border-border bg-card/60 p-4"
                   >
 
-                    <p className="font-medium text-white">
-  {activity.action}
-</p>
+                    <p className="font-medium text-foreground">
+                      {activity.action}
+                    </p>
 
-                    <p className="mt-2 text-xs text-slate-500">
+                    <p className="mt-2 text-xs text-muted-foreground">
                       {activity.createdAt.toLocaleString("en-GB")}
                     </p>
 
@@ -730,14 +728,13 @@ const completionRate =
             </div>
 
           </section>
+                    {/* WORKSPACE HEALTH */}
 
-          {/* WORKSPACE HEALTH */}
-
-          <section className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+          <section className="rounded-3xl border border-border bg-card p-6">
 
             <div className="mb-6 flex items-center justify-between">
 
-              <h2 className="text-xl font-semibold text-white">
+              <h2 className="text-xl font-semibold text-foreground">
                 Workspace Health
               </h2>
 
@@ -749,7 +746,7 @@ const completionRate =
 
               <div className="flex items-center justify-between">
 
-                <span className="text-slate-400">
+                <span className="text-muted-foreground">
                   Completion
                 </span>
 
@@ -761,11 +758,11 @@ const completionRate =
 
               <div className="flex items-center justify-between">
 
-                <span className="text-slate-400">
+                <span className="text-muted-foreground">
                   Total Tasks
                 </span>
 
-                <span className="font-semibold text-white">
+                <span className="font-semibold text-foreground">
                   {totalTasks}
                 </span>
 
@@ -773,7 +770,7 @@ const completionRate =
 
               <div className="flex items-center justify-between">
 
-                <span className="text-slate-400">
+                <span className="text-muted-foreground">
                   Active Tasks
                 </span>
 
@@ -785,7 +782,7 @@ const completionRate =
 
               <div className="flex items-center justify-between">
 
-                <span className="text-slate-400">
+                <span className="text-muted-foreground">
                   Overdue
                 </span>
 

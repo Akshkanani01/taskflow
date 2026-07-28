@@ -17,11 +17,11 @@ export function UpcomingDeadlines() {
 return ( <div
    className="
      rounded-3xl
-     border border-white/10
-     bg-slate-900
+     border border-border
+     bg-card
      p-6
    "
- > <h3 className="text-xl font-semibold text-white">
+ > <h3 className="text-xl font-semibold text-foreground">
 Upcoming Deadlines </h3>
 
   <div className="mt-6 space-y-4">
@@ -33,12 +33,12 @@ Upcoming Deadlines </h3>
           flex items-center
           justify-between
           rounded-xl
-          bg-slate-800
+          bg-background
           p-4
         "
       >
 
-        <span className="text-white">
+        <span className="text-foreground">
           {item.title}
         </span>
 

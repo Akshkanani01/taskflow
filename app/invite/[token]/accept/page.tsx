@@ -38,8 +38,8 @@ export default async function AcceptInvitePage({
 
   if (invite.status !== "PENDING") {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-slate-950">
-        <h1 className="text-2xl font-bold text-white">
+      <main className="flex min-h-screen items-center justify-center bg-background">
+        <h1 className="text-2xl font-bold text-foreground">
           Invitation already used.
         </h1>
       </main>
@@ -57,8 +57,8 @@ export default async function AcceptInvitePage({
     });
 
     return (
-      <main className="flex min-h-screen items-center justify-center bg-slate-950">
-        <h1 className="text-2xl font-bold text-white">
+      <main className="flex min-h-screen items-center justify-center bg-background">
+        <h1 className="text-2xl font-bold text-foreground">
           Invitation expired.
         </h1>
       </main>

@@ -40,11 +40,11 @@ return ( <div className="space-y-8">
 
     <div>
 
-      <h1 className="text-4xl font-bold text-white">
+      <h1 className="text-4xl font-bold text-foreground">
         Goals & OKRs
       </h1>
 
-      <p className="mt-2 text-slate-400">
+      <p className="mt-2 text-muted-foreground">
         Track company objectives and team outcomes.
       </p>
 
@@ -56,7 +56,7 @@ return ( <div className="space-y-8">
         rounded-xl
         bg-indigo-600
         px-5 py-3
-        text-white
+        text-foreground
       "
     >
       <Plus size={18} />
@@ -67,53 +67,53 @@ return ( <div className="space-y-8">
 
   <div className="grid gap-6 md:grid-cols-4">
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Target className="mb-4 text-indigo-400" />
 
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         18
       </h2>
 
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Active Goals
       </p>
 
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <TrendingUp className="mb-4 text-emerald-400" />
 
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         74%
       </h2>
 
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Avg Progress
       </p>
 
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <CheckCircle2 className="mb-4 text-pink-400" />
 
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         12
       </h2>
 
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Completed
       </p>
 
     </div>
 
-    <div className="rounded-3xl border border-white/10 bg-slate-900 p-6">
+    <div className="rounded-3xl border border-border bg-card p-6">
       <Trophy className="mb-4 text-amber-400" />
 
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         Q3
       </h2>
 
-      <p className="text-slate-400">
+      <p className="text-muted-foreground">
         Current Cycle
       </p>
 
@@ -128,8 +128,8 @@ return ( <div className="space-y-8">
         key={goal.title}
         className="
           rounded-3xl
-          border border-white/10
-          bg-slate-900
+          border border-border
+          bg-card
           p-6
         "
       >
@@ -138,11 +138,11 @@ return ( <div className="space-y-8">
 
           <div>
 
-            <h2 className="text-xl font-semibold text-white">
+            <h2 className="text-xl font-semibold text-foreground">
               {goal.title}
             </h2>
 
-            <p className="mt-1 text-slate-400">
+            <p className="mt-1 text-muted-foreground">
               {goal.owner}
             </p>
 
@@ -150,11 +150,11 @@ return ( <div className="space-y-8">
 
           <div className="text-right">
 
-            <div className="text-2xl font-bold text-white">
+            <div className="text-2xl font-bold text-foreground">
               {goal.progress}%
             </div>
 
-            <div className="text-sm text-slate-500">
+            <div className="text-sm text-muted-foreground">
               {goal.target}
             </div>
 
@@ -162,7 +162,7 @@ return ( <div className="space-y-8">
 
         </div>
 
-        <div className="mt-5 h-3 rounded-full bg-slate-800">
+        <div className="mt-5 h-3 rounded-full bg-background">
 
           <div
             className="h-3 rounded-full bg-indigo-500"

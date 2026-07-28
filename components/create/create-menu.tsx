@@ -61,7 +61,7 @@ rounded-xl
 bg-indigo-600
 px-4 py-2.5
 text-sm font-medium
-text-white
+text-foreground
 "
 > <Plus size={16} />
 Create </button>
@@ -73,8 +73,8 @@ Create </button>
         z-50
         w-72
         rounded-2xl
-        border border-white/10
-        bg-slate-900
+        border border-border
+        bg-card
         p-2
         shadow-2xl
       "
@@ -85,7 +85,7 @@ Create </button>
           text-xs
           uppercase
           tracking-wider
-          text-slate-500
+          text-muted-foreground
         "
       >
         Create New
@@ -97,8 +97,8 @@ Create </button>
           flex items-center gap-3
           rounded-xl
           px-3 py-3
-          text-white
-          hover:bg-slate-800
+          text-foreground
+          hover:bg-background
         "
       >
         <Building2 size={18} />
@@ -111,8 +111,8 @@ Create </button>
           flex items-center gap-3
           rounded-xl
           px-3 py-3
-          text-white
-          hover:bg-slate-800
+          text-foreground
+          hover:bg-background
         "
       >
         <FolderOpen size={18} />
@@ -125,8 +125,8 @@ Create </button>
     flex items-center gap-3
     rounded-xl
     px-3 py-3
-    text-white
-    hover:bg-slate-800
+    text-foreground
+    hover:bg-background
   "
 >
   <FolderKanban size={18} />
@@ -139,8 +139,8 @@ Create </button>
           flex items-center gap-3
           rounded-xl
           px-3 py-3
-          text-white
-          hover:bg-slate-800
+          text-foreground
+          hover:bg-background
         "
       >
         <CheckSquare size={18} />
@@ -153,8 +153,8 @@ Create </button>
           flex items-center gap-3
           rounded-xl
           px-3 py-3
-          text-white
-          hover:bg-slate-800
+          text-foreground
+          hover:bg-background
         "
       >
         <UserPlus size={18} />

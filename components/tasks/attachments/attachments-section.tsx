@@ -38,8 +38,8 @@ export default function AttachmentsSection({
             rounded-2xl
             border
             border-dashed
-            border-white/10
-            bg-slate-950
+            border-border
+            bg-background
             py-16
           "
         >
@@ -56,7 +56,7 @@ export default function AttachmentsSection({
                 items-center
                 justify-center
                 rounded-full
-                bg-slate-800
+                bg-background
               "
             >
 
@@ -64,13 +64,13 @@ export default function AttachmentsSection({
 
             </div>
 
-            <h3 className="text-lg font-semibold text-white">
+            <h3 className="text-lg font-semibold text-foreground">
 
               No attachments
 
             </h3>
 
-            <p className="mt-2 text-sm text-slate-500">
+            <p className="mt-2 text-sm text-muted-foreground">
 
               Upload images, documents,
               videos or PDFs.

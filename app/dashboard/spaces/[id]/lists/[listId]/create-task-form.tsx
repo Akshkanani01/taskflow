@@ -154,13 +154,13 @@ status: status as TaskStatus,
 
       <div>
 
-        <h2 className="text-3xl font-bold text-white">
+        <h2 className="text-3xl font-bold text-foreground">
 
           Create Task
 
         </h2>
 
-        <p className="mt-2 text-slate-400">
+        <p className="mt-2 text-muted-foreground">
 
           Create a new task for this project.
 
@@ -171,7 +171,7 @@ status: status as TaskStatus,
 
       <div className="space-y-2">
 
-        <label className="text-sm font-medium text-slate-300">
+        <label className="text-sm font-medium text-foreground">
           Task Title
         </label>
 
@@ -186,10 +186,10 @@ status: status as TaskStatus,
             w-full
             rounded-2xl
             border
-            border-white/10
-            bg-slate-950
+            border-border
+            bg-background
             px-4
-            text-white
+            text-foreground
             outline-none
             transition
             focus:border-indigo-500
@@ -202,7 +202,7 @@ status: status as TaskStatus,
 
       <div className="space-y-2">
 
-        <label className="text-sm font-medium text-slate-300">
+        <label className="text-sm font-medium text-foreground">
           Description
         </label>
 
@@ -219,10 +219,10 @@ status: status as TaskStatus,
             w-full
             rounded-2xl
             border
-            border-white/10
-            bg-slate-950
+            border-border
+            bg-background
             p-4
-            text-white
+            text-foreground
             outline-none
             transition
             focus:border-indigo-500
@@ -236,7 +236,7 @@ status: status as TaskStatus,
 
         <div className="space-y-2">
 
-          <label className="flex items-center gap-2 text-sm font-medium text-slate-300">
+          <label className="flex items-center gap-2 text-sm font-medium text-foreground">
 
             <Flag size={16} />
 
@@ -256,10 +256,10 @@ status: status as TaskStatus,
               w-full
               rounded-2xl
               border
-              border-white/10
-              bg-slate-950
+              border-border
+              bg-background
               px-4
-              text-white
+              text-foreground
             "
           >
 
@@ -287,7 +287,7 @@ status: status as TaskStatus,
 
         <div className="space-y-2">
 
-          <label className="text-sm font-medium text-slate-300">
+          <label className="text-sm font-medium text-foreground">
 
             Status
 
@@ -305,10 +305,10 @@ status: status as TaskStatus,
               w-full
               rounded-2xl
               border
-              border-white/10
-              bg-slate-950
+              border-border
+              bg-background
               px-4
-              text-white
+              text-foreground
             "
           >
 
@@ -339,7 +339,7 @@ status: status as TaskStatus,
 
         <div className="space-y-2">
 
-          <label className="flex items-center gap-2 text-sm font-medium text-slate-300">
+          <label className="flex items-center gap-2 text-sm font-medium text-foreground">
 
             <Calendar size={16} />
 
@@ -358,10 +358,10 @@ status: status as TaskStatus,
               w-full
               rounded-2xl
               border
-              border-white/10
-              bg-slate-950
+              border-border
+              bg-background
               px-4
-              text-white
+              text-foreground
               outline-none
               transition
               focus:border-indigo-500
@@ -374,7 +374,7 @@ status: status as TaskStatus,
 
         <div className="space-y-2">
 
-          <label className="flex items-center gap-2 text-sm font-medium text-slate-300">
+          <label className="flex items-center gap-2 text-sm font-medium text-foreground">
 
             <Clock3 size={16} />
 
@@ -397,10 +397,10 @@ status: status as TaskStatus,
               w-full
               rounded-2xl
               border
-              border-white/10
-              bg-slate-950
+              border-border
+              bg-background
               px-4
-              text-white
+              text-foreground
               outline-none
               transition
               focus:border-indigo-500
@@ -417,7 +417,7 @@ status: status as TaskStatus,
 
   <div className="flex items-center justify-between">
 
-    <label className="flex items-center gap-2 text-sm font-medium text-slate-300">
+    <label className="flex items-center gap-2 text-sm font-medium text-foreground">
 
       <Users size={16} />
 
@@ -425,7 +425,7 @@ status: status as TaskStatus,
 
     </label>
 
-    <span className="text-xs text-slate-500">
+    <span className="text-xs text-muted-foreground">
 
       {assignees.length} Selected
 
@@ -444,10 +444,10 @@ status: status as TaskStatus,
       w-full
       rounded-xl
       border
-      border-white/10
-      bg-slate-950
+      border-border
+      bg-background
       px-4
-      text-white
+      text-foreground
     "
   />
 
@@ -457,8 +457,8 @@ status: status as TaskStatus,
       overflow-y-auto
       rounded-2xl
       border
-      border-white/10
-      bg-slate-950
+      border-border
+      bg-background
       divide-y
       divide-white/5
     "
@@ -481,7 +481,7 @@ status: status as TaskStatus,
         justify-between
         px-4
         py-3
-        hover:bg-slate-900
+        hover:bg-card
       "
 
     >
@@ -498,7 +498,7 @@ status: status as TaskStatus,
             rounded-full
             bg-indigo-600
             font-semibold
-            text-white
+            text-foreground
           "
         >
 
@@ -511,14 +511,14 @@ status: status as TaskStatus,
 
         <div>
 
-          <p className="text-sm text-white">
+          <p className="text-sm text-foreground">
 
             {member.name.trim() ||
               member.email}
 
           </p>
 
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-muted-foreground">
 
             {member.email}
 
@@ -575,7 +575,7 @@ status: status as TaskStatus,
           justify-end
           gap-4
           border-t
-          border-white/10
+          border-border
           pt-8
         "
       >
@@ -586,13 +586,13 @@ status: status as TaskStatus,
           className="
             rounded-2xl
             border
-            border-white/10
+            border-border
             px-6
             py-3
             font-medium
-            text-slate-300
+            text-foreground
             transition
-            hover:bg-slate-800
+            hover:bg-background
           "
         >
           Cancel
@@ -613,7 +613,7 @@ status: status as TaskStatus,
             px-6
             py-3
             font-semibold
-            text-white
+            text-foreground
             transition
             hover:bg-indigo-500
             disabled:cursor-not-allowed

@@ -39,7 +39,7 @@ export default function GeneralTab({
 
           <div className="flex-1">
 
-            <h2 className="text-xl font-semibold text-white">
+            <h2 className="text-xl font-semibold text-foreground">
               {member.name}
             </h2>
 
@@ -66,7 +66,7 @@ export default function GeneralTab({
 
         <div className="border-b border-zinc-800 p-5">
 
-          <h3 className="font-semibold text-white">
+          <h3 className="font-semibold text-foreground">
             Information
           </h3>
 
@@ -87,7 +87,7 @@ export default function GeneralTab({
                 className="text-zinc-500"
               />
 
-              <span className="text-white">
+              <span className="text-foreground">
                 {member.joinedAt}
               </span>
 
@@ -108,7 +108,7 @@ export default function GeneralTab({
                 className="text-blue-400"
               />
 
-              <span className="font-medium text-white">
+              <span className="font-medium text-foreground">
                 {member.taskCount}
               </span>
 
@@ -129,7 +129,7 @@ export default function GeneralTab({
                 className="text-emerald-400"
               />
 
-              <span className="font-medium text-white">
+              <span className="font-medium text-foreground">
                 {member.completedTasks}
               </span>
 
@@ -151,7 +151,7 @@ export default function GeneralTab({
             Completion Rate
           </span>
 
-          <span className="font-semibold text-white">
+          <span className="font-semibold text-foreground">
             {completion}%
           </span>
 
@@ -186,7 +186,7 @@ export default function GeneralTab({
 
           <div>
 
-            <h4 className="font-medium text-white">
+            <h4 className="font-medium text-foreground">
               Remove Member
             </h4>
 

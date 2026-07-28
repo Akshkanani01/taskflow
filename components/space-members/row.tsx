@@ -52,7 +52,7 @@ export default function MemberRow({
         />
 
         <div className="min-w-0">
-          <h3 className="truncate text-sm font-semibold text-white">
+          <h3 className="truncate text-sm font-semibold text-foreground">
             {member.name}
           </h3>
 
@@ -69,7 +69,7 @@ export default function MemberRow({
       {/* Tasks */}
 
       <div className="text-center">
-        <p className="text-sm font-semibold text-white">
+        <p className="text-sm font-semibold text-foreground">
           {member.taskCount}
         </p>
 

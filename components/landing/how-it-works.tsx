@@ -49,11 +49,11 @@ return ( <section
         Workflow
       </p>
 
-      <h2 className="mt-4 text-5xl font-bold text-white">
+      <h2 className="mt-4 text-5xl font-bold text-foreground">
         How TaskFlow Works
       </h2>
 
-      <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-400">
+      <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
         Get started in minutes and manage everything
         from one powerful dashboard.
       </p>
@@ -62,7 +62,7 @@ return ( <section
 
     <div className="relative">
 
-      <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-white/10 lg:block" />
+      <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-background/10 lg:block" />
 
       <div className="space-y-12">
 
@@ -76,8 +76,8 @@ return ( <section
                 relative
                 rounded-3xl
                 border
-                border-white/10
-                bg-slate-900
+                border-border
+                bg-card
                 p-8
               "
             >
@@ -103,11 +103,11 @@ return ( <section
                     STEP {item.step}
                   </span>
 
-                  <h3 className="mt-2 text-2xl font-bold text-white">
+                  <h3 className="mt-2 text-2xl font-bold text-foreground">
                     {item.title}
                   </h3>
 
-                  <p className="mt-3 text-slate-400">
+                  <p className="mt-3 text-muted-foreground">
                     {item.description}
                   </p>
 

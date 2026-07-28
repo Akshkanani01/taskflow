@@ -3,28 +3,28 @@ import Link from "next/link";
 export function Footer() {
 return ( <footer
    id="contact"
-   className="border-t border-white/10 py-20"
+   className="border-t border-border py-20"
  > <div className="container mx-auto px-6">
 
     <div className="grid gap-12 md:grid-cols-4">
 
       <div>
-        <h3 className="text-3xl font-bold text-white">
+        <h3 className="text-3xl font-bold text-foreground">
           ⚡ TaskFlow
         </h3>
 
-        <p className="mt-4 text-slate-400">
+        <p className="mt-4 text-muted-foreground">
           Modern project management platform built for
           teams, startups and businesses.
         </p>
       </div>
 
       <div>
-        <h4 className="font-semibold text-white">
+        <h4 className="font-semibold text-foreground">
           Product
         </h4>
 
-        <ul className="mt-4 space-y-3 text-slate-400">
+        <ul className="mt-4 space-y-3 text-muted-foreground">
 
           <li>
             <a href="#features">Features</a>
@@ -48,11 +48,11 @@ return ( <footer
       </div>
 
       <div>
-        <h4 className="font-semibold text-white">
+        <h4 className="font-semibold text-foreground">
           Support
         </h4>
 
-        <ul className="mt-4 space-y-3 text-slate-400">
+        <ul className="mt-4 space-y-3 text-muted-foreground">
 
           <li>
             <Link href="/support">
@@ -88,11 +88,11 @@ return ( <footer
       </div>
 
       <div>
-        <h4 className="font-semibold text-white">
+        <h4 className="font-semibold text-foreground">
           Company
         </h4>
 
-        <ul className="mt-4 space-y-3 text-slate-400">
+        <ul className="mt-4 space-y-3 text-muted-foreground">
 
           <li>
             <Link href="/about">
@@ -117,15 +117,15 @@ return ( <footer
 
     </div>
 
-    <div className="mt-16 border-t border-white/10 pt-8">
+    <div className="mt-16 border-t border-border pt-8">
 
       <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
 
-        <p className="text-slate-500">
+        <p className="text-muted-foreground">
           © 2026 TaskFlow. All rights reserved.
         </p>
 
-        <p className="text-slate-500">
+        <p className="text-muted-foreground">
           Built with ❤️ for productive teams.
         </p>
 

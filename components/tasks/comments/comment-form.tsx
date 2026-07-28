@@ -49,7 +49,7 @@ export default function CommentForm({
           setText(e.target.value)
         }
         placeholder="Write a comment..."
-        className="w-full rounded-xl border border-white/10 bg-slate-950 p-4 text-white outline-none"
+        className="w-full rounded-xl border border-border bg-background p-4 text-foreground outline-none"
       />
 
       <div className="flex justify-end">
@@ -57,7 +57,7 @@ export default function CommentForm({
         <button
           disabled={pending}
           onClick={submit}
-          className="flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2 text-white hover:bg-indigo-500"
+          className="flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2 text-foreground hover:bg-indigo-500"
         >
           <Send className="h-4 w-4" />
 
