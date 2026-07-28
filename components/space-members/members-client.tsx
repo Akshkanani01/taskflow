@@ -179,7 +179,7 @@ export default function MembersClient({
   }
 
   return (
-    <main className="flex h-full flex-col gap-6 bg-[#0B1017] p-6">
+    <main className="flex h-full flex-col gap-6 bg-background p-6">
       <MembersToolbar
         search={search}
         onSearch={setSearch}

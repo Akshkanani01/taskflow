@@ -2,7 +2,6 @@
 
 import {
   Search,
-  Filter,
   ArrowUpDown,
   LayoutGrid,
   List,
@@ -19,12 +18,12 @@ interface Props {
   role: string;
   onRoleChange: (value: string) => void;
 
-  
   gridView: boolean;
   onToggleView: () => void;
 
   onInvite: () => void;
 }
+
 export default function MembersToolbar({
   search,
   onSearch,
@@ -35,21 +34,17 @@ export default function MembersToolbar({
   onInvite,
 }: Props) {
   return (
-    <div className="sticky top-0 z-20 rounded-2xl border border-[#222B37] bg-[#121722] p-5">
-
+    <div className="sticky top-0 z-20 rounded-2xl border border-border bg-card p-5">
       <div className="flex flex-wrap items-center justify-between gap-4">
-
         {/* Left */}
 
         <div className="flex flex-1 flex-wrap items-center gap-3">
-
           {/* Search */}
 
           <div className="relative w-full max-w-sm">
-
             <Search
               size={17}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
             />
 
             <Input
@@ -60,13 +55,12 @@ export default function MembersToolbar({
               placeholder="Search members..."
               className="
                 h-11
-                border-[#2A3443]
-                bg-[#0F141C]
+                border-border
+                bg-background
                 pl-10
                 text-foreground
               "
             />
-
           </div>
 
           {/* Role */}
@@ -80,11 +74,13 @@ export default function MembersToolbar({
               h-11
               rounded-xl
               border
-              border-[#2A3443]
-              bg-[#0F141C]
+              border-border
+              bg-background
               px-4
               text-sm
               text-foreground
+              focus:border-primary
+              focus:outline-none
             "
           >
             <option value="ALL">
@@ -106,10 +102,7 @@ export default function MembersToolbar({
             <option value="VIEWER">
               Viewer
             </option>
-
           </select>
-
-    
 
           {/* Sort */}
 
@@ -117,8 +110,8 @@ export default function MembersToolbar({
             variant="outline"
             className="
               h-11
-              border-[#2A3443]
-              bg-[#0F141C]
+              border-border
+              bg-background
             "
           >
             <ArrowUpDown
@@ -126,22 +119,19 @@ export default function MembersToolbar({
             />
 
             Sort
-
           </Button>
-
         </div>
 
         {/* Right */}
 
         <div className="flex items-center gap-3">
-
           <Button
             variant="outline"
             onClick={onToggleView}
             className="
               h-11
-              border-[#2A3443]
-              bg-[#0F141C]
+              border-border
+              bg-background
             "
           >
             {gridView ? (
@@ -156,21 +146,18 @@ export default function MembersToolbar({
             className="
               h-11
               rounded-xl
-              bg-blue-600
+              bg-primary
               px-5
-              hover:bg-blue-500
+              text-primary-foreground
+              hover:bg-primary/90
             "
           >
             <UserPlus className="mr-2 h-4 w-4" />
 
             Invite
-
           </Button>
-
         </div>
-
       </div>
-
     </div>
   );
 }

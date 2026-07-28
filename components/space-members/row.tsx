@@ -21,26 +21,23 @@ export default function MemberRow({
   return (
     <div
       onClick={() => {
-  
-
-  router.push(
-    `/dashboard/spaces/${spaceId}/members/${member.id}`
-  );
-}}
+        router.push(
+          `/dashboard/spaces/${spaceId}/members/${member.id}`
+        );
+      }}
       className="
-        cursor-pointer
         group
         grid
+        cursor-pointer
         grid-cols-[1.8fr_160px_110px_130px_140px_70px]
         items-center
         gap-5
         border-b
-        border-[#202735]
+        border-border
         px-6
         py-4
-        transition-all
-        duration-200
-        hover:bg-[#171D27]
+        transition
+        hover:bg-muted/60
       "
     >
       {/* User */}
@@ -56,7 +53,7 @@ export default function MemberRow({
             {member.name}
           </h3>
 
-          <p className="truncate text-xs text-zinc-500">
+          <p className="truncate text-xs text-muted-foreground">
             {member.email}
           </p>
         </div>
@@ -73,7 +70,7 @@ export default function MemberRow({
           {member.taskCount}
         </p>
 
-        <p className="text-[11px] text-zinc-500">
+        <p className="text-[11px] text-muted-foreground">
           Tasks
         </p>
       </div>
@@ -81,11 +78,11 @@ export default function MemberRow({
       {/* Completed */}
 
       <div className="text-center">
-        <p className="text-sm font-semibold text-emerald-400">
+        <p className="text-sm font-semibold text-primary">
           {member.completedTasks}
         </p>
 
-        <p className="text-[11px] text-zinc-500">
+        <p className="text-[11px] text-muted-foreground">
           Completed
         </p>
       </div>

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 
-
 interface Props {
   name: string;
   avatar?: string | null;
@@ -21,27 +20,27 @@ export default function MemberAvatar({
     .slice(0, 2)
     .toUpperCase();
 
-const sizes = {
-  sm: {
-    avatar: "h-10 w-10",
-    text: "text-sm",
-  },
+  const sizes = {
+    sm: {
+      avatar: "h-10 w-10",
+      text: "text-sm",
+    },
 
-  md: {
-    avatar: "h-12 w-12",
-    text: "text-lg",
-  },
+    md: {
+      avatar: "h-12 w-12",
+      text: "text-lg",
+    },
 
-  lg: {
-    avatar: "h-16 w-16",
-    text: "text-xl",
-  },
+    lg: {
+      avatar: "h-16 w-16",
+      text: "text-xl",
+    },
 
-  xl: {
-    avatar: "h-24 w-24",
-    text: "text-3xl",
-  },
-} as const;
+    xl: {
+      avatar: "h-24 w-24",
+      text: "text-3xl",
+    },
+  } as const;
 
   const s = sizes[size];
 
@@ -57,11 +56,10 @@ const sizes = {
             ${s.avatar}
             rounded-full
             border
-            border-zinc-700
+            border-border
             object-cover
-            transition-all
-            duration-200
-            group-hover:border-blue-500
+            transition
+            group-hover:border-primary
             group-hover:scale-105
           `}
         />
@@ -74,13 +72,10 @@ const sizes = {
             items-center
             justify-center
             rounded-full
-            bg-gradient-to-br
-            from-violet-600
-            to-blue-600
+            bg-primary
             font-semibold
-            text-foreground
-            transition-all
-            duration-200
+            text-primary-foreground
+            transition
             group-hover:scale-105
           `}
         >
@@ -89,15 +84,14 @@ const sizes = {
       )}
 
       <span
-        className={`
+        className="
           absolute
           bottom-0
           right-0
-          
           rounded-full
           border-2
-          border-[#0F172A]
-        `}
+          border-background
+        "
       />
     </div>
   );

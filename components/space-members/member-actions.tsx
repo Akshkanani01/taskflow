@@ -3,7 +3,6 @@
 import {
   MoreHorizontal,
   Shield,
-  User,
   Trash2,
   ExternalLink,
 } from "lucide-react";
@@ -42,10 +41,10 @@ export default function MemberActions({
             rounded-lg
             border
             border-transparent
-            text-zinc-500
-            transition-all
-            hover:border-zinc-700
-            hover:bg-zinc-800
+            text-muted-foreground
+            transition
+            hover:border-border
+            hover:bg-muted
             hover:text-foreground
           "
         >
@@ -58,8 +57,8 @@ export default function MemberActions({
         className="
           w-56
           rounded-xl
-          border-zinc-800
-          bg-[#141A24]
+          border-border
+          bg-card
           text-foreground
         "
       >
@@ -91,7 +90,11 @@ export default function MemberActions({
 
         <DropdownMenuItem
           onClick={onRemove}
-          className="cursor-pointer text-red-400 focus:text-red-400"
+          className="
+            cursor-pointer
+            text-destructive
+            focus:text-destructive
+          "
         >
           <Trash2 className="mr-2 h-4 w-4" />
           Remove from Space

@@ -7,19 +7,20 @@ interface Props {
   members: SpaceMember[];
   spaceId: string;
 }
+
 export default function MembersTable({
   members,
   spaceId,
 }: Props) {
   if (!members.length) {
     return (
-      <div className="flex h-[500px] items-center justify-center rounded-2xl border border-zinc-800 bg-[#121722]">
+      <div className="flex h-[500px] items-center justify-center rounded-2xl border border-border bg-card">
         <div className="text-center">
           <h3 className="text-lg font-semibold text-foreground">
             No Members Found
           </h3>
 
-          <p className="mt-2 text-sm text-zinc-500">
+          <p className="mt-2 text-sm text-muted-foreground">
             Invite members to start collaborating.
           </p>
         </div>
@@ -33,8 +34,8 @@ export default function MembersTable({
         overflow-hidden
         rounded-2xl
         border
-        border-[#232B38]
-        bg-[#121722]
+        border-border
+        bg-card
       "
     >
       {/* Header */}
@@ -49,15 +50,15 @@ export default function MembersTable({
           items-center
           gap-5
           border-b
-          border-[#232B38]
-          bg-[#171E29]
+          border-border
+          bg-muted
           px-6
           py-3
           text-[11px]
           font-semibold
           uppercase
           tracking-[0.14em]
-          text-zinc-500
+          text-muted-foreground
         "
       >
         <div>Member</div>
@@ -72,20 +73,18 @@ export default function MembersTable({
           Completed
         </div>
 
-        
-
         <div />
       </div>
 
       {/* Body */}
 
-      <div className="divide-y divide-[#202735]">
+      <div className="divide-y divide-border">
         {members.map((member) => (
-  <MemberRow
-  key={member.id}
-  member={member}
-  spaceId={spaceId}
-/>
+          <MemberRow
+            key={member.id}
+            member={member}
+            spaceId={spaceId}
+          />
         ))}
       </div>
 
@@ -97,13 +96,13 @@ export default function MembersTable({
           items-center
           justify-between
           border-t
-          border-[#232B38]
-          bg-[#171E29]
+          border-border
+          bg-muted
           px-6
           py-3
         "
       >
-        <p className="text-sm text-zinc-500">
+        <p className="text-sm text-muted-foreground">
           {members.length} member
           {members.length !== 1 ? "s" : ""}
         </p>
@@ -113,14 +112,14 @@ export default function MembersTable({
             className="
               rounded-lg
               border
-              border-zinc-700
+              border-border
               px-3
               py-1.5
               text-sm
-              text-zinc-300
+              text-foreground
               transition
-              hover:border-zinc-500
-              hover:bg-zinc-800
+              hover:border-primary
+              hover:bg-muted
             "
           >
             Previous
@@ -130,14 +129,14 @@ export default function MembersTable({
             className="
               rounded-lg
               border
-              border-zinc-700
+              border-border
               px-3
               py-1.5
               text-sm
-              text-zinc-300
+              text-foreground
               transition
-              hover:border-zinc-500
-              hover:bg-zinc-800
+              hover:border-primary
+              hover:bg-muted
             "
           >
             Next
