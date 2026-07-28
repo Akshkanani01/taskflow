@@ -39,27 +39,50 @@ export default function ChecklistForm({
 
   return (
     <div className="flex gap-3">
-
       <input
         value={title}
         onChange={(e) =>
           setTitle(e.target.value)
         }
         placeholder="New checklist item..."
-        className="h-11 flex-1 rounded-xl border border-border bg-background px-4 text-foreground outline-none"
+        className="
+          h-11
+          flex-1
+          rounded-xl
+          border
+          border-border
+          bg-background
+          px-4
+          text-foreground
+          outline-none
+          transition
+          focus:border-primary
+        "
       />
 
       <button
+        type="button"
         disabled={pending}
         onClick={submit}
-        className="flex h-11 items-center gap-2 rounded-xl bg-indigo-600 px-5 text-foreground hover:bg-indigo-500"
+        className="
+          flex
+          h-11
+          items-center
+          gap-2
+          rounded-xl
+          bg-primary
+          px-5
+          text-primary-foreground
+          transition
+          hover:bg-primary/90
+          disabled:pointer-events-none
+          disabled:opacity-50
+        "
       >
         <Plus className="h-4 w-4" />
 
         Add
-
       </button>
-
     </div>
   );
 }

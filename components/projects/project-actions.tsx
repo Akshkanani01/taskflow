@@ -79,7 +79,7 @@ export default function ProjectActions({
                   px-4
                   py-3
                   text-sm
-                  text-red-400
+                  text-destructive
                   transition
                   hover:bg-background
                 "

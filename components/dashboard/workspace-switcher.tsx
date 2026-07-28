@@ -179,9 +179,10 @@ export function WorkspaceSwitcher() {
                       items-center
                       justify-center
                       rounded-lg
-                      bg-indigo-600
+                      bg-primary
                       text-xs
                       font-semibold
+                      text-primary-foreground
                     "
                   >
                     {workspace.name.charAt(0)}
@@ -196,7 +197,7 @@ export function WorkspaceSwitcher() {
                   workspace.id && (
                   <Check
                     size={18}
-                    className="text-indigo-400"
+                    className="text-primary"
                   />
                 )}
               </button>

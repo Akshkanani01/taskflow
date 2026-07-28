@@ -42,11 +42,7 @@ export default function TaskActionsMenu({
     useTransition();
 
   function onDelete() {
-    if (
-      !confirm(
-        "Delete this task?"
-      )
-    ) {
+    if (!confirm("Delete this task?")) {
       return;
     }
 
@@ -94,8 +90,7 @@ export default function TaskActionsMenu({
             border-border
             bg-card/80
             text-muted-foreground
-            transition-all
-            duration-200
+            transition
             hover:border-border
             hover:bg-background
             hover:text-foreground
@@ -108,7 +103,7 @@ export default function TaskActionsMenu({
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
-                <DropdownMenu.Content
+        <DropdownMenu.Content
           sideOffset={10}
           align="end"
           className="
@@ -117,7 +112,7 @@ export default function TaskActionsMenu({
             rounded-2xl
             border
             border-border
-            bg-[#111827]
+            bg-card
             p-2
             shadow-2xl
             backdrop-blur-xl
@@ -159,7 +154,7 @@ export default function TaskActionsMenu({
               px-3
               py-2.5
               text-sm
-              text-slate-200
+              text-foreground
               outline-none
               transition-colors
               duration-150
@@ -190,7 +185,7 @@ export default function TaskActionsMenu({
               px-3
               py-2.5
               text-sm
-              text-slate-200
+              text-foreground
               outline-none
               transition-colors
               duration-150
@@ -222,12 +217,12 @@ export default function TaskActionsMenu({
               px-3
               py-2.5
               text-sm
-              text-red-400
+              text-destructive
               outline-none
               transition-colors
               duration-150
-              hover:bg-red-500/10
-              data-[highlighted]:bg-red-500/10
+              hover:bg-destructive/10
+              data-[highlighted]:bg-destructive/10
             "
           >
             <Trash2 size={16} />

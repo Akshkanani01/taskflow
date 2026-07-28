@@ -19,7 +19,6 @@ interface Props {
 }
 
 function formatBytes(bytes: number) {
-
   if (bytes === 0) {
     return "0 B";
   }
@@ -44,13 +43,11 @@ function formatBytes(bytes: number) {
     " " +
     sizes[i]
   );
-
 }
 
 export default async function MemberFilesPage({
   params,
 }: Props) {
-
   const {
     id: spaceId,
     memberId,
@@ -58,64 +55,37 @@ export default async function MemberFilesPage({
 
   const member =
     await prisma.spaceMember.findFirst({
-
       where: {
-
         spaceId,
-
         userId: memberId,
-
       },
-
       include: {
-
         user: true,
-
       },
-
     });
 
   if (!member) {
-
     notFound();
-
   }
 
   const attachments =
     await prisma.taskAttachment.findMany({
-
       where: {
-
         uploaderId: memberId,
-
         task: {
-
           spaceId,
-
         },
-
       },
-
       include: {
-
         task: {
-
           include: {
-
             project: true,
-
           },
-
         },
-
       },
-
       orderBy: {
-
         createdAt: "desc",
-
       },
-
     });
 
   const totalFiles =
@@ -123,154 +93,113 @@ export default async function MemberFilesPage({
 
   const totalStorage =
     attachments.reduce(
-
       (sum, file) =>
         sum + (file.size ?? 0),
-
       0
-
     );
 
   const imageCount =
     attachments.filter(
-
       (file) =>
         file.mimeType?.startsWith(
           "image/"
         )
-
     ).length;
 
   const documentCount =
     totalFiles - imageCount;
 
   return (
-
     <div className="space-y-8">
 
       {/* STATS */}
 
       <div className="grid gap-6 md:grid-cols-4">
 
-        <div className="rounded-3xl border border-border bg-[#111827] p-6">
-
-          <FolderOpen className="mb-4 h-8 w-8 text-indigo-400" />
+        <div className="rounded-3xl border border-border bg-card p-6">
+          <FolderOpen className="mb-4 h-8 w-8 text-primary" />
 
           <p className="text-sm text-muted-foreground">
-
             Files
-
           </p>
 
           <h2 className="mt-2 text-4xl font-bold text-foreground">
-
             {totalFiles}
-
           </h2>
-
         </div>
 
-        <div className="rounded-3xl border border-border bg-[#111827] p-6">
-
-          <ImageIcon className="mb-4 h-8 w-8 text-emerald-400" />
+        <div className="rounded-3xl border border-border bg-card p-6">
+          <ImageIcon className="mb-4 h-8 w-8 text-primary" />
 
           <p className="text-sm text-muted-foreground">
-
             Images
-
           </p>
 
           <h2 className="mt-2 text-4xl font-bold text-foreground">
-
             {imageCount}
-
           </h2>
-
         </div>
 
-        <div className="rounded-3xl border border-border bg-[#111827] p-6">
-
-          <FileText className="mb-4 h-8 w-8 text-cyan-400" />
+        <div className="rounded-3xl border border-border bg-card p-6">
+          <FileText className="mb-4 h-8 w-8 text-primary" />
 
           <p className="text-sm text-muted-foreground">
-
             Documents
-
           </p>
 
           <h2 className="mt-2 text-4xl font-bold text-foreground">
-
             {documentCount}
-
           </h2>
-
         </div>
 
-        <div className="rounded-3xl border border-border bg-[#111827] p-6">
-
-          <HardDrive className="mb-4 h-8 w-8 text-yellow-400" />
+        <div className="rounded-3xl border border-border bg-card p-6">
+          <HardDrive className="mb-4 h-8 w-8 text-primary" />
 
           <p className="text-sm text-muted-foreground">
-
             Storage
-
           </p>
 
           <h2 className="mt-2 text-2xl font-bold text-foreground">
-
             {formatBytes(totalStorage)}
-
           </h2>
-
         </div>
 
       </div>
-            {/* FILES */}
 
-      <section className="overflow-hidden rounded-3xl border border-border bg-[#111827]">
+      {/* FILES */}
 
+      <section className="overflow-hidden rounded-3xl border border-border bg-card">
         <div className="flex items-center justify-between border-b border-border p-6">
 
           <div>
 
             <h2 className="text-xl font-semibold text-foreground">
-
               Uploaded Files
-
             </h2>
 
             <p className="mt-1 text-sm text-muted-foreground">
-
               Files uploaded by {member.user.name ?? member.user.email}
-
             </p>
 
           </div>
 
           <div className="rounded-xl border border-border bg-card px-4 py-2 text-sm text-foreground">
-
             {totalFiles} Files
-
           </div>
 
         </div>
-
-        {attachments.length === 0 ? (
+                {attachments.length === 0 ? (
 
           <div className="flex flex-col items-center justify-center py-24">
 
-            <FolderOpen className="mb-5 h-16 w-16 text-slate-700" />
+            <FolderOpen className="mb-5 h-16 w-16 text-muted-foreground" />
 
             <h3 className="text-xl font-semibold text-foreground">
-
               No Files Uploaded
-
             </h3>
 
             <p className="mt-2 text-muted-foreground">
-
               This member hasn&apos;t uploaded any files yet.
-
             </p>
 
           </div>
@@ -282,9 +211,7 @@ export default async function MemberFilesPage({
             {attachments.map((file) => {
 
               const isImage =
-                file.mimeType?.startsWith(
-                  "image/"
-                );
+                file.mimeType?.startsWith("image/");
 
               return (
 
@@ -299,17 +226,17 @@ export default async function MemberFilesPage({
 
                     {isImage ? (
 
-                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500/15">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/15">
 
-                        <ImageIcon className="h-7 w-7 text-emerald-400" />
+                        <ImageIcon className="h-7 w-7 text-primary" />
 
                       </div>
 
                     ) : (
 
-                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-500/15">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/15">
 
-                        <FileText className="h-7 w-7 text-indigo-400" />
+                        <FileText className="h-7 w-7 text-primary" />
 
                       </div>
 
@@ -318,31 +245,21 @@ export default async function MemberFilesPage({
                     <div className="min-w-0 flex-1">
 
                       <h3 className="truncate text-lg font-semibold text-foreground">
-
                         {file.name}
-
                       </h3>
 
                       <div className="mt-2 flex flex-wrap items-center gap-5 text-sm text-muted-foreground">
 
                         <span>
-
                           {formatBytes(file.size ?? 0)}
-
                         </span>
 
                         <span>
-
-                          {file.createdAt.toLocaleDateString(
-                            "en-GB"
-                          )}
-
+                          {file.createdAt.toLocaleDateString("en-GB")}
                         </span>
 
                         <span>
-
                           {file.task.project.name}
-
                         </span>
 
                       </div>
@@ -364,8 +281,8 @@ export default async function MemberFilesPage({
                         font-semibold
                         ${
                           isImage
-                            ? "bg-emerald-500/20 text-emerald-300"
-                            : "bg-indigo-500/20 text-indigo-300"
+                            ? "bg-primary/20 text-primary"
+                            : "bg-primary/20 text-primary"
                         }
                       `}
                     >
@@ -380,16 +297,14 @@ export default async function MemberFilesPage({
                       href={`/dashboard/spaces/${file.task.spaceId}/lists/${file.task.projectId}/tasks/${file.task.id}`}
                       className="rounded-xl border border-border px-4 py-2 text-sm text-foreground transition hover:bg-background"
                     >
-
                       View Task
-
                     </Link>
 
                     <a
                       href={file.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="rounded-xl bg-indigo-600 p-3 text-foreground transition hover:bg-indigo-500"
+                      className="rounded-xl bg-primary p-3 text-primary-foreground transition hover:bg-primary/90"
                     >
 
                       <Download className="h-5 w-5" />
@@ -409,26 +324,22 @@ export default async function MemberFilesPage({
         )}
 
       </section>
-            {/* STORAGE ANALYTICS */}
+
+      {/* STORAGE ANALYTICS */}
 
       <div className="grid gap-6 xl:grid-cols-2">
+                {/* Storage */}
 
-        {/* Storage */}
-
-        <section className="rounded-3xl border border-border bg-[#111827] p-6">
+        <section className="rounded-3xl border border-border bg-card p-6">
 
           <div className="flex items-center justify-between">
 
             <h2 className="text-lg font-semibold text-foreground">
-
               Storage Usage
-
             </h2>
 
-            <span className="text-2xl font-bold text-indigo-400">
-
+            <span className="text-2xl font-bold text-primary">
               {formatBytes(totalStorage)}
-
             </span>
 
           </div>
@@ -436,12 +347,12 @@ export default async function MemberFilesPage({
           <div className="mt-6 h-3 overflow-hidden rounded-full bg-background">
 
             <div
-              className="h-full rounded-full bg-indigo-500 transition-all duration-500"
+              className="h-full rounded-full bg-primary transition"
               style={{
                 width: `${
                   Math.min(
-                    totalStorage /
-                      (50 * 1024 * 1024) *
+                    (totalStorage /
+                      (50 * 1024 * 1024)) *
                       100,
                     100
                   )
@@ -452,9 +363,7 @@ export default async function MemberFilesPage({
           </div>
 
           <p className="mt-4 text-sm text-muted-foreground">
-
             Based on a 50 MB workspace quota.
-
           </p>
 
           <div className="mt-8 grid grid-cols-2 gap-4">
@@ -462,15 +371,11 @@ export default async function MemberFilesPage({
             <div className="rounded-2xl border border-border bg-card p-4">
 
               <p className="text-xs uppercase tracking-wider text-muted-foreground">
-
                 Images
-
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-emerald-400">
-
+              <p className="mt-2 text-3xl font-bold text-primary">
                 {imageCount}
-
               </p>
 
             </div>
@@ -478,15 +383,11 @@ export default async function MemberFilesPage({
             <div className="rounded-2xl border border-border bg-card p-4">
 
               <p className="text-xs uppercase tracking-wider text-muted-foreground">
-
                 Documents
-
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-cyan-400">
-
+              <p className="mt-2 text-3xl font-bold text-primary">
                 {documentCount}
-
               </p>
 
             </div>
@@ -497,28 +398,21 @@ export default async function MemberFilesPage({
 
         {/* Summary */}
 
-        <section className="rounded-3xl border border-border bg-[#111827] p-6">
+        <section className="rounded-3xl border border-border bg-card p-6">
 
           <h2 className="text-lg font-semibold text-foreground">
-
             Upload Summary
-
           </h2>
 
           <div className="mt-6 space-y-4">
-
-            <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
+                        <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
 
               <span className="text-muted-foreground">
-
                 Total Files
-
               </span>
 
               <span className="font-semibold text-foreground">
-
                 {totalFiles}
-
               </span>
 
             </div>
@@ -526,15 +420,11 @@ export default async function MemberFilesPage({
             <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
 
               <span className="text-muted-foreground">
-
                 Images
-
               </span>
 
-              <span className="font-semibold text-emerald-400">
-
+              <span className="font-semibold text-primary">
                 {imageCount}
-
               </span>
 
             </div>
@@ -542,15 +432,11 @@ export default async function MemberFilesPage({
             <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
 
               <span className="text-muted-foreground">
-
                 Documents
-
               </span>
 
-              <span className="font-semibold text-cyan-400">
-
+              <span className="font-semibold text-primary">
                 {documentCount}
-
               </span>
 
             </div>
@@ -558,15 +444,11 @@ export default async function MemberFilesPage({
             <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
 
               <span className="text-muted-foreground">
-
                 Total Storage
-
               </span>
 
-              <span className="font-semibold text-indigo-400">
-
+              <span className="font-semibold text-primary">
                 {formatBytes(totalStorage)}
-
               </span>
 
             </div>
@@ -574,9 +456,7 @@ export default async function MemberFilesPage({
             <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
 
               <span className="text-muted-foreground">
-
                 Latest Upload
-
               </span>
 
               <span className="font-semibold text-foreground">

@@ -19,13 +19,13 @@ export default function CreateListButton({
         onClick={() => setOpen(true)}
         className="
           rounded-xl
-          bg-indigo-600
+          bg-primary
           px-5
           py-3
           font-medium
-          text-foreground
-          transition-all
-          hover:bg-indigo-500
+          text-primary-foreground
+          transition
+          hover:bg-primary/90
         "
       >
         + Create List

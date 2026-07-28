@@ -46,7 +46,17 @@ export default function DeleteAttachmentButton({
       type="button"
       onClick={handleDelete}
       disabled={isPending}
-      className="rounded-lg border border-red-500/30 p-2 text-red-400 transition hover:bg-red-500/10 disabled:cursor-not-allowed disabled:opacity-50"
+      className="
+        rounded-lg
+        border
+        border-destructive/20
+        p-2
+        text-destructive
+        transition
+        hover:bg-destructive/10
+        disabled:pointer-events-none
+        disabled:opacity-50
+      "
       title="Delete Attachment"
     >
       <Trash2 size={16} />

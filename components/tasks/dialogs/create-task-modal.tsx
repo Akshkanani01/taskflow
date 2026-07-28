@@ -13,22 +13,16 @@ export default function CreateTaskModal({
   onClose,
   children,
 }: Props) {
-      useEffect(() => {
-
+  useEffect(() => {
     function handleEscape(
       event: KeyboardEvent
     ) {
-
       if (event.key === "Escape") {
-
         onClose();
-
       }
-
     }
 
     if (open) {
-
       document.body.style.overflow =
         "hidden";
 
@@ -36,11 +30,9 @@ export default function CreateTaskModal({
         "keydown",
         handleEscape
       );
-
     }
 
     return () => {
-
       document.body.style.overflow =
         "auto";
 
@@ -48,26 +40,19 @@ export default function CreateTaskModal({
         "keydown",
         handleEscape
       );
-
     };
-
   }, [open, onClose]);
 
   if (!open) {
-
     return null;
-
   }
-    return (
 
+  return (
     <>
-
       {/* BACKDROP */}
 
       <div
-
         onClick={onClose}
-
         className="
           fixed
           inset-0
@@ -77,7 +62,6 @@ export default function CreateTaskModal({
           animate-in
           fade-in
         "
-
       />
 
       {/* MODAL */}
@@ -93,12 +77,10 @@ export default function CreateTaskModal({
           p-6
         "
       >
-                <div
-
+        <div
           onClick={(e) =>
             e.stopPropagation()
           }
-
           className="
             w-full
             max-w-4xl
@@ -106,12 +88,10 @@ export default function CreateTaskModal({
             rounded-3xl
             border
             border-border
-            bg-[#111827]
+            bg-card
             shadow-2xl
           "
-
         >
-
           {/* HEADER */}
 
           <div
@@ -125,17 +105,12 @@ export default function CreateTaskModal({
               py-6
             "
           >
-
             <h2 className="text-2xl font-bold text-foreground">
-
               Create Task
-
             </h2>
 
             <button
-
               onClick={onClose}
-
               className="
                 rounded-xl
                 p-2
@@ -144,32 +119,22 @@ export default function CreateTaskModal({
                 hover:bg-background/10
                 hover:text-foreground
               "
-
             >
-
               ✕
-
             </button>
-
           </div>
-                    <div
+
+          <div
             className="
               max-h-[80vh]
               overflow-y-auto
               p-8
             "
           >
-
             {children}
-
           </div>
-
         </div>
-
       </div>
-
     </>
-
   );
-
 }

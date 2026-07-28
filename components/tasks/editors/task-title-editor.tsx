@@ -36,7 +36,6 @@ export default function TaskTitleEditor({
   if (!editing) {
     return (
       <div className="group flex items-center justify-between">
-
         <h1 className="text-4xl font-bold text-foreground">
           {title}
         </h1>
@@ -58,14 +57,12 @@ export default function TaskTitleEditor({
         >
           <Pencil size={18} />
         </button>
-
       </div>
     );
   }
 
   return (
     <div className="space-y-4">
-
       <input
         autoFocus
         value={value}
@@ -85,12 +82,11 @@ export default function TaskTitleEditor({
           font-bold
           text-foreground
           outline-none
-          focus:border-indigo-500
+          focus:border-primary
         "
       />
 
       <div className="flex gap-3">
-
         <button
           disabled={pending}
           onClick={save}
@@ -99,10 +95,14 @@ export default function TaskTitleEditor({
             items-center
             gap-2
             rounded-xl
-            bg-emerald-600
+            bg-primary
             px-4
             py-2
-            text-foreground
+            text-primary-foreground
+            transition
+            hover:bg-primary/90
+            disabled:pointer-events-none
+            disabled:opacity-50
           "
         >
           <Check size={16} />
@@ -128,9 +128,7 @@ export default function TaskTitleEditor({
           <X size={16} />
           Cancel
         </button>
-
       </div>
-
     </div>
   );
 }

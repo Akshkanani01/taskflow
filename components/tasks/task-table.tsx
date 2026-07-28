@@ -46,7 +46,7 @@ export default function TaskTable({
           rounded-3xl
           border
           border-border
-          bg-[#111827]
+          bg-card
           text-muted-foreground
         "
       >
@@ -62,7 +62,7 @@ export default function TaskTable({
         rounded-3xl
         border
         border-border
-        bg-[#111827]
+        bg-card
       "
     >
       {/* HEADER */}
@@ -74,7 +74,7 @@ export default function TaskTable({
           items-center
           border-b
           border-border
-          bg-[#131C2E]
+          bg-muted
           px-7
           py-4
           text-[11px]
@@ -113,7 +113,7 @@ export default function TaskTable({
             task.taskAssignees[0]?.user;
 
           return (
-                        <TaskRow
+            <TaskRow
               key={task.id}
               taskId={task.id}
               spaceId={task.spaceId}

@@ -10,36 +10,45 @@ import { CTA } from "@/components/landing/cta";
 import { Footer } from "@/components/landing/footer";
 
 export default function HomePage() {
-return ( <main className="relative min-h-screen overflow-x-hidden bg-background text-foreground">
+  return (
+    <main className="relative min-h-screen overflow-x-hidden bg-background text-foreground">
+      {/* Background Glow Effects */}
+      <div
+        className="absolute left-0 top-0 h-[600px] w-[600px] rounded-full blur-[180px]"
+        style={{
+          background:
+            "color-mix(in srgb, var(--primary) 12%, transparent)",
+        }}
+      />
 
-  {/* Background Glow Effects */}
-  <div className="absolute left-0 top-0 h-[600px] w-[600px] rounded-full bg-indigo-600/10 blur-[180px]" />
+      <div
+        className="absolute right-0 top-[500px] h-[500px] w-[500px] rounded-full blur-[180px]"
+        style={{
+          background:
+            "color-mix(in srgb, var(--primary) 8%, transparent)",
+        }}
+      />
 
-  <div className="absolute right-0 top-[500px] h-[500px] w-[500px] rounded-full bg-purple-600/10 blur-[180px]" />
+      {/* Landing Page */}
+      <Navbar />
 
-  {/* Landing Page */}
+      <Hero />
 
-  <Navbar />
+      <TrustedBy />
 
-  <Hero />
+      <Features />
 
-  <TrustedBy />
+      <HowItWorks />
 
-  <Features />
+      <Showcase />
 
-  <HowItWorks />
+      <FAQ />
 
-  <Showcase />
+      <Testimonials />
 
-  <FAQ />
+      <CTA />
 
-  <Testimonials />
-
-  <CTA />
-
-  <Footer />
-
-</main>
-
-);
+      <Footer />
+    </main>
+  );
 }

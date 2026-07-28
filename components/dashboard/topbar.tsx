@@ -65,11 +65,10 @@ export function Topbar() {
               text-foreground
               placeholder:text-muted-foreground
               outline-none
-              transition-all
-              duration-200
-              focus:border-blue-500/40
+              transition
+              focus:border-primary/40
               focus:ring-2
-              focus:ring-blue-500/20
+              focus:ring-primary/20
             "
           />
 
@@ -103,7 +102,6 @@ export function Topbar() {
 
       <div className="flex shrink-0 items-center gap-3">
         <NotificationBell />
-
         <UserMenu />
       </div>
     </header>

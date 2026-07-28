@@ -1,4 +1,5 @@
 "use client";
+
 import type { TaskStatus } from "@prisma/client";
 import {
   useState,
@@ -28,10 +29,10 @@ export default function TaskStatusEditor({
   taskId,
   value,
 }: Props) {
-const [status, setStatus] =
-  useState<TaskStatus>(
-    value as TaskStatus
-  );
+  const [status, setStatus] =
+    useState<TaskStatus>(
+      value as TaskStatus
+    );
 
   const [
     pending,
@@ -39,42 +40,33 @@ const [status, setStatus] =
   ] = useTransition();
 
   function change(
-  next: TaskStatus
-) {
-
+    next: TaskStatus
+  ) {
     setStatus(next);
 
     startTransition(async () => {
-
       await updateTaskStatus(
-  taskId,
-  next
-);
-
+        taskId,
+        next
+      );
     });
-
   }
 
   return (
-
     <div>
-
       <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-
         Status
-
       </label>
 
       <div className="relative">
-
         <select
           value={status}
           disabled={pending}
           onChange={(e) =>
-  change(
-    e.target.value as TaskStatus
-  )
-}
+            change(
+              e.target.value as TaskStatus
+            )
+          }
           className="
             h-11
             w-full
@@ -86,12 +78,10 @@ const [status, setStatus] =
             px-4
             text-foreground
             outline-none
-            focus:border-indigo-500
+            focus:border-primary
           "
         >
-
           {STATUSES.map((item) => (
-
             <option
               key={item}
               value={item}
@@ -101,32 +91,21 @@ const [status, setStatus] =
                 " "
               )}
             </option>
-
           ))}
-
         </select>
 
         <ChevronDown
           size={16}
           className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground"
         />
-
       </div>
 
       {pending && (
-
-        <div className="mt-2 flex items-center gap-2 text-xs text-emerald-400">
-
+        <div className="mt-2 flex items-center gap-2 text-xs text-primary">
           <Check size={14} />
-
           Updating...
-
         </div>
-
       )}
-
     </div>
-
   );
-
 }

@@ -81,7 +81,7 @@ export default async function MemberSettingsPage({
     <div className="space-y-8">
       {/* HEADER */}
 
-      <section className="rounded-3xl border border-border bg-[#111827] p-8">
+      <section className="rounded-3xl border border-border bg-card p-8">
         <div className="flex items-center gap-5">
           {member.user.image ? (
             <img
@@ -90,7 +90,7 @@ export default async function MemberSettingsPage({
               className="h-24 w-24 rounded-full border-4 border-border object-cover"
             />
           ) : (
-            <div className="flex h-24 w-24 items-center justify-center rounded-full bg-indigo-600 text-4xl font-bold text-foreground">
+            <div className="flex h-24 w-24 items-center justify-center rounded-full bg-primary text-4xl font-bold text-primary-foreground">
               {(member.user.name ?? member.user.email)
                 .charAt(0)
                 .toUpperCase()}

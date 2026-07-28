@@ -182,18 +182,18 @@ status: status as TaskStatus,
           }
           placeholder="Enter task title..."
           className="
-            h-12
-            w-full
-            rounded-2xl
-            border
-            border-border
-            bg-background
-            px-4
-            text-foreground
-            outline-none
-            transition
-            focus:border-indigo-500
-          "
+  h-12
+  w-full
+  rounded-2xl
+  border
+  border-border
+  bg-background
+  px-4
+  text-foreground
+  outline-none
+  transition
+  focus:border-primary
+"
         />
 
       </div>
@@ -216,17 +216,17 @@ status: status as TaskStatus,
           }
           placeholder="Describe this task..."
           className="
-            w-full
-            rounded-2xl
-            border
-            border-border
-            bg-background
-            p-4
-            text-foreground
-            outline-none
-            transition
-            focus:border-indigo-500
-          "
+  w-full
+  rounded-2xl
+  border
+  border-border
+  bg-background
+  p-4
+  text-foreground
+  outline-none
+  transition
+  focus:border-primary
+"
         />
 
       </div>
@@ -354,18 +354,18 @@ status: status as TaskStatus,
               setDueDate(e.target.value)
             }
             className="
-              h-12
-              w-full
-              rounded-2xl
-              border
-              border-border
-              bg-background
-              px-4
-              text-foreground
-              outline-none
-              transition
-              focus:border-indigo-500
-            "
+  h-12
+  w-full
+  rounded-2xl
+  border
+  border-border
+  bg-background
+  px-4
+  text-foreground
+  outline-none
+  transition
+  focus:border-primary
+"
           />
 
         </div>
@@ -391,20 +391,19 @@ status: status as TaskStatus,
                 e.target.value
               )
             }
-            placeholder="8"
             className="
-              h-12
-              w-full
-              rounded-2xl
-              border
-              border-border
-              bg-background
-              px-4
-              text-foreground
-              outline-none
-              transition
-              focus:border-indigo-500
-            "
+  h-12
+  w-full
+  rounded-2xl
+  border
+  border-border
+  bg-background
+  px-4
+  text-foreground
+  outline-none
+  transition
+  focus:border-primary
+"
           />
 
         </div>
@@ -490,16 +489,16 @@ status: status as TaskStatus,
 
         <div
           className="
-            flex
-            h-10
-            w-10
-            items-center
-            justify-center
-            rounded-full
-            bg-indigo-600
-            font-semibold
-            text-foreground
-          "
+  flex
+  h-10
+  w-10
+  items-center
+  justify-center
+  rounded-full
+  bg-primary
+  font-semibold
+  text-primary-foreground
+"
         >
 
           {(member.name.trim() ||
@@ -555,7 +554,7 @@ status: status as TaskStatus,
         className="
           h-4
           w-4
-          accent-indigo-600
+          accent-primary
         "
       />
 
@@ -605,20 +604,20 @@ status: status as TaskStatus,
             !title.trim()
           }
           className="
-            flex
-            items-center
-            gap-2
-            rounded-2xl
-            bg-indigo-600
-            px-6
-            py-3
-            font-semibold
-            text-foreground
-            transition
-            hover:bg-indigo-500
-            disabled:cursor-not-allowed
-            disabled:opacity-50
-          "
+  flex
+  items-center
+  gap-2
+  rounded-2xl
+  bg-primary
+  px-6
+  py-3
+  font-semibold
+  text-primary-foreground
+  transition
+  hover:bg-primary/90
+  disabled:cursor-not-allowed
+  disabled:opacity-50
+"
         >
           <Plus size={18} />
 

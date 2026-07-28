@@ -105,7 +105,7 @@ export default function ProjectForm({
             text-foreground
             outline-none
             transition
-            focus:border-indigo-500
+            focus:border-primary
           "
         />
       </div>
@@ -133,7 +133,7 @@ export default function ProjectForm({
             text-foreground
             outline-none
             transition
-            focus:border-indigo-500
+            focus:border-primary
           "
         />
       </div>
@@ -148,12 +148,12 @@ export default function ProjectForm({
         className="
           w-full
           rounded-xl
-          bg-indigo-600
+          bg-primary
           py-3
           font-medium
-          text-foreground
+          text-primary-foreground
           transition
-          hover:bg-indigo-500
+          hover:bg-primary/90
           disabled:cursor-not-allowed
           disabled:opacity-50
         "

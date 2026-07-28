@@ -37,7 +37,6 @@ export default function AttachmentUpload({
       "
     >
       <div className="mb-5 flex items-center gap-3">
-
         <div
           className="
             flex
@@ -46,17 +45,16 @@ export default function AttachmentUpload({
             items-center
             justify-center
             rounded-xl
-            bg-indigo-500/10
+            bg-primary/10
           "
         >
           <Paperclip
             size={20}
-            className="text-indigo-400"
+            className="text-primary"
           />
         </div>
 
         <div>
-
           <h3 className="font-semibold text-foreground">
             Upload Attachments
           </h3>
@@ -64,20 +62,17 @@ export default function AttachmentUpload({
           <p className="text-sm text-muted-foreground">
             Images, PDF, DOCX, ZIP, Videos
           </p>
-
         </div>
-
       </div>
 
       <UploadDropzone
         endpoint="attachmentUploader"
-
         appearance={{
           container:
             "w-full border-none bg-transparent",
 
           uploadIcon:
-            "text-indigo-400",
+            "text-primary",
 
           label:
             "text-foreground text-base font-medium",
@@ -86,9 +81,8 @@ export default function AttachmentUpload({
             "text-muted-foreground text-sm",
 
           button:
-            "rounded-xl bg-indigo-600 hover:bg-indigo-500 text-foreground",
+            "rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground",
         }}
-
         content={{
           label:
             "Drag files here or click to upload",
@@ -96,28 +90,20 @@ export default function AttachmentUpload({
           allowedContent:
             "Maximum 20 files",
         }}
-
         onUploadBegin={() => {
-
           setUploading(true);
-
         }}
-                onClientUploadComplete={async (files) => {
-
+        onClientUploadComplete={async (files) => {
           try {
-
             if (!files.length) {
-
               toast.error(
                 "Upload failed."
               );
 
               return;
-
             }
 
             for (const file of files) {
-
               await fetch(
                 `/api/tasks/${taskId}/attachments`,
                 {
@@ -146,7 +132,6 @@ export default function AttachmentUpload({
                   }),
                 }
               );
-
             }
 
             toast.success(
@@ -158,34 +143,24 @@ export default function AttachmentUpload({
             );
 
             router.refresh();
-
           } catch {
-
             toast.error(
               "Failed to save attachment."
             );
-
           } finally {
-
             setUploading(false);
-
           }
-
         }}
-
         onUploadError={(error) => {
-
           setUploading(false);
 
           toast.error(
             error.message
           );
-
         }}
       />
 
       {uploading && (
-
         <div
           className="
             mt-5
@@ -195,27 +170,21 @@ export default function AttachmentUpload({
             gap-3
             rounded-xl
             border
-            border-indigo-500/20
-            bg-indigo-500/10
+            border-primary/20
+            bg-primary/10
             py-3
           "
         >
-
           <Loader2
             size={18}
-            className="animate-spin text-indigo-400"
+            className="animate-spin text-primary"
           />
 
-          <span className="text-sm text-indigo-300">
-
+          <span className="text-sm text-primary">
             Uploading attachments...
-
           </span>
-
         </div>
-
       )}
-
     </div>
   );
 }

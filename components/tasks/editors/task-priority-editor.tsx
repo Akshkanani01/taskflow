@@ -23,15 +23,15 @@ const PRIORITIES: Priority[] = [
   "HIGH",
   "URGENT",
 ];
+
 export default function TaskPriorityEditor({
   taskId,
   value,
 }: Props) {
-
   const [priority, setPriority] =
-  useState<Priority>(
-    value as Priority
-  );
+    useState<Priority>(
+      value as Priority
+    );
 
   const [
     pending,
@@ -39,34 +39,25 @@ export default function TaskPriorityEditor({
   ] = useTransition();
 
   function change(
-  next: Priority
-) {
-
+    next: Priority
+  ) {
     setPriority(next);
 
     startTransition(async () => {
-
       await updateTaskPriority(
-  taskId,
-  next
-);
-
+        taskId,
+        next
+      );
     });
-
   }
 
   return (
-
     <div>
-
       <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-
         Priority
-
       </label>
 
       <div className="relative">
-
         <select
           value={priority}
           disabled={pending}
@@ -86,44 +77,31 @@ export default function TaskPriorityEditor({
             px-4
             text-foreground
             outline-none
-            focus:border-indigo-500
+            focus:border-primary
           "
         >
-
           {PRIORITIES.map((item) => (
-
             <option
               key={item}
               value={item}
             >
               {item}
             </option>
-
           ))}
-
         </select>
 
         <ChevronDown
           size={16}
           className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground"
         />
-
       </div>
 
       {pending && (
-
-        <div className="mt-2 flex items-center gap-2 text-xs text-emerald-400">
-
+        <div className="mt-2 flex items-center gap-2 text-xs text-primary">
           <Check size={14} />
-
           Updating...
-
         </div>
-
       )}
-
     </div>
-
   );
-
 }

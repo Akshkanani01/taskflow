@@ -21,7 +21,6 @@ import type {
 export default function ProfileCard({
   member,
 }: ProfileCardProps) {
-
   const [pending, startTransition] =
     useTransition();
 
@@ -32,59 +31,43 @@ export default function ProfileCard({
     useState(member.user.image ?? "");
 
   function saveProfile() {
-
     startTransition(async () => {
-
       try {
-
         await updateMemberProfile({
-
           name,
-
           image,
-
         });
 
         toast.success(
           "Profile updated successfully."
         );
-
       } catch (error: unknown) {
-
-  toast.error(
-    error instanceof Error
-      ? error.message
-      : "Unable to update profile."
-  );
-
-}
-
+        toast.error(
+          error instanceof Error
+            ? error.message
+            : "Unable to update profile."
+        );
+      }
     });
-
   }
 
   return (
-
-    <section className="rounded-3xl border border-border bg-[#111827]">
+    <section className="rounded-3xl border border-border bg-card">
 
       <div className="border-b border-border p-7">
 
         <div className="flex items-center gap-3">
 
-          <User2 className="h-6 w-6 text-indigo-400" />
+          <User2 className="h-6 w-6 text-primary" />
 
           <div>
 
             <h2 className="text-xl font-semibold text-foreground">
-
               Profile
-
             </h2>
 
             <p className="mt-1 text-sm text-muted-foreground">
-
               Update your personal information.
-
             </p>
 
           </div>
@@ -94,16 +77,15 @@ export default function ProfileCard({
       </div>
 
       <div className="grid gap-8 p-8 lg:grid-cols-[220px_1fr]">
-                {/* Avatar */}
+
+        {/* Avatar */}
 
         <div>
 
-          
-
           <AvatarUpload
-  value={image}
-  onChange={setImage}
-/>
+            value={image}
+            onChange={setImage}
+          />
 
         </div>
 
@@ -114,35 +96,29 @@ export default function ProfileCard({
           <div>
 
             <label className="mb-2 block text-sm font-medium text-muted-foreground">
-
               Full Name
-
             </label>
 
             <input
-
               value={name}
-
               onChange={(e) =>
                 setName(
                   e.target.value
                 )
               }
-
               className="
                 w-full
                 rounded-xl
                 border
                 border-border
-                bg-[#0F172A]
+                bg-background
                 px-4
                 py-3
                 text-foreground
                 outline-none
                 transition
-                focus:border-indigo-500
+                focus:border-primary
               "
-
             />
 
           </div>
@@ -151,20 +127,16 @@ export default function ProfileCard({
 
             <div className="flex items-center gap-3">
 
-              <Mail className="h-5 w-5 text-indigo-400" />
+              <Mail className="h-5 w-5 text-primary" />
 
               <div>
 
                 <p className="text-xs uppercase tracking-wider text-muted-foreground">
-
                   Email Address
-
                 </p>
 
                 <p className="mt-1 text-foreground">
-
                   {member.user.email}
-
                 </p>
 
               </div>
@@ -177,24 +149,20 @@ export default function ProfileCard({
 
             <div className="flex items-center gap-3">
 
-              <Calendar className="h-5 w-5 text-indigo-400" />
+              <Calendar className="h-5 w-5 text-primary" />
 
               <div>
 
                 <p className="text-xs uppercase tracking-wider text-muted-foreground">
-
                   Joined
-
                 </p>
 
                 <p className="mt-1 text-foreground">
-
                   {new Date(
                     member.joinedAt
                   ).toLocaleDateString(
                     "en-GB"
                   )}
-
                 </p>
 
               </div>
@@ -206,42 +174,33 @@ export default function ProfileCard({
           <div className="flex justify-end">
 
             <button
-
               type="button"
-
               disabled={pending}
-
               onClick={saveProfile}
-
               className="
                 inline-flex
                 items-center
                 gap-2
                 rounded-xl
-                bg-indigo-600
+                bg-primary
                 px-6
                 py-3
                 font-medium
-                text-foreground
+                text-primary-foreground
                 transition
-                hover:bg-indigo-500
+                hover:bg-primary/90
                 disabled:cursor-not-allowed
                 disabled:opacity-60
               "
-
             >
 
               {pending ? (
-
                 <Loader2
                   size={18}
                   className="animate-spin"
                 />
-
               ) : (
-
                 <Save size={18} />
-
               )}
 
               Save Changes
@@ -255,7 +214,5 @@ export default function ProfileCard({
       </div>
 
     </section>
-
   );
-
 }

@@ -36,17 +36,13 @@ export function Sidebar() {
     rounded-2xl
     px-4
     py-3
-    transition-all
-    duration-200
+    transition
     ${
       isActive(href)
         ? `
-          bg-gradient-to-r
-          from-indigo-600
-          to-violet-600
+          bg-primary
           text-primary-foreground
           shadow-lg
-          shadow-indigo-500/25
         `
         : `
           text-muted-foreground
@@ -87,13 +83,10 @@ export function Sidebar() {
               items-center
               justify-center
               rounded-2xl
-              bg-gradient-to-br
-              from-indigo-500
-              to-violet-600
+              bg-primary
               font-bold
               text-primary-foreground
               shadow-lg
-              shadow-indigo-500/30
             "
           >
             T
@@ -123,7 +116,6 @@ export function Sidebar() {
       </div>
 
       <div className="space-y-8 p-4">
-
         <Section title="Dashboard">
           <Link
             href="/dashboard"
@@ -137,7 +129,6 @@ export function Sidebar() {
         </Section>
 
         <Section title="Spaces">
-
           <div
             className="
               mb-3
@@ -172,7 +163,6 @@ export function Sidebar() {
           </div>
 
           <SpacesNav />
-
         </Section>
 
         {spaceId && (
@@ -188,13 +178,10 @@ export function Sidebar() {
               <span className="flex-1">
                 Members
               </span>
-
             </Link>
           </Section>
         )}
-
       </div>
-
     </aside>
   );
 }

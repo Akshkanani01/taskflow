@@ -12,8 +12,6 @@ import {
   CheckSquare,
   Mail,
   Calendar,
-  Crown,
-  UserCircle2,
 } from "lucide-react";
 
 import { auth } from "@/lib/auth";
@@ -65,54 +63,59 @@ export default async function MemberLayout({
   children,
   params,
 }: Props) {
-
   const session =
     await auth.api.getSession({
-
       headers: await headers(),
-
     });
 
   if (!session?.user) {
-
     redirect("/login");
-
   }
 
   const {
     id: spaceId,
     memberId,
   } = await params;
+
   console.log("PARAMS", {
-  spaceId,
-  memberId,
-});  
-  console.log("LAYOUT PARAMS", { spaceId, memberId });
-
-const member = await prisma.spaceMember.findFirst({
-  where: {
-    id: memberId,
     spaceId,
-  },
-  include: {
-    user: true,
-    space: {
-      include: {
-        workspace: true,
+    memberId,
+  });
+
+  console.log("LAYOUT PARAMS", {
+    spaceId,
+    memberId,
+  });
+
+  const member =
+    await prisma.spaceMember.findFirst({
+      where: {
+        id: memberId,
+        spaceId,
       },
-    },
-  },
-});
+      include: {
+        user: true,
+        space: {
+          include: {
+            workspace: true,
+          },
+        },
+      },
+    });
 
-console.log("LAYOUT MEMBER", member?.id ?? null);
+  console.log(
+    "LAYOUT MEMBER",
+    member?.id ?? null
+  );
 
-if (!member) {
-  console.log("LAYOUT -> NOT_FOUND");
-  notFound();
-}
+  if (!member) {
+    console.log("LAYOUT -> NOT_FOUND");
+    notFound();
+  }
 
-const base =
-  `/dashboard/spaces/${spaceId}/members/${member.id}`;
+  const base =
+    `/dashboard/spaces/${spaceId}/members/${member.id}`;
+
   const initials =
     (
       member.user.name ??
@@ -120,10 +123,9 @@ const base =
     )
       .charAt(0)
       .toUpperCase();
-        return (
 
+  return (
     <main className="space-y-8">
-
       {/* HERO */}
 
       <section
@@ -133,24 +135,21 @@ const base =
           border
           border-border
           bg-gradient-to-br
-          from-[#111827]
-          via-[#0F172A]
-          to-[#0B1220]
+          from-card
+          via-background
+          to-background
         "
       >
-
         <div className="relative">
-
           <div
             className="
               absolute
               inset-0
-              bg-[radial-gradient(circle_at_top_right,#4F46E520,transparent_45%)]
+              bg-[radial-gradient(circle_at_top_right,hsl(var(--primary)/0.15),transparent_45%)]
             "
           />
 
           <div className="relative p-8 lg:p-10">
-
             <Link
               href={`/dashboard/spaces/${spaceId}/members`}
               className="
@@ -169,19 +168,13 @@ const base =
                 hover:bg-background/10
               "
             >
-
               <ArrowLeft size={16} />
-
               Back to Members
-
             </Link>
 
             <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-
               <div className="flex items-center gap-6">
-
                 {member.user.image ? (
-
                   <img
                     src={member.user.image}
                     alt=""
@@ -194,9 +187,7 @@ const base =
                       object-cover
                     "
                   />
-
                 ) : (
-
                   <div
                     className="
                       flex
@@ -205,76 +196,55 @@ const base =
                       items-center
                       justify-center
                       rounded-full
-                      bg-indigo-600
+                      bg-primary
                       text-4xl
                       font-bold
-                      text-foreground
+                      text-primary-foreground
                     "
                   >
-
                     {initials}
-
                   </div>
-
                 )}
 
                 <div>
-
                   <div className="flex flex-wrap items-center gap-3">
-
                     <h1 className="text-4xl font-bold text-foreground">
-
-                      {member.user.name ||
+                      {member.user.name ??
                         member.user.email}
-
                     </h1>
 
                     <span
                       className="
                         rounded-full
-                        bg-indigo-500/15
+                        bg-primary/15
                         px-4
                         py-1
                         text-xs
                         font-semibold
                         uppercase
                         tracking-wider
-                        text-indigo-300
+                        text-primary
                       "
                     >
-
                       {member.role}
-
                     </span>
-
                   </div>
 
                   <div className="mt-4 flex flex-wrap gap-6 text-sm text-muted-foreground">
-
                     <div className="flex items-center gap-2">
-
                       <Mail size={16} />
-
                       {member.user.email}
-
                     </div>
 
                     <div className="flex items-center gap-2">
-
                       <Calendar size={16} />
-
                       Joined{" "}
-
                       {member.joinedAt.toLocaleDateString(
                         "en-GB"
                       )}
-
                     </div>
-
                   </div>
-
                 </div>
-
               </div>
 
               <div
@@ -284,7 +254,6 @@ const base =
                   sm:grid-cols-2
                 "
               >
-
                 <div
                   className="
                     rounded-2xl
@@ -294,19 +263,13 @@ const base =
                     p-5
                   "
                 >
-
                   <p className="text-xs uppercase tracking-widest text-muted-foreground">
-
                     Workspace
-
                   </p>
 
                   <p className="mt-3 text-lg font-semibold text-foreground">
-
                     {member.space.workspace.name}
-
                   </p>
-
                 </div>
 
                 <div
@@ -318,42 +281,28 @@ const base =
                     p-5
                   "
                 >
-
                   <p className="text-xs uppercase tracking-widest text-muted-foreground">
-
                     Space
-
                   </p>
 
                   <p className="mt-3 text-lg font-semibold text-foreground">
-
                     {member.space.name}
-
                   </p>
-
                 </div>
-
               </div>
-
             </div>
-
           </div>
-
         </div>
-
       </section>
-            {/* NAVIGATION */}
+
+      {/* NAVIGATION */}
 
       <div className="sticky top-20 z-20">
-
-        <div className="flex gap-3 overflow-x-auto rounded-3xl border border-border bg-[#111827]/95 p-3 backdrop-blur-xl">
-
+        <div className="flex gap-3 overflow-x-auto rounded-3xl border border-border bg-card/95 p-3 backdrop-blur-xl">
           {tabs.map((tab) => {
-
             const Icon = tab.icon;
 
             return (
-
               <Link
                 key={tab.label}
                 href={`${base}${tab.href}`}
@@ -368,45 +317,31 @@ const base =
                   text-sm
                   font-medium
                   text-foreground
-                  transition-all
-                  duration-200
-                  hover:bg-indigo-600
-                  hover:text-foreground
+                  transition
+                  hover:bg-primary
+                  hover:text-primary-foreground
                 "
               >
-
                 <Icon size={17} />
-
                 {tab.label}
-
               </Link>
-
             );
-
           })}
-
         </div>
-
       </div>
-
-      {/* CONTENT */}
+            {/* CONTENT */}
 
       <section
         className="
           rounded-3xl
           border
           border-border
-          bg-[#111827]
+          bg-card
           p-8
         "
       >
-
         {children}
-
       </section>
-
     </main>
-
   );
-
 }

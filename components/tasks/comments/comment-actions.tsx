@@ -31,17 +31,25 @@ export default function CommentActions({
   if (editing) {
     return (
       <div className="space-y-3">
-
         <textarea
           value={text}
           onChange={(e) =>
             setText(e.target.value)
           }
-          className="w-full rounded-xl border border-border bg-card p-3 text-foreground"
+          className="
+            w-full
+            rounded-xl
+            border
+            border-border
+            bg-card
+            p-3
+            text-foreground
+            outline-none
+            focus:border-primary
+          "
         />
 
         <div className="flex gap-3">
-
           <button
             disabled={pending}
             onClick={() =>
@@ -56,7 +64,18 @@ export default function CommentActions({
                 router.refresh();
               })
             }
-            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm text-foreground"
+            className="
+              rounded-lg
+              bg-primary
+              px-4
+              py-2
+              text-sm
+              text-primary-foreground
+              transition
+              hover:bg-primary/90
+              disabled:pointer-events-none
+              disabled:opacity-50
+            "
           >
             Save
           </button>
@@ -65,25 +84,35 @@ export default function CommentActions({
             onClick={() =>
               setEditing(false)
             }
-            className="rounded-lg border border-border px-4 py-2 text-sm text-foreground"
+            className="
+              rounded-lg
+              border
+              border-border
+              px-4
+              py-2
+              text-sm
+              text-foreground
+            "
           >
             Cancel
           </button>
-
         </div>
-
       </div>
     );
   }
 
   return (
     <div className="flex gap-4">
-
       <button
         onClick={() =>
           setEditing(true)
         }
-        className="text-xs text-indigo-400 hover:text-indigo-300"
+        className="
+          text-xs
+          text-primary
+          transition
+          hover:text-primary/80
+        "
       >
         Edit
       </button>
@@ -97,11 +126,17 @@ export default function CommentActions({
             router.refresh();
           })
         }
-        className="text-xs text-red-400 hover:text-red-300"
+        className="
+          text-xs
+          text-destructive
+          transition
+          hover:text-destructive/80
+          disabled:pointer-events-none
+          disabled:opacity-50
+        "
       >
         Delete
       </button>
-
     </div>
   );
 }

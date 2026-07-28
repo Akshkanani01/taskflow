@@ -65,9 +65,7 @@ export default function ChecklistItem({
 
   return (
     <div className="group flex items-center justify-between rounded-2xl border border-border bg-background px-4 py-3">
-
-      <div className="flex items-center gap-3 flex-1">
-
+      <div className="flex flex-1 items-center gap-3">
         <input
           type="checkbox"
           checked={item.completed}
@@ -81,11 +79,17 @@ export default function ChecklistItem({
               router.refresh();
             })
           }
-          className="h-4 w-4 rounded"
+          className="
+            h-4
+            w-4
+            rounded
+            accent-primary
+            disabled:pointer-events-none
+            disabled:opacity-50
+          "
         />
 
         {editing ? (
-
           <input
             autoFocus
             value={title}
@@ -94,40 +98,55 @@ export default function ChecklistItem({
                 e.target.value
               )
             }
-            className="h-10 flex-1 rounded-lg border border-border bg-card px-3 text-foreground outline-none"
+            className="
+              h-10
+              flex-1
+              rounded-lg
+              border
+              border-border
+              bg-card
+              px-3
+              text-foreground
+              outline-none
+              transition
+              focus:border-primary
+            "
           />
-
         ) : (
-
           <span
             className={`flex-1 ${
               item.completed
-                ? "text-muted-foreground line-through"
+                ? "line-through text-muted-foreground"
                 : "text-foreground"
             }`}
           >
             {item.title}
           </span>
-
         )}
-
       </div>
 
       <div className="flex items-center gap-2">
-
         {editing ? (
           <>
             <button
+              type="button"
               disabled={pending}
               onClick={save}
-              className="rounded-lg p-2 text-emerald-400 hover:bg-emerald-500/10"
+              className="
+                rounded-lg
+                p-2
+                text-primary
+                transition
+                hover:bg-primary/10
+                disabled:pointer-events-none
+                disabled:opacity-50
+              "
             >
-              <Check
-                size={16}
-              />
+              <Check size={16} />
             </button>
 
             <button
+              type="button"
               onClick={() => {
                 setEditing(false);
 
@@ -135,7 +154,13 @@ export default function ChecklistItem({
                   item.title
                 );
               }}
-              className="rounded-lg p-2 text-muted-foreground hover:bg-background"
+              className="
+                rounded-lg
+                p-2
+                text-muted-foreground
+                transition
+                hover:bg-background
+              "
             >
               <X size={16} />
             </button>
@@ -143,30 +168,40 @@ export default function ChecklistItem({
         ) : (
           <>
             <button
+              type="button"
               onClick={() =>
                 setEditing(true)
               }
-              className="rounded-lg p-2 text-muted-foreground hover:bg-background"
+              className="
+                rounded-lg
+                p-2
+                text-muted-foreground
+                transition
+                hover:bg-background
+              "
             >
-              <Pencil
-                size={16}
-              />
+              <Pencil size={16} />
             </button>
 
             <button
+              type="button"
               disabled={pending}
               onClick={remove}
-              className="rounded-lg p-2 text-red-400 hover:bg-red-500/10"
+              className="
+                rounded-lg
+                p-2
+                text-destructive
+                transition
+                hover:bg-destructive/10
+                disabled:pointer-events-none
+                disabled:opacity-50
+              "
             >
-              <Trash2
-                size={16}
-              />
+              <Trash2 size={16} />
             </button>
           </>
         )}
-
       </div>
-
     </div>
   );
 }

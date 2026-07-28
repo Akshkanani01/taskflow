@@ -145,9 +145,9 @@ export default async function MemberActivityPage({
 
       <div className="grid gap-6 md:grid-cols-4">
 
-        <div className="rounded-3xl border border-border bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-card p-6">
 
-          <Activity className="mb-4 h-8 w-8 text-indigo-400" />
+          <Activity className="mb-4 h-8 w-8 text-primary" />
 
           <p className="text-sm text-muted-foreground">
 
@@ -163,9 +163,9 @@ export default async function MemberActivityPage({
 
         </div>
 
-        <div className="rounded-3xl border border-border bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-card p-6">
 
-          <MessageSquare className="mb-4 h-8 w-8 text-emerald-400" />
+          <MessageSquare className="mb-4 h-8 w-8 text-primary" />
 
           <p className="text-sm text-muted-foreground">
 
@@ -181,9 +181,9 @@ export default async function MemberActivityPage({
 
         </div>
 
-        <div className="rounded-3xl border border-border bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg-card p-6">
 
-          <Paperclip className="mb-4 h-8 w-8 text-cyan-400" />
+          <Paperclip className="mb-4 h-8 w-8 text-primary" />
 
           <p className="text-sm text-muted-foreground">
 
@@ -199,9 +199,9 @@ export default async function MemberActivityPage({
 
         </div>
 
-        <div className="rounded-3xl border border-border bg-[#111827] p-6">
+        <div className="rounded-3xl border border-border bg--card p-6">
 
-          <CheckSquare className="mb-4 h-8 w-8 text-yellow-400" />
+          <CheckSquare className="mb-4 h-8 w-8 text-primary" />
 
           <p className="text-sm text-muted-foreground">
 
@@ -226,7 +226,7 @@ export default async function MemberActivityPage({
       </div>
             {/* TIMELINE */}
 
-      <section className="overflow-hidden rounded-3xl border border-border bg-[#111827]">
+      <section className="overflow-hidden rounded-3xl border border-border bg-card">
 
         <div className="border-b border-border p-6">
 
@@ -248,7 +248,7 @@ export default async function MemberActivityPage({
 
           <div className="flex flex-col items-center justify-center py-24">
 
-            <Activity className="mb-5 h-16 w-16 text-slate-700" />
+            <Activity className="mb-5 h-16 w-16 text-muted-foreground" />
 
             <h3 className="text-xl font-semibold text-foreground">
 
@@ -288,11 +288,11 @@ export default async function MemberActivityPage({
                     items-center
                     justify-center
                     rounded-full
-                    bg-indigo-600
+                    bg-primary
                   "
                 >
 
-                  <Activity className="h-5 w-5 text-foreground" />
+                  <Activity className="h-5 w-5 text-primary-foreground" />
 
                 </div>
 
@@ -409,7 +409,7 @@ export default async function MemberActivityPage({
 
         {/* Activity Summary */}
 
-        <section className="rounded-3xl border border-border bg-[#111827] p-6">
+        <section className="rounded-3xl border border-border bg-card p-6">
 
           <div className="flex items-center justify-between">
 
@@ -419,7 +419,7 @@ export default async function MemberActivityPage({
 
             </h2>
 
-            <Activity className="h-6 w-6 text-indigo-400" />
+            <Activity className="h-6 w-6 text-primary" />
 
           </div>
 
@@ -449,7 +449,7 @@ export default async function MemberActivityPage({
 
               </span>
 
-              <span className="font-semibold text-emerald-400">
+              <span className="font-semibold text-primary">
 
                 {comments}
 
@@ -465,7 +465,7 @@ export default async function MemberActivityPage({
 
               </span>
 
-              <span className="font-semibold text-cyan-400">
+              <span className="font-semibold text-primary">
 
                 {uploads}
 
@@ -481,7 +481,7 @@ export default async function MemberActivityPage({
 
               </span>
 
-              <span className="font-semibold text-indigo-400">
+              <span className="font-semibold text-primary">
 
                 {
                   new Set(
@@ -502,7 +502,7 @@ export default async function MemberActivityPage({
 
         {/* Latest Activity */}
 
-        <section className="rounded-3xl border border-border bg-[#111827] p-6">
+        <section className="rounded-3xl border border-border bg-card p-6">
 
           <div className="flex items-center justify-between">
 
@@ -512,7 +512,7 @@ export default async function MemberActivityPage({
 
             </h2>
 
-            <Calendar className="h-6 w-6 text-cyan-400" />
+            <Calendar className="h-6 w-6 text-primary" />
 
           </div>
 
@@ -520,7 +520,7 @@ export default async function MemberActivityPage({
 
             <div className="mt-8 rounded-2xl border border-dashed border-border py-14 text-center">
 
-              <Activity className="mx-auto h-12 w-12 text-slate-700" />
+              <Activity className="mx-auto h-12 w-12 text-muted-foreground" />
 
               <p className="mt-4 text-muted-foreground">
 

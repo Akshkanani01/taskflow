@@ -91,10 +91,10 @@ export default async function TaskDetailPage({
   }
 
   return (
-    <div className="min-h-screen bg-[#0B1220]">
+    <div className="min-h-screen bg-background">
             {/* HEADER */}
 
-      <div className="border-b border-border bg-[#111827]">
+      <div className="border-b border-border bg-card">
 
         <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-6">
 
@@ -165,7 +165,7 @@ export default async function TaskDetailPage({
         <div className="space-y-8">
                     {/* TITLE */}
 
-          <section className="rounded-3xl border border-border bg-[#111827] p-8">
+          <section className="rounded-3xl border border-border bg-card p-8">
 
             <TaskTitleEditor
               taskId={task.id}
@@ -176,7 +176,7 @@ export default async function TaskDetailPage({
 
           {/* DESCRIPTION */}
 
-          <section className="rounded-3xl border border-border bg-[#111827] p-8">
+          <section className="rounded-3xl border border-border bg-card p-8">
 
             <DescriptionEditor
               taskId={task.id}
@@ -187,7 +187,7 @@ export default async function TaskDetailPage({
 
           {/* CHECKLIST */}
 
-          <section className="rounded-3xl border border-border bg-[#111827] p-8">
+          <section className="rounded-3xl border border-border bg-card p-8">
 
             <div className="mb-6">
 
@@ -206,7 +206,7 @@ export default async function TaskDetailPage({
 
           {/* COMMENTS */}
 
-          <section className="rounded-3xl border border-border bg-[#111827] p-8">
+          <section className="rounded-3xl border border-border bg-card p-8">
 
             <div className="mb-6">
 
@@ -225,7 +225,7 @@ export default async function TaskDetailPage({
 
           {/* ATTACHMENTS */}
 
-          <section className="rounded-3xl border border-border bg-[#111827] p-8">
+          <section className="rounded-3xl border border-border bg-card p-8">
 
             <div className="mb-6">
 
@@ -244,7 +244,7 @@ export default async function TaskDetailPage({
 
           {/* ACTIVITY */}
 
-          <section className="rounded-3xl border border-border bg-[#111827] p-8">
+          <section className="rounded-3xl border border-border bg-card p-8">
 
             <div className="mb-6">
 
@@ -266,7 +266,7 @@ export default async function TaskDetailPage({
 
         <aside className="space-y-6">
 
-          <div className="rounded-3xl border border-border bg-[#111827] p-6">
+          <div className="rounded-3xl border border-border bg-card p-6">
 
             <h2 className="mb-6 text-lg font-semibold text-foreground">
               Task Details

@@ -60,12 +60,12 @@ export function ActivityFeed() {
                   flex h-10 w-10
                   items-center justify-center
                   rounded-xl
-                  bg-indigo-600/20
+                  bg-primary/20
                 "
               >
                 <Icon
                   size={18}
-                  className="text-indigo-400"
+                  className="text-primary"
                 />
               </div>
 
@@ -78,7 +78,6 @@ export function ActivityFeed() {
                   {activity.description}
                 </p>
               </div>
-
             </div>
           );
         })}

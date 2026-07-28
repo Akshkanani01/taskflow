@@ -5,7 +5,9 @@ import {
   FileText,
   Download,
 } from "lucide-react";
+
 import DeleteAttachmentButton from "./delete-attachment-button";
+
 type Attachment = {
   id: string;
   name: string;
@@ -44,9 +46,7 @@ export default function TaskAttachmentsList({
 
   return (
     <div className="space-y-3">
-
       {attachments.map((file) => {
-
         const image =
           file.mimeType?.startsWith("image");
 
@@ -54,24 +54,20 @@ export default function TaskAttachmentsList({
           file.mimeType?.includes("pdf");
 
         return (
-
           <div
             key={file.id}
             className="flex items-center justify-between rounded-xl border border-border bg-background p-4"
           >
-
             <div className="flex items-center gap-4">
-
               {image ? (
-                <ImageIcon className="text-indigo-400" />
+                <ImageIcon className="text-primary" />
               ) : pdf ? (
-                <FileText className="text-red-400" />
+                <FileText className="text-destructive" />
               ) : (
                 <File className="text-muted-foreground" />
               )}
 
               <div>
-
                 <h4 className="text-sm font-medium text-foreground">
                   {file.name}
                 </h4>
@@ -79,27 +75,31 @@ export default function TaskAttachmentsList({
                 <p className="text-xs text-muted-foreground">
                   {formatSize(file.size)}
                 </p>
-
               </div>
-
             </div>
 
             <Link
               href={file.url}
               target="_blank"
-              className="rounded-lg border border-border p-2 text-foreground hover:bg-background"
+              className="
+                rounded-lg
+                border
+                border-border
+                p-2
+                text-foreground
+                transition
+                hover:bg-background
+              "
             >
               <Download size={16} />
             </Link>
-                <DeleteAttachmentButton
-    id={file.id}
-  />
+
+            <DeleteAttachmentButton
+              id={file.id}
+            />
           </div>
-
         );
-
       })}
-
     </div>
   );
 }

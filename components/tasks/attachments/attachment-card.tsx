@@ -32,6 +32,7 @@ type Props = {
     size: number | null;
   };
 };
+
 function FileIcon({
   mime,
 }: {
@@ -62,7 +63,7 @@ function FileIcon({
     return (
       <FileVideo
         size={60}
-        className="text-indigo-400"
+        className="text-primary"
       />
     );
   }
@@ -80,7 +81,7 @@ function FileIcon({
     return (
       <FileImage
         size={60}
-        className="text-blue-400"
+        className="text-primary"
       />
     );
   }
@@ -92,10 +93,10 @@ function FileIcon({
     />
   );
 }
+
 export default function AttachmentCard({
   attachment,
 }: Props) {
-
   const router = useRouter();
 
   const [pending, start] =
@@ -110,7 +111,7 @@ export default function AttachmentCard({
   const isImage =
     mime.startsWith("image");
 
-      return (
+  return (
     <>
       <div
         className="
@@ -119,62 +120,47 @@ export default function AttachmentCard({
           rounded-2xl
           border
           border-border
-          bg-[#111827]
-          transition-all
-          duration-300
-          hover:border-indigo-500/30
+          bg-card
+          transition
+          hover:border-primary/30
           hover:shadow-xl
-          hover:shadow-indigo-500/10
+          hover:shadow-primary/10
         "
       >
         {/* Preview */}
 
-        <div className="relative flex h-48 items-center justify-center bg-[#0B1220]">
-
+        <div className="relative flex h-48 items-center justify-center bg-background">
           {isImage ? (
-
             <Image
               src={attachment.url}
               alt={attachment.name}
               fill
               className="object-cover"
             />
-
           ) : (
-
             <FileIcon mime={mime} />
-
           )}
-
         </div>
 
         {/* Body */}
 
         <div className="space-y-4 p-5">
-
           <div>
-
             <h3 className="truncate text-sm font-semibold text-foreground">
-
               {attachment.name}
-
             </h3>
 
             <p className="mt-1 text-xs text-muted-foreground">
-
               {attachment.size
                 ? `${(
                     attachment.size /
                     1024
                   ).toFixed(1)} KB`
                 : "--"}
-
             </p>
-
           </div>
 
           <div className="flex items-center gap-2">
-
             <Link
               href={attachment.url}
               target="_blank"
@@ -191,11 +177,9 @@ export default function AttachmentCard({
                 hover:bg-background
               "
             >
-
               <ExternalLink
                 size={18}
               />
-
             </Link>
 
             <a
@@ -214,11 +198,9 @@ export default function AttachmentCard({
                 hover:bg-background
               "
             >
-
               <Download
                 size={18}
               />
-
             </a>
 
             <button
@@ -236,36 +218,31 @@ export default function AttachmentCard({
                 justify-center
                 rounded-xl
                 border
-                border-red-500/20
-                text-red-400
+                border-destructive/20
+                text-destructive
                 transition
-                hover:bg-red-500/10
+                hover:bg-destructive/10
+                disabled:pointer-events-none
+                disabled:opacity-50
               "
             >
-
               <Trash2
                 size={18}
               />
-
             </button>
-
           </div>
-
         </div>
-
       </div>
-            <DeleteDialog
+
+      <DeleteDialog
         open={open}
         onOpenChange={setOpen}
         loading={pending}
         title="Delete Attachment?"
         description="This file will be permanently removed from this task."
-
         onConfirm={() =>
           start(async () => {
-
             try {
-
               await deleteAttachment(
                 attachment.id
               );
@@ -277,15 +254,11 @@ export default function AttachmentCard({
               setOpen(false);
 
               router.refresh();
-
             } catch {
-
               toast.error(
                 "Unable to delete attachment."
               );
-
             }
-
           })
         }
       />

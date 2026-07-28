@@ -1,213 +1,185 @@
 "use client";
 
-import {
-useState,
-} from "react";
-import {
-useRouter,
-} from "next/navigation";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Workspace = {
-id: string;
-name: string;
+  id: string;
+  name: string;
 };
 
 export default function SpaceForm({
-workspaces,
+  workspaces,
 }: {
-workspaces: Workspace[];
+  workspaces: Workspace[];
 }) {
-const router =
-useRouter();
+  const router = useRouter();
 
-const [name, setName] =
-useState("");
+  const [name, setName] = useState("");
 
-const [
-workspaceId,
-setWorkspaceId,
-] = useState(
-workspaces[0]?.id || ""
-);
-
-const [color, setColor] =
-useState("blue");
-
-const [loading,
-setLoading] =
-useState(false);
-
-async function handleSubmit(
-e: React.FormEvent
-) {
-e.preventDefault();
-
-try {
-  setLoading(true);
-
-  const res =
-    await fetch(
-      "/api/spaces/create",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          color,
-          workspaceId,
-        }),
-      }
-    );
-
-  if (!res.ok) {
-    alert(
-      "Failed to create space"
-    );
-    return;
-  }
-
-  router.push(
-    "/dashboard/spaces"
+  const [workspaceId, setWorkspaceId] = useState(
+    workspaces[0]?.id || ""
   );
 
-  router.refresh();
-} catch (error) {
-  console.error(error);
-} finally {
-  setLoading(false);
-}
+  const [color, setColor] = useState("blue");
 
+  const [loading, setLoading] = useState(false);
 
-}
+  async function handleSubmit(
+    e: React.FormEvent
+  ) {
+    e.preventDefault();
 
-return (
-<form
-onSubmit={
-handleSubmit
-}
-className="space-y-5"
-> <div> <label className="mb-2 block text-sm text-muted-foreground">
-Workspace </label>
+    try {
+      setLoading(true);
 
-    <select
-      value={
-        workspaceId
+      const res = await fetch(
+        "/api/spaces/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            color,
+            workspaceId,
+          }),
+        }
+      );
+
+      if (!res.ok) {
+        alert(
+          "Failed to create space"
+        );
+        return;
       }
-      onChange={(e) =>
-        setWorkspaceId(
-          e.target.value
-        )
-      }
-      className="
-        w-full rounded-xl
-        border border-border
-        bg-background
-        px-4 py-3
-        text-foreground
-      "
-    >
-      {workspaces.map(
-        (
-          workspace
-        ) => (
-          <option
-            key={
-              workspace.id
-            }
-            value={
-              workspace.id
-            }
-          >
-            {
-              workspace.name
-            }
-          </option>
-        )
-      )}
-    </select>
-  </div>
 
-  <div>
-    <label className="mb-2 block text-sm text-muted-foreground">
-      Space Name
-    </label>
+      router.push(
+        "/dashboard/spaces"
+      );
 
-    <input
-      value={name}
-      onChange={(e) =>
-        setName(
-          e.target.value
-        )
-      }
-      placeholder="Development"
-      className="
-        w-full rounded-xl
-        border border-border
-        bg-background
-        px-4 py-3
-        text-foreground
-      "
-    />
-  </div>
-
-  <div>
-    <label className="mb-2 block text-sm text-muted-foreground">
-      Color
-    </label>
-
-    <select
-      value={color}
-      onChange={(e) =>
-        setColor(
-          e.target.value
-        )
-      }
-      className="
-        w-full rounded-xl
-        border border-border
-        bg-background
-        px-4 py-3
-        text-foreground
-      "
-    >
-      <option value="blue">
-        Blue
-      </option>
-
-      <option value="green">
-        Green
-      </option>
-
-      <option value="purple">
-        Purple
-      </option>
-
-      <option value="orange">
-        Orange
-      </option>
-    </select>
-  </div>
-
-  <button
-    disabled={
-      loading
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
-    className="
-      rounded-xl
-      bg-indigo-600
-      px-5 py-3
-      text-foreground
-    "
-  >
-    {loading
-      ? "Creating..."
-      : "Create Space"}
-  </button>
-</form>
+  }
 
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-5"
+    >
+      <div>
+        <label className="mb-2 block text-sm text-muted-foreground">
+          Workspace
+        </label>
 
-);
+        <select
+          value={workspaceId}
+          onChange={(e) =>
+            setWorkspaceId(
+              e.target.value
+            )
+          }
+          className="
+            w-full rounded-xl
+            border border-border
+            bg-background
+            px-4 py-3
+            text-foreground
+          "
+        >
+          {workspaces.map(
+            (workspace) => (
+              <option
+                key={workspace.id}
+                value={workspace.id}
+              >
+                {workspace.name}
+              </option>
+            )
+          )}
+        </select>
+      </div>
+
+      <div>
+        <label className="mb-2 block text-sm text-muted-foreground">
+          Space Name
+        </label>
+
+        <input
+          value={name}
+          onChange={(e) =>
+            setName(
+              e.target.value
+            )
+          }
+          placeholder="Development"
+          className="
+            w-full rounded-xl
+            border border-border
+            bg-background
+            px-4 py-3
+            text-foreground
+          "
+        />
+      </div>
+
+      <div>
+        <label className="mb-2 block text-sm text-muted-foreground">
+          Color
+        </label>
+
+        <select
+          value={color}
+          onChange={(e) =>
+            setColor(
+              e.target.value
+            )
+          }
+          className="
+            w-full rounded-xl
+            border border-border
+            bg-background
+            px-4 py-3
+            text-foreground
+          "
+        >
+          <option value="blue">
+            Blue
+          </option>
+
+          <option value="green">
+            Green
+          </option>
+
+          <option value="purple">
+            Purple
+          </option>
+
+          <option value="orange">
+            Orange
+          </option>
+        </select>
+      </div>
+
+      <button
+        disabled={loading}
+        className="
+          rounded-xl
+          bg-primary
+          px-5 py-3
+          text-primary-foreground
+        "
+      >
+        {loading
+          ? "Creating..."
+          : "Create Space"}
+      </button>
+    </form>
+  );
 }

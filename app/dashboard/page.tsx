@@ -409,14 +409,14 @@ export default async function DashboardPage() {
                           .map((member) => (
 
                             <div
-                              key={member.id}
-                              className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-background bg-indigo-600 text-xs font-semibold text-foreground"
-                            >
-                              {(member.user.name ??
-                                member.user.email)
-                                .charAt(0)
-                                .toUpperCase()}
-                            </div>
+  key={member.id}
+  className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-background bg-primary text-xs font-semibold text-primary-foreground"
+>
+  {(member.user.name ??
+    member.user.email)
+    .charAt(0)
+    .toUpperCase()}
+</div>
 
                           ))}
 

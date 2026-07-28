@@ -20,9 +20,7 @@ type Member = {
 
 type Props = {
   taskId: string;
-
   members: Member[];
-
   selected: string[];
 };
 
@@ -31,7 +29,6 @@ export default function TaskAssigneeEditor({
   members,
   selected,
 }: Props) {
-
   const [
     pending,
     startTransition,
@@ -47,7 +44,6 @@ export default function TaskAssigneeEditor({
 
   const filtered =
     useMemo(() => {
-
       return members.filter((member) =>
         member.name
           .toLowerCase()
@@ -55,13 +51,11 @@ export default function TaskAssigneeEditor({
             query.toLowerCase()
           )
       );
-
     }, [members, query]);
 
   function toggle(
     id: string
   ) {
-
     const next =
       selectedUsers.includes(id)
         ? selectedUsers.filter(
@@ -75,29 +69,20 @@ export default function TaskAssigneeEditor({
     setSelectedUsers(next);
 
     startTransition(async () => {
-
       await updateTaskAssignees(
         taskId,
         next
       );
-
     });
-
   }
-    return (
 
+  return (
     <div>
-
       <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-
         Assignees
-
       </label>
 
-      {/* SEARCH */}
-
       <div className="relative mb-4">
-
         <Search
           size={16}
           className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
@@ -122,35 +107,24 @@ export default function TaskAssigneeEditor({
             pr-4
             text-foreground
             outline-none
-            focus:border-indigo-500
+            focus:border-primary
           "
         />
-
       </div>
 
-      {/* MEMBER LIST */}
-
       <div className="max-h-72 space-y-2 overflow-y-auto rounded-xl border border-border bg-card p-2">
-
         {filtered.length === 0 ? (
-
           <div className="py-6 text-center text-sm text-muted-foreground">
-
             No members found
-
           </div>
-
         ) : (
-
           filtered.map((member) => {
-
             const active =
               selectedUsers.includes(
                 member.id
               );
 
             return (
-
               <button
                 key={member.id}
                 type="button"
@@ -171,14 +145,12 @@ export default function TaskAssigneeEditor({
 
                   ${
                     active
-                      ? "bg-indigo-600 text-foreground"
-                      : "hover:bg-background text-foreground"
+                      ? "bg-primary text-primary-foreground"
+                      : "text-foreground hover:bg-background"
                   }
                 `}
               >
-
                 <div className="flex items-center gap-3">
-
                   <div
                     className="
                       flex
@@ -188,6 +160,7 @@ export default function TaskAssigneeEditor({
                       justify-center
                       rounded-full
                       bg-muted
+                      text-foreground
                       text-sm
                       font-semibold
                     "
@@ -198,43 +171,26 @@ export default function TaskAssigneeEditor({
                   </div>
 
                   <span>
-
                     {member.name}
-
                   </span>
-
                 </div>
 
                 {active && (
-
                   <Check
                     size={18}
                   />
-
                 )}
-
               </button>
-
             );
-
           })
-
         )}
-
       </div>
 
       {pending && (
-
-        <p className="mt-3 text-xs text-emerald-400">
-
+        <p className="mt-3 text-xs text-primary">
           Saving assignees...
-
         </p>
-
       )}
-
     </div>
-
   );
-
 }

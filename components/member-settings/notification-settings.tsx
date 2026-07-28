@@ -97,22 +97,29 @@ export default function NotificationSettings({
   ] as const;
 
   return (
-    <section className="rounded-3xl border border-border bg-[#111827] p-7">
+    <section className="rounded-3xl border border-border bg-card p-7">
+
       <div className="mb-8 flex items-center gap-3">
-        <Bell className="h-6 w-6 text-indigo-400" />
+
+        <Bell className="h-6 w-6 text-primary" />
 
         <h2 className="text-xl font-semibold text-foreground">
           Notification Preferences
         </h2>
+
       </div>
 
       <div className="space-y-4">
+
         {rows.map((row) => (
+
           <div
             key={row.key}
             className="flex items-center justify-between rounded-2xl border border-border bg-card p-5"
           >
+
             <div>
+
               <h3 className="font-semibold text-foreground">
                 {row.title}
               </h3>
@@ -120,6 +127,7 @@ export default function NotificationSettings({
               <p className="mt-1 text-sm text-muted-foreground">
                 {row.description}
               </p>
+
             </div>
 
             <button
@@ -129,10 +137,11 @@ export default function NotificationSettings({
               }
               className={`relative h-7 w-14 rounded-full transition ${
                 settings[row.key]
-                  ? "bg-indigo-600"
-                  : "bg-slate-700"
+                  ? "bg-primary"
+                  : "bg-muted"
               }`}
             >
+
               <span
                 className={`absolute top-1 h-5 w-5 rounded-full bg-background transition ${
                   settings[row.key]
@@ -140,10 +149,15 @@ export default function NotificationSettings({
                     : "left-1"
                 }`}
               />
+
             </button>
+
           </div>
+
         ))}
+
       </div>
+
     </section>
   );
 }

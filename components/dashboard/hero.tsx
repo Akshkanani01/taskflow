@@ -11,15 +11,11 @@ export function DashboardHero() {
         relative overflow-hidden
         rounded-3xl
         border border-border
-        bg-gradient-to-r
-        from-indigo-600
-        via-violet-600
-        to-fuchsia-600
+        bg-primary
         p-8
       "
     >
       <div className="max-w-3xl">
-
         <span
           className="
             inline-flex items-center
@@ -49,7 +45,7 @@ export function DashboardHero() {
           className="
             mt-4
             text-lg
-            text-indigo-100
+            text-primary-foreground
           "
         >
           Manage lists, tasks, teams and
@@ -58,14 +54,13 @@ export function DashboardHero() {
         </p>
 
         <div className="mt-8 flex gap-4">
-
           <button
             className="
               rounded-xl
-              bg-primary
+              bg-background
               px-5 py-3
               font-medium
-              text-primary-foreground
+              text-foreground
             "
           >
             Create Project
@@ -83,9 +78,7 @@ export function DashboardHero() {
             View Reports
             <ArrowUpRight size={16} />
           </button>
-
         </div>
-
       </div>
 
       <div
@@ -95,7 +88,6 @@ export function DashboardHero() {
           md:grid-cols-3
         "
       >
-
         <div
           className="
             rounded-2xl
@@ -110,7 +102,7 @@ export function DashboardHero() {
             24
           </p>
 
-          <p className="text-indigo-100">
+          <p className="text-primary-foreground">
             Active lists
           </p>
         </div>
@@ -129,7 +121,7 @@ export function DashboardHero() {
             18
           </p>
 
-          <p className="text-indigo-100">
+          <p className="text-primary-foreground">
             Team Members
           </p>
         </div>
@@ -148,13 +140,11 @@ export function DashboardHero() {
             87%
           </p>
 
-          <p className="text-indigo-100">
+          <p className="text-primary-foreground">
             Productivity Score
           </p>
         </div>
-
       </div>
-
     </section>
   );
 }

@@ -2,8 +2,6 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 
 import {
-  Mail,
-  Calendar,
   CheckCircle2,
   ListTodo,
   Activity,
@@ -24,22 +22,22 @@ export default async function MemberOverviewPage({
 
   console.log("PAGE PARAMS", { id, memberId });
 
-const member = await prisma.spaceMember.findFirst({
-  where: {
-    id: memberId,
-    spaceId: id,
-  },
-  include: {
-    user: true,
-  },
-});
+  const member = await prisma.spaceMember.findFirst({
+    where: {
+      id: memberId,
+      spaceId: id,
+    },
+    include: {
+      user: true,
+    },
+  });
 
-console.log("PAGE MEMBER", member?.id ?? null);
+  console.log("PAGE MEMBER", member?.id ?? null);
 
-if (!member) {
-  console.log("PAGE -> NOT_FOUND");
-  notFound();
-}
+  if (!member) {
+    console.log("PAGE -> NOT_FOUND");
+    notFound();
+  }
 
   const assignedTasks =
     await prisma.taskAssignee.count({
@@ -52,7 +50,6 @@ if (!member) {
     await prisma.taskAssignee.count({
       where: {
         userId: member.userId,
-
         task: {
           status: "DONE",
         },
@@ -81,13 +78,9 @@ if (!member) {
 
   return (
     <main className="space-y-6">
-
-      
-
       {/* Stats */}
 
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-
         <StatCard
           title="Assigned Tasks"
           value={assignedTasks}
@@ -111,9 +104,7 @@ if (!member) {
           value={fileCount}
           icon={<Folder size={22} />}
         />
-
       </div>
-
     </main>
   );
 }
@@ -128,24 +119,20 @@ function StatCard({
   icon: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border border-[#222B39] bg-[#121722] p-6">
-
+    <div className="rounded-2xl border border-border bg-card p-6">
       <div className="flex items-center justify-between">
-
-        <span className="text-sm text-zinc-500">
+        <span className="text-sm text-muted-foreground">
           {title}
         </span>
 
-        <div className="text-indigo-400">
+        <div className="text-primary">
           {icon}
         </div>
-
       </div>
 
       <h2 className="mt-5 text-4xl font-bold text-foreground">
         {value}
       </h2>
-
     </div>
   );
 }

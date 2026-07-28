@@ -71,9 +71,8 @@ export default function TaskRow({
         items-center
         px-7
         py-4
-        transition-all
-        duration-200
-        hover:bg-[#171D27]
+        transition
+        hover:bg-card
       "
     >
       {/* TASK */}
@@ -86,8 +85,7 @@ export default function TaskRow({
             w-3
             shrink-0
             rounded-full
-            bg-indigo-500
-            shadow-[0_0_12px_rgba(99,102,241,.7)]
+            bg-primary
           "
         />
 
@@ -156,7 +154,8 @@ export default function TaskRow({
           >
             <Calendar size={17} />
           </div>
-                    <div>
+
+          <div>
             <p className="text-xs font-semibold text-foreground">
               {dueDate
                 ? dueDate.toLocaleDateString("en-GB", {

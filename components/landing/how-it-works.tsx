@@ -1,129 +1,129 @@
 import {
-FolderKanban,
-CheckSquare,
-Users,
-BarChart3,
+  FolderKanban,
+  CheckSquare,
+  Users,
+  BarChart3,
 } from "lucide-react";
 
 const steps = [
-{
-icon: FolderKanban,
-step: "01",
-title: "Create Workspace",
-description:
-"Setup your organization and create your first workspace.",
-},
-{
-icon: CheckSquare,
-step: "02",
-title: "Create lists",
-description:
-"Organize work into lists, boards, and milestones.",
-},
-{
-icon: Users,
-step: "03",
-title: "Assign Tasks",
-description:
-"Collaborate with team members and track ownership.",
-},
-{
-icon: BarChart3,
-step: "04",
-title: "Track Progress",
-description:
-"Monitor performance with analytics and reports.",
-},
+  {
+    icon: FolderKanban,
+    step: "01",
+    title: "Create Workspace",
+    description:
+      "Setup your organization and create your first workspace.",
+  },
+  {
+    icon: CheckSquare,
+    step: "02",
+    title: "Create lists",
+    description:
+      "Organize work into lists, boards, and milestones.",
+  },
+  {
+    icon: Users,
+    step: "03",
+    title: "Assign Tasks",
+    description:
+      "Collaborate with team members and track ownership.",
+  },
+  {
+    icon: BarChart3,
+    step: "04",
+    title: "Track Progress",
+    description:
+      "Monitor performance with analytics and reports.",
+  },
 ];
 
 export function HowItWorks() {
-return ( <section
-   id="how-it-works"
-   className="py-32"
- > <div className="container mx-auto px-6">
+  return (
+    <section
+      id="how-it-works"
+      className="py-32"
+    >
+      <div className="container mx-auto px-6">
+        <div className="mb-20 text-center">
+          <p
+            className="text-sm uppercase tracking-[0.3em]"
+            style={{ color: "var(--primary)" }}
+          >
+            Workflow
+          </p>
 
+          <h2 className="mt-4 text-5xl font-bold text-foreground">
+            How TaskFlow Works
+          </h2>
 
-    <div className="mb-20 text-center">
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
+            Get started in minutes and manage everything
+            from one powerful dashboard.
+          </p>
+        </div>
 
-      <p className="text-sm uppercase tracking-[0.3em] text-indigo-400">
-        Workflow
-      </p>
+        <div className="relative">
+          <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-background/10 lg:block" />
 
-      <h2 className="mt-4 text-5xl font-bold text-foreground">
-        How TaskFlow Works
-      </h2>
+          <div className="space-y-12">
+            {steps.map((item) => {
+              const Icon = item.icon;
 
-      <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-        Get started in minutes and manage everything
-        from one powerful dashboard.
-      </p>
-
-    </div>
-
-    <div className="relative">
-
-      <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-background/10 lg:block" />
-
-      <div className="space-y-12">
-
-        {steps.map((item) => {
-          const Icon = item.icon;
-
-          return (
-            <div
-              key={item.step}
-              className="
-                relative
-                rounded-3xl
-                border
-                border-border
-                bg-card
-                p-8
-              "
-            >
-              <div className="flex flex-col gap-6 md:flex-row md:items-center">
-
+              return (
                 <div
+                  key={item.step}
                   className="
-                    flex
-                    h-16
-                    w-16
-                    items-center
-                    justify-center
-                    rounded-2xl
-                    bg-indigo-600/15
+                    relative
+                    rounded-3xl
+                    border
+                    border-border
+                    bg-card
+                    p-8
                   "
                 >
-                  <Icon className="h-8 w-8 text-indigo-400" />
+                  <div className="flex flex-col gap-6 md:flex-row md:items-center">
+                    <div
+                      className="
+                        flex
+                        h-16
+                        w-16
+                        items-center
+                        justify-center
+                        rounded-2xl
+                      "
+                      style={{
+                        background:
+                          "color-mix(in srgb, var(--primary) 15%, transparent)",
+                      }}
+                    >
+                      <Icon
+                        className="h-8 w-8"
+                        style={{ color: "var(--primary)" }}
+                      />
+                    </div>
+
+                    <div className="flex-1">
+                      <span
+                        className="font-semibold"
+                        style={{ color: "var(--primary)" }}
+                      >
+                        STEP {item.step}
+                      </span>
+
+                      <h3 className="mt-2 text-2xl font-bold text-foreground">
+                        {item.title}
+                      </h3>
+
+                      <p className="mt-3 text-muted-foreground">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-
-                <div className="flex-1">
-
-                  <span className="text-indigo-400 font-semibold">
-                    STEP {item.step}
-                  </span>
-
-                  <h3 className="mt-2 text-2xl font-bold text-foreground">
-                    {item.title}
-                  </h3>
-
-                  <p className="mt-3 text-muted-foreground">
-                    {item.description}
-                  </p>
-
-                </div>
-
-              </div>
-            </div>
-          );
-        })}
-
+              );
+            })}
+          </div>
+        </div>
       </div>
-
-    </div>
-
-  </div>
-</section>
-
-);
+    </section>
+  );
 }

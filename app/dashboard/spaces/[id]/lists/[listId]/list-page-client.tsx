@@ -12,6 +12,7 @@ import TaskTable from "@/components/tasks/task-table";
 import CreateTaskModal from "@/components/tasks/dialogs/create-task-modal";
 import CreateTaskForm from "./create-task-form";
 import type { TaskTableItem } from "@/components/tasks/task-table";
+
 type Member = {
   id: string;
   name: string;
@@ -42,7 +43,7 @@ export default function ListPageClient({
   tasks,
   members,
 }: Props) {
-    const [search, setSearch] =
+  const [search, setSearch] =
     useState("");
 
   const [open, setOpen] =
@@ -50,7 +51,6 @@ export default function ListPageClient({
 
   const filteredTasks =
     useMemo(() => {
-
       if (!search.trim()) {
         return tasks;
       }
@@ -62,59 +62,42 @@ export default function ListPageClient({
             search.toLowerCase()
           )
       );
-
     }, [tasks, search]);
-      return (
 
+  return (
     <>
-
       <CreateTaskModal
-
         open={open}
-
         onClose={() =>
           setOpen(false)
         }
-
       >
-
         <CreateTaskForm
-
           listId={listId}
-
           spaceId={spaceId}
-
           createdById={
             currentUserId
           }
-
           members={members}
-
           onSuccess={() =>
             setOpen(false)
           }
-
         />
-
       </CreateTaskModal>
-            <div className="space-y-8">
 
+      <div className="space-y-8">
         {/* HEADER */}
 
-        <section className="rounded-3xl border border-border bg-[#111827] p-8">
-
+        <section className="rounded-3xl border border-border bg-card p-8">
           <div className="flex items-center justify-between">
-
             <div>
-
               <p className="text-sm text-muted-foreground">
-                Project
+                List Name :
               </p>
 
               <h1 className="mt-2 text-3xl font-bold text-foreground">
                 {project.name}
               </h1>
-
             </div>
 
             <button
@@ -125,29 +108,25 @@ export default function ListPageClient({
                 items-center
                 gap-2
                 rounded-2xl
-                bg-indigo-600
+                bg-primary
                 px-5
                 py-3
                 font-semibold
-                text-foreground
-                transition-all
-                hover:bg-indigo-500
+                text-primary-foreground
+                transition
+                hover:bg-primary/90
               "
             >
               <Plus size={18} />
 
               Create Task
-
             </button>
-
           </div>
 
           {/* SEARCH */}
 
           <div className="mt-8 flex items-center gap-4">
-
             <div className="relative flex-1">
-
               <Search
                 size={18}
                 className="
@@ -178,7 +157,6 @@ export default function ListPageClient({
                   outline-none
                 "
               />
-
             </div>
 
             <button
@@ -198,26 +176,23 @@ export default function ListPageClient({
             >
               <Filter size={18} />
             </button>
-
           </div>
-
         </section>
-                {/* TASKS */}
+
+        {/* TASKS */}
 
         {filteredTasks.length === 0 ? (
-
           <section
             className="
               rounded-3xl
               border
               border-dashed
               border-border
-              bg-[#111827]
+              bg-card
               py-24
               text-center
             "
           >
-
             <h2 className="text-2xl font-semibold text-foreground">
               No Tasks Found
             </h2>
@@ -235,47 +210,36 @@ export default function ListPageClient({
                 items-center
                 gap-2
                 rounded-2xl
-                bg-indigo-600
+                bg-primary
                 px-6
                 py-3
                 font-medium
-                text-foreground
+                text-primary-foreground
                 transition
-                hover:bg-indigo-500
+                hover:bg-primary/90
               "
             >
               <Plus size={18} />
 
               Create First Task
-
             </button>
-
           </section>
-
         ) : (
-
           <section
             className="
               overflow-hidden
               rounded-3xl
               border
               border-border
-              bg-[#111827]
+              bg-card
             "
           >
-
             <TaskTable
               tasks={filteredTasks}
             />
-
           </section>
-
         )}
-
       </div>
-
     </>
-
   );
-
 }

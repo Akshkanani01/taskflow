@@ -28,25 +28,23 @@ export default function CommentItem({
 
   return (
     <div className="rounded-2xl border border-border bg-background p-5">
-
       <div className="mb-3 flex items-center justify-between">
-
         <div className="flex items-center gap-3">
-
           <Image
-  src={
-    image?.trim()
-      ? image
-      : `https://ui-avatars.com/api/?name=${encodeURIComponent(name || "User")}`
-  }
-  alt={name}
-  width={40}
-  height={40}
-  className="h-10 w-10 rounded-full object-cover"
-/>
+            src={
+              image?.trim()
+                ? image
+                : `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                    name || "User"
+                  )}`
+            }
+            alt={name}
+            width={40}
+            height={40}
+            className="h-10 w-10 rounded-full object-cover"
+          />
 
           <div>
-
             <p className="font-medium text-foreground">
               {name}
             </p>
@@ -54,9 +52,7 @@ export default function CommentItem({
             <p className="text-xs text-muted-foreground">
               {createdAt}
             </p>
-
           </div>
-
         </div>
 
         <button
@@ -68,17 +64,23 @@ export default function CommentItem({
               router.refresh();
             })
           }
-          className="rounded-lg p-2 text-red-400 hover:bg-red-500/10"
+          className="
+            rounded-lg
+            p-2
+            text-destructive
+            transition
+            hover:bg-destructive/10
+            disabled:pointer-events-none
+            disabled:opacity-50
+          "
         >
           <Trash2 className="h-4 w-4" />
         </button>
-
       </div>
 
       <p className="whitespace-pre-wrap text-foreground">
         {content}
       </p>
-
     </div>
   );
 }

@@ -31,12 +31,12 @@ export default function TaskAvatar({
         draggable={false}
         className="
           h-auto
+          shrink-0
+          select-none
           rounded-full
           object-cover
           ring-2
-          ring-white/10
-          select-none
-          shrink-0
+          ring-border
         "
       />
     );
@@ -55,15 +55,12 @@ export default function TaskAvatar({
         items-center
         justify-center
         rounded-full
-        bg-gradient-to-br
-        from-indigo-600
-        via-violet-600
-        to-fuchsia-600
+        bg-primary
         text-xs
         font-semibold
-        text-foreground
+        text-primary-foreground
         ring-2
-        ring-white/10
+        ring-border
       "
     >
       {initials}

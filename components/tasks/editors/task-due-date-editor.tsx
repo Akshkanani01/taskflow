@@ -21,7 +21,6 @@ export default function TaskDueDateEditor({
   taskId,
   value,
 }: Props) {
-
   const [
     pending,
     startTransition,
@@ -39,34 +38,25 @@ export default function TaskDueDateEditor({
   function save(
     next: string
   ) {
-
     setDate(next);
 
     startTransition(async () => {
-
       await updateTaskDueDate(
         taskId,
         next
           ? new Date(next)
           : null
       );
-
     });
-
   }
 
   return (
-
     <div>
-
       <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-
         Due Date
-
       </label>
 
       <div className="relative">
-
         <Calendar
           size={16}
           className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
@@ -92,26 +82,17 @@ export default function TaskDueDateEditor({
             pr-4
             text-foreground
             outline-none
-            focus:border-indigo-500
+            focus:border-primary
           "
         />
-
       </div>
 
       {pending && (
-
-        <div className="mt-2 flex items-center gap-2 text-xs text-emerald-400">
-
+        <div className="mt-2 flex items-center gap-2 text-xs text-primary">
           <Check size={14} />
-
           Updating...
-
         </div>
-
       )}
-
     </div>
-
   );
-
 }
