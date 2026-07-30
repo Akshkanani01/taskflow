@@ -24,8 +24,13 @@ export async function GET(
 
   const userId =
     session.user.id;
-      const notifications =
-    await prisma.notification.findMany({
+
+  const [
+    notifications,
+    unread,
+    preferences,
+  ] = await Promise.all([
+    prisma.notification.findMany({
       where: {
         userId,
       },
@@ -35,19 +40,28 @@ export async function GET(
       },
 
       take: 20,
-    });
+    }),
 
-  const unread =
-    await prisma.notification.count({
+    prisma.notification.count({
       where: {
         userId,
 
         read: false,
       },
-    });
-      return Response.json({
+    }),
+
+    prisma.notificationPreference.findUnique({
+      where: {
+        userId,
+      },
+    }),
+  ]);
+
+  return Response.json({
     unread,
 
     notifications,
+
+    preferences,
   });
 }

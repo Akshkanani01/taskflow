@@ -2,13 +2,16 @@
 
 import { headers } from "next/headers";
 import { revalidatePath } from "next/cache";
-
+import { getWorkspaceRole } from "@/lib/rbac/server";
+import { WorkspaceRole } from "@prisma/client";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+import { requirePermission } from "@/lib/rbac/server";
+
 import {
   NotificationPriority,
   NotificationType,
+  Prisma,
 } from "@prisma/client";
 
 interface CreateCommentInput {
@@ -28,7 +31,30 @@ async function getCurrentUser() {
 
   return session.user;
 }
+async function getTaskWorkspaceId(
+  taskId: string
+) {
+  const task =
+    await prisma.task.findUnique({
+      where: {
+        id: taskId,
+      },
 
+      select: {
+        space: {
+          select: {
+            workspaceId: true,
+          },
+        },
+      },
+    });
+
+  if (!task) {
+    throw new Error("Task not found");
+  }
+
+  return task.space.workspaceId;
+}
 async function revalidateTask(
   taskId: string
 ) {
@@ -56,13 +82,14 @@ async function revalidateTask(
 }
 
 async function logActivity(
+  tx: Prisma.TransactionClient,
   taskId: string,
   userId: string,
   action: string,
   message: string,
   metadata?: Prisma.InputJsonValue
 ) {
-  await prisma.taskActivity.create({
+  await tx.taskActivity.create({
     data: {
       taskId,
       userId,
@@ -76,137 +103,110 @@ export async function createComment({
   taskId,
   content,
 }: CreateCommentInput) {
+  const user = await getCurrentUser();
 
-  const user =
-    await getCurrentUser();
-
-  const value =
-    content.trim();
+  const value = content.trim();
 
   if (!value) {
-    throw new Error(
-      "Comment is required"
-    );
+    throw new Error("Comment is required");
   }
 
-  const task =
-    await prisma.task.findUnique({
-
-      where: {
-        id: taskId,
+  const task = await prisma.task.findUnique({
+    where: {
+      id: taskId,
+    },
+    include: {
+      space: {
+        select: {
+          workspaceId: true,
+        },
       },
-
-      include: {
-
-        taskAssignees: true,
-
-      },
-
-    });
+      taskAssignees: true,
+    },
+  });
 
   if (!task) {
-    throw new Error(
-      "Task not found"
-    );
+    throw new Error("Task not found");
   }
 
-  await prisma.$transaction(
-    async (tx) => {
-
-      const comment =
-        await tx.taskComment.create({
-
-          data: {
-
-            taskId,
-
-            userId: user.id,
-
-            content: value,
-
-          },
-
-        });
-              await logActivity(
-        taskId,
-        user.id,
-        "COMMENT_ADDED",
-        `${user.name || user.email} added a comment`,
-        {
-          commentId: comment.id,
-        }
-      );
-
-      const notifications =
-        task.taskAssignees
-          .filter(
-            (a) =>
-              a.userId !== user.id
-          )
-          .map((a) => ({
-
-            userId: a.userId,
-
-            title: "New Comment",
-
-            message:
-              `${user.name || user.email} commented on "${task.title}".`,
-
-            type:
-              NotificationType.TASK_COMMENTED,
-
-            priority:
-              NotificationPriority.MEDIUM,
-
-            link:
-              `/dashboard/spaces/${task.spaceId}/lists/${task.projectId}/tasks/${task.id}`,
-
-          }));
-
-      if (
-        notifications.length > 0
-      ) {
-
-        await tx.notification.createMany({
-
-          data: notifications,
-
-        });
-
-      }
-
-      return comment;
-
-    }
+  await requirePermission(
+    user.id,
+    task.space.workspaceId,
+    "task.comment.create"
   );
 
-  await revalidateTask(taskId);
+  await prisma.$transaction(async (tx) => {
+    const comment =
+      await tx.taskComment.create({
+        data: {
+          taskId,
+          userId: user.id,
+          content: value,
+        },
+      });
 
+    await logActivity(
+      tx,
+      taskId,
+      user.id,
+      "COMMENT_ADDED",
+      `${user.name || user.email} added a comment`,
+      {
+        commentId: comment.id,
+      }
+    );
+
+    const notifications =
+      task.taskAssignees
+        .filter(
+          (assignee) =>
+            assignee.userId !== user.id
+        )
+        .map((assignee) => ({
+          userId: assignee.userId,
+          title: "New Comment",
+          message: `${user.name || user.email} commented on "${task.title}".`,
+          type: NotificationType.TASK_COMMENTED,
+          priority:
+            NotificationPriority.MEDIUM,
+          link: `/dashboard/spaces/${task.spaceId}/lists/${task.projectId}/tasks/${task.id}`,
+        }));
+
+    if (notifications.length > 0) {
+      await tx.notification.createMany({
+        data: notifications,
+      });
+    }
+
+    return comment;
+  });
+
+  await revalidateTask(taskId);
 }
+
 export async function deleteComment(
   commentId: string
 ) {
-
   const user =
     await getCurrentUser();
 
   const comment =
     await prisma.taskComment.findUnique({
-
       where: {
         id: commentId,
       },
-
       include: {
-
         task: {
           select: {
             id: true,
+            space: {
+              select: {
+                workspaceId: true,
+              },
+            },
           },
         },
-
       },
-
     });
 
   if (!comment) {
@@ -215,18 +215,33 @@ export async function deleteComment(
     );
   }
 
-  if (
-    comment.userId !== user.id
-  ) {
-    throw new Error(
-      "Forbidden"
-    );
-  }
+  await requirePermission(
+    user.id,
+    comment.task.space.workspaceId,
+    "task.comment.delete"
+  );
+
+  const role = await getWorkspaceRole(
+  user.id,
+  comment.task.space.workspaceId
+);
+
+const isPrivileged =
+  role === WorkspaceRole.OWNER ||
+  role === WorkspaceRole.ADMIN ||
+  role === WorkspaceRole.MANAGER;
+
+if (
+  !isPrivileged &&
+  comment.userId !== user.id
+) {
+  throw new Error("Forbidden");
+}
 
   await prisma.$transaction(
     async (tx) => {
-
       await logActivity(
+        tx,
         comment.taskId,
         user.id,
         "COMMENT_DELETED",
@@ -237,26 +252,22 @@ export async function deleteComment(
       );
 
       await tx.taskComment.delete({
-
         where: {
           id: commentId,
         },
-
       });
-
     }
   );
 
   await revalidateTask(
     comment.taskId
   );
-
 }
+
 export async function updateComment(
   commentId: string,
   content: string
 ) {
-
   const user =
     await getCurrentUser();
 
@@ -271,11 +282,21 @@ export async function updateComment(
 
   const comment =
     await prisma.taskComment.findUnique({
-
       where: {
         id: commentId,
       },
-
+      include: {
+        task: {
+          select: {
+            id: true,
+            space: {
+              select: {
+                workspaceId: true,
+              },
+            },
+          },
+        },
+      },
     });
 
   if (!comment) {
@@ -284,30 +305,42 @@ export async function updateComment(
     );
   }
 
-  if (
-    comment.userId !== user.id
-  ) {
-    throw new Error(
-      "Forbidden"
-    );
-  }
+  await requirePermission(
+    user.id,
+    comment.task.space.workspaceId,
+    "task.comment.update"
+  );
+
+  const role = await getWorkspaceRole(
+  user.id,
+  comment.task.space.workspaceId
+);
+
+const isPrivileged =
+  role === WorkspaceRole.OWNER ||
+  role === WorkspaceRole.ADMIN ||
+  role === WorkspaceRole.MANAGER;
+
+if (
+  !isPrivileged &&
+  comment.userId !== user.id
+) {
+  throw new Error("Forbidden");
+}
 
   await prisma.$transaction(
     async (tx) => {
-
       await tx.taskComment.update({
-
         where: {
           id: commentId,
         },
-
         data: {
           content: value,
         },
-
       });
 
       await logActivity(
+        tx,
         comment.taskId,
         user.id,
         "COMMENT_UPDATED",
@@ -316,12 +349,10 @@ export async function updateComment(
           commentId,
         }
       );
-
     }
   );
 
   await revalidateTask(
     comment.taskId
   );
-
 }

@@ -39,7 +39,9 @@ export async function GET(
           userId,
           controller
         );
-
+console.log("========== SSE CONNECT ==========");
+console.log("User:", userId);
+console.log("Subscribed");
         controller.enqueue(
           `event: connected\n`
           + `data: connected\n\n`

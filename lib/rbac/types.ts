@@ -37,6 +37,7 @@ export type Permission =
 
   | "task.comment.create"
   | "task.comment.delete"
+  | "task.comment.update"
 
   | "task.attachment.upload"
   | "task.attachment.delete"

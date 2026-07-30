@@ -37,12 +37,13 @@ export function SettingsProvider({
 }: Props) {
   const [open, setOpen] = useState(false);
 
+  // Default to Account/Profile
   const [section, setSection] =
-    useState<SettingsSection>("general");
+    useState<SettingsSection>("profile");
 
   const openSettings = useCallback(
     (
-      nextSection: SettingsSection = "general"
+      nextSection: SettingsSection = "profile"
     ) => {
       setSection(nextSection);
       setOpen(true);

@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { ChevronDown, Plus, Check } from "lucide-react";
+import { ChevronDown, Check, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
+
+import { WorkspaceCreateModal } from "@/components/dashboard/workspace-create-modal";
 
 type Workspace = {
   id: string;
@@ -14,26 +15,42 @@ export function WorkspaceSwitcher() {
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
-  const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
-  const [selected, setSelected] = useState<Workspace | null>(null);
+
+  const [createModalOpen, setCreateModalOpen] =
+    useState(false);
+
+  const [workspaces, setWorkspaces] = useState<
+    Workspace[]
+  >([]);
+
+  const [selected, setSelected] =
+    useState<Workspace | null>(null);
 
   useEffect(() => {
     async function loadWorkspaces() {
       try {
-        const res = await fetch("/api/workspaces/list");
+        const res = await fetch(
+          "/api/workspaces/list"
+        );
 
-        if (!res.ok) return;
+        if (!res.ok) {
+          return;
+        }
 
-        const data: Workspace[] = await res.json();
+        const data: Workspace[] =
+          await res.json();
 
         setWorkspaces(data);
 
         const savedWorkspaceId =
-          localStorage.getItem("workspaceId");
+          localStorage.getItem(
+            "workspaceId"
+          );
 
         if (savedWorkspaceId) {
           const workspace = data.find(
-            (w) => w.id === savedWorkspaceId
+            (w) =>
+              w.id === savedWorkspaceId
           );
 
           if (workspace) {
@@ -60,7 +77,7 @@ export function WorkspaceSwitcher() {
       }
     }
 
-    loadWorkspaces();
+    void loadWorkspaces();
   }, []);
 
   async function handleWorkspaceSelect(
@@ -88,7 +105,8 @@ export function WorkspaceSwitcher() {
               "application/json",
           },
           body: JSON.stringify({
-            workspaceId: workspace.id,
+            workspaceId:
+              workspace.id,
           }),
         }
       );
@@ -107,120 +125,183 @@ export function WorkspaceSwitcher() {
     }
   }
 
+  async function refreshWorkspaces() {
+    const res = await fetch(
+      "/api/workspaces/list"
+    );
+
+    if (!res.ok) {
+      return;
+    }
+
+    const data: Workspace[] =
+      await res.json();
+
+    setWorkspaces(data);
+
+    if (data.length > 0) {
+      const latest =
+        data[data.length - 1];
+
+      setSelected(latest);
+
+      localStorage.setItem(
+        "workspaceId",
+        latest.id
+      );
+
+      localStorage.setItem(
+        "workspaceName",
+        latest.name
+      );
+    }
+
+    router.refresh();
+  }
+
   return (
-    <div className="relative">
-      <button
-        onClick={() => setOpen(!open)}
-        className="
-          flex items-center gap-3
-          rounded-xl
-          border border-border
-          bg-card
-          px-4 py-3
-          text-foreground
-        "
-      >
-        <span className="font-medium">
-          {selected?.name ?? "Workspace"}
-        </span>
-
-        <ChevronDown size={16} />
-      </button>
-
-      {open && (
-        <div
+    <>
+      <div className="relative">
+        <button
+          onClick={() =>
+            setOpen(!open)
+          }
           className="
-            absolute left-0 top-14
-            z-50
-            w-80
-            rounded-2xl
+            flex items-center gap-3
+            rounded-xl
             border border-border
             bg-card
-            p-3
-            shadow-2xl
+            px-4 py-3
+            text-foreground
           "
         >
-          <p
+          <span className="font-medium">
+            {selected?.name ??
+              "Workspace"}
+          </span>
+
+          <ChevronDown size={16} />
+        </button>
+                {open && (
+          <div
             className="
-              px-3 pb-3
-              text-xs
-              font-medium
-              uppercase
-              tracking-wider
-              text-muted-foreground
+              absolute left-0 top-14
+              z-50
+              w-80
+              rounded-2xl
+              border border-border
+              bg-card
+              p-3
+              shadow-2xl
             "
           >
-            Workspaces
-          </p>
+            <p
+              className="
+                px-3 pb-3
+                text-xs
+                font-medium
+                uppercase
+                tracking-wider
+                text-muted-foreground
+              "
+            >
+              Workspaces
+            </p>
 
-          <div className="space-y-1">
-            {workspaces.map((workspace) => (
-              <button
-                key={workspace.id}
-                onClick={() =>
-                  handleWorkspaceSelect(
-                    workspace
-                  )
-                }
-                className="
-                  flex w-full items-center
-                  justify-between
-                  rounded-xl
-                  px-3 py-3
-                  text-left
-                  text-foreground
-                  hover:bg-background
-                "
-              >
-                <div className="flex items-center gap-3">
-                  <div
+            <div className="space-y-1">
+              {workspaces.map(
+                (workspace) => (
+                  <button
+                    key={workspace.id}
+                    onClick={() =>
+                      handleWorkspaceSelect(
+                        workspace
+                      )
+                    }
                     className="
-                      flex h-8 w-8
+                      flex w-full
                       items-center
-                      justify-center
-                      rounded-lg
-                      bg-primary
-                      text-xs
-                      font-semibold
-                      text-primary-foreground
+                      justify-between
+                      rounded-xl
+                      px-3 py-3
+                      text-left
+                      text-foreground
+                      hover:bg-background
                     "
                   >
-                    {workspace.name.charAt(0)}
-                  </div>
+                    <div className="flex items-center gap-3">
+                      <div
+                        className="
+                          flex h-8 w-8
+                          items-center
+                          justify-center
+                          rounded-lg
+                          bg-primary
+                          text-xs
+                          font-semibold
+                          text-primary-foreground
+                        "
+                      >
+                        {workspace.name.charAt(
+                          0
+                        )}
+                      </div>
 
-                  <span>
-                    {workspace.name}
-                  </span>
-                </div>
+                      <span>
+                        {workspace.name}
+                      </span>
+                    </div>
 
-                {selected?.id ===
-                  workspace.id && (
-                  <Check
-                    size={18}
-                    className="text-primary"
-                  />
-                )}
-              </button>
-            ))}
+                    {selected?.id ===
+                      workspace.id && (
+                      <Check
+                        size={18}
+                        className="text-primary"
+                      />
+                    )}
+                  </button>
+                )
+              )}
+            </div>
+
+            <div className="my-3 border-t border-border" />
+
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                setCreateModalOpen(true);
+              }}
+              className="
+                flex w-full
+                items-center gap-3
+                rounded-xl
+                px-3 py-3
+                text-left
+                text-foreground
+                hover:bg-background
+              "
+            >
+              <Plus size={18} />
+
+              <span>
+                New Workspace
+              </span>
+            </button>
           </div>
+        )}
+      </div>
 
-          <div className="my-3 border-t border-border" />
-
-          <Link
-            href="/dashboard/workspaces/create"
-            className="
-              flex items-center gap-3
-              rounded-xl
-              px-3 py-3
-              text-foreground
-              hover:bg-background
-            "
-          >
-            <Plus size={18} />
-            Create Workspace
-          </Link>
-        </div>
-      )}
-    </div>
+      <WorkspaceCreateModal
+        open={createModalOpen}
+        onClose={() =>
+          setCreateModalOpen(false)
+        }
+        onSuccess={() => {
+          void refreshWorkspaces();
+          setCreateModalOpen(false);
+        }}
+      />
+    </>
   );
 }

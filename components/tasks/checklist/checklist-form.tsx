@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { Plus } from "lucide-react";
 
-import { createChecklistItem } from "@/app/actions/checklist-actions";
+import { createChecklist } from "@/app/actions/checklist-actions";
 
 type Props = {
   taskId: string;
@@ -26,7 +26,7 @@ export default function ChecklistForm({
     if (!title.trim()) return;
 
     start(async () => {
-      await createChecklistItem(
+      await createChecklist(
         taskId,
         title
       );

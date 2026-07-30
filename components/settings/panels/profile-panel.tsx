@@ -15,7 +15,14 @@ export default function ProfilePanel() {
 
 
   return (
-    <div className="space-y-8">
+    <div
+  className="
+    flex
+    h-full
+    flex-col
+    space-y-8
+  "
+>
 
 
       {/* Header */}
@@ -30,12 +37,12 @@ export default function ProfilePanel() {
             text-foreground
           "
         >
-          Profile
+          Account 
         </h2>
 
 
         <p className="mt-2 text-sm text-muted-foreground">
-          Manage your personal profile information.
+          Manage your account information, profile photo, and personal details.
         </p>
 
 
@@ -82,10 +89,19 @@ export default function ProfilePanel() {
         </div>
 
 
-        <div className="flex items-center gap-6 p-6">
+        <div
+  className="
+    flex
+    flex-col
+    gap-6
+    p-6
+    sm:flex-row
+    sm:items-center
+  "
+>
 
           <UserAvatar
-            className="h-24 w-24 text-2xl"
+            className="h-28 w-28 text-3xl"
           />
 
 
@@ -97,7 +113,7 @@ export default function ProfilePanel() {
 
 
             <p className="text-xs text-muted-foreground">
-              PNG, JPG or WebP up to 5 MB.
+              PNG, JPG, or WebP. Maximum file size: 5 MB.
             </p>
 
 
@@ -152,7 +168,14 @@ export default function ProfilePanel() {
 
 
 
-        <div className="grid gap-6 p-6 md:grid-cols-2">
+        <div
+  className="
+    grid
+    gap-6
+    p-6
+    lg:grid-cols-2
+  "
+>
 
 
           <div className="space-y-2 md:col-span-2">
@@ -187,7 +210,7 @@ export default function ProfilePanel() {
                 defaultValue={user.name ?? ""}
                 placeholder="Your full name"
                 className="
-                  h-11
+                  h-12
                   w-full
                   rounded-xl
                   border
@@ -198,9 +221,9 @@ export default function ProfilePanel() {
                   text-foreground
                   outline-none
                   transition
-                  focus:border-blue-500/40
+                  focus:border-primary
                   focus:ring-2
-                  focus:ring-blue-500/20
+                  focus:ring-primary/20
                 "
               />
 
@@ -245,7 +268,7 @@ export default function ProfilePanel() {
                 value={user.email}
                 readOnly
                 className="
-                  h-11
+                  h-12
                   w-full
                   cursor-not-allowed
                   rounded-xl
@@ -278,25 +301,26 @@ export default function ProfilePanel() {
 
 
       {/* Actions */}
+<div className="flex-1" />
 
-
-      <div className="flex justify-end">
+      <div className="mt-auto flex justify-end">
 
         <button
           type="button"
           className="
             inline-flex
+min-w-36
             h-11
             items-center
             justify-center
             rounded-xl
-            bg-blue-600
-            px-6
+            bg-primary
+            px-8
             text-sm
             font-medium
             text-foreground
             transition
-            hover:bg-blue-500
+            hover:opacity-90
           "
         >
           Save Changes

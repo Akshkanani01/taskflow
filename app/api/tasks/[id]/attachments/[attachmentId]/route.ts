@@ -1,8 +1,101 @@
 import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
+import { revalidatePath } from "next/cache";
+
+import {
+  NotificationPriority,
+  NotificationType,
+  Prisma,
+  WorkspaceRole,
+} from "@prisma/client";
 
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { requirePermission } from "@/lib/rbac/server";
+
+async function getCurrentUser() {
+  const session =
+    await auth.api.getSession({
+      headers: await headers(),
+    });
+
+  if (!session?.user) {
+    throw new Error("Unauthorized");
+  }
+
+  return session.user;
+}
+
+async function getAttachment(
+  attachmentId: string
+) {
+  const attachment =
+    await prisma.taskAttachment.findUnique({
+      where: {
+        id: attachmentId,
+      },
+
+      include: {
+        task: {
+          select: {
+            id: true,
+            title: true,
+            projectId: true,
+            spaceId: true,
+
+            space: {
+              select: {
+                workspaceId: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+  if (!attachment) {
+    throw new Error(
+      "Attachment not found"
+    );
+  }
+
+  return attachment;
+}
+
+async function revalidateTask(
+  task: {
+    id: string;
+    projectId: string;
+    spaceId: string;
+  }
+) {
+  revalidatePath(
+    `/dashboard/spaces/${task.spaceId}/lists/${task.projectId}`
+  );
+
+  revalidatePath(
+    `/dashboard/spaces/${task.spaceId}/lists/${task.projectId}/tasks/${task.id}`
+  );
+}
+
+async function logActivity(
+  tx: Prisma.TransactionClient,
+  taskId: string,
+  userId: string,
+  action: string,
+  message: string,
+  metadata?: Prisma.InputJsonValue
+) {
+  await tx.taskActivity.create({
+    data: {
+      taskId,
+      userId,
+      action,
+      message,
+      metadata,
+    },
+  });
+}
 
 interface Context {
   params: Promise<{
@@ -15,172 +108,190 @@ export async function DELETE(
   _: NextRequest,
   { params }: Context
 ) {
-  const session =
-    await auth.api.getSession({
-      headers: await headers(),
-    });
+  try {
+    const user =
+      await getCurrentUser();
 
-  if (!session?.user) {
-    return NextResponse.json(
-      {
-        message: "Unauthorized",
-      },
-      {
-        status: 401,
-      }
-    );
-  }
+    const {
+      id,
+      attachmentId,
+    } = await params;
 
-  const {
-    id,
-    attachmentId,
-  } = await params;
+    const attachment =
+      await getAttachment(
+        attachmentId
+      );
 
-  const attachment =
-    await prisma.taskAttachment.findUnique({
-      where: {
-        id: attachmentId,
-      },
+    if (
+      attachment.taskId !== id
+    ) {
+      return NextResponse.json(
+        {
+          message:
+            "Invalid attachment",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
 
-      include: {
-        task: true,
-      },
-    });
+    const role =
+      await requirePermission(
+        user.id,
+        attachment.task.space
+          .workspaceId,
+        "task.attachment.delete"
+      );
 
-  if (!attachment) {
-    return NextResponse.json(
-      {
-        message: "Attachment not found",
-      },
-      {
-        status: 404,
-      }
-    );
-  }
+    const canDelete =
+      attachment.uploaderId ===
+        user.id ||
+      role ===
+        WorkspaceRole.OWNER ||
+      role ===
+        WorkspaceRole.ADMIN ||
+      role ===
+        WorkspaceRole.MANAGER;
 
-  if (attachment.taskId !== id) {
-    return NextResponse.json(
-      {
-        message: "Invalid attachment",
-      },
-      {
-        status: 400,
-      }
-    );
-  }
-    /* ============================
-     PERMISSION CHECK
+    if (!canDelete) {
+      return NextResponse.json(
+        {
+          message:
+            "You don't have permission to delete this attachment.",
+        },
+        {
+          status: 403,
+        }
+      );
+    }
+  /* ============================
+     DELETE ATTACHMENT
   ============================ */
 
-  const membership =
-    await prisma.spaceMember.findFirst({
-      where: {
-        spaceId: attachment.task.spaceId,
-        userId: session.user.id,
-      },
-      select: {
-        role: true,
-      },
+  const deletedAttachment =
+  await prisma.$transaction(
+    async (tx) => {
+      await tx.taskAttachment.delete({
+        where: {
+          id: attachmentId,
+        },
+      });
+
+      await logActivity(
+        tx,
+        id,
+        user.id,
+        "ATTACHMENT_DELETED",
+        `${user.name ?? user.email} deleted "${attachment.name}"`,
+        {
+          attachmentId,
+          fileName: attachment.name,
+        }
+      );
+
+      const assignees =
+        await tx.taskAssignee.findMany({
+          where: {
+            taskId: id,
+          },
+          select: {
+            userId: true,
+          },
+        });
+
+      const recipients =
+        assignees
+          .map((a) => a.userId)
+          .filter(
+            (userId) =>
+              userId !== user.id
+          );
+
+      if (recipients.length) {
+        await tx.notification.createMany({
+          data: recipients.map(
+            (userId) => ({
+              userId,
+
+              title:
+                "Attachment Deleted",
+
+              message: `${
+                user.name ??
+                "Someone"
+              } removed "${
+                attachment.name
+              }".`,
+
+              type:
+                NotificationType.FILE_DELETED,
+
+              priority:
+                NotificationPriority.LOW,
+
+              link: `/dashboard/spaces/${attachment.task.spaceId}/lists/${attachment.task.projectId}/tasks/${attachment.task.id}`,
+            })
+          ),
+        });
+      }
+
+      return attachment;
+    }
+  );
+
+    await revalidateTask({
+      id: deletedAttachment.task.id,
+      projectId:
+        deletedAttachment.task.projectId,
+      spaceId:
+        deletedAttachment.task.spaceId,
     });
 
-  const canDelete =
-    attachment.uploaderId === session.user.id ||
-    membership?.role === "OWNER" ||
-    membership?.role === "ADMIN" ||
-    membership?.role === "MANAGER";
-
-  if (!canDelete) {
     return NextResponse.json(
       {
-        message:
-          "You don't have permission to delete this attachment.",
+        success: true,
+      },
+      {
+        status: 200,
+      }
+    );
+  } catch (error) {
+    if (
+      error instanceof Error
+    ) {
+      switch (error.message) {
+        case "Unauthorized":
+          return NextResponse.json(
+            {
+              message:
+                "Unauthorized",
+            },
+            {
+              status: 401,
+            }
+          );
+
+        case "Attachment not found":
+          return NextResponse.json(
+            {
+              message:
+                "Attachment not found",
+            },
+            {
+              status: 404,
+            }
+          );
+      }
+    }
+
+    return NextResponse.json(
+      {
+        message: "Forbidden",
       },
       {
         status: 403,
       }
     );
   }
-
-  /* ============================
-     DELETE ATTACHMENT
-  ============================ */
-
-  await prisma.taskAttachment.delete({
-    where: {
-      id: attachmentId,
-    },
-  });
-
-  /* ============================
-     CREATE ACTIVITY
-  ============================ */
-
-  await prisma.taskActivity.create({
-    data: {
-      taskId: id,
-
-      userId: session.user.id,
-
-      action: "ATTACHMENT_DELETED",
-
-      message: `${
-        session.user.name ??
-        session.user.email
-      } deleted "${attachment.name}"`,
-
-      metadata: {
-        attachmentId,
-        fileName: attachment.name,
-      },
-    },
-  });
-
-  /* ============================
-     NOTIFICATIONS
-  ============================ */
-
-  const assignees =
-    await prisma.taskAssignee.findMany({
-      where: {
-        taskId: id,
-      },
-      select: {
-        userId: true,
-      },
-    });
-
-  const recipients =
-    assignees
-      .map((a) => a.userId)
-      .filter(
-        (userId) =>
-          userId !== session.user.id
-      );
-
-  if (recipients.length) {
-    await prisma.notification.createMany({
-      data: recipients.map(
-        (userId) => ({
-          userId,
-
-          title: "Attachment Deleted",
-
-          message: `${
-            session.user.name ??
-            "Someone"
-          } removed "${attachment.name}".`,
-
-          type: "FILE_UPLOADED",
-
-          priority: "LOW",
-
-          link: `/dashboard/tasks/${id}`,
-        })
-      ),
-    });
-  }
-
-  return NextResponse.json({
-    success: true,
-  });
 }

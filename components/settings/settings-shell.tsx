@@ -13,8 +13,8 @@ export default function SettingsShell() {
         className="
           flex
           h-full
-          w-[300px]
-          shrink-0
+          w-[240px]
+          flex-shrink-0
           flex-col
           border-r
           border-border
@@ -24,52 +24,51 @@ export default function SettingsShell() {
         <SettingsSidebar />
       </aside>
 
-
       {/* Content */}
 
       <section
-        className="
-          flex
-          min-h-0
-          min-w-0
-          flex-1
-          flex-col
-          bg-background
-        "
-      >
-
+  className="
+    flex
+    h-full
+    min-h-0
+    min-w-0
+    flex-1
+    flex-col
+    bg-background
+  "
+>
         {/* Sticky Header */}
 
         <SettingsHeader />
 
-
         {/* Scroll Area */}
 
         <div
-          className="
-            min-h-0
-            flex-1
-            overflow-y-auto
-            overflow-x-hidden
-          "
-        >
-
-          <div
-            className="
-              mx-auto
-              w-full
-              max-w-7xl
-              px-10
-              py-8
-            "
-          >
-
-            <SettingsPanelRenderer />
-
+  className="
+    h-full
+    min-h-0
+    flex-1
+    overflow-y-auto
+    overflow-x-hidden
+  "
+>
+ <div
+  className="
+    mx-auto
+    flex
+    h-full
+    w-full
+    max-w-5xl
+    flex-col
+    px-8
+    py-8
+  "
+>
+            <div className="flex h-full flex-1 flex-col">
+  <SettingsPanelRenderer />
+</div>
           </div>
-
         </div>
-
       </section>
     </>
   );

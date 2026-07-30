@@ -2,15 +2,24 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { requirePermission } from "@/lib/rbac/server";
 import { Permissions } from "@/lib/rbac/permissions";
-
+import { headers } from "next/headers";
+import { revalidatePath } from "next/cache";
+import { PermissionError } from "@/lib/rbac/server";
 import { NextResponse } from "next/server";
 import { Priority, TaskStatus } from "@prisma/client";
-
+async function revalidateTaskList(
+  spaceId: string,
+  projectId: string
+) {
+  revalidatePath(
+    `/dashboard/spaces/${spaceId}/lists/${projectId}`
+  );
+}
 export async function POST(req: Request) {
   try {
     const session = await auth.api.getSession({
-      headers: req.headers,
-    });
+  headers: await headers(),
+});
 
     if (!session?.user) {
       return NextResponse.json(
@@ -76,69 +85,71 @@ export async function POST(req: Request) {
       Permissions.TASK_CREATE
     );
 
-    const membership = await prisma.workspaceMember.findUnique({
-      where: {
-        workspaceId_userId: {
-          workspaceId,
-          userId: session.user.id,
-        },
-      },
-      select: {
-        role: true,
-      },
-    });
+    
 
-    if (!membership) {
-      return NextResponse.json(
-        {
-          error: "You are not a member of this workspace.",
-        },
-        {
-          status: 403,
-        }
-      );
-    }
+    const task = await prisma.$transaction(async (tx) => {
+  const createdTask = await tx.task.create({
+    data: {
+      title,
+      description,
+      status: TaskStatus.TODO,
+      priority: Priority.MEDIUM,
 
-    const task = await prisma.task.create({
-      data: {
-        title,
-        description,
-        status: TaskStatus.TODO,
-        priority: Priority.MEDIUM,
-        project: {
-          connect: {
-            id: project.id,
-          },
-        },
-        space: {
-          connect: {
-            id: project.spaceId,
-          },
-        },
-        createdBy: {
-          connect: {
-            id: session.user.id,
-          },
+      project: {
+        connect: {
+          id: project.id,
         },
       },
-      include: {
-        project: true,
-        space: true,
-        createdBy: true,
-      },
-    });
 
-    return NextResponse.json(task);
+      space: {
+        connect: {
+          id: project.spaceId,
+        },
+      },
+
+      createdBy: {
+        connect: {
+          id: session.user.id,
+        },
+      },
+    },
+
+    include: {
+      project: true,
+      space: true,
+      createdBy: true,
+    },
+  });
+
+  return createdTask;
+});
+
+revalidatePath(
+  `/dashboard/spaces/${project.spaceId}/lists/${project.id}`
+);
+
+return NextResponse.json(task);
   } catch (error) {
-    console.error("CREATE TASK ERROR", error);
+  console.error("CREATE TASK ERROR", error);
 
+  if (error instanceof PermissionError) {
     return NextResponse.json(
       {
-        error: "Failed to create task",
+        error: error.message,
       },
       {
-        status: 500,
+        status: 403,
       }
     );
   }
+
+  return NextResponse.json(
+    {
+      error: "Failed to create task",
+    },
+    {
+      status: 500,
+    }
+  );
+}
 }

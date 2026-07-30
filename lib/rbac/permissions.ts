@@ -39,7 +39,7 @@ export const Permissions = {
 
   TASK_COMMENT_CREATE: "task.comment.create",
   TASK_COMMENT_DELETE: "task.comment.delete",
-
+  TASK_COMMENT_UPDATE: "task.comment.update",
   TASK_ATTACHMENT_UPLOAD: "task.attachment.upload",
   TASK_ATTACHMENT_DELETE: "task.attachment.delete",
 

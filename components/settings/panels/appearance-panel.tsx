@@ -36,7 +36,14 @@ export default function AppearancePanel() {
 
 
   return (
-    <div className="space-y-8">
+    <div
+  className="
+    flex
+    h-full
+    flex-col
+    space-y-8
+  "
+>
 
 
       {/* Header */}
@@ -82,7 +89,7 @@ export default function AppearancePanel() {
             border-b
             border-border
             px-6
-            py-4
+            py-5
           "
         >
 
@@ -110,8 +117,8 @@ export default function AppearancePanel() {
         <div
           className="
             grid
-            gap-3
-            p-5
+            gap-4
+            p-6
             md:grid-cols-3
           "
         >
@@ -123,18 +130,18 @@ export default function AppearancePanel() {
             onClick={() =>
               void setTheme(ThemeMode.DARK)
             }
-            className={`rounded-xl border p-4 text-left transition ${
+            className={`rounded-2xl border p-5 text-left transition-all duration-200 ${
               theme === ThemeMode.DARK
 
-                ? "border-blue-500/30 bg-blue-500/10"
+                ? "border-primary bg-primary/10"
 
-                : "border-border bg-background hover:border-border"
+                : "border-border bg-background hover:border-primary/40"
             }`}
           >
 
             <Moon
               className="
-                mb-3
+                mb-4
                 h-5
                 w-5
                 text-blue-400
@@ -152,7 +159,7 @@ export default function AppearancePanel() {
             </h4>
 
 
-            <p className="mt-1 text-xs text-muted-foreground">
+            <p className="mt-2 text-sm text-muted-foreground">
 
               Low-light workspace.
 
@@ -161,7 +168,7 @@ export default function AppearancePanel() {
 
           </button>
 
-</div>
+
 
 
           <button
@@ -170,18 +177,18 @@ export default function AppearancePanel() {
             onClick={() =>
               void setTheme(ThemeMode.LIGHT)
             }
-            className={`rounded-xl border p-4 text-left transition ${
+            className={`rounded-2xl border p-5 text-left transition-all duration-200 ${
               theme === ThemeMode.LIGHT
 
-                ? "border-blue-500/30 bg-blue-500/10"
+                ? "border-primary bg-primary/10"
 
-                : "border-border bg-background hover:border-border"
+                : "border-border bg-background hover:border-primary/40"
             }`}
           >
 
             <Sun
               className="
-                mb-3
+                mb-4
                 h-5
                 w-5
                 text-amber-400
@@ -199,7 +206,7 @@ export default function AppearancePanel() {
             </h4>
 
 
-            <p className="mt-1 text-xs text-muted-foreground">
+            <p className="mt-2 text-sm text-muted-foreground">
 
               Bright daytime interface.
 
@@ -217,18 +224,18 @@ export default function AppearancePanel() {
             onClick={() =>
               void setTheme(ThemeMode.SYSTEM)
             }
-            className={`rounded-xl border p-4 text-left transition ${
+            className={`rounded-2xl border p-5 text-left transition-all duration-200 ${
               theme === ThemeMode.SYSTEM
 
-                ? "border-blue-500/30 bg-blue-500/10"
+                ? "border-primary bg-primary/10"
 
-                : "border-border bg-background hover:border-border"
+                : "border-border bg-background hover:border-primary/40"
             }`}
           >
 
             <Laptop
               className="
-                mb-3
+                mb-4
                 h-5
                 w-5
                 text-violet-400
@@ -246,7 +253,7 @@ export default function AppearancePanel() {
             </h4>
 
 
-            <p className="mt-1 text-xs text-muted-foreground">
+            <p className="mt-2 text-sm text-muted-foreground">
 
               Follow device settings.
 
@@ -254,12 +261,13 @@ export default function AppearancePanel() {
 
 
           </button>
+          </div>
         <div
           className="
             border-t
             border-border
-            px-5
-            py-4
+            px-6
+            py-5
           "
         >
 
@@ -294,7 +302,7 @@ export default function AppearancePanel() {
           </div>
 
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-4">
 
             {[
               {
@@ -331,8 +339,8 @@ export default function AppearancePanel() {
                   void setAccentColor(color.value)
                 }
                 className={`
-                  h-10
-                  w-10
+                  h-11
+                  w-11
                   rounded-full
                   transition
                   hover:scale-105
@@ -406,9 +414,9 @@ export default function AppearancePanel() {
               interfaceDensity ===
               InterfaceDensity.COMFORTABLE
 
-                ? "border-blue-500/30 bg-blue-500/10"
+                ? "border-blue-500/30 bg-primary/10"
 
-                : "border-border bg-background hover:border-border"
+                : "border-border bg-background hover:border-primary/40"
             }`}
           >
 
@@ -458,9 +466,9 @@ export default function AppearancePanel() {
               interfaceDensity ===
               InterfaceDensity.COMPACT
 
-                ? "border-blue-500/30 bg-blue-500/10"
+                ? "border-blue-500/30 bg-primary/10"
 
-                : "border-border bg-background hover:border-border"
+                : "border-border bg-background hover:border-primary/40"
             }`}
           >
 
@@ -510,7 +518,7 @@ export default function AppearancePanel() {
       </section>
       
       {/* Accessibility */}
-
+<div className="flex-1" />
       <section
         className="
           rounded-2xl

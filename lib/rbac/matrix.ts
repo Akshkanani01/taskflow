@@ -45,7 +45,8 @@ export const PermissionMatrix: Record<
     Permissions.TASK_DUE_DATE_UPDATE,
 
     Permissions.TASK_COMMENT_CREATE,
-    Permissions.TASK_COMMENT_DELETE,
+Permissions.TASK_COMMENT_UPDATE,
+Permissions.TASK_COMMENT_DELETE,
 
     Permissions.TASK_ATTACHMENT_UPLOAD,
     Permissions.TASK_ATTACHMENT_DELETE,
@@ -93,7 +94,8 @@ export const PermissionMatrix: Record<
     Permissions.TASK_DUE_DATE_UPDATE,
 
     Permissions.TASK_COMMENT_CREATE,
-    Permissions.TASK_COMMENT_DELETE,
+Permissions.TASK_COMMENT_UPDATE,
+Permissions.TASK_COMMENT_DELETE,
 
     Permissions.TASK_ATTACHMENT_UPLOAD,
     Permissions.TASK_ATTACHMENT_DELETE,
@@ -132,6 +134,8 @@ export const PermissionMatrix: Record<
     Permissions.TASK_DUE_DATE_UPDATE,
 
     Permissions.TASK_COMMENT_CREATE,
+Permissions.TASK_COMMENT_UPDATE,
+Permissions.TASK_COMMENT_DELETE,
 
     Permissions.TASK_ATTACHMENT_UPLOAD,
 
@@ -152,6 +156,7 @@ export const PermissionMatrix: Record<
     Permissions.TASK_STATUS_UPDATE,
 
     Permissions.TASK_COMMENT_CREATE,
+Permissions.TASK_COMMENT_UPDATE,
 
     Permissions.TASK_ATTACHMENT_UPLOAD,
 

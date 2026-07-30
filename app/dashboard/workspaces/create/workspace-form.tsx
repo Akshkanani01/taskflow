@@ -3,13 +3,25 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function WorkspaceForm() {
+type WorkspaceFormProps = {
+  onSuccess?: () => void;
+};
+
+export default function WorkspaceForm({
+  onSuccess,
+}: WorkspaceFormProps) {
   const router = useRouter();
 
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function createWorkspace() {
+    const workspaceName = name.trim();
+
+    if (!workspaceName || loading) {
+      return;
+    }
+
     try {
       setLoading(true);
 
@@ -19,7 +31,7 @@ export default function WorkspaceForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name,
+          name: workspaceName,
         }),
       });
 
@@ -27,8 +39,16 @@ export default function WorkspaceForm() {
         throw new Error("Failed to create workspace");
       }
 
-      router.push("/dashboard/workspaces");
+      setName("");
+
       router.refresh();
+
+      if (onSuccess) {
+        onSuccess();
+        return;
+      }
+
+      router.push("/dashboard/workspaces");
     } catch (error) {
       console.error(error);
       alert("Failed to create workspace");
@@ -52,6 +72,12 @@ export default function WorkspaceForm() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Workspace Name"
+          disabled={loading}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              void createWorkspace();
+            }
+          }}
           className="
             w-full
             rounded-xl
@@ -59,18 +85,23 @@ export default function WorkspaceForm() {
             bg-background
             px-4 py-3
             text-foreground
+            outline-none
+            disabled:opacity-60
           "
         />
 
         <button
           type="button"
           onClick={createWorkspace}
-          disabled={loading}
+          disabled={loading || !name.trim()}
           className="
             rounded-xl
             bg-primary
-            px-5 py-3
+            px-5
+            py-3
             text-primary-foreground
+            disabled:cursor-not-allowed
+            disabled:opacity-60
           "
         >
           {loading ? "Creating..." : "Create Workspace"}

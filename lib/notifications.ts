@@ -62,7 +62,9 @@ const clients = new Map<
 export function subscribeUser(
   userId: string,
   controller: ReadableStreamDefaultController
-) {
+) 
+
+{
   if (!clients.has(userId)) {
     clients.set(userId, new Set());
   }
@@ -99,12 +101,20 @@ export function unsubscribeUser(
 export function broadcastNotification(
   notification: NotificationEvent
 ) {
+  console.log("========== BROADCAST ==========");
+  console.log("Notification User:", notification.userId);
+
   const subscribers =
     clients.get(notification.userId);
 
+  console.log("Subscribers:", subscribers?.size ?? 0);
+
   if (!subscribers?.size) {
+    console.log("❌ No active subscribers");
     return;
   }
+
+  console.log("✅ Broadcasting notification");
 
   const payload =
     `data: ${JSON.stringify(
@@ -114,7 +124,9 @@ export function broadcastNotification(
   for (const controller of subscribers) {
     try {
       controller.enqueue(payload);
-    } catch {
+      console.log("✅ Sent to one subscriber");
+    } catch (error) {
+      console.error("Broadcast Error:", error);
       subscribers.delete(controller);
     }
   }
@@ -128,6 +140,9 @@ export function broadcastNotification(
 export async function createNotification(
   input: CreateNotificationInput
 ) {
+  console.log("========== CREATE NOTIFICATION ==========");
+  console.log(input);
+
   const notification =
     await prisma.notification.create({
       data: {
@@ -146,6 +161,8 @@ export async function createNotification(
         link: input.link ?? null,
       },
     });
+
+  console.log("Notification Created:", notification.id);
 
   broadcastNotification({
     id: notification.id,

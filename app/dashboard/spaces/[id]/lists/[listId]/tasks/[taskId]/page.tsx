@@ -36,7 +36,13 @@ export default async function TaskDetailPage({
     listId,
     taskId,
   } = await params;
+console.log("========== TASK DETAIL ==========");
 
+console.log({
+  spaceId,
+  listId,
+  taskId,
+});
   const task =
     await prisma.task.findFirst({
       where: {
@@ -85,7 +91,7 @@ export default async function TaskDetailPage({
         },
       },
     });
-
+console.log("TASK RESULT =", task);
   if (!task) {
     notFound();
   }

@@ -24,15 +24,17 @@ export default function AvatarUpload({
       endpoint={endpoint}
       appearance={{
         button:
-          "h-11 rounded-xl bg-blue-600 px-5 text-sm font-medium text-foreground hover:bg-blue-500 ut-ready:bg-blue-600 ut-uploading:cursor-not-allowed",
-        container: "w-fit",
+  "h-11 rounded-xl bg-primary px-6 text-sm font-medium text-primary-foreground shadow-sm transition-all duration-200 hover:opacity-90 hover:shadow-md focus-visible:ring-2 focus-visible:ring-primary/30 ut-ready:bg-primary ut-uploading:cursor-not-allowed ut-uploading:opacity-70",
+        container: "flex w-full sm:w-fit",
         allowedContent: "hidden",
       }}
       onClientUploadComplete={(files) => {
         const file = files[0];
 
         if (!file?.ufsUrl) {
-          toast.error("Upload failed.");
+          toast.error(
+  "Unable to upload your profile photo."
+);
           return;
         }
 
@@ -58,11 +60,16 @@ export default function AvatarUpload({
             updateUser(result.user);
           }
 
-          toast.success(result.message);
+          toast.success(
+  "Profile photo updated successfully."
+);
         });
       }}
       onUploadError={(error: Error) => {
-        toast.error(error.message);
+        toast.error(
+  error.message ||
+    "Something went wrong while uploading."
+);
       }}
       disabled={pending}
     />
